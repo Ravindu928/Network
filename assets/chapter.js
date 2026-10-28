@@ -1,0 +1,1 @@
+(function(){if(!window.React||!window.ReactDOM||!window.NetworkAmbient)return;var node=document.createElement('div');node.id='atlas-react-ambient';document.body.insertBefore(node,document.body.firstChild);ReactDOM.render(React.createElement(window.NetworkAmbient,{chapter:true}),node)})();

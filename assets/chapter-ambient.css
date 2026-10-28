@@ -1,0 +1,1 @@
+#atlas-react-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;overflow:hidden}#atlas-react-ambient canvas{width:100%;height:100%}body{isolation:isolate}body>main,body>.wrap,body>header,body>.topbar,body>.bar,body>.route,body>.top,body>.stage,body>footer{position:relative;z-index:1} @media(max-width:800px){#atlas-react-ambient{opacity:.2}}
