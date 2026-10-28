@@ -423,21 +423,21 @@ S.push({act:'internet',title:'Alice never saw a road',
   <div class="dict"><div><b>Host / end system</b><span>a house: laptops, phones, servers, even a web-enabled toaster</span></div><div><b>Router / switch</b><span>a sorting office</span></div><div><b>Link</b><span>a road</span></div><div><b>Bandwidth</b><span>how many letters a road takes per second</span></div><div><b>ISP</b><span>a postal company</span></div><div><b>RFC / IETF</b><span>the rule books, and the committee that writes them</span></div></div></div>`});
 
 /* ---------- ACT: Protocols ---------- */
-S.push({act:'protocols',title:'Hi... hello?',
- say:"Imagine Alice says \"Hi\" to Bob, and Bob just stares at her in silence.",
- ask:{q:"What would you do if you were Alice?",opts:["Keep talking anyway","Try again, or give up","Wait forever"],why:"Whatever you picked, you followed an unwritten rule about what to do when a reply doesn't come. Computers need those rules written down."},
- init(r){const d=document.createElement('div');r.appendChild(d);journey(d,{title:'Letters going back and forth',start:'a',h:200,
+S.push({act:'protocols',title:'Hi... හලෝ?',
+ say:"Alice Bob ට \"Hi\" කියනවා, Bob කිසිම දෙයක් නොකියා ඇය දිහා බලාගෙන ඉන්නවා කියලා හිතන්න.",
+ ask:{q:"ඔයා Alice නම් මොකද කරන්නේ?",opts:["කොහොමත් කතා කරගෙන යනවා","ආයෙත් උත්සාහ කරනවා, නැත්නම් අත්හරිනවා","හැමදාටම බලාගෙන ඉන්නවා"],why:"ඔයා මොනවා තෝරගත්තත්, පිළිතුරක් නොලැබුනාම කරන්න ඕන දේ ගැන ලියලා නැති නීතියක් ඔයා අනුගමනය කළා. Computers වලට ඒ නීති ලියලා දෙන්න ඕනේ."},
+ init(r){const d=document.createElement('div');r.appendChild(d);journey(d,{title:'ලියුම් එහාට මෙහාට යනවා',start:'a',h:200,
   nodes:[{id:'a',x:110,y:110,kind:'pc',label:'Alice'},{id:'b',x:610,y:110,kind:'pc',label:'Bob'}],links:[['a','b','']],
   steps:[
-   {pos:'b',label:'Hi',hl:[0],text:"First a <b>human</b> protocol. Alice opens with a greeting."},
-   {pos:'a',label:'Hi',hl:[0],text:"Bob replies with the expected greeting. So far so good."},
-   {pos:'b',label:'Got the time?',hl:[0],text:"Alice sends a request."},
-   {pos:'a',label:'2:00',hl:[0],text:"Bob answers. Every message got the reply and the action Alice expected."},
-   {pos:'b',label:'TCP connection request',hl:[0],text:"Now the <b>network</b> version. Alice's laptop asks Bob's web server to open a TCP connection."},
-   {pos:'a',label:'TCP connection response',hl:[0],text:"The server agrees. The two computers have just 'said hi'."},
-   {pos:'b',label:'GET /kurose_ross',hl:[0],text:"Alice's browser sends a request: <span class='formula'>GET http://gaia.cs.umass.edu/kurose_ross</span>"},
-   {pos:'a',label:'<file>',hl:[0],text:"The server sends back the page. Same pattern as the humans: specific messages, and specific actions when they arrive."}]});
-  const k=document.createElement('div');k.className='keyidea';k.innerHTML="A <b>protocol</b> defines the <b>format and order of messages</b> sent and received among network entities, and the <b>actions taken</b> when a message is sent or received. All communication on the Internet is governed by protocols: HTTP, TCP, IP, WiFi, 4G/5G, Ethernet and more.";r.appendChild(k)}
+   {pos:'b',label:'Hi',hl:[0],text:"මුලින්ම <b>human</b> protocol එකක්. Alice ආරම්භ කරන්නේ ආචාරයකින්."},
+   {pos:'a',label:'Hi',hl:[0],text:"Bob බලාපොරොත්තු වෙන ආචාරයෙන්ම පිළිතුරු දෙනවා. මෙතෙක් හොඳයි."},
+   {pos:'b',label:'වෙලාව කීයද?',hl:[0],text:"Alice request එකක් යවනවා."},
+   {pos:'a',label:'2:00',hl:[0],text:"Bob පිළිතුරු දෙනවා. හැම message එකකටම Alice බලාපොරොත්තු වුණු reply එකයි action එකයි ලැබුණා."},
+   {pos:'b',label:'TCP connection request',hl:[0],text:"දැන් <b>network</b> version එක. Alice ගේ laptop එක Bob ගේ web server එකෙන් TCP connection එකක් open කරන්න ඉල්ලනවා."},
+   {pos:'a',label:'TCP connection response',hl:[0],text:"Server එක එකඟ වෙනවා. Computers දෙක දැන් 'hi කිව්වා'."},
+   {pos:'b',label:'GET /kurose_ross',hl:[0],text:"Alice ගේ browser එක request එකක් යවනවා: <span class='formula'>GET http://gaia.cs.umass.edu/kurose_ross</span>"},
+   {pos:'a',label:'<file>',hl:[0],text:"Server එක page එක ආපහු යවනවා. මිනිසුන්ගේ pattern එකමයි: නිශ්චිත messages, ඒවා ලැබුණාම නිශ්චිත actions."}]});
+  const k=document.createElement('div');k.className='keyidea';k.innerHTML="<b>Protocol</b> එකක් කියන්නේ network entities අතර යවන සහ ලබන <b>messages වල format එකයි පිළිවෙළයි</b>, message එකක් යවද්දී/ලබද්දී ගන්න <b>actions</b> වලත් නිර්වචනයයි. Internet එකේ හැම communication එකක්ම පාලනය වෙන්නේ protocols වලින්: HTTP, TCP, IP, WiFi, 4G/5G, Ethernet සහ තව ගොඩක්.";r.appendChild(k)}
 });
 
 /* ---------- ACT: Edge ---------- */
