@@ -1,0 +1,1121 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Wireless Mail Route</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* Layout: one long "mail route" of letter-cards, each stop stamped with its postmark; a mail carrier rides along in the corner */
+:root{
+  --paper:#EEF3FA; --card:#FFFFFF; --ink:#1B2742; --muted:#55627F; --line:#D3DCEB;
+  --red:#D63A3F; --blue:#2B5BC8; --yellow:#F2AE12; --green:#1F8F66;
+  --soft-blue:#E2EAFA; --soft-red:#FBE5E5; --soft-yellow:#FDF0CF; --soft-green:#DBF1E7;
+  --skin:#F1C6A0; --shadow:0 2px 0 rgba(27,39,66,.08), 0 10px 28px -12px rgba(27,39,66,.25);
+  --f-display:"Fredoka","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"Courier Prime","Courier New",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1628; --card:#18213A; --ink:#E7ECF7; --muted:#9DAAC6; --line:#2D3A5C;
+  --red:#FF6B70; --blue:#82A6FF; --yellow:#F7C548; --green:#4CCB97;
+  --soft-blue:#1E2B4E; --soft-red:#3A2029; --soft-yellow:#3A311A; --soft-green:#163A2F;
+  --skin:#E5B48D; --shadow:0 2px 0 rgba(0,0,0,.3), 0 10px 28px -12px rgba(0,0,0,.6); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#0F1628; --card:#18213A; --ink:#E7ECF7; --muted:#9DAAC6; --line:#2D3A5C;
+  --red:#FF6B70; --blue:#82A6FF; --yellow:#F7C548; --green:#4CCB97;
+  --soft-blue:#1E2B4E; --soft-red:#3A2029; --soft-yellow:#3A311A; --soft-green:#163A2F;
+  --skin:#E5B48D; --shadow:0 2px 0 rgba(0,0,0,.3), 0 10px 28px -12px rgba(0,0,0,.6); color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 140px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.6rem,4vw,2.1rem);font-weight:600}
+h3{font-size:1.2rem;font-weight:600}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.wrap{max-width:940px;margin:0 auto}
+.mono{font-family:var(--f-mono)}
+.muted{color:var(--muted)}
+.airmail{height:10px;border-radius:999px;background:repeating-linear-gradient(-45deg,var(--red) 0 12px,transparent 12px 20px,var(--blue) 20px 32px,transparent 32px 40px)}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--card);border-bottom:1px solid var(--line);
+  margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
+.topbar .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:600;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.brand .chip{background:var(--red);color:#fff;border-radius:6px;padding:1px 8px;font-size:.85rem}
+.stampbar{margin-left:auto;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.stampbar a{width:22px;height:22px;border-radius:4px;border:1.5px dashed var(--line);display:grid;place-items:center;font-size:.62rem;
+  font-family:var(--f-mono);font-weight:700;color:var(--muted);text-decoration:none;transition:.25s}
+.stampbar a.got{border-style:solid;border-color:var(--red);background:var(--soft-red);color:var(--red);transform:rotate(-6deg)}
+.back{font-weight:800;color:var(--blue);text-decoration:none;font-size:.92rem;border:2px solid var(--blue);border-radius:999px;padding:2px 12px}
+.back:hover{background:var(--soft-blue)}
+.stampcount{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);margin-right:6px}
+
+/* hero */
+.hero{padding:44px 0 28px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center}
+.hero .eyebrow{font-family:var(--f-mono);letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;color:var(--red);font-weight:700}
+.hero h1{font-size:clamp(2.3rem,7vw,3.6rem);font-weight:700;margin:8px 0 14px}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero p{font-size:1.1rem;max-width:34em}
+.hero-art{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:14px;position:relative;overflow:hidden}
+.hero-art svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.legend span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.88rem}
+.legend b{color:var(--blue)}
+
+/* route index */
+.route{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:20px;margin:8px 0 32px}
+.route h3{margin-bottom:12px}
+.route ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.route a{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);padding:8px 10px;border-radius:10px;border:1px solid var(--line);transition:.15s}
+.route a:hover{background:var(--soft-blue);border-color:var(--blue)}
+.route .n{font-family:var(--f-mono);font-weight:700;color:var(--red);font-size:.85rem;min-width:2.4em}
+
+/* letter sections */
+.letter{background:var(--card);border-radius:18px;box-shadow:var(--shadow);margin:0 0 30px;overflow:hidden;scroll-margin-top:80px}
+.letter > .airmail{border-radius:0;height:9px}
+.letter-body{padding:26px clamp(16px,4vw,34px) 30px;display:grid;gap:20px}
+.letter-head{display:flex;gap:16px;align-items:flex-start}
+.postmark{flex:none;width:68px;height:68px;border-radius:50%;border:2.5px solid var(--red);color:var(--red);display:grid;place-items:center;
+  font-family:var(--f-mono);font-weight:700;text-align:center;line-height:1;transform:rotate(-10deg);position:relative}
+.postmark small{display:block;font-size:.55rem;letter-spacing:.1em}
+.postmark span{font-size:1.15rem}
+.postmark::after{content:"";position:absolute;left:62px;top:22px;width:46px;height:22px;
+  background:repeating-linear-gradient(0deg,var(--red) 0 2px,transparent 2px 7px);opacity:.55}
+.letter-head h2{margin-top:6px}
+.letter-head .sub{color:var(--muted);margin-top:4px}
+.prose{max-width:66ch;display:grid;gap:12px}
+.analogy{display:flex;gap:12px;align-items:flex-start;background:var(--soft-yellow);border-radius:14px;padding:14px 16px;max-width:72ch}
+.analogy .ico{flex:none;font-family:var(--f-display);font-weight:700;background:var(--yellow);color:#1B2742;border-radius:8px;padding:2px 8px;font-size:.8rem;margin-top:2px;letter-spacing:.04em}
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.key{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:6px;align-content:start}
+.key b{font-family:var(--f-display);font-weight:600;font-size:1.05rem}
+.key .tag{font-family:var(--f-mono);font-size:.75rem;color:var(--blue);text-transform:uppercase;letter-spacing:.08em}
+
+/* lab boxes */
+.lab{border:2px dashed var(--line);border-radius:16px;padding:16px;display:grid;gap:14px;min-width:0}
+.lab-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lab-title .pill{font-family:var(--f-mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;border-radius:999px;padding:2px 10px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.92rem;transition:transform .12s, background .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--ink);color:var(--card)}
+.btn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.readout{background:var(--soft-blue);border-radius:12px;padding:12px 14px;min-height:3.2em}
+.readout.good{background:var(--soft-green)}
+.readout.bad{background:var(--soft-red)}
+.svgbox{overflow-x:auto}
+.svgbox svg{display:block;width:100%;height:auto;min-width:0}
+svg text{font-family:var(--f-body)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two > *{min-width:0}
+label.chk{display:inline-flex;gap:8px;align-items:center;font-weight:700;cursor:pointer}
+input[type=range]{width:100%;accent-color:var(--blue)}
+input[type=checkbox]{accent-color:var(--blue);width:18px;height:18px}
+
+/* taxonomy */
+.tax{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;align-items:stretch}
+.tax .hd{font-family:var(--f-mono);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;align-items:end;padding:4px}
+.tax .rh{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-family:var(--f-mono);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.tax button{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:12px;text-align:left;display:grid;gap:4px}
+.tax button b{font-family:var(--f-display);font-weight:600}
+.tax button.on{border-color:var(--blue);background:var(--soft-blue)}
+
+/* range ladder */
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.rung{border-radius:12px;padding:12px;background:var(--soft-blue);display:grid;gap:4px;align-content:start}
+.rung .d{font-family:var(--f-mono);font-weight:700;color:var(--blue)}
+.rung:nth-child(2){background:var(--soft-green)} .rung:nth-child(2) .d{color:var(--green)}
+.rung:nth-child(3){background:var(--soft-yellow)} .rung:nth-child(3) .d{color:var(--ink)}
+.rung:nth-child(4){background:var(--soft-red)} .rung:nth-child(4) .d{color:var(--red)}
+
+/* meters */
+.meter{display:grid;grid-template-columns:7.5em 1fr 4.5em;gap:10px;align-items:center;font-size:.92rem}
+.bar{height:14px;background:var(--soft-blue);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--blue);border-radius:999px;transition:width .25s}
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mod{border:2px solid var(--line);border-radius:12px;padding:10px;text-align:center;transition:.2s}
+.mod b{display:block;font-family:var(--f-display)}
+.mod.on{border-color:var(--green);background:var(--soft-green)}
+.mod.off{opacity:.45}
+
+/* cdma */
+.cdma-ctl{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center}
+.bitbtn{min-width:3.2em;font-family:var(--f-mono);font-weight:700}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-family:var(--f-mono);font-size:.86rem;font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--line);padding:4px 7px;text-align:center;white-space:nowrap}
+th{background:var(--soft-blue);font-weight:700}
+td.lbl{text-align:left;font-family:var(--f-body);font-weight:700;background:var(--card)}
+td.pos{color:var(--blue)} td.neg{color:var(--red)}
+tr.sum td{background:var(--soft-yellow)}
+tr.dec td{background:var(--soft-green);font-weight:700}
+
+/* csma timeline */
+.tl{display:grid;grid-template-columns:6.5em repeat(14,minmax(26px,1fr));gap:3px;font-size:.78rem;min-width:520px}
+.tl .who{font-weight:800;align-self:center}
+.tl .blk{border-radius:6px;padding:4px 2px;text-align:center;font-family:var(--f-mono);font-weight:700;opacity:0;transform:scale(.8);transition:.3s;white-space:nowrap;overflow:hidden}
+.tl .blk.show{opacity:1;transform:none}
+.tl .busy{background:var(--soft-red);color:var(--red)}
+.tl .wait{background:var(--soft-yellow);color:var(--ink)}
+.tl .data{background:var(--blue);color:#fff}
+.tl .ack{background:var(--green);color:#fff}
+.tl .gap{background:var(--soft-blue);color:var(--blue)}
+
+/* frame */
+.frame{display:flex;flex-wrap:wrap;gap:4px}
+.frame button{border:2px solid var(--line);background:var(--card);border-radius:8px;padding:6px 8px;display:grid;font-size:.8rem;text-align:center;flex:1 1 auto}
+.frame button small{font-family:var(--f-mono);color:var(--muted)}
+.frame button.addr{border-color:var(--blue)}
+.frame button.on{background:var(--soft-blue)}
+.envs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.env{border-radius:12px;padding:12px;position:relative;background:var(--card);border:2px solid var(--line)}
+.env::before{content:"";position:absolute;inset:0 0 auto;height:6px;border-radius:10px 10px 0 0;background:repeating-linear-gradient(-45deg,var(--red) 0 8px,transparent 8px 13px,var(--blue) 13px 21px,transparent 21px 26px)}
+.env h4{margin:6px 0 8px;font-family:var(--f-display);font-weight:600;font-size:1rem}
+.env dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.9rem}
+.env dt{font-family:var(--f-mono);color:var(--muted)}
+.env dd{margin:0;font-weight:700}
+
+/* devices / power */
+.devices{display:flex;flex-wrap:wrap;gap:10px}
+.dev{border:2px solid var(--line);border-radius:14px;padding:10px 14px;display:grid;gap:2px;min-width:130px;background:var(--card);text-align:left}
+.dev .st{font-family:var(--f-mono);font-size:.8rem}
+.dev.awake{border-color:var(--green);background:var(--soft-green)}
+.dev.mail .m{color:var(--red);font-weight:800}
+
+/* bluetooth strip */
+.strip{display:grid;grid-template-columns:repeat(79,1fr);gap:1px;height:60px;align-items:end}
+.strip i{display:block;height:20%;background:var(--line);border-radius:2px 2px 0 0;transition:height .2s, background .2s}
+.strip i.jam{background:var(--soft-red);height:45%}
+.strip i.cur{background:var(--blue);height:100%}
+.strip i.cur.jam{background:var(--red)}
+
+/* lte */
+.info{border-left:4px solid var(--blue);padding:8px 14px;background:var(--soft-blue);border-radius:0 12px 12px 0}
+.node{cursor:pointer}
+.node rect,.node circle{transition:.2s}
+.node.on rect,.node.on circle{stroke:var(--red);stroke-width:3}
+.ln{stroke:var(--muted);stroke-width:2.5;transition:.25s}
+.ln.ctrl{stroke-dasharray:6 5}
+.ln.dim{opacity:.18}
+.ln.hot{stroke:var(--red);stroke-width:4}
+
+/* ofdma */
+.grid-wrap{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center;min-width:0}
+.ofdma{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.ofdma button{aspect-ratio:1.4;border:1px solid var(--line);border-radius:5px;background:var(--card);padding:0;max-width:100%}
+.ofdma button.u1{background:var(--blue);border-color:var(--blue)}
+.ofdma button.u2{background:var(--red);border-color:var(--red)}
+.ofdma button.u3{background:var(--yellow);border-color:var(--yellow)}
+.users{display:flex;gap:8px;flex-wrap:wrap}
+.users .btn[data-u="1"].on{background:var(--blue)} .users .btn[data-u="2"].on{background:var(--red);border-color:var(--red)} .users .btn[data-u="3"].on{background:var(--yellow);border-color:var(--yellow);color:#1B2742}
+.axis{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+
+/* nesting envelopes */
+.nest{display:grid;place-items:center;padding:6px}
+.layer{border-radius:12px;padding:10px 12px 12px;display:grid;gap:6px;justify-items:center;text-align:center;transition:.3s;width:100%}
+.layer > .lbl{font-family:var(--f-mono);font-size:.78rem;font-weight:700}
+.l0{background:var(--soft-green);border:2px solid var(--green)}
+.l1{background:var(--soft-yellow);border:2px dashed var(--yellow)}
+.l2{background:var(--soft-blue);border:2px dashed var(--blue)}
+.l3{background:var(--soft-red);border:2px solid var(--red)}
+
+/* 5g */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{border-radius:14px;background:var(--soft-blue);padding:14px;text-align:center}
+.stat b{display:block;font-family:var(--f-display);font-size:2rem;color:var(--blue);line-height:1}
+
+/* steppers */
+.stepper{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.dots{display:flex;gap:5px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--red)}
+
+/* tcp chart */
+.cw{display:flex;align-items:flex-end;gap:3px;height:120px;border-bottom:2px solid var(--line);padding-top:6px;overflow:hidden}
+.cw i{flex:1 1 0;min-width:4px;max-width:22px;background:var(--blue);border-radius:3px 3px 0 0;transition:height .25s}
+.cw i.drop{background:var(--red)}
+
+/* quiz */
+.q{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:10px}
+.q .opts{display:grid;gap:6px}
+.q .opts button{text-align:left;border:2px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px}
+.q .opts button.right{border-color:var(--green);background:var(--soft-green)}
+.q .opts button.wrong{border-color:var(--red);background:var(--soft-red)}
+.q .why{font-size:.92rem;color:var(--muted)}
+.score{font-family:var(--f-display);font-size:1.3rem}
+
+/* mail carrier */
+.carrier{position:fixed;z-index:20;right:calc(10px + env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:flex-end;gap:6px;pointer-events:none}
+.carrier > *{pointer-events:auto}
+.bubble{max-width:280px;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:16px 16px 4px 16px;padding:10px 12px 8px;font-size:.92rem;box-shadow:var(--shadow);margin-bottom:62px;position:relative}
+.bubble .who{font-family:var(--f-display);font-weight:600;color:var(--red);font-size:.85rem}
+.bubble .row{display:flex;gap:6px;margin-top:6px;justify-content:flex-end}
+.bubble .row button{border:none;background:var(--soft-blue);border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:700}
+.bubble.pop{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(.85);opacity:.4}100%{transform:none;opacity:1}}
+.pip{width:96px;height:auto;border:none;background:none;padding:0;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18))}
+.pip svg{display:block;width:100%;height:auto}
+.pip .arm{transform-origin:66px 84px;transition:transform .3s}
+.pip:hover .arm,.pip.wave .arm{transform:rotate(-38deg)}
+.pip.wave{animation:hop .5s ease}
+@keyframes hop{30%{transform:translateY(-10px)}60%{transform:translateY(0)}}
+.carrier.min .bubble{display:none}
+.toast{position:fixed;left:50%;top:calc(70px + env(safe-area-inset-top,0px));transform:translateX(-50%) translateY(-20px);background:var(--ink);color:var(--card);border-radius:999px;padding:8px 18px;font-weight:700;opacity:0;transition:.3s;z-index:30;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:20px 0}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:28px}
+  .two,.envs{grid-template-columns:1fr}
+  .ladder{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:1fr}
+  .postmark{width:54px;height:54px}.postmark span{font-size:.95rem}.postmark::after{display:none}
+  .pip{width:72px}
+  .bubble{max-width:min(230px,calc(100vw - 110px));margin-bottom:48px;font-size:.86rem}
+  .stampbar{margin-left:0}
+}
+</style>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="chip">Ch. 7</span> Wireless &amp; Mobile Networks</div>
+    <a class="back" href="../index.html" target="_top">&larr; All chapters</a>
+    <div class="stampbar" id="stampbar" aria-label="Stamps collected"><span class="stampcount" id="stampcount">0/12 stamps</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="hero" id="top">
+  <div>
+    <div class="eyebrow">Chapter 7 · the mail route</div>
+    <h1>Mail that <em>flies</em> and people who <em>move house</em></h1>
+    <p>Wireless networks are like a mail carrier who delivers by shouting across the street. Mobility is what happens when the person you are writing to keeps moving house. Follow the route, try every lab, and collect a stamp at each stop.</p>
+    <div class="legend">
+      <span><b>Packet</b> = letter</span>
+      <span><b>Base station</b> = local post office</span>
+      <span><b>Home network</b> = your home address</span>
+      <span><b>Tunnel</b> = envelope inside an envelope</span>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 360 240">
+      <rect x="0" y="0" width="360" height="240" fill="var(--soft-blue)"/>
+      <g fill="none" stroke="var(--blue)" stroke-width="3" opacity=".55">
+        <path d="M96 92 a40 40 0 0 1 0 -56"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></path>
+        <path d="M84 104 a58 58 0 0 1 0 -80"><animate attributeName="opacity" values="0;1;0" dur="2s" begin=".4s" repeatCount="indefinite"/></path>
+        <path d="M124 36 a40 40 0 0 1 0 56"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></path>
+        <path d="M136 24 a58 58 0 0 1 0 80"><animate attributeName="opacity" values="0;1;0" dur="2s" begin=".4s" repeatCount="indefinite"/></path>
+      </g>
+      <rect x="104" y="58" width="12" height="120" fill="var(--muted)"/>
+      <circle cx="110" cy="62" r="9" fill="var(--red)"/>
+      <rect x="60" y="170" width="100" height="40" rx="6" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+      <text x="110" y="195" text-anchor="middle" font-size="13" font-weight="800" fill="var(--ink)">POST OFFICE</text>
+      <rect x="0" y="210" width="360" height="30" fill="var(--line)"/>
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="0 0; 14 -6; 0 0" dur="3s" repeatCount="indefinite"/>
+        <rect x="236" y="70" width="80" height="52" rx="6" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>
+        <path d="M236 74 l40 28 l40 -28" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
+        <rect x="292" y="78" width="16" height="18" fill="var(--red)"/>
+      </g>
+      <g stroke="var(--yellow)" stroke-width="3" stroke-dasharray="4 7" fill="none"><path d="M140 70 C180 40 210 60 232 90"/></g>
+      <rect x="250" y="150" width="70" height="60" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+      <path d="M244 152 l41 -30 l41 30z" fill="var(--red)"/>
+      <rect x="277" y="180" width="16" height="30" fill="var(--blue)"/>
+      <text x="285" y="143" text-anchor="middle" font-size="10" font-weight="800" fill="#fff">HOME</text>
+    </svg>
+  </div>
+</section>
+
+<nav class="route" aria-label="Route map">
+  <h3>Today's route</h3>
+  <ol id="routeList"></ol>
+</nav>
+
+<!-- 1 -->
+<section class="letter" id="s-intro" data-stamp="1" data-title="Why wireless?">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>01</span></div></div>
+      <div><h2>Why wireless and mobile?</h2><p class="sub">Two different problems hiding in one chapter title.</p></div>
+    </div>
+    <div class="prose">
+      <p>In 2019 there were about <b>10 mobile phone subscribers for every 1 fixed phone line</b>, and <b>5 mobile-broadband devices for every 1 fixed-broadband device</b>. 4G and 5G networks now run the same Internet protocol stack you already know, including SDN.</p>
+      <p>The chapter splits into two separate challenges:</p>
+    </div>
+    <div class="keys">
+      <div class="key"><span class="tag">Challenge 1</span><b>Wireless</b><p>Sending letters through the air, where they fade, bounce and get drowned out by noise.</p></div>
+      <div class="key"><span class="tag">Challenge 2</span><b>Mobility</b><p>Delivering to someone who changes their point of attachment, like a friend who keeps moving house.</p></div>
+    </div>
+    <div class="analogy"><span class="ico">MAIL</span><p>Wireless does not always mean mobile. A smart TV on Wi-Fi never moves, just like a house that gets its letters by carrier pigeon but never changes address.</p></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="letter" id="s-elements" data-stamp="2" data-title="Network elements">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>02</span></div></div>
+      <div><h2>Who's who on the route</h2><p class="sub">Hosts, base stations and wireless links.</p></div>
+    </div>
+    <div class="keys">
+      <div class="key"><span class="tag">Resident</span><b>Wireless host</b><p>Laptop, smartphone or IoT device running apps. It can be stationary or mobile.</p></div>
+      <div class="key"><span class="tag">Local post office</span><b>Base station</b><p>Usually wired to the network. Relays letters between the wired world and hosts in its area. Examples: cell towers, 802.11 access points.</p></div>
+      <div class="key"><span class="tag">The carrier's walk</span><b>Wireless link</b><p>Connects mobiles to the base station (sometimes used as backbone). A multiple access protocol decides who talks when.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Post office or pass-it-along?</h3></div>
+      <div class="btns" role="group" aria-label="Network mode">
+        <button class="btn on" data-mode="infra" id="modeInfra">Infrastructure mode</button>
+        <button class="btn" data-mode="adhoc" id="modeAdhoc">Ad hoc mode</button>
+      </div>
+      <div class="svgbox"><svg id="modeSvg" viewBox="0 0 600 220" aria-label="Network mode diagram"></svg></div>
+      <div class="readout" id="modeText"></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>The 2 × 2 sorting table</h3></div>
+      <p class="muted">Click a box. The two questions: is there a post office, and does the letter take one hop or several?</p>
+      <div class="tax" id="tax">
+        <div></div><div class="hd">Single hop</div><div class="hd">Multiple hops</div>
+        <div class="rh">Infrastructure</div>
+        <button data-t="0"><b>Wi-Fi, cellular</b><span class="muted">Host talks to base station, which links to the Internet.</span></button>
+        <button data-t="1"><b>Mesh net</b><span class="muted">Relay through several wireless nodes to reach the Internet.</span></button>
+        <div class="rh">No infra</div>
+        <button data-t="2"><b>Bluetooth, ad hoc</b><span class="muted">No base station, no link to the larger Internet.</span></button>
+        <button data-t="3"><b>MANET, VANET</b><span class="muted">No base station, relay through others to reach a node.</span></button>
+      </div>
+      <div class="readout" id="taxText">Pick a box to see the mail version.</div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:10px">How far does each kind of mail go?</h3>
+      <div class="ladder">
+        <div class="rung"><span class="d">10–30 m</span><b>Indoor</b><span class="muted">Bluetooth (~2 Mbps), 802.11b/g/n/ac/ax (11 Mbps up to 14 Gbps)</span></div>
+        <div class="rung"><span class="d">50–200 m</span><b>Outdoor</b><span class="muted">Wi-Fi outdoors, small cells</span></div>
+        <div class="rung"><span class="d">200 m–4 km</span><b>Mid-range outdoor</b><span class="muted">4G LTE, 5G (up to ~10 Gbps)</span></div>
+        <div class="rung"><span class="d">4–15 km</span><b>Long range outdoor</b><span class="muted">802.11af, 802.11ah, cellular macro cells</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="letter" id="s-links" data-stamp="3" data-title="Link troubles">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>03</span></div></div>
+      <div><h2>Why air mail is harder than a wire</h2><p class="sub">Fading, multipath, noise and hidden terminals.</p></div>
+    </div>
+    <div class="keys">
+      <div class="key"><span class="tag">Fading</span><b>Path loss</b><p>The signal loses power as it travels, even in free space. A shout gets quieter the further it goes.</p></div>
+      <div class="key"><span class="tag">Echoes</span><b>Multipath</b><p>Signals bounce off ground and buildings, so copies arrive at slightly different times. <b>Coherence time</b> is how long a bit stays readable; it shrinks as frequency and receiver speed go up, which caps the rate.</p></div>
+      <div class="key"><span class="tag">Noise</span><b>Interference</b><p>Motors and appliances use the same frequencies. A bigger <b>SNR</b> (signal-to-noise ratio) makes the letter easier to read.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Signal lab: walk away from the post office</h3></div>
+      <div class="two">
+        <div style="display:grid;gap:12px">
+          <label for="dist"><b>Distance from base station: <span id="distVal" class="mono">10 m</span></b></label>
+          <input type="range" id="dist" min="1" max="60" value="10">
+          <label class="chk"><input type="checkbox" id="noise"> Turn on the microwave oven (extra noise)</label>
+          <div class="meter"><span>SNR</span><div class="bar"><i id="snrBar"></i></div><span class="mono" id="snrVal"></span></div>
+          <div class="meter"><span>Bit errors</span><div class="bar"><i id="berBar" style="background:var(--red)"></i></div><span class="mono" id="berVal"></span></div>
+        </div>
+        <div style="display:grid;gap:10px;align-content:start">
+          <p class="muted" style="font-size:.92rem">Rate adaptation picks the fastest modulation that can still be read. Approximate thresholds from the slide's BER vs SNR chart:</p>
+          <div class="mods">
+            <div class="mod" id="m256"><b>QAM256</b><span class="mono">8 Mbps</span><br><small class="muted">needs ~28 dB</small></div>
+            <div class="mod" id="m16"><b>QAM16</b><span class="mono">4 Mbps</span><br><small class="muted">needs ~18 dB</small></div>
+            <div class="mod" id="mbp"><b>BPSK</b><span class="mono">1 Mbps</span><br><small class="muted">needs ~8 dB</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="readout" id="sigText"></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>The hidden terminal problem</h3></div>
+      <p class="muted">A and C both write to B. Each can reach B, but they are too far apart (or blocked) to hear each other.</p>
+      <div class="btns">
+        <button class="btn" data-ht="a">A sends</button>
+        <button class="btn" data-ht="c">C sends</button>
+        <button class="btn primary" data-ht="both">Both send at once</button>
+        <label class="chk"><input type="checkbox" id="rts"> Use RTS / CTS</label>
+      </div>
+      <div class="svgbox"><svg id="htSvg" viewBox="0 0 600 200" aria-label="Hidden terminal diagram"></svg></div>
+      <div class="readout" id="htText">Press a button to send a letter.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="letter" id="s-cdma" data-stamp="4" data-title="CDMA codes">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>04</span></div></div>
+      <div><h2>CDMA: everyone talks, each in their own code</h2><p class="sub">Code Division Multiple Access.</p></div>
+    </div>
+    <div class="prose">
+      <p>All users share the same frequency at the same time. Each one gets a unique <b>chipping sequence</b> (code). If the codes are <b>orthogonal</b>, receivers can pull one sender's bits out of the mixed-up channel.</p>
+      <p class="mono" style="font-size:.92rem">encode: Z<sub>i,m</sub> = d<sub>i</sub> · c<sub>m</sub> &nbsp;&nbsp; decode: d<sub>i</sub> = (1/M) Σ Z<sub>i,m</sub> · c<sub>m</sub></p>
+    </div>
+    <div class="analogy"><span class="ico">MAIL</span><p>Two letters are written on the same sheet in invisible inks of different colors. Hold up the right colored lens (the code) and only your letter shows.</p></div>
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>CDMA decoder</h3></div>
+      <div class="cdma-ctl">
+        <div><b>Sender 1 bits</b><div class="btns" id="s1bits"></div></div>
+        <div><b>Sender 2 bits</b><div class="btns" id="s2bits"></div></div>
+        <label class="chk"><input type="checkbox" id="s2on" checked> Sender 2 also sending</label>
+        <div><b>Receiver uses</b><div class="btns"><button class="btn on" data-rx="1" id="rx1">Code 1</button><button class="btn" data-rx="2" id="rx2">Code 2</button></div></div>
+      </div>
+      <div class="tbl"><table id="cdmaTbl"></table></div>
+      <div class="readout good" id="cdmaText"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="letter" id="s-wifi" data-stamp="5" data-title="Wi-Fi 802.11">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>05</span></div></div>
+      <div><h2>Wi-Fi: the 802.11 post office</h2><p class="sub">Architecture, joining, CSMA/CA, addressing and power saving.</p></div>
+    </div>
+    <div class="keys">
+      <div class="key"><span class="tag">The branch</span><b>BSS (a "cell")</b><p>A Basic Service Set holds wireless hosts plus one <b>access point (AP)</b>. Ad hoc mode has hosts only.</p></div>
+      <div class="key"><span class="tag">Which counter</span><b>Channels</b><p>The spectrum is split into channels. The AP admin picks one, and a neighbour's AP might pick the same one and interfere.</p></div>
+      <div class="key"><span class="tag">Signing up</span><b>Association</b><p>Scan channels for <b>beacon frames</b> with the AP's name (SSID) and MAC, pick an AP, maybe authenticate (Chapter 8), then run DHCP for an IP address.</p></div>
+    </div>
+    <div class="two">
+      <div class="analogy"><span class="ico">PASSIVE</span><p><b>Passive scanning:</b> post offices hang signs (beacons). You read the signs, then send an association request and get a response.</p></div>
+      <div class="analogy"><span class="ico">ACTIVE</span><p><b>Active scanning:</b> you shout "any post offices here?" (probe request). Each AP answers with a probe response, then you associate.</p></div>
+    </div>
+
+    <div class="prose">
+      <h3>Multiple access: avoid crashes, because you cannot see them</h3>
+      <p>Wi-Fi uses <b>CSMA</b>: listen before you talk. But it has <b>no collision detection</b>. While transmitting, your own loud signal drowns out the weak incoming one, and hidden terminals and fading hide collisions anyway. So 802.11 aims to <b>avoid</b> them: <b>CSMA/CA</b>.</p>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Step through CSMA/CA</h3></div>
+      <div class="svgbox"><div class="tl" id="tl"></div></div>
+      <div class="stepper"><button class="btn" id="csPrev">Back</button><button class="btn primary" id="csNext">Next step</button><div class="dots" id="csDots"></div></div>
+      <div class="readout" id="csText"></div>
+    </div>
+    <div class="analogy"><span class="ico">RTS/CTS</span><p>For big parcels, the sender first sends a tiny <b>Request-To-Send</b> to the AP. The AP announces <b>Clear-To-Send</b> to everyone, like a clerk calling "counter reserved for A!". All other stations wait. Short RTS notes may still collide, but they are cheap to resend.</p></div>
+
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>The 802.11 envelope has four addresses</h3></div>
+      <p class="muted">Click a field. Then pick a direction to see how host H1, the AP and router R1 fill in the envelope.</p>
+      <div class="frame" id="frame"></div>
+      <div class="readout" id="frameText">Click any field of the frame.</div>
+      <div class="btns"><button class="btn on" data-dir="down" id="dirDown">R1 → H1 (incoming mail)</button><button class="btn" data-dir="up" id="dirUp">H1 → R1 (outgoing mail)</button></div>
+      <div class="envs" id="envs"></div>
+    </div>
+
+    <div class="keys">
+      <div class="key"><span class="tag">Same subnet moves</span><b>Mobility inside one subnet</b><p>H1 moves from BSS 1 to BSS 2 but keeps its IP address. The self-learning switch sees a frame from H1 and remembers its new port.</p></div>
+      <div class="key"><span class="tag">Speed dial</span><b>Rate adaptation</b><p>As a mobile moves away, SNR drops and BER climbs. When BER gets too high, switch to a slower but safer rate (you tried this in Stop 03).</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Power management: "hold my mail"</h3></div>
+      <p class="muted">Devices tell the AP "I'm sleeping until the next beacon". The AP holds their frames. Each beacon lists who has mail waiting. Click a device to drop a letter for it at the AP, then send a beacon.</p>
+      <div class="devices" id="devices"></div>
+      <div class="btns"><button class="btn primary" id="beacon">Send beacon</button></div>
+      <div class="readout" id="pmText">Everyone is asleep. Zzz.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="letter" id="s-bt" data-stamp="6" data-title="Bluetooth">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>06</span></div></div>
+      <div><h2>Bluetooth: the tiny neighbourhood (PAN)</h2><p class="sub">Personal area networks under 10 m across.</p></div>
+    </div>
+    <div class="keys">
+      <div class="key"><span class="tag">Purpose</span><b>Cable replacement</b><p>Mouse, keyboard, headphones. Ad hoc, no infrastructure. 2.4–2.5 GHz ISM band, up to 3 Mbps.</p></div>
+      <div class="key"><span class="tag">Piconet</span><b>Master and clients</b><p>The master polls clients and grants their requests to transmit. Clients can <b>park</b> (sleep) to save battery. Nodes self-assemble, plug and play.</p></div>
+      <div class="key"><span class="tag">Hopping</span><b>TDM + FDM</b><p>625 µs time slots. The sender hops over <b>79 channels</b> in a known pseudo-random order, so outside interference only hits some slots.</p></div>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Frequency hopping vs a noisy oven</h3></div>
+      <div class="strip" id="strip" aria-label="79 Bluetooth channels"></div>
+      <div class="axis" style="display:flex;justify-content:space-between"><span>channel 0 (2.402 GHz)</span><span>channel 78 (2.480 GHz)</span></div>
+      <div class="btns"><button class="btn primary" id="hopBtn">Start hopping</button><label class="chk"><input type="checkbox" id="jam" checked> Microwave jams channels 30–45</label></div>
+      <div class="readout" id="hopText">Slowed way down: real slots last 625 µs.</div>
+    </div>
+    <div class="analogy"><span class="ico">2020</span><p>During the pandemic, phones used Bluetooth low-energy beacons for exposure notification: nearby phones swapped anonymous IDs, like neighbours dropping postcards through each other's letterboxes.</p></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="letter" id="s-cell" data-stamp="7" data-title="4G LTE">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>07</span></div></div>
+      <div><h2>4G LTE: the national postal service</h2><p class="sub">Wide-area mobile Internet, standardized by 3GPP.</p></div>
+    </div>
+    <div class="two">
+      <div class="key"><span class="tag">Like the wired Internet</span><p>Edge and core (both owned by the carrier), a network of networks, and the protocols you know: HTTP, DNS, TCP, UDP, IP, NAT, SDN, Ethernet, tunneling.</p></div>
+      <div class="key"><span class="tag">Different from it</span><p>A different wireless link layer, <b>mobility as a first-class service</b>, user identity on a <b>SIM card</b>, and a business model built on subscribers who roam on other carriers.</p></div>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Map of the 4G sorting system</h3></div>
+      <div class="btns"><button class="btn on" data-plane="all" id="plAll">Everything</button><button class="btn" data-plane="data" id="plData">Data plane</button><button class="btn" data-plane="ctrl" id="plCtrl">Control plane</button></div>
+      <div class="svgbox"><svg id="lteSvg" viewBox="0 0 640 260" aria-label="4G LTE architecture"></svg></div>
+      <div class="info" id="lteInfo">Click any building on the map.</div>
+    </div>
+
+    <div class="prose">
+      <h3>Sharing the radio: OFDM</h3>
+      <p>Each device connects to an eNode-B. There are many bands (600, 700, 850, 1500, 1700, 1900, 2100, 2600, 3500 MHz) with separate upstream and downstream channels. The radio is shared with <b>OFDM</b>, a mix of frequency and time division, giving hundreds of Mbps per device.</p>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Hand out Physical Resource Blocks</h3></div>
+      <p class="muted">Each square is one PRB: 12 subcarriers × 7 symbols = 84 resource elements. It is the unit the base station schedules. Pick a user, then click squares.</p>
+      <div class="users" id="users"><button class="btn on" data-u="1">Phone A</button><button class="btn" data-u="2">Phone B</button><button class="btn" data-u="3">Phone C</button><button class="btn" id="ofReset">Clear</button></div>
+      <div class="grid-wrap"><span class="axis" style="writing-mode:vertical-rl;transform:rotate(180deg)">frequency →</span><div class="ofdma" id="ofdma"></div></div>
+      <div class="axis" style="text-align:center">time (symbols) →</div>
+      <div class="readout" id="ofText"></div>
+    </div>
+
+    <div class="two">
+      <div class="key"><span class="tag">First hop stack</span><b>LTE link layer</b><p><b>Packet Data Convergence:</b> header compression, encryption. <b>Radio Link Control:</b> fragmentation, reassembly, reliable delivery. <b>Medium Access:</b> requesting and using OFDM slots.</p></div>
+      <div class="key"><span class="tag">Napping</span><b>Sleep modes</b><p><b>Light sleep</b> after 100s of ms idle, waking every 100s of ms to check for mail. <b>Deep sleep</b> after 5–10 s idle; the phone may change cells meanwhile and must re-associate.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Tunneling: an envelope inside an envelope</h3></div>
+      <p class="muted">The phone's datagram is wrapped with the GPRS Tunneling Protocol (GTP), inside UDP, inside an IP datagram from base station to S-GW. When the phone moves, only the tunnel endpoints change.</p>
+      <div class="btns"><button class="btn primary" id="wrapBtn">Wrap one layer</button><button class="btn" id="unwrapBtn">Unwrap</button></div>
+      <div class="nest" id="nest"></div>
+      <div class="readout" id="nestText"></div>
+    </div>
+    <div class="analogy"><span class="ico">GLOBAL</span><p>The global cellular network is a network of IP networks. Your home carrier and the visited carrier meet at exchange points (the public Internet and the inter-carrier IPX), like national post services swapping sacks at the border. Legacy 2G/3G were not all-IP.</p></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="letter" id="s-5g" data-stamp="8" data-title="5G and beyond">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>08</span></div></div>
+      <div><h2>5G: faster vans, more vans, tiny branches</h2><p class="sub">Goals over 4G.</p></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>10×</b>peak bitrate</div>
+      <div class="stat"><b>10×</b>lower latency</div>
+      <div class="stat"><b>100×</b>traffic capacity</div>
+    </div>
+    <div class="keys">
+      <div class="key"><span class="tag">eMBB</span><b>Enhanced Mobile Broadband</b><p>Huge parcels, fast. Video and big downloads. Most early 5G launches focused here.</p></div>
+      <div class="key"><span class="tag">URLLC</span><b>Ultra-Reliable Low Latency</b><p>Express courier that must never be late: factories, vehicles, remote health.</p></div>
+      <div class="key"><span class="tag">mMTC</span><b>Massive Machine-Type</b><p>Millions of tiny postcards from sensors and meters.</p></div>
+    </div>
+    <div class="prose">
+      <p><b>5G NR (New Radio)</b> uses two bands: <b>FR1</b> (450 MHz–6 GHz) and <b>FR2</b> (24–52 GHz, millimeter wave). It is not backward compatible with 4G. Millimeter waves carry much more data but over shorter distances, so 5G needs <b>pico-cells</b> 10–100 m across and a massive, dense rollout of new base stations. <b>MIMO</b> uses many directional antennas.</p>
+      <p>The 5G core is <b>SDN-like</b>: separate control plane (resource control) and user plane, spread across edge, far-edge and core data centers. What comes next is more often called "NextG" or "Beyond 5G": it evolves continuously like the Internet, and enterprises can run their own Private 5G without waiting for standards.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="letter" id="s-mob" data-stamp="9" data-title="Mobility principles">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>09</span></div></div>
+      <div><h2>Mobility: your friend moved house</h2><p class="sub">How does the network find a device that changes networks?</p></div>
+    </div>
+    <div class="prose">
+      <p>Mobility is a spectrum. At one end you move inside a single Wi-Fi network (no big deal). At the other you move between networks while keeping a call or TCP connection alive (hard). There are two approaches:</p>
+    </div>
+    <div class="two">
+      <div class="key"><span class="tag">Option A</span><b>Let routers handle it</b><p>Routers advertise the mobile's permanent address through normal routing. Longest prefix match would just work, but it does not scale to billions of devices.</p></div>
+      <div class="key"><span class="tag">Option B</span><b>Let end systems handle it</b><p>Functionality at the edge: <b>indirect routing</b> (via the home network) or <b>direct routing</b> (correspondent gets the foreign address and sends there).</p></div>
+    </div>
+    <div class="analogy"><span class="ico">HOME</span><p>To find a friend who moves a lot, you do not search every phone book. You call their parents. A <b>home network</b> is that definitive place that always knows where you are. In 4G/5G the home carrier's <b>HSS</b> plays the parents. Wi-Fi and ISPs have no global "home" (eduroam is an exception).</p></div>
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Forwarding the mail</h3></div>
+      <p class="muted">Home network 128.119/16, visited network 79.129/16. Play each scenario in order.</p>
+      <div class="btns">
+        <button class="btn" data-mv="reg">1. Registration</button>
+        <button class="btn" data-mv="ind">2. Indirect routing</button>
+        <button class="btn" data-mv="dir">3. Direct routing</button>
+      </div>
+      <div class="svgbox"><svg id="mobSvg" viewBox="0 0 640 300" aria-label="Mobility routing map"></svg></div>
+      <div class="readout" id="mobText">Pick a scenario to send the letter.</div>
+    </div>
+    <div class="two">
+      <div class="key"><span class="tag">Indirect</span><b>Mail forwarding via home</b><p>Transparent to the correspondent, and ongoing TCP connections survive moves. Downside: <b>triangle routing</b>, which is silly if correspondent and mobile sit in the same network.</p></div>
+      <div class="key"><span class="tag">Direct</span><b>Ask for the new address</b><p>No triangle. But it is not transparent: the correspondent must get the <b>care-of address</b> from home, and moving again adds complexity.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="letter" id="s-prac" data-stamp="10" data-title="Mobility in 4G">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>10</span></div></div>
+      <div><h2>Mobility in practice: 4G</h2><p class="sub">Four jobs the network does when you roam.</p></div>
+    </div>
+    <div class="keys">
+      <div class="key"><span class="tag">Job 1</span><b>Base station association</b><p>The mobile sends its <b>IMSI</b> (who am I, who is my home) to the visited base station.</p></div>
+      <div class="key"><span class="tag">Job 2</span><b>Control-plane setup</b><p>The visited MME uses the IMSI to contact the home HSS for authentication, encryption and service info. Now home knows where you are.</p></div>
+      <div class="key"><span class="tag">Job 3</span><b>Data-plane tunnels</b><p>BS ↔ S-GW tunnel (change one endpoint when you switch BS), and S-GW ↔ home P-GW tunnel (that is indirect routing).</p></div>
+      <div class="key"><span class="tag">Job 4</span><b>Handover</b><p>Switch base stations mid-conversation without dropping letters.</p></div>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>Handover, one step at a time</h3></div>
+      <div class="svgbox"><svg id="hoSvg" viewBox="0 0 600 260" aria-label="Handover diagram"></svg></div>
+      <div class="stepper"><button class="btn" id="hoPrev">Back</button><button class="btn primary" id="hoNext">Next step</button><div class="dots" id="hoDots"></div></div>
+      <div class="readout" id="hoText"></div>
+    </div>
+    <div class="two">
+      <div class="key"><span class="tag">Mobile IP · RFC 5944</span><b>The idea that came too early</b><p>Standardized about 20 years ago, before smartphones. Indirect routing with tunnels. The <b>home agent</b> = 4G HSS + home P-GW. The <b>foreign agent</b> = 4G MME + S-GW. Never widely deployed: Wi-Fi for data and 2G/3G for voice were "good enough".</p></div>
+      <div class="key"><span class="tag">Upper layers</span><b>Does TCP care?</b><p>Logically, no: best effort stays the same and TCP/UDP run fine. Performance-wise, yes: bit errors and handovers lose packets, and TCP thinks every loss is congestion. Real-time traffic suffers from delay, and wireless bandwidth is scarce.</p></div>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><span class="pill">Lab</span><h3>TCP gets the wrong idea</h3></div>
+      <div class="cw" id="cw" aria-label="TCP congestion window over time"></div>
+      <div class="btns"><button class="btn primary" id="cwNext">Next round trip</button><button class="btn" id="cwDrop">Radio static eats a letter</button><button class="btn" id="cwReset">Reset</button></div>
+      <div class="readout" id="cwText">The congestion window grows by one letter each round trip.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="letter" id="s-quiz" data-stamp="11" data-title="Sorting quiz">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>11</span></div></div>
+      <div><h2>Sorting office quiz</h2><p class="sub">Sort each question into the right pigeonhole.</p></div>
+    </div>
+    <div id="quiz" style="display:grid;gap:12px"></div>
+    <div class="readout" id="quizScore"><span class="score">0 / 10</span> answered correctly</div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="letter" id="s-sum" data-stamp="12" data-title="Route summary">
+  <div class="airmail"></div>
+  <div class="letter-body">
+    <div class="letter-head">
+      <div class="postmark"><div><small>STOP</small><span>12</span></div></div>
+      <div><h2>End of the route</h2><p class="sub">Chapter 7 on one postcard.</p></div>
+    </div>
+    <div class="keys">
+      <div class="key"><span class="tag">Wireless</span><p>Links fade, echo and pick up noise. Hidden terminals stop collision detection, so Wi-Fi avoids collisions with CSMA/CA, ACKs and RTS/CTS. CDMA lets users share via codes. Bluetooth hops around 79 channels. 4G uses OFDM resource blocks; 5G adds mmWave, MIMO and pico-cells.</p></div>
+      <div class="key"><span class="tag">Mobility</span><p>A home network keeps track of you. Indirect routing forwards via home (transparent, triangle routing). Direct routing uses a care-of address. 4G does association, MME + HSS setup, GTP tunnels and handovers. Mobile IP had the same ideas but never took off. TCP misreads wireless loss as congestion.</p></div>
+    </div>
+    <p class="muted" id="finalMsg"></p>
+  </div>
+</section>
+
+<footer><p style="margin-bottom:8px"><a class="back" href="../index.html" target="_top">&larr; Back to all chapters</a></p>Based on Kurose &amp; Ross, Computer Networking: A Top-Down Approach, 8th ed., Chapter 7 slides.</footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="carrier" id="carrier">
+  <div class="bubble" id="bubble" aria-live="polite">
+    <div class="who">Penny the Postie</div>
+    <div id="bubbleText">Hi! I'm Penny. I'll ride along this route with you. Click me any time for a tip.</div>
+    <div class="row"><button id="tipBtn">Another tip</button><button id="hideBtn">Hide</button></div>
+  </div>
+  <button class="pip" id="pip" aria-label="Penny the mail carrier. Click for a tip">
+    <svg viewBox="0 0 120 150" aria-hidden="true">
+      <ellipse cx="60" cy="146" rx="34" ry="4" fill="rgba(0,0,0,.15)"/>
+      <rect x="38" y="112" width="14" height="30" rx="5" fill="#1B2742"/>
+      <rect x="68" y="112" width="14" height="30" rx="5" fill="#1B2742"/>
+      <rect x="32" y="138" width="22" height="8" rx="4" fill="#3b2a20"/>
+      <rect x="66" y="138" width="22" height="8" rx="4" fill="#3b2a20"/>
+      <path d="M30 78 q30 -14 60 0 v40 q-30 6 -60 0z" fill="#2B5BC8"/>
+      <path d="M58 70 v48" stroke="#1d47a8" stroke-width="2"/>
+      <circle cx="58" cy="88" r="2" fill="#F2AE12"/><circle cx="58" cy="100" r="2" fill="#F2AE12"/>
+      <path d="M30 80 l60 30" stroke="#8a5a32" stroke-width="5"/>
+      <rect x="14" y="94" width="34" height="28" rx="6" fill="#B07A45"/>
+      <rect x="14" y="94" width="34" height="9" rx="4" fill="#94633a"/>
+      <rect x="20" y="104" width="18" height="11" rx="1.5" fill="#fff"/>
+      <path d="M20 104 l9 6 l9 -6" fill="none" stroke="#D63A3F" stroke-width="1.5"/>
+      <g class="arm"><rect x="82" y="80" width="12" height="32" rx="6" fill="#2B5BC8" transform="rotate(-20 88 84)"/><circle cx="96" cy="108" r="7" fill="#F1C6A0"/></g>
+      <circle cx="60" cy="50" r="24" fill="#F1C6A0"/>
+      <circle cx="51" cy="50" r="3" fill="#1B2742"/><circle cx="69" cy="50" r="3" fill="#1B2742"/>
+      <circle cx="46" cy="58" r="4" fill="#f4a3a3" opacity=".7"/><circle cx="74" cy="58" r="4" fill="#f4a3a3" opacity=".7"/>
+      <path d="M52 60 q8 7 16 0" fill="none" stroke="#1B2742" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M34 38 q26 -26 52 0 z" fill="#1B2742"/>
+      <rect x="30" y="36" width="60" height="8" rx="4" fill="#1B2742"/>
+      <path d="M80 40 q14 2 16 6 q-12 2 -18 -2z" fill="#1B2742"/>
+      <circle cx="60" cy="28" r="5" fill="#F2AE12"/>
+      <rect x="54" y="20" width="12" height="3" fill="#D63A3F"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const NS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- carrier ---------- */
+const tips={
+  "top":["Hi! I'm Penny. I'll ride along this route with you. Click me any time for a tip.","Every lab on this page is clickable. Go on, break things!"],
+  "s-intro":["Wireless and mobile are two different problems. My bike is mobile; the post office's radio tower is wireless but goes nowhere.","10 mobile subscribers for every landline in 2019. That's a lot of pockets to deliver to!"],
+  "s-elements":["The base station is my local post office. Infrastructure mode means every letter goes through it.","Handoff = switching which post office serves you, as you walk from one area to the next."],
+  "s-links":["Drag the distance slider. Watch how the post office slows down its talking so you can still understand it.","Hidden terminal: A and C can't hear each other, so neither knows they are both shouting at B.","Higher SNR, fewer bit errors. More power helps, but the SNR changes as you move."],
+  "s-cdma":["Try turning Sender 2 on and off. Code 1 still gets back Sender 1's bits perfectly!","The trick is orthogonal codes: multiply them chip by chip and the sum is zero."],
+  "s-wifi":["Wi-Fi can't detect collisions mid-send, so it waits politely (DIFS, backoff) and expects an ACK.","Address 1 is always who receives the frame over the air. Address 2 is who sent it over the air.","The beacon is like a notice board: 'Parcels waiting for: Laptop, Phone'."],
+  "s-bt":["79 channels, hopping in a secret-but-shared order. Interference only spoils some hops.","A piconet has one master who polls everyone. Very orderly neighbourhood."],
+  "s-cell":["The HSS is the home records office. It always knows who you are and where you are.","Click Control plane on the map: those dashed lines carry setup chatter, not your cat videos.","One PRB = 12 subcarriers × 7 symbols = 84 resource elements."],
+  "s-5g":["Millimeter waves: super fast, short reach. That's why 5G needs so many tiny cells.","eMBB, URLLC, mMTC: big parcels, urgent express, and millions of postcards."],
+  "s-mob":["Indirect routing is like asking the old post office to forward your mail. Easy, but it takes a detour.","Direct routing: the sender asks your parents for your new address and writes there directly."],
+  "s-prac":["In handover the target base station gets ready first, then the phone switches. Smooth!","TCP sees a lost letter and assumes traffic jams. On wireless, it was usually just static."],
+  "s-quiz":["Take your time. Wrong answers explain themselves.","Hint: the 802.11 receiver sends an ACK after SIFS."],
+  "s-sum":["You made it to the end of the route! Thanks for riding along.","Chapter 8 is about security: sealing the envelopes."]
+};
+let cur="top", tipIdx=0;
+const bubble=$('#bubble'), bt=$('#bubbleText'), carrier=$('#carrier'), pip=$('#pip');
+function say(text){bt.textContent=text;carrier.classList.remove('min');bubble.classList.remove('pop');void bubble.offsetWidth;bubble.classList.add('pop')}
+function wave(){pip.classList.remove('wave');void pip.offsetWidth;pip.classList.add('wave')}
+function nextTip(){const t=tips[cur]||tips.top;tipIdx=(tipIdx+1)%t.length;say(t[tipIdx]);wave()}
+pip.onclick=()=>{if(carrier.classList.contains('min')){carrier.classList.remove('min');say((tips[cur]||tips.top)[tipIdx])}else nextTip()};
+$('#tipBtn').onclick=nextTip;
+$('#hideBtn').onclick=()=>carrier.classList.add('min');
+window.pipSay=(t)=>{say(t);wave()};
+
+/* ---------- stamps & route ---------- */
+const sections=$$('.letter');
+let got=new Set(store.get('ch7-stamps',[]));
+const bar=$('#stampbar'), rl=$('#routeList');
+sections.forEach(s=>{
+  const n=s.dataset.stamp.padStart(2,'0');
+  const a=document.createElement('a');a.href='#'+s.id;a.textContent=n;a.title=s.dataset.title;a.dataset.id=s.id;bar.appendChild(a);
+  const li=document.createElement('li');li.innerHTML=`<a href="#${s.id}"><span class="n">${n}</span><span>${s.dataset.title}</span></a>`;rl.appendChild(li);
+});
+function paintStamps(){$$('#stampbar a').forEach(a=>a.classList.toggle('got',got.has(a.dataset.id)));$('#stampcount').textContent=`${got.size}/${sections.length} stamps`;
+  $('#finalMsg').textContent=got.size===sections.length?"Every stamp collected. Your passport is full!":`You have ${got.size} of ${sections.length} stamps. Scroll through any stops you skipped to fill your book.`}
+paintStamps();
+const toast=$('#toast');let tt;
+function showToast(t){toast.textContent=t;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),1600)}
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id=e.target.id;
+  if(cur!==id){cur=id;tipIdx=0;say(tips[id][0])}
+  if(!got.has(id)){got.add(id);store.set('ch7-stamps',[...got]);paintStamps();showToast(`Stamp ${e.target.dataset.stamp.padStart(2,'0')} collected: ${e.target.dataset.title}`)}}})},{threshold:0,rootMargin:"-45% 0px -45% 0px"});
+sections.forEach(s=>io.observe(s));
+
+/* ---------- mode lab ---------- */
+const ms=$('#modeSvg');
+function house(g,x,y,label,color){el('rect',{x:x-18,y:y-10,width:36,height:28,rx:3,fill:'var(--card)',stroke:'var(--ink)','stroke-width':2},g);el('path',{d:`M${x-23} ${y-8} L${x} ${y-28} L${x+23} ${y-8}Z`,fill:color||'var(--red)'},g);el('text',{x,y:y+36,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'var(--ink)'},g,label)}
+function drawMode(m){ms.innerHTML='';const g=el('g',{},ms);
+  const hosts=[[90,90],[190,170],[410,170],[520,90],[300,60]];
+  if(m==='infra'){
+    el('rect',{x:240,y:0,width:120,height:22,rx:6,fill:'var(--soft-blue)'},g);el('text',{x:300,y:15,'text-anchor':'middle','font-size':11,'font-weight':700,fill:'var(--blue)'},g,'wired Internet');
+    el('line',{x1:300,y1:22,x2:300,y2:100,stroke:'var(--ink)','stroke-width':3},g);
+    hosts.slice(0,4).forEach(([x,y])=>el('line',{x1:300,y1:115,x2:x,y2:y,stroke:'var(--blue)','stroke-width':2,'stroke-dasharray':'5 5'},g));
+    el('rect',{x:270,y:100,width:60,height:34,rx:6,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':2},g);el('text',{x:300,y:122,'text-anchor':'middle','font-size':12,'font-weight':800,fill:'#1B2742'},g,'AP');
+    el('text',{x:300,y:152,'text-anchor':'middle','font-size':12,fill:'var(--muted)'},g,'base station');
+    hosts.slice(0,4).forEach(([x,y],i)=>house(g,x,y,'host '+(i+1)));
+    $('#modeText').innerHTML='<b>Infrastructure mode:</b> every letter goes through the base station, which connects mobiles to the wired network. Moving to another base station\'s area is a <b>handoff</b>.';
+  }else{
+    const links=[[0,1],[1,2],[2,3],[0,4],[4,3],[1,4]];
+    links.forEach(([a,b])=>el('line',{x1:hosts[a][0],y1:hosts[a][1],x2:hosts[b][0],y2:hosts[b][1],stroke:'var(--green)','stroke-width':2,'stroke-dasharray':'5 5'},g));
+    hosts.forEach(([x,y],i)=>house(g,x,y,'node '+(i+1),'var(--green)'));
+    $('#modeText').innerHTML='<b>Ad hoc mode:</b> no base station. Nodes can only reach others in range, so they organize themselves and pass letters along to each other.';
+  }}
+$$('[data-mode]').forEach(b=>b.onclick=()=>{$$('[data-mode]').forEach(x=>x.classList.toggle('on',x===b));drawMode(b.dataset.mode)});
+drawMode('infra');
+
+const taxInfo=["Like a town with a post office: you hand your letter to the counter and it goes out to the world in one hop.","Like villages with no post office of their own: your letter is passed house to house until it reaches a town that has one.","Like passing a note to the person next to you. No post office, no outside world.","Like a chain of neighbours passing notes, with no post office anywhere. Mobile ad hoc networks (MANET) and vehicle networks (VANET) work this way."];
+$$('#tax button').forEach(b=>b.onclick=()=>{$$('#tax button').forEach(x=>x.classList.toggle('on',x===b));$('#taxText').textContent=taxInfo[b.dataset.t]});
+
+/* ---------- signal lab ---------- */
+function sig(){const d=+$('#dist').value,n=$('#noise').checked;$('#distVal').textContent=d+' m';
+  const snr=Math.max(0,Math.round(42-d*.6-(n?8:0)));
+  $('#snrBar').style.width=Math.min(100,snr/42*100)+'%';$('#snrVal').textContent=snr+' dB';
+  let pick=snr>=28?'m256':snr>=18?'m16':snr>=8?'mbp':null;
+  const th={m256:28,m16:18,mbp:8};
+  ['m256','m16','mbp'].forEach(id=>{const e=$('#'+id);e.classList.toggle('on',id===pick);e.classList.toggle('off',snr<th[id])});
+  const margin=pick?snr-th[pick]:-1;
+  const ber=pick?Math.max(4,40-margin*4):100;
+  $('#berBar').style.width=ber+'%';$('#berVal').textContent=pick?(margin>6?'low':'some'):'too high';
+  const t=$('#sigText');
+  if(!pick){t.className='readout bad';t.innerHTML='<b>Out of reach.</b> Even the slowest modulation has too many bit errors. Walk back toward the post office.'}
+  else{t.className='readout good';t.innerHTML=`At ${d} m the SNR is about <b>${snr} dB</b>, so the base station uses <b>${pick==='m256'?'QAM256 at 8 Mbps':pick==='m16'?'QAM16 at 4 Mbps':'BPSK at 1 Mbps'}</b>. ${n?'The microwave noise lowered SNR by 8 dB. ':''}Further away means weaker signal, more bit errors, and a slower but safer rate.`}}
+$('#dist').oninput=sig;$('#noise').onchange=sig;sig();
+
+/* ---------- hidden terminal ---------- */
+const hs=$('#htSvg');
+function drawHT(state){hs.innerHTML='';const g=el('g',{},hs);
+  const P={A:[90,110],B:[300,110],C:[510,110]};
+  el('circle',{cx:90,cy:110,r:230,fill:'var(--blue)',opacity:state.a?.13:.05},g);
+  el('circle',{cx:510,cy:110,r:230,fill:'var(--red)',opacity:state.c?.13:.05},g);
+  el('rect',{x:282,y:20,width:36,height:46,rx:4,fill:'var(--muted)',opacity:.35},g);
+  el('text',{x:300,y:14,'text-anchor':'middle','font-size':11,fill:'var(--muted)'},g,'wall / distance');
+  if(state.cts){[['A',P.A],['C',P.C]].forEach(([k,p])=>el('line',{x1:300,y1:110,x2:p[0]+(k==='A'?24:-24),y2:110,stroke:'var(--green)','stroke-width':3,'stroke-dasharray':'6 4'},g));el('text',{x:300,y:160,'text-anchor':'middle','font-size':13,'font-weight':800,fill:'var(--green)'},g,'CTS to A (everyone hears)')}
+  if(state.a)el('line',{x1:114,y1:104,x2:276,y2:104,stroke:'var(--blue)','stroke-width':4},g);
+  if(state.c)el('line',{x1:486,y1:116,x2:324,y2:116,stroke:'var(--red)','stroke-width':4},g);
+  Object.entries(P).forEach(([k,[x,y]])=>{el('circle',{cx:x,cy:y,r:24,fill:k==='B'?(state.boom?'var(--red)':'var(--yellow)'):'var(--card)',stroke:'var(--ink)','stroke-width':2.5},g);el('text',{x,y:y+6,'text-anchor':'middle','font-size':18,'font-weight':800,fill:k==='B'&&state.boom?'#fff':'var(--ink)'},g,k)});
+  if(state.boom)el('text',{x:300,y:160,'text-anchor':'middle','font-size':15,'font-weight':800,fill:'var(--red)'},g,'COLLISION at B');
+  el('text',{x:90,y:190,'text-anchor':'middle','font-size':11,fill:'var(--muted)'},g,"A's range");
+  el('text',{x:510,y:190,'text-anchor':'middle','font-size':11,fill:'var(--muted)'},g,"C's range");}
+drawHT({});
+$$('[data-ht]').forEach(b=>b.onclick=()=>{const k=b.dataset.ht,r=$('#rts').checked,t=$('#htText');
+  if(k==='a'){drawHT({a:1});t.className='readout good';t.innerHTML='A\'s letter reaches B. C never heard a thing.'}
+  else if(k==='c'){drawHT({c:1});t.className='readout good';t.innerHTML='C\'s letter reaches B. A never heard a thing.'}
+  else if(!r){drawHT({a:1,c:1,boom:1});t.className='readout bad';t.innerHTML='Both sensed a quiet channel, because <b>A and C cannot hear each other</b>. Their signals crash at B. This is why Wi-Fi cannot rely on sensing alone, and why the receiver must send an ACK.';pipSay('Ouch! Hidden terminals strike again. Try ticking RTS / CTS.')}
+  else{drawHT({a:1,cts:1});t.className='readout good';t.innerHTML='A sends a short <b>RTS</b>. B broadcasts <b>CTS</b>, which both A and C hear. C defers, so only A\'s data goes through.'}});
+
+/* ---------- CDMA ---------- */
+const c1=[1,1,1,-1,1,-1,-1,-1], c2=[1,-1,1,1,1,-1,1,1];
+let d1=[1,-1], d2=[1,1], rx=1;
+function bitBtns(id,arr){const w=$(id);w.innerHTML='';arr.forEach((v,i)=>{const b=document.createElement('button');b.className='btn bitbtn'+(v>0?' on':'');b.textContent=`slot ${i}: ${v>0?'+1':'-1'}`;b.onclick=()=>{arr[i]=-arr[i];bitBtns(id,arr);cdma()};w.appendChild(b)})}
+function cdma(){const on=$('#s2on').checked;const code=rx===1?c1:c2;
+  const cell=v=>`<td class="${v>0?'pos':v<0?'neg':''}">${v>0?'+'+v:v}</td>`;
+  let h='<tr><th></th>'+[0,1].map(s=>`<th colspan="8">slot ${s}</th>`).join('')+'<th>decoded</th></tr>';
+  const row=(lbl,f,cls)=>`<tr class="${cls||''}"><td class="lbl">${lbl}</td>${[0,1].map(s=>c1.map((_,m)=>cell(f(s,m))).join('')).join('')}<td></td></tr>`;
+  h+=row('Code 1',(s,m)=>c1[m]);
+  h+=row('Sender 1 out',(s,m)=>d1[s]*c1[m]);
+  h+=row('Code 2',(s,m)=>c2[m]);
+  h+=row('Sender 2 out',(s,m)=>on?d2[s]*c2[m]:0);
+  h+=row('Channel sum',(s,m)=>d1[s]*c1[m]+(on?d2[s]*c2[m]:0),'sum');
+  const dec=[0,1].map(s=>code.reduce((a,c,m)=>a+(d1[s]*c1[m]+(on?d2[s]*c2[m]:0))*c,0)/8);
+  h+=`<tr class="dec"><td class="lbl">Σ(sum × code ${rx}) / 8</td>${dec.map(v=>`<td colspan="8">${v>0?'+'+v:v}</td>`).join('')}<td>${dec.map(v=>v>0?'+1':v<0?'-1':'0').join(', ')}</td></tr>`;
+  $('#cdmaTbl').innerHTML=h;
+  const want=rx===1?d1:(on?d2:[0,0]);
+  $('#cdmaText').innerHTML=rx===2&&!on?'Sender 2 is silent, so decoding with code 2 gives <b>0</b>: nothing to read.':`Receiver with <b>code ${rx}</b> recovers <b>${want.map(v=>v>0?'+1':'-1').join(', ')}</b>, exactly what sender ${rx} sent${on?', even though both letters were mixed together on the channel':''}.`}
+bitBtns('#s1bits',d1);bitBtns('#s2bits',d2);
+$('#s2on').onchange=cdma;
+$$('[data-rx]').forEach(b=>b.onclick=()=>{rx=+b.dataset.rx;$$('[data-rx]').forEach(x=>x.classList.toggle('on',x===b));cdma()});
+cdma();
+
+/* ---------- CSMA/CA ---------- */
+const blocks=[
+ {r:'o',c:1,s:3,t:'busy',cls:'busy',k:0},
+ {r:'s',c:1,s:3,t:'has letter, waits',cls:'wait',k:0},
+ {r:'s',c:4,s:1,t:'DIFS',cls:'gap',k:1},
+ {r:'s',c:5,s:1,t:'3',cls:'wait',k:2},{r:'s',c:6,s:1,t:'2',cls:'wait',k:2},{r:'s',c:7,s:1,t:'1',cls:'wait',k:2},
+ {r:'s',c:8,s:4,t:'DATA',cls:'data',k:3},
+ {r:'r',c:8,s:4,t:'receiving',cls:'gap',k:3},
+ {r:'r',c:12,s:1,t:'SIFS',cls:'gap',k:4},
+ {r:'r',c:13,s:2,t:'ACK',cls:'ack',k:4},
+ {r:'o',c:4,s:11,t:'others defer (NAV)',cls:'wait',k:5}
+];
+const steps=[
+ "Another station is using the channel. Our sender has a letter but must wait.",
+ "The channel goes quiet. The sender waits one <b>DIFS</b> (DCF inter-frame space) to make sure it stays idle.",
+ "Because the channel was busy, the sender picks a <b>random backoff</b> (here 3 slots). The timer counts down only while the channel is idle.",
+ "Timer hits zero: transmit the <b>entire frame</b>. There is no collision detection, so it cannot stop halfway.",
+ "Frame received OK, so the receiver waits a short <b>SIFS</b> and sends an <b>ACK</b>. The ACK is needed because of hidden terminals.",
+ "Done! Other stations stayed quiet. If no ACK had arrived, the sender would <b>increase its backoff range</b> and try again."
+];
+const tl=$('#tl');let cs=0;
+function buildTL(){tl.innerHTML='';const rows={s:2,r:3,o:1};[['o','Other station'],['s','Sender'],['r','Receiver']].forEach(([k,n])=>{const w=document.createElement('div');w.className='who';w.textContent=n;w.style.gridRow=rows[k];w.style.gridColumn=1;tl.appendChild(w)});
+  blocks.forEach(b=>{const d=document.createElement('div');d.className='blk '+b.cls;d.textContent=b.t;d.style.gridRow=rows[b.r];d.style.gridColumn=`${b.c+1} / span ${b.s}`;d.dataset.k=b.k;tl.appendChild(d)})}
+const csd=$('#csDots');steps.forEach(()=>csd.appendChild(document.createElement('i')));
+function showCS(){$$('#tl .blk').forEach(d=>d.classList.toggle('show',+d.dataset.k<=cs));$('#csText').innerHTML=`<b>Step ${cs+1}.</b> ${steps[cs]}`;[...csd.children].forEach((d,i)=>d.classList.toggle('on',i<=cs));$('#csPrev').disabled=cs===0;$('#csNext').textContent=cs===steps.length-1?'Start over':'Next step'}
+$('#csNext').onclick=()=>{cs=cs===steps.length-1?0:cs+1;showCS()};$('#csPrev').onclick=()=>{cs=Math.max(0,cs-1);showCS()};
+buildTL();showCS();
+
+/* ---------- frame ---------- */
+const fields=[
+ ['Frame control',2,'Type of frame (data, RTS, CTS, ACK, beacon...), plus flags like "to AP" / "from AP".'],
+ ['Duration',2,'How long the channel is reserved (for RTS/CTS and the data frame). Others set their NAV timer from it.'],
+ ['Address 1',6,'MAC of the wireless host or AP that should <b>receive</b> this frame over the air.',1],
+ ['Address 2',6,'MAC of the wireless host or AP <b>transmitting</b> this frame.',1],
+ ['Address 3',6,'MAC of the <b>router interface</b> the AP is attached to. The AP needs it to build the Ethernet frame.',1],
+ ['Seq control',2,'Sequence number, so the receiver can spot duplicates when an ACK was lost and the frame was resent.'],
+ ['Address 4',6,'Used only in ad hoc mode.',1],
+ ['Payload',' 0–2312','The letter itself.'],
+ ['CRC',4,'Cyclic redundancy check, to detect bit errors.']];
+const fr=$('#frame');
+fields.forEach(f=>{const b=document.createElement('button');b.className=f[3]?'addr':'';b.innerHTML=`${f[0]}<small>${String(f[1]).trim()} B</small>`;b.onclick=()=>{$$('#frame button').forEach(x=>x.classList.toggle('on',x===b));$('#frameText').innerHTML=`<b>${f[0]}</b>: ${f[2]}`};fr.appendChild(b)});
+const envData={
+ down:[['802.3 frame, R1 → AP (wired)',[['dest','H1 MAC'],['source','R1 MAC']]],['802.11 frame, AP → H1 (air)',[['Address 1','H1 MAC'],['Address 2','AP MAC'],['Address 3','R1 MAC']]]],
+ up:[['802.11 frame, H1 → AP (air)',[['Address 1','AP MAC'],['Address 2','H1 MAC'],['Address 3','R1 MAC']]],['802.3 frame, AP → R1 (wired)',[['dest','R1 MAC'],['source','H1 MAC']]]]};
+function envs(dir){$('#envs').innerHTML=envData[dir].map(([h,rows])=>`<div class="env"><h4>${h}</h4><dl>${rows.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>`).join('')}
+$$('[data-dir]').forEach(b=>b.onclick=()=>{$$('[data-dir]').forEach(x=>x.classList.toggle('on',x===b));envs(b.dataset.dir)});envs('down');
+
+/* ---------- power mgmt ---------- */
+const devs=[{n:'Laptop',mail:false,awake:false},{n:'Phone',mail:false,awake:false},{n:'Smart watch',mail:false,awake:false}];
+function paintDevs(){$('#devices').innerHTML='';devs.forEach(d=>{const b=document.createElement('button');b.className='dev'+(d.awake?' awake':'')+(d.mail?' mail':'');b.innerHTML=`<b>${d.n}</b><span class="st">${d.awake?'awake, receiving':'asleep'}</span><span class="st m">${d.mail?'letter waiting at AP':'no mail held'}</span>`;b.onclick=()=>{d.mail=!d.mail;d.awake=false;paintDevs()};$('#devices').appendChild(b)})}
+$('#beacon').onclick=()=>{const list=devs.filter(d=>d.mail).map(d=>d.n);devs.forEach(d=>{d.awake=d.mail;d.mail=false});paintDevs();
+  $('#pmText').innerHTML=list.length?`Beacon says: <b>mail waiting for ${list.join(', ')}</b>. Those devices stay awake to collect it; the rest go back to sleep until the next beacon.`:'Beacon says: <b>no mail for anyone</b>. Everybody rolls over and sleeps until the next beacon. Battery saved!'};
+paintDevs();
+
+/* ---------- bluetooth ---------- */
+const strip=$('#strip');for(let i=0;i<79;i++){const b=document.createElement('i');strip.appendChild(b)}
+const bars=[...strip.children];let hopT=null,hops=0,hits=0,seed=7,curCh=-1;
+function paintJam(){const j=$('#jam').checked;bars.forEach((b,i)=>b.classList.toggle('jam',j&&i>=30&&i<=45))}
+function hop(){seed=(seed*37+11)%79;if(curCh>=0)bars[curCh].classList.remove('cur');curCh=seed;bars[curCh].classList.add('cur');hops++;const j=$('#jam').checked&&curCh>=30&&curCh<=45;if(j)hits++;
+  $('#hopText').innerHTML=`Slot ${hops}: channel <b>${curCh}</b>${j?' <b style="color:var(--red)">jammed</b>':''}. Interference hit <b>${hits}</b> of ${hops} slots (${Math.round(hits/hops*100)}%). The rest got through.`}
+$('#hopBtn').onclick=()=>{if(hopT){clearInterval(hopT);hopT=null;$('#hopBtn').textContent='Start hopping'}else{hop();hopT=setInterval(hop,reduce?900:450);$('#hopBtn').textContent='Pause'}};
+$('#jam').onchange=paintJam;paintJam();
+
+/* ---------- LTE map ---------- */
+const lte=$('#lteSvg');
+const N={UE:[50,180,'UE','Mobile device (UE)','The resident. Your phone. It carries a <b>SIM card</b> holding your IMSI, which says who you are and who your home carrier is.'],
+ BS:[175,180,'eNB','Base station (eNode-B)','The local post office branch. Manages the radio, shares it with OFDM, and authenticates the device together with the MME.'],
+ SGW:[330,190,'S-GW','Serving Gateway','The regional sorting center on the data plane. Every datagram to and from the phone passes through it, and it is the anchor for moving between base stations.'],
+ PGW:[480,190,'P-GW','PDN Gateway','The exchange where carrier mail meets the outside world. Gives the phone its IP address, does NAT, and links to the Internet.'],
+ NET:[595,190,'Net','Internet','The rest of the world\'s mail.'],
+ MME:[330,60,'MME','Mobility Management Entity','The registration desk (control plane). Authenticates the device together with the HSS, tracks its location, sets up tunnels, and handles paging.'],
+ HSS:[480,60,'HSS','Home Subscriber Service','The home records office. Holds your profile and keys, lives in your <b>home</b> network, and always knows which network you are visiting.']};
+const L=[['UE','BS','r'],['BS','SGW','d'],['SGW','PGW','d'],['PGW','NET','d'],['BS','MME','c'],['MME','HSS','c'],['MME','SGW','c']];
+function drawLTE(plane){lte.innerHTML='';
+  el('rect',{x:120,y:20,width:400,height:215,rx:14,fill:'var(--soft-blue)',opacity:.6},lte);
+  el('text',{x:132,y:228,'font-size':11,fill:'var(--muted)'},lte,'carrier network (all-IP)');
+  L.forEach(([a,b,t])=>{const l=el('line',{x1:N[a][0],y1:N[a][1],x2:N[b][0],y2:N[b][1],class:'ln'+(t==='c'?' ctrl':'')},lte);
+    if(t==='r')l.setAttribute('stroke-dasharray','2 6');
+    if(plane==='data'&&t==='c')l.classList.add('dim');
+    if(plane==='ctrl'&&t==='d')l.classList.add('dim');
+    if((plane==='data'&&t!=='c')||(plane==='ctrl'&&t==='c'))l.classList.add('hot')});
+  Object.entries(N).forEach(([k,[x,y,s]])=>{const g=el('g',{class:'node',tabindex:0,role:'button','aria-label':N[k][3]},lte);
+    el('rect',{x:x-32,y:y-22,width:64,height:44,rx:10,fill:k==='UE'?'var(--yellow)':k==='NET'?'var(--soft-green)':'var(--card)',stroke:'var(--ink)','stroke-width':2},g);
+    el('text',{x,y:y+5,'text-anchor':'middle','font-size':14,'font-weight':800,fill:k==='UE'?'#1B2742':'var(--ink)'},g,s);
+    const pick=()=>{$$('#lteSvg .node').forEach(n=>n.classList.remove('on'));g.classList.add('on');$('#lteInfo').innerHTML=`<b>${N[k][3]}</b>: ${N[k][4]}`};
+    g.addEventListener('click',pick);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick()}})})}
+$$('[data-plane]').forEach(b=>b.onclick=()=>{$$('[data-plane]').forEach(x=>x.classList.toggle('on',x===b));drawLTE(b.dataset.plane);
+  $('#lteInfo').innerHTML=b.dataset.plane==='data'?'<b>Data plane</b> (solid): your actual letters, tunneled UE → base station → S-GW → P-GW → Internet.':b.dataset.plane==='ctrl'?'<b>Control plane</b> (dashed): new protocols for mobility, security and authentication between base station, MME, HSS and S-GW.':'Click any building on the map.'});
+drawLTE('all');
+
+/* ---------- OFDMA ---------- */
+const of=$('#ofdma');let user=1;const cells=[];
+for(let r=0;r<6;r++)for(let c=0;c<10;c++){const b=document.createElement('button');b.setAttribute('aria-label',`PRB at frequency ${6-r}, time ${c+1}`);b.dataset.u=0;b.onclick=()=>{b.dataset.u=b.dataset.u==user?0:user;b.className=+b.dataset.u?'u'+b.dataset.u:'';ofText()};of.appendChild(b);cells.push(b)}
+function ofText(){const cnt=[0,0,0,0];cells.forEach(c=>cnt[+c.dataset.u]++);const used=cnt[1]+cnt[2]+cnt[3];
+  $('#ofText').innerHTML=used?`Phone A: <b>${cnt[1]}</b> PRBs (${cnt[1]*84} REs) · Phone B: <b>${cnt[2]}</b> (${cnt[2]*84} REs) · Phone C: <b>${cnt[3]}</b> (${cnt[3]*84} REs). ${cnt[0]} blocks still free. The base station decides this split every slot, by frequency and by time.`:'No blocks handed out yet. Click squares to give them to the selected phone.'}
+$$('#users [data-u]').forEach(b=>b.onclick=()=>{user=+b.dataset.u;$$('#users [data-u]').forEach(x=>x.classList.toggle('on',x===b))});
+$('#ofReset').onclick=()=>{cells.forEach(c=>{c.dataset.u=0;c.className=''});ofText()};
+[[0,0,1],[0,1,1],[1,0,1],[3,2,2],[3,3,2],[4,2,2],[2,6,3],[5,8,1]].forEach(([r,c,u])=>{const b=cells[r*10+c];b.dataset.u=u;b.className='u'+u});ofText();
+
+/* ---------- GTP nesting ---------- */
+const layers=[['l0','Phone\'s IP datagram','to: streaming server · from: phone'],['l1','GTP header','tunnel ID: which phone this belongs to'],['l2','UDP header','GTP rides inside UDP'],['l3','Outer IP header','from: base station · to: S-GW']];
+let depth=1;
+function nest(){let html='';for(let i=0;i<depth;i++){}
+  let inner='';for(let i=0;i<depth;i++){const [cls,t,s]=layers[i];inner=`<div class="layer ${cls}"><span class="lbl">${t}</span><small>${s}</small>${inner}</div>`}
+  $('#nest').innerHTML=inner;
+  $('#nestText').innerHTML=depth===1?'Just the original letter, addressed to the streaming server.':depth===4?'Fully wrapped! The base station sends this to the S-GW. The S-GW unwraps it and <b>re-tunnels</b> it to the P-GW, which finally sends the original datagram to the Internet.':`Wrapped in ${depth-1} extra layer${depth>2?'s':''}. Keep going.`;
+  $('#wrapBtn').disabled=depth===4;$('#unwrapBtn').disabled=depth===1}
+$('#wrapBtn').onclick=()=>{depth=Math.min(4,depth+1);nest();if(depth===4)pipSay('Envelope, inside envelope, inside envelope. That\'s tunneling!')};
+$('#unwrapBtn').onclick=()=>{depth=Math.max(1,depth-1);nest()};nest();
+
+/* ---------- mobility routing ---------- */
+const mob=$('#mobSvg');
+const MP={C:[80,240],H:[320,70],V:[500,215],M:[585,135]};
+function drawMob(){mob.innerHTML='';
+  el('rect',{x:220,y:20,width:200,height:100,rx:16,fill:'var(--soft-blue)'},mob);el('text',{x:320,y:112,'text-anchor':'middle','font-size':12,fill:'var(--blue)','font-weight':700},mob,'Home network 128.119/16');
+  el('rect',{x:440,y:100,width:190,height:170,rx:16,fill:'var(--soft-green)'},mob);el('text',{x:535,y:262,'text-anchor':'middle','font-size':12,fill:'var(--green)','font-weight':700},mob,'Visited network 79.129/16');
+  el('rect',{x:20,y:200,width:150,height:80,rx:16,fill:'var(--soft-yellow)'},mob);
+  const lab={C:'Correspondent',H:'Home (HSS / gateway)',V:'Visited gateway',M:'Mobile'};
+  Object.entries(MP).forEach(([k,[x,y]])=>{el('circle',{cx:x,cy:y,r:20,fill:k==='M'?'var(--yellow)':'var(--card)',stroke:'var(--ink)','stroke-width':2.5},mob);el('text',{x,y:y+5,'text-anchor':'middle','font-size':14,'font-weight':800,fill:k==='M'?'#1B2742':'var(--ink)'},mob,k);
+    el('text',{x,y:k==='H'?y-28:y+36,'text-anchor':'middle','font-size':11,fill:'var(--ink)','font-weight':700},mob,lab[k])});
+  return el('g',{id:'mobPaths'},mob)}
+let mobAnim=0;
+function runMob(legs,caps){const pg=drawMob();const my=++mobAnim;
+  const env=el('g',{},mob);el('rect',{x:-13,y:-9,width:26,height:18,rx:3,fill:'var(--card)',stroke:'var(--red)','stroke-width':2.5},env);el('path',{d:'M-13 -8 L0 2 L13 -8',fill:'none',stroke:'var(--red)','stroke-width':2},env);
+  let i=0;
+  function leg(){if(my!==mobAnim)return;if(i>=legs.length){return}
+    const [a,b,color,dash]=legs[i];const [x1,y1]=MP[a],[x2,y2]=MP[b];
+    el('line',{x1,y1,x2,y2,stroke:color,'stroke-width':3.5,'stroke-dasharray':dash?'7 6':'0','marker-end':''},pg);
+    $('#mobText').innerHTML=caps[i];const t0=performance.now(),dur=reduce?10:1100;
+    (function fr(t){if(my!==mobAnim)return;const p=Math.min(1,(t-t0)/dur);const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;env.setAttribute('transform',`translate(${x1+(x2-x1)*e},${y1+(y2-y1)*e})`);
+      if(p<1)requestAnimationFrame(fr);else{i++;setTimeout(leg,reduce?400:700)}})(t0)}
+  leg()}
+const mv={
+ reg:[[['M','V','var(--green)',1],['V','H','var(--green)',1]],["The mobile arrives and tells the visited network: 'I'm here, my home is 128.119/16.'","The visited mobility manager tells the home HSS. Now <b>visited knows the mobile, and home knows where it is</b>. Registration done."]],
+ ind:[[['C','H','var(--blue)'],['H','V','var(--red)'],['V','M','var(--red)'],['M','C','var(--muted)',1]],["The correspondent just writes to the mobile's <b>permanent home address</b>. It has no idea the mobile moved.","The home gateway catches the letter and <b>forwards (tunnels)</b> it to the visited network.","The visited gateway delivers it to the mobile.","The mobile can reply straight to the correspondent. Path C → H → V → M is a <b>triangle</b>: an extra detour, but fully transparent."]],
+ dir:[[['C','H','var(--muted)',1],['H','C','var(--muted)',1],['C','V','var(--blue)'],['V','M','var(--blue)']],["The correspondent first asks home: 'Where is the mobile now?'","Home replies with the <b>care-of address</b> in the visited network.","Now the correspondent writes <b>directly</b> to the visited network. No triangle!","Delivered. The catch: the correspondent had to know about mobility, and another move makes this more complicated."]]};
+$$('[data-mv]').forEach(b=>b.onclick=()=>{$$('[data-mv]').forEach(x=>x.classList.toggle('on',x===b));runMob(...mv[b.dataset.mv])});
+drawMob();
+
+/* ---------- handover ---------- */
+const ho=$('#hoSvg');
+const HP={PGW:[80,40],SGW:[300,40],MME:[510,40],SRC:[180,160],TGT:[420,160],UE:[300,228]};
+const hoSteps=[
+ [[['SRC','TGT']],"The current (source) base station picks a target base station and sends it a <b>Handover Request</b>."],
+ [[['TGT','SRC']],"The target pre-allocates radio time slots and replies with a <b>HR ACK</b>, including info for the mobile."],
+ [[['SRC','UE']],"The source tells the mobile about the new base station. The mobile can now send through it, so to the mobile the handover looks done."],
+ [[['SRC','TGT']],"The source stops sending to the mobile and <b>forwards</b> datagrams to the target, which passes them on over the radio."],
+ [[['TGT','MME'],['MME','SGW']],"The target tells the <b>MME</b> it is the mobile's new base station. The MME tells the <b>S-GW</b> to move the tunnel endpoint."],
+ [[['TGT','SRC']],"The target ACKs the source: handover complete, the source can release its resources."],
+ [[['SGW','TGT'],['TGT','UE']],"The mobile's datagrams now flow through the new tunnel: S-GW → target base station → mobile."]];
+let hs2=0;
+function drawHO(){ho.innerHTML='';
+  const defs=el('defs',{},ho);const mk=el('marker',{id:'arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},defs);el('path',{d:'M0 0 L10 5 L0 10z',fill:'var(--red)'},mk);
+  [['PGW','SGW'],['SGW','SRC'],['SGW','TGT'],['MME','SGW']].forEach(([a,b])=>el('line',{x1:HP[a][0],y1:HP[a][1],x2:HP[b][0],y2:HP[b][1],stroke:'var(--line)','stroke-width':3},ho));
+  const [arrows]=hoSteps[hs2];
+  arrows.forEach(([a,b])=>{const [x1,y1]=HP[a],[x2,y2]=HP[b];const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy),ox=dx/L*28,oy=dy/L*28;const off=(a==='TGT'&&b==='SRC')?10:(a==='SRC'&&b==='TGT')?-10:0;
+    el('line',{x1:x1+ox,y1:y1+oy+off,x2:x2-ox,y2:y2-oy+off,stroke:'var(--red)','stroke-width':4,'marker-end':'url(#arr)'},ho)});
+  const ux=hs2>=2?380:220;
+  const lab={PGW:'P-GW',SGW:'S-GW',MME:'MME',SRC:'source BS',TGT:'target BS'};
+  Object.entries(lab).forEach(([k,t])=>{const [x,y]=HP[k];el('rect',{x:x-46,y:y-20,width:92,height:40,rx:10,fill:'var(--card)',stroke:'var(--ink)','stroke-width':2},ho);el('text',{x,y:y+5,'text-anchor':'middle','font-size':13,'font-weight':800,fill:'var(--ink)'},ho,t)});
+  HP.UE=[ux,228];
+  const g=el('g',{},ho);el('circle',{cx:ux,cy:228,r:20,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':2.5},g);el('text',{x:ux,y:233,'text-anchor':'middle','font-size':12,'font-weight':800,fill:'#1B2742'},g,'UE');
+  el('text',{x:ux+32,y:233,'font-size':11,fill:'var(--muted)'},g,hs2>=2?'→ now near target':'moving right →');
+  $('#hoText').innerHTML=`<b>Step ${hs2+1} of 7.</b> ${hoSteps[hs2][1]}`;
+  [...$('#hoDots').children].forEach((d,i)=>d.classList.toggle('on',i<=hs2));$('#hoPrev').disabled=hs2===0;$('#hoNext').textContent=hs2===6?'Start over':'Next step'}
+hoSteps.forEach(()=>$('#hoDots').appendChild(document.createElement('i')));
+HP.UE=[220,228];
+$('#hoNext').onclick=()=>{hs2=hs2===6?0:hs2+1;HP.UE=[hs2>=2?380:220,228];drawHO()};$('#hoPrev').onclick=()=>{hs2=Math.max(0,hs2-1);HP.UE=[hs2>=2?380:220,228];drawHO()};
+drawHO();
+
+/* ---------- TCP ---------- */
+let cwv=[1,2,3,4,5,6,7,8],drops=new Set();
+function paintCW(){const max=Math.max(16,...cwv);$('#cw').innerHTML=cwv.map((v,i)=>`<i class="${drops.has(i)?'drop':''}" style="height:${v/max*100}%" title="cwnd ${v}"></i>`).join('')}
+$('#cwNext').onclick=()=>{cwv.push(cwv[cwv.length-1]+1);if(cwv.length>40){cwv.shift();drops=new Set([...drops].map(i=>i-1).filter(i=>i>=0))}paintCW();$('#cwText').textContent=`Window is ${cwv[cwv.length-1]} letters. Smooth sailing.`};
+$('#cwDrop').onclick=()=>{const v=Math.max(1,Math.floor(cwv[cwv.length-1]/2));cwv.push(v);drops.add(cwv.length-1);if(cwv.length>40){cwv.shift();drops=new Set([...drops].map(i=>i-1).filter(i=>i>=0))}paintCW();
+  $('#cwText').innerHTML=`One letter was lost to <b>radio bit errors</b>, not traffic. But TCP assumes congestion and <b>halves its window to ${v}</b>, slowing down for no reason.`;pipSay('Poor TCP. It thinks the road is jammed, but it was just static on the radio.')};
+$('#cwReset').onclick=()=>{cwv=[1,2,3,4,5,6,7,8];drops=new Set();paintCW();$('#cwText').textContent='The congestion window grows by one letter each round trip.'};
+paintCW();
+
+/* ---------- quiz ---------- */
+const Q=[
+ ["Why doesn't 802.11 use collision detection?",["Wi-Fi radios are too cheap","A sender's own strong signal drowns out weak incoming ones, and hidden terminals hide collisions","Collisions never happen in Wi-Fi","It uses CDMA instead"],1,"Fading and hidden terminals make collisions hard or impossible to sense, so 802.11 avoids them with CSMA/CA."],
+ ["In CSMA/CA, when does the receiver send its ACK?",["After DIFS","After a random backoff","After SIFS","It doesn't"],2,"The receiver waits the short SIFS, then returns an ACK."],
+ ["In the hidden terminal problem, A and C...",["Both hear each other but not B","Both reach B but cannot hear each other","Use different channels","Are the same device"],1,"They each reach B, so their signals collide at B without either noticing."],
+ ["For a downstream frame from the AP to H1, Address 3 holds...",["H1's MAC","The AP's MAC","Router R1's MAC","The IP of H1"],2,"Address 3 is the router interface the AP is attached to."],
+ ["Using CDMA, a receiver recovers sender 1's bits by...",["Listening on a separate frequency","Multiplying the channel sum by code 1 chip by chip and averaging","Waiting for sender 2 to stop","Subtracting code 2"],1,"Summed inner product with code 1, divided by M. Orthogonal codes cancel the other sender."],
+ ["Which 4G element is the 'home records office' that knows where you are?",["S-GW","MME","HSS","eNode-B"],2,"The Home Subscriber Service lives in your home network."],
+ ["One LTE Physical Resource Block has how many resource elements?",["12","7","84","79"],2,"12 subcarriers × 7 symbols = 84."],
+ ["What's the main downside of indirect routing?",["The correspondent must know the care-of address","Triangle routing inefficiency","TCP connections break","It needs a SIM card"],1,"Everything detours through home, even if both ends are in the same network."],
+ ["Bluetooth hops over how many frequency channels?",["11","24","79","625"],2,"79 channels, in a known pseudo-random order, one hop per 625 µs slot."],
+ ["Why can TCP perform poorly over wireless?",["Wireless doesn't support TCP","It treats bit-error and handover losses as congestion and shrinks its window","TCP needs a fixed IP address","UDP is required"],1,"Logically TCP is fine, but it misreads wireless loss as congestion."]];
+let score=0,answered=0;const qz=$('#quiz');
+Q.forEach(([q,opts,right,why],i)=>{const d=document.createElement('div');d.className='q';d.innerHTML=`<b>${i+1}. ${q}</b><div class="opts"></div><div class="why" hidden></div>`;
+  const o=d.querySelector('.opts');opts.forEach((t,j)=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{if(d.dataset.done)return;d.dataset.done=1;answered++;
+    o.children[right].classList.add('right');if(j!==right)b.classList.add('wrong');else score++;
+    const w=d.querySelector('.why');w.hidden=false;w.textContent=(j===right?'Correct! ':'Not quite. ')+why;
+    $('#quizScore').innerHTML=`<span class="score">${score} / 10</span> answered correctly${answered===10?(score>=8?'. Excellent sorting, head postmaster!':score>=5?'. Good work! Revisit the stops you missed.':'. Ride the route again and try once more.'):''}`;
+    if(j===right&&Math.random()<.5)pipSay(['Spot on!','Stamped and delivered!','Right on the money!'][score%3]);else if(j!==right)pipSay('No worries, read the note under the question.')};o.appendChild(b)});qz.appendChild(d)});
+})();
+</script>
+
+
+</body></html>

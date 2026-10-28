@@ -1,0 +1,1247 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Chapter 8 Security Post</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* Layout: a mail carrier's delivery route. Airmail-striped header, one "stop" per topic, Penny the mail carrier rides along in the corner. */
+:root{
+  --bg:#EDF2F8;          /* pale airmail-paper blue */
+  --paper:#FFFFFF;       /* letter paper */
+  --kraft:#F3E6CC;       /* envelope */
+  --ink:#1D2638;         /* fountain-pen ink */
+  --muted:#5B6578;
+  --line:#CDD6E3;
+  --red:#D33A3A;         /* postal red */
+  --blue:#2459B8;        /* airmail blue */
+  --stamp:#F2B33D;       /* stamp yellow */
+  --good:#23915E;
+  --bad:#C9353B;
+  --trudy:#7A3FB0;       /* Trudy the snoop */
+  --soft-red:#FBE3E1;
+  --soft-blue:#E1EAFA;
+  --soft-good:#DDF3E7;
+  --soft-trudy:#EFE3FA;
+  --shadow:0 2px 0 rgba(29,38,56,.08),0 10px 24px -14px rgba(29,38,56,.35);
+  --display:"Fredoka","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"Courier Prime","Courier New",ui-monospace,monospace;
+  --skin:#F2C29E;
+  --uniform:#2459B8;
+  --uniform-dark:#163C85;
+  --satchel:#9A6434;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111827;--paper:#1B2436;--kraft:#3A3226;--ink:#EEF2FA;--muted:#A3AEC4;--line:#2E3A52;
+    --red:#F0625C;--blue:#7EA6F5;--stamp:#F5C25A;--good:#4CC98C;--bad:#F2686D;--trudy:#BC8CF0;
+    --soft-red:#3B2024;--soft-blue:#1F2D4A;--soft-good:#16362A;--soft-trudy:#2E2242;
+    --shadow:0 2px 0 rgba(0,0,0,.3),0 10px 24px -14px rgba(0,0,0,.7);
+    --uniform:#3D6FD0;--uniform-dark:#244C9C;--satchel:#A7703E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111827;--paper:#1B2436;--kraft:#3A3226;--ink:#EEF2FA;--muted:#A3AEC4;--line:#2E3A52;
+  --red:#F0625C;--blue:#7EA6F5;--stamp:#F5C25A;--good:#4CC98C;--bad:#F2686D;--trudy:#BC8CF0;
+  --soft-red:#3B2024;--soft-blue:#1F2D4A;--soft-good:#16362A;--soft-trudy:#2E2242;
+  --shadow:0 2px 0 rgba(0,0,0,.3),0 10px 24px -14px rgba(0,0,0,.7);
+  --uniform:#3D6FD0;--uniform-dark:#244C9C;--satchel:#A7703E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--stamp);outline-offset:2px;border-radius:6px}
+code,.mono{font-family:var(--mono)}
+
+/* airmail stripe motif */
+.stripe{height:10px;background:repeating-linear-gradient(-45deg,var(--red) 0 18px,var(--paper) 18px 30px,var(--blue) 30px 48px,var(--paper) 48px 60px)}
+
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- hero ---------- */
+.hero{padding-block:40px 28px}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.postmark{display:inline-grid;place-items:center;width:46px;height:46px;border:2.5px solid var(--red);border-radius:50%;font-family:var(--mono);font-size:.62rem;line-height:1.05;text-align:center;transform:rotate(-12deg);color:var(--red)}
+.hero h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:700;margin-block:10px 14px}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero .lede{font-size:1.12rem;color:var(--muted);max-width:56ch}
+.cast{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.cast-chip{display:flex;align-items:center;gap:8px;background:var(--paper);border:1.5px solid var(--line);border-radius:999px;padding:6px 14px 6px 6px;font-weight:700;font-size:.92rem}
+.cast-chip i{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;font-style:normal;font-family:var(--display);color:#fff}
+.hero-letter{position:relative;background:var(--kraft);border-radius:14px;aspect-ratio:1.55;max-width:100%;box-shadow:var(--shadow);overflow:hidden}
+.hero-letter .flap{position:absolute;inset:0 0 auto 0;height:58%;background:linear-gradient(to bottom right,transparent 49.5%,var(--line) 50%,transparent 51%) left/50% 100% no-repeat,linear-gradient(to bottom left,transparent 49.5%,var(--line) 50%,transparent 51%) right/50% 100% no-repeat}
+.hero-letter .seal{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:var(--red);display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:700;font-size:1.4rem;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.hero-letter .stampbox{position:absolute;right:14px;top:14px;width:60px;height:70px;background:var(--stamp);border:3px dashed var(--paper);border-radius:4px;display:grid;place-items:center;font-family:var(--mono);font-size:.7rem;font-weight:700;color:#3a2a05;text-align:center;line-height:1.1}
+.hero-letter .addr{position:absolute;left:18px;bottom:16px;font-family:var(--mono);font-size:.9rem;line-height:1.35;color:var(--ink)}
+
+/* ---------- passport (progress) ---------- */
+.passport{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1.5px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+.passport .wrap{display:flex;align-items:center;gap:14px;padding-block:8px;overflow-x:auto;scrollbar-width:none}
+.passport .wrap::-webkit-scrollbar{display:none}
+.back{display:inline-flex;margin-bottom:14px;font-weight:800;color:var(--blue);text-decoration:none;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 14px;font-size:.9rem}
+.back:hover{border-color:var(--blue)}
+.stop.home{background:var(--blue);border-color:var(--blue);color:#fff}
+footer a{color:var(--blue);font-weight:700}
+.passport-label{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.stops{display:flex;gap:6px}
+.stop{flex:none;display:flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none;font-weight:700;font-size:.82rem;white-space:nowrap}
+.stop .dot{width:18px;height:18px;border-radius:50%;border:2px dashed var(--muted);display:grid;place-items:center;font-size:.65rem;color:#fff}
+.stop.done .dot{background:var(--good);border:2px solid var(--good)}
+.stop.here{border-color:var(--blue);background:var(--soft-blue)}
+
+/* ---------- sections ---------- */
+section.topic{padding-block:46px 10px;scroll-margin-top:64px}
+.topic-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px}
+.stop-no{flex:none;width:58px;height:58px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.5rem;box-shadow:inset 0 -5px 0 rgba(0,0,0,.18);position:relative}
+.stop-no::after{content:"";position:absolute;inset:4px;border:2px dashed rgba(255,255,255,.55);border-radius:8px}
+.topic-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:700}
+.topic-head .kicker{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:700}
+.topic-head p{color:var(--muted);margin-top:6px;max-width:62ch}
+.prose{max-width:66ch;display:grid;gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:20px;min-width:0}
+.card h3{font-size:1.2rem;margin-bottom:8px;font-weight:600}
+.card p+p{margin-top:8px}
+.block{margin-top:22px}
+.lab{background:var(--paper);border:2px solid var(--blue);border-radius:18px;padding:22px;box-shadow:var(--shadow);min-width:0}
+.lab-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;padding:3px 10px;border-radius:6px;margin-bottom:10px}
+.lab h3{font-size:1.3rem;margin-bottom:6px}
+.lab .hint{color:var(--muted);font-size:.95rem;margin-bottom:14px}
+.analogy{display:flex;gap:12px;align-items:flex-start;background:var(--kraft);border-radius:14px;padding:14px 16px;font-size:.98rem}
+.analogy b{font-family:var(--display);font-weight:600}
+.analogy .ico{flex:none;font-size:1.4rem;line-height:1}
+.term{font-weight:800;color:var(--blue)}
+.small{font-size:.9rem;color:var(--muted)}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.02em}
+.pill.good{background:var(--soft-good);color:var(--good)}
+.pill.bad{background:var(--soft-red);color:var(--bad)}
+.pill.trudy{background:var(--soft-trudy);color:var(--trudy)}
+.pill.blue{background:var(--soft-blue);color:var(--blue)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:12px;padding:10px 16px;font-weight:800;background:var(--blue);color:#fff;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2);transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:var(--bg);color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+.btn.red{background:var(--red)}
+.btn.trudy{background:var(--trudy)}
+.btn.good{background:var(--good)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+input[type=text],input[type=number],select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;width:100%;min-width:0}
+textarea{resize:vertical;font-family:var(--mono)}
+label.fld{display:grid;gap:4px;font-weight:700;font-size:.9rem}
+
+.stamp-btn{margin-top:22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 18px;border:2px dashed var(--line);border-radius:14px}
+.stamp-btn .btn{background:var(--good)}
+.stamp-btn.done{border-color:var(--good);background:var(--soft-good)}
+
+/* ---------- section 1 ---------- */
+.prop{display:grid;gap:8px;text-align:left}
+.prop .stampicon{width:54px;height:62px;border-radius:4px;display:grid;place-items:center;font-size:1.6rem;background:var(--stamp);outline:3px dashed var(--paper);outline-offset:-6px}
+.attack-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.attack-list button{border:1.5px solid var(--trudy);background:var(--soft-trudy);color:var(--trudy);border-radius:999px;padding:6px 14px;font-weight:800}
+.attack-list button[aria-pressed=true]{background:var(--trudy);color:#fff}
+.route{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:18px 6px}
+.person{display:grid;justify-items:center;gap:4px;font-weight:800;font-size:.9rem}
+.person .face{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.5rem;color:#fff}
+.alice .face{background:var(--red)}.bob .face{background:var(--blue)}.trudy .face{background:var(--trudy)}
+.road{position:relative;height:90px}
+.road::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:3px dashed var(--line)}
+.road .trudy{position:absolute;left:50%;top:-6px;transform:translateX(-50%);opacity:.35;transition:opacity .3s}
+.road .trudy.on{opacity:1}
+.road .trudy .face{width:42px;height:42px;font-size:1.1rem}
+.env{position:absolute;top:50%;left:0;transform:translate(0,-50%);width:44px;height:30px;border-radius:4px;background:var(--kraft);border:2px solid var(--ink);display:grid;place-items:center;font-size:.7rem;font-weight:800;transition:left 1.1s ease-in-out,background .3s}
+.env::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom right,transparent 48%,var(--ink) 49%,transparent 52%) left/50% 60% no-repeat,linear-gradient(to bottom left,transparent 48%,var(--ink) 49%,transparent 52%) right/50% 60% no-repeat;opacity:.5}
+.attack-out{min-height:3.2em;background:var(--soft-trudy);border-radius:12px;padding:12px 14px}
+
+/* ---------- cipher lab ---------- */
+.cipher-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:12px}
+.letter-paper{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;background-image:repeating-linear-gradient(transparent 0 27px,var(--line) 27px 28px);font-family:var(--mono);min-height:84px;overflow-wrap:anywhere}
+.envelope-box{background:var(--kraft);border-radius:10px;padding:12px 14px;font-family:var(--mono);min-height:84px;overflow-wrap:anywhere;font-weight:700}
+.keytable{overflow-x:auto;margin-top:12px}
+.keytable table{border-collapse:collapse;font-family:var(--mono);font-size:.9rem}
+.keytable td{border:1px solid var(--line);padding:2px 6px;text-align:center}
+.keytable tr:first-child td{color:var(--muted)}
+.keytable tr:last-child td{color:var(--red);font-weight:700}
+
+/* RSA */
+.rsa-steps{display:grid;gap:8px;font-family:var(--mono);font-size:.95rem;background:var(--bg);border-radius:12px;padding:14px;overflow-x:auto}
+.rsa-steps b{color:var(--blue)}
+.rsa-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.rsa-out div{background:var(--bg);border-radius:12px;padding:10px 12px;text-align:center}
+.rsa-out .num{font-family:var(--display);font-size:1.8rem;font-weight:700}
+.rsa-out .lbl{font-size:.8rem;color:var(--muted);font-weight:700}
+
+/* padlock visual */
+.padlocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.keyviz{display:flex;align-items:center;gap:12px}
+.keyviz .k{flex:none;width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:1.5rem}
+.k.pub{background:var(--soft-blue)}.k.priv{background:var(--soft-red)}.k.sym{background:var(--soft-good)}
+
+/* ---------- auth stepper ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tabs button{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:6px 12px;font-weight:800;font-family:var(--mono);font-size:.88rem}
+.tabs button[aria-selected=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+.seq{display:grid;gap:8px;margin-block:12px}
+.msg{display:grid;grid-template-columns:80px 1fr 80px;align-items:center;gap:8px;font-size:.92rem}
+.msg .who{font-weight:800;text-align:center;font-size:.85rem}
+.msg .arrow{position:relative;text-align:center;padding:6px 10px;border-radius:10px;background:var(--soft-blue);font-family:var(--mono);font-size:.86rem;overflow-wrap:anywhere}
+.msg .arrow.r::after{content:"→";position:absolute;right:-16px;top:50%;transform:translateY(-50%);font-family:var(--body);color:var(--blue);font-weight:800}
+.msg .arrow.l::before{content:"←";position:absolute;left:-16px;top:50%;transform:translateY(-50%);font-family:var(--body);color:var(--blue);font-weight:800}
+.msg.evil .arrow{background:var(--soft-trudy)}
+.msg.evil .who{color:var(--trudy)}
+.verdict{border-radius:12px;padding:12px 14px;margin-top:8px}
+.verdict.bad{background:var(--soft-red)}
+.verdict.good{background:var(--soft-good)}
+
+/* ---------- hash / seal ---------- */
+.seal-lab{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+.waxseal{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:700;text-align:center;font-size:.85rem;line-height:1.1;transition:background .3s,transform .3s;box-shadow:inset 0 -6px 0 rgba(0,0,0,.18)}
+.waxseal.ok{background:var(--good)}
+.waxseal.broken{background:var(--bad);transform:rotate(-8deg)}
+.fp{font-family:var(--mono);font-size:.82rem;background:var(--bg);border-radius:8px;padding:6px 10px;overflow-wrap:anywhere}
+.iou{overflow-x:auto}
+.iou table{border-collapse:collapse;font-family:var(--mono);font-size:.88rem}
+.iou th,.iou td{padding:4px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.iou .hl{color:var(--red);font-weight:700}
+
+/* ---------- email builder ---------- */
+.mailbuild{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+.steps-list{display:grid;gap:8px;counter-reset:s}
+.steps-list li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:10px;opacity:.45;transition:opacity .25s,background .25s}
+.steps-list li.on{opacity:1;background:var(--soft-blue)}
+.steps-list li.past{opacity:1}
+.steps-list li::before{counter-increment:s;content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:.78rem;font-weight:800}
+.steps-list{padding:0;margin:0}
+.parcel{position:relative;min-height:240px;display:grid;place-items:center;background:var(--bg);border-radius:14px;padding:16px}
+.layer{border-radius:12px;padding:10px 12px 12px;display:grid;gap:8px;justify-items:center;text-align:center;font-weight:800;font-size:.85rem;transition:all .35s}
+.layer .cap{font-family:var(--mono);font-size:.78rem}
+.layer.m{background:var(--paper);border:2px solid var(--line)}
+.layer.sig{background:var(--soft-red);border:2px solid var(--red);color:var(--red)}
+.layer.ks{background:var(--soft-good);border:2px solid var(--good);color:var(--good)}
+.layer.kb{background:var(--soft-blue);border:2px solid var(--blue);color:var(--blue)}
+.parcel-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.pop{animation:pop .35s ease}
+@keyframes pop{from{transform:scale(.85);opacity:.3}to{transform:scale(1);opacity:1}}
+.who-switch{display:flex;gap:6px;margin-bottom:12px}
+
+/* ---------- TLS ---------- */
+.records{display:flex;flex-wrap:wrap;gap:8px;margin-block:12px;min-height:76px}
+.rec{min-width:84px;flex:none;border-radius:10px;border:2px solid var(--blue);background:var(--soft-blue);padding:6px 10px;font-family:var(--mono);font-size:.8rem;line-height:1.35;transition:all .3s}
+.rec b{display:block;font-family:var(--display);font-size:.95rem}
+.rec.flag{border-color:var(--bad);background:var(--soft-red)}
+.rec.close{border-color:var(--good);background:var(--soft-good)}
+.keys4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.keys4 div{background:var(--bg);border-radius:12px;padding:10px;text-align:center}
+.keys4 b{font-family:var(--mono);font-size:1.15rem;display:block;color:var(--blue)}
+.rtt{display:grid;gap:10px}
+.rtt-row{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center}
+.rtt-bar{display:flex;gap:4px;flex-wrap:wrap}
+.rtt-bar span{padding:4px 10px;border-radius:8px;font-size:.8rem;font-weight:800;background:var(--soft-blue);color:var(--blue)}
+.rtt-bar span.data{background:var(--soft-good);color:var(--good)}
+
+/* ---------- IPsec ---------- */
+.dgram-wrap{overflow-x:auto;padding-bottom:6px}
+.dgram{display:flex;min-width:620px;font-weight:800;font-size:.82rem;text-align:center}
+.dgram div{padding:14px 6px;border:2px solid var(--ink);margin-left:-2px;display:grid;place-items:center;line-height:1.2}
+.dgram .nh{background:var(--soft-blue)}
+.dgram .eh{background:var(--stamp);color:#3a2a05}
+.dgram .oh{background:var(--paper)}
+.dgram .pl{background:var(--paper);flex:2}
+.dgram .et{background:var(--stamp);color:#3a2a05}
+.dgram .ea{background:var(--soft-red)}
+.dgram.enc .oh,.dgram.enc .pl,.dgram.enc .et{background-image:repeating-linear-gradient(45deg,transparent 0 8px,rgba(36,89,184,.18) 8px 10px)}
+.brackets{min-width:620px;display:grid;gap:4px;margin-top:6px;font-size:.78rem;font-weight:800}
+.br{border:2px solid;border-top:none;height:12px;border-radius:0 0 6px 6px}
+.br.enc{border-color:var(--blue);color:var(--blue)}
+.br.auth{border-color:var(--red);color:var(--red)}
+.flip{perspective:800px}
+.flip-in{position:relative;min-height:148px;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:14px;display:grid;align-content:center;gap:6px}
+.flip-front{background:var(--soft-trudy);border:1.5px solid var(--trudy)}
+.flip-back{background:var(--soft-good);border:1.5px solid var(--good);transform:rotateY(180deg)}
+.flip button{all:unset;cursor:pointer;display:block;width:100%}
+.flip button:focus-visible .flip-in{outline:3px solid var(--stamp);border-radius:14px}
+
+/* ---------- wireless ---------- */
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.phase{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;text-align:left;color:var(--ink)}
+.phase .n{font-family:var(--display);font-weight:700;color:var(--blue);font-size:1.6rem}
+.phase[aria-pressed=true]{border-color:var(--blue);background:var(--soft-blue)}
+.phase-detail{margin-top:12px;background:var(--bg);border-radius:12px;padding:14px 16px}
+.cmp{overflow-x:auto}
+.cmp table{width:100%;border-collapse:collapse;min-width:520px}
+.cmp th,.cmp td{text-align:left;padding:10px 12px;border-bottom:1.5px solid var(--line);vertical-align:top}
+.cmp th{font-family:var(--display);font-weight:600}
+
+/* ---------- firewall game ---------- */
+.acl{overflow-x:auto}
+.acl table{border-collapse:collapse;font-family:var(--mono);font-size:.82rem;min-width:640px;width:100%}
+.acl th,.acl td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.acl tr.hit td{background:var(--soft-blue)}
+.acl .allow{color:var(--good);font-weight:700}
+.acl .deny{color:var(--bad);font-weight:700}
+.gate{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;margin-top:16px}
+.pkt{background:var(--kraft);border-radius:12px;padding:14px 16px;font-family:var(--mono);font-size:.9rem;display:grid;gap:4px;position:relative}
+.pkt .tagline{font-family:var(--body);font-weight:800;font-size:.8rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.score{font-family:var(--display);font-size:1.1rem;font-weight:600}
+.fw-result{margin-top:12px;border-radius:12px;padding:12px 14px;display:none}
+.fw-result.show{display:block}
+.fw-result.good{background:var(--soft-good)}
+.fw-result.bad{background:var(--soft-red)}
+
+/* ---------- quiz ---------- */
+.q{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:18px}
+.q h4{font-size:1.08rem;font-weight:600;margin-bottom:10px}
+.q .opts{display:grid;gap:8px}
+.q .opts button{text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:9px 12px;font-weight:600}
+.q .opts button.right{border-color:var(--good);background:var(--soft-good)}
+.q .opts button.wrong{border-color:var(--bad);background:var(--soft-red)}
+.q .why{margin-top:10px;font-size:.92rem;color:var(--muted);display:none}
+.q.answered .why{display:block}
+.quiz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.quiz-score{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:18px;background:var(--kraft);border-radius:14px;padding:16px 18px}
+.quiz-score .big{font-family:var(--display);font-size:2.2rem;font-weight:700}
+
+footer{padding-block:40px 140px;color:var(--muted);font-size:.9rem}
+
+/* ---------- Penny the mail carrier ---------- */
+.penny{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:flex-end;gap:6px;pointer-events:none}
+.bubble{pointer-events:auto;position:relative;max-width:300px;background:var(--paper);border:2px solid var(--ink);border-radius:16px;padding:12px 14px 10px;font-size:.92rem;box-shadow:var(--shadow);margin-bottom:62px;transition:opacity .25s,transform .25s}
+.bubble.hide{opacity:0;transform:translateY(8px);pointer-events:none}
+.bubble::after{content:"";position:absolute;right:-11px;bottom:22px;width:18px;height:18px;background:var(--paper);border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(-45deg)}
+.bubble .name{font-family:var(--display);font-weight:700;color:var(--red);font-size:.85rem}
+.bubble .acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.bubble .acts button{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:800}
+.penny-btn{pointer-events:auto;border:none;background:none;padding:0;width:104px;height:140px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.18))}
+.penny-btn svg{width:100%;height:100%;overflow:visible}
+#pennyArm{transform-origin:84px 80px;transition:transform .2s}
+.penny-btn.wave #pennyArm{animation:wave .9s ease-in-out}
+@keyframes wave{0%,100%{transform:rotate(0)}25%{transform:rotate(-38deg)}50%{transform:rotate(-12deg)}75%{transform:rotate(-38deg)}}
+.penny-btn.hop svg{animation:hop .5s ease}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-14px)}}
+.penny-btn.sad svg{animation:shake .45s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#pennyLetter{transition:transform .3s}
+.penny-btn:hover #pennyLetter{transform:translateY(-6px)}
+
+@media (max-width:860px){
+  .hero-grid,.seal-lab,.mailbuild{grid-template-columns:1fr}
+  .grid3,.grid4,.phases{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .keys4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-letter{max-width:420px}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .grid2,.grid3,.grid4,.cipher-pair,.padlocks,.quiz-grid,.phases{grid-template-columns:1fr}
+  .rsa-out{grid-template-columns:1fr 1fr 1fr}
+  .rsa-out .num{font-size:1.35rem}
+  .gate{grid-template-columns:1fr}
+  .msg{grid-template-columns:58px 1fr 58px;font-size:.85rem}
+  .penny-btn{width:74px;height:100px}
+  .bubble{max-width:calc(100vw - 110px);margin-bottom:44px;font-size:.86rem}
+  .topic-head{gap:12px}
+  .stop-no{width:46px;height:46px;font-size:1.2rem}
+}
+</style>
+
+<div class="stripe" aria-hidden="true"></div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <a class="back" href="../index.html">← Back to all chapters</a>
+      <span class="eyebrow"><span class="postmark" aria-hidden="true">CH<br>8</span> Computer Networking · Chapter 8</span>
+      <h1>How to send a letter that <em>nobody else</em> can read, fake, or change</h1>
+      <p class="lede">Chapter 8 is all about network security. We'll follow Penny the mail carrier along a 9-stop delivery route, from secret codes to firewalls. Every idea maps to something you already know about mail: sealed envelopes, wax seals, padlocked boxes, ID cards and the guard at the post office door.</p>
+      <div class="cast">
+        <span class="cast-chip"><i style="background:var(--red)">A</i>Alice, the sender</span>
+        <span class="cast-chip"><i style="background:var(--blue)">B</i>Bob, the receiver</span>
+        <span class="cast-chip"><i style="background:var(--trudy)">T</i>Trudy, the snoop</span>
+        <span class="cast-chip"><i style="background:var(--stamp);color:#3a2a05">M</i>Penny, your guide</span>
+      </div>
+    </div>
+    <div class="hero-letter" aria-hidden="true">
+      <div class="flap"></div>
+      <div class="stampbox">AIR<br>MAIL<br>8¢</div>
+      <div class="seal">K<sub style="font-size:.6em">B</sub></div>
+      <div class="addr">To: Bob<br>From: Alice<br><span style="color:var(--red)">SEALED · SIGNED · CERTIFIED</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="passport" aria-label="Delivery route">
+  <div class="wrap">
+    <a class="stop home" href="../index.html">← All chapters</a>
+    <span class="passport-label">Your route</span>
+    <div class="stops" id="stops"></div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= STOP 1 ================= -->
+<section class="topic" id="security" data-stop="1" data-name="Basics">
+  <div class="topic-head">
+    <div class="stop-no">1</div>
+    <div>
+      <span class="kicker">Stop 1 · Slides 4–7</span>
+      <h2>What is network security?</h2>
+      <p>Alice wants to mail Bob a letter. Trudy (the intruder) sits somewhere along the route and can read, delete, or slip in letters. Security means four promises.</p>
+    </div>
+  </div>
+
+  <div class="grid4">
+    <div class="card prop"><div class="stampicon" aria-hidden="true">✉️</div><h3>Confidentiality</h3><p>Only Alice and Bob can understand the letter. Alice <b>encrypts</b>, Bob <b>decrypts</b>.</p><p class="small">Mail version: a sealed, opaque envelope.</p></div>
+    <div class="card prop"><div class="stampicon" aria-hidden="true">🪪</div><h3>Authentication</h3><p>Alice and Bob can each confirm who the other really is.</p><p class="small">Mail version: checking the sender's ID card.</p></div>
+    <div class="card prop"><div class="stampicon" aria-hidden="true">🔴</div><h3>Message integrity</h3><p>Nobody changed the letter on the way (or afterwards) without it being noticed.</p><p class="small">Mail version: an unbroken wax seal.</p></div>
+    <div class="card prop"><div class="stampicon" aria-hidden="true">🏤</div><h3>Access &amp; availability</h3><p>The service stays open and usable for real users.</p><p class="small">Mail version: the post office isn't jammed with junk.</p></div>
+  </div>
+
+  <div class="lab block">
+    <span class="lab-tag">Try it</span>
+    <h3>What can Trudy do to the mail?</h3>
+    <p class="hint">Pick one of Trudy's tricks and watch the letter travel from Alice to Bob.</p>
+    <div class="attack-list" id="attackList"></div>
+    <div class="route">
+      <div class="person alice"><div class="face">A</div>Alice</div>
+      <div class="road"><div class="person trudy" id="trudyOnRoad"><div class="face">T</div>Trudy</div><div class="env" id="routeEnv">m</div></div>
+      <div class="person bob"><div class="face">B</div>Bob</div>
+    </div>
+    <div class="attack-out" id="attackOut">Choose a trick above to see what happens.</div>
+  </div>
+
+  <p class="small block">Who are Alice and Bob in real life? A web browser and an online shop, an online banking app and its server, two DNS servers, or two BGP routers swapping routing updates.</p>
+</section>
+
+<!-- ================= STOP 2 ================= -->
+<section class="topic" id="crypto" data-stop="2" data-name="Cryptography">
+  <div class="topic-head">
+    <div class="stop-no">2</div>
+    <div>
+      <span class="kicker">Stop 2 · Slides 9–28</span>
+      <h2>Cryptography: the secret code room</h2>
+      <p>Alice turns her <span class="term">plaintext</span> m into <span class="term">ciphertext</span> K<sub>A</sub>(m) with a key. Bob uses his key to get it back: m = K<sub>B</sub>(K<sub>A</sub>(m)).</p>
+    </div>
+  </div>
+
+  <div class="analogy"><span class="ico" aria-hidden="true">🔐</span><p><b>Mail picture:</b> the algorithm is the lockbox design that everyone knows. The <b>key</b> is the only secret. Security comes from the key, not from hiding how the lock works.</p></div>
+
+  <div class="lab block">
+    <span class="lab-tag">Try it</span>
+    <h3>Write a secret letter (substitution cipher)</h3>
+    <p class="hint">A monoalphabetic cipher swaps each letter for another. This is the exact key from the slides. Alice and Bob share it, so it is a <b>symmetric</b> key.</p>
+    <label class="fld" for="plainIn">Alice's letter
+      <input type="text" id="plainIn" value="bob. i love you. alice" autocomplete="off">
+    </label>
+    <div class="cipher-pair">
+      <div><div class="small" style="font-weight:800">What Trudy sees in the envelope</div><div class="envelope-box" id="cipherOut"></div></div>
+      <div><div class="small" style="font-weight:800">What Bob reads after decrypting</div><div class="letter-paper" id="decOut"></div></div>
+    </div>
+    <div class="keytable"><table id="keyTable" aria-label="Substitution key"></table></div>
+    <p class="small" style="margin-top:10px">How would Trudy break it? <b>Brute force</b> means trying all 26! ≈ 4×10<sup>26</sup> keys. <b>Statistical analysis</b> is smarter: "e" and "t" are the most common letters, so she looks for the most common cipher letters. If she knows some plaintext (a <b>known-plaintext attack</b>, like knowing the letter is signed "alice"), she learns the pairs for a, l, i, c, e right away. In a <b>chosen-plaintext attack</b> she gets Alice to encrypt text Trudy picked.</p>
+  </div>
+
+  <div class="grid2 block">
+    <div class="card">
+      <h3>A stronger version: n ciphers in rotation</h3>
+      <p>Use n substitution ciphers M<sub>1</sub>…M<sub>n</sub> in a cycle, for example M1, M3, M4, M3, M2, repeat. "dog" uses M1 for d, M3 for o, M4 for g. Now the key is the n ciphers plus the cycle pattern.</p>
+    </div>
+    <div class="card">
+      <h3>Real symmetric standards</h3>
+      <p><b>DES</b>: 56-bit key, 64-bit blocks, cipher block chaining. A 56-bit key was brute-forced in under a day. <b>3DES</b> encrypts 3 times with 3 keys.</p>
+      <p><b>AES</b> (replaced DES in 2001): 128-bit blocks, 128/192/256-bit keys. If brute-forcing DES took 1 second, AES would take <b>149 trillion years</b>.</p>
+    </div>
+  </div>
+
+  <h3 class="block" style="font-size:1.4rem">Public key cryptography: the padlock trick</h3>
+  <p class="prose" style="margin-top:8px">Symmetric keys have a problem: how do Alice and Bob agree on a key if they've never met? Public key crypto fixed this, and it changed a 2,000-year-old field.</p>
+  <div class="padlocks block">
+    <div class="card keyviz"><div class="k pub" aria-hidden="true">🔓</div><div><b>Bob's public key K<sub>B</sub><sup>+</sup></b><p class="small">Like an open padlock Bob hands out to everyone. Anyone can snap it shut on a box addressed to Bob.</p></div></div>
+    <div class="card keyviz"><div class="k priv" aria-hidden="true">🗝️</div><div><b>Bob's private key K<sub>B</sub><sup>−</sup></b><p class="small">The only key that opens Bob's padlock. Bob never shares it. K<sub>B</sub><sup>−</sup>(K<sub>B</sub><sup>+</sup>(m)) = m.</p></div></div>
+  </div>
+  <p class="small" style="margin-top:10px">Requirement: given the public key K<sub>B</sub><sup>+</sup>, it must be impossible to work out the private key K<sub>B</sub><sup>−</sup>. The famous algorithm that does this is <b>RSA</b> (Rivest, Shamir, Adleman).</p>
+
+  <div class="lab block">
+    <span class="lab-tag">Try it</span>
+    <h3>RSA calculator</h3>
+    <p class="hint">RSA works with remainders (x mod n). Pick two primes and a message number, then watch Bob's keys get made and the message get locked and unlocked.</p>
+    <div class="row" style="align-items:end">
+      <label class="fld" for="rsaPrimes" style="flex:1 1 220px">Bob's two primes p, q
+        <select id="rsaPrimes">
+          <option value="5,7" selected>p = 5, q = 7 (the slide example)</option>
+          <option value="11,13">p = 11, q = 13</option>
+          <option value="17,19">p = 17, q = 19</option>
+          <option value="23,29">p = 23, q = 29</option>
+        </select>
+      </label>
+      <label class="fld" for="rsaM" style="flex:1 1 160px">Message m (a number below n)
+        <input type="number" id="rsaM" value="12" min="0">
+      </label>
+    </div>
+    <div class="rsa-steps block" id="rsaSteps"></div>
+    <div class="rsa-out">
+      <div><div class="lbl">Alice's message m</div><div class="num" id="rsaMOut">12</div></div>
+      <div><div class="lbl">Locked: c = mᵉ mod n</div><div class="num" style="color:var(--red)" id="rsaCOut">17</div></div>
+      <div><div class="lbl">Bob unlocks: cᵈ mod n</div><div class="num" style="color:var(--good)" id="rsaDOut">12</div></div>
+    </div>
+    <p class="small" style="margin-top:10px">Why is it safe? To find d from the public (n, e), Trudy must factor n into p and q. That's easy for 35 but practically impossible for numbers with 1024-bit primes. Bonus property used later for signatures: K<sub>B</sub><sup>−</sup>(K<sub>B</sub><sup>+</sup>(m)) = m = K<sub>B</sub><sup>+</sup>(K<sub>B</sub><sup>−</sup>(m)). Either order works.</p>
+  </div>
+
+  <div class="analogy block"><span class="ico" aria-hidden="true">📦</span><p><b>Session keys:</b> RSA is slow (DES is at least 100× faster). So in practice Alice uses RSA once to mail Bob a fresh symmetric <b>session key K<sub>S</sub></b> in a padlocked box. After that, they both use K<sub>S</sub> for the actual letters.</p></div>
+</section>
+
+<!-- ================= STOP 3 ================= -->
+<section class="topic" id="auth" data-stop="3" data-name="Authentication">
+  <div class="topic-head">
+    <div class="stop-no">3</div>
+    <div>
+      <span class="kicker">Stop 3 · Slides 30–40</span>
+      <h2>Authentication: proving who sent the letter</h2>
+      <p>Bob can't see Alice through the network. Each protocol below is a smarter attempt, and Trudy breaks each one until we add nonces and certificates.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <span class="lab-tag">Try it</span>
+    <h3>Build a better ID check, one version at a time</h3>
+    <p class="hint">Pick a protocol, then press "Send Trudy in" to see how she beats it.</p>
+    <div class="tabs" role="tablist" id="apTabs"></div>
+    <div id="apBody"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn trudy" id="apAttack" type="button">Send Trudy in</button>
+      <button class="btn ghost" id="apNext" type="button">Next version →</button>
+    </div>
+  </div>
+
+  <div class="analogy block"><span class="ico" aria-hidden="true">🎲</span><p><b>Nonce</b> = a number used only once in a lifetime. It's like Bob writing a random code on a card and saying "send this back sealed with our secret". An old recorded letter can't contain today's code, so playback fails.</p></div>
+</section>
+
+<!-- ================= STOP 4 ================= -->
+<section class="topic" id="integrity" data-stop="4" data-name="Signatures">
+  <div class="topic-head">
+    <div class="stop-no">4</div>
+    <div>
+      <span class="kicker">Stop 4 · Slides 42–51</span>
+      <h2>Message integrity, digital signatures &amp; certificates</h2>
+      <p>A digital signature is a wax seal pressed with a signet ring only Bob owns (his private key). Anyone can check the seal with his public key, and nobody can forge it.</p>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card"><h3>1 · Fingerprint (hash)</h3><p>A hash function H turns any letter into a short, fixed-size <b>message digest</b> H(m). Many-to-one, and you can't build a letter to match a given digest.</p></div>
+    <div class="card"><h3>2 · Seal (sign)</h3><p>Signing a whole long letter with a private key is slow, so Bob signs just the fingerprint: K<sub>B</sub><sup>−</sup>(H(m)).</p></div>
+    <div class="card"><h3>3 · Check the seal</h3><p>Alice opens the seal with Bob's public key K<sub>B</sub><sup>+</sup>, hashes the letter herself, and compares. Match means it's from Bob and unchanged.</p></div>
+  </div>
+
+  <div class="lab block">
+    <span class="lab-tag">Try it</span>
+    <h3>Seal a letter, then let Trudy tamper with it</h3>
+    <p class="hint">Bob seals the original. Edit the "delivered" letter (or press the Trudy button) and watch the seal check.</p>
+    <div class="seal-lab">
+      <div style="display:grid;gap:10px;min-width:0">
+        <label class="fld" for="sigOrig">Bob's original letter (sealed)
+          <textarea id="sigOrig" rows="2">Meet me at the post office at 5pm. Bob</textarea>
+        </label>
+        <label class="fld" for="sigRecv">Letter as delivered to Alice
+          <textarea id="sigRecv" rows="2">Meet me at the post office at 5pm. Bob</textarea>
+        </label>
+        <div class="row"><button class="btn trudy" id="tamperBtn" type="button">Let Trudy change one word</button><button class="btn ghost" id="restoreBtn" type="button">Restore</button></div>
+      </div>
+      <div style="display:grid;gap:10px;justify-items:start;min-width:0">
+        <div class="waxseal ok" id="waxSeal">SEAL<br>OK</div>
+        <div style="width:100%"><div class="small" style="font-weight:800">Fingerprint inside Bob's seal</div><div class="fp" id="fpOrig">…</div></div>
+        <div style="width:100%"><div class="small" style="font-weight:800">Fingerprint Alice computes</div><div class="fp" id="fpRecv">…</div></div>
+        <p class="small" id="sealMsg"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card block">
+    <h3>Why the Internet checksum is a bad fingerprint</h3>
+    <p>The checksum is fixed-size and many-to-one, but it's easy to find a different letter with the same checksum. Watch "IOU1 00.9 9BOB" become "IOU9 00.1 9BOB" with the same sum:</p>
+    <div class="iou" style="margin-top:10px"><table>
+      <tr><th>Message</th><th>ASCII bytes</th><th>Message</th><th>ASCII bytes</th></tr>
+      <tr><td>I O U <span class="hl">1</span></td><td>49 4F 55 <span class="hl">31</span></td><td>I O U <span class="hl">9</span></td><td>49 4F 55 <span class="hl">39</span></td></tr>
+      <tr><td>0 0 . <span class="hl">9</span></td><td>30 30 2E <span class="hl">39</span></td><td>0 0 . <span class="hl">1</span></td><td>30 30 2E <span class="hl">31</span></td></tr>
+      <tr><td>9 B O B</td><td>39 42 4F 42</td><td>9 B O B</td><td>39 42 4F 42</td></tr>
+      <tr><td><b>checksum</b></td><td><b>B2 C1 D2 AC</b></td><td><b>checksum</b></td><td><b>B2 C1 D2 AC</b></td></tr>
+    </table></div>
+    <p class="small" style="margin-top:8px">Different letters (an IOU for $100.99 vs $900.19), same checksum. Real hash functions: <b>MD5</b> (128-bit digest, RFC 1321) and <b>SHA-1</b> (160-bit digest, US standard).</p>
+  </div>
+
+  <div class="grid2 block">
+    <div class="card" style="border-color:var(--trudy)">
+      <h3>🍕 The pizza prank</h3>
+      <p>Trudy writes "Please deliver four pepperoni pizzas. Thank you, Bob", signs it with <i>her</i> private key, and sends the pizza store <i>her</i> public key claiming it's Bob's. The signature checks out, and Bob gets pizzas he never ordered.</p>
+      <p class="small">The problem: nobody proved that public key belongs to Bob.</p>
+    </div>
+    <div class="card" style="border-color:var(--good)">
+      <h3>🏛️ Certification Authority (CA)</h3>
+      <p>A CA is like the official post office that stamps your ID. Bob proves who he is to the CA, and the CA issues a <b>certificate</b>: "this public key belongs to Bob", signed with the CA's private key.</p>
+      <p class="small">To get Bob's key, Alice gets his certificate and checks it with the CA's public key. This also fixes the man-in-the-middle attack on ap5.0.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STOP 5 ================= -->
+<section class="topic" id="email" data-stop="5" data-name="Secure e-mail">
+  <div class="topic-head">
+    <div class="stop-no">5</div>
+    <div>
+      <span class="kicker">Stop 5 · Slides 53–56</span>
+      <h2>Securing e-mail: packing the perfect envelope</h2>
+      <p>For confidentiality, integrity and authentication all at once, Alice uses <b>three keys</b>: her private key, Bob's public key, and a brand-new symmetric key K<sub>S</sub>.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <span class="lab-tag">Try it</span>
+    <h3>Pack Alice's letter, then unpack it as Bob</h3>
+    <p class="hint">Step through and watch the parcel get wrapped layer by layer.</p>
+    <div class="who-switch" role="tablist">
+      <button class="btn" id="mailAlice" type="button" aria-selected="true">Alice packs</button>
+      <button class="btn ghost" id="mailBob" type="button" aria-selected="false">Bob unpacks</button>
+    </div>
+    <div class="mailbuild">
+      <ol class="steps-list" id="mailSteps"></ol>
+      <div class="parcel" id="parcel" aria-live="polite"></div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn ghost" id="mailPrev" type="button">← Back</button>
+      <button class="btn" id="mailNext" type="button">Next step →</button>
+    </div>
+  </div>
+  <div class="grid3 block">
+    <div class="card"><span class="pill good">K<sub>S</sub></span><h3 style="margin-top:8px">Symmetric session key</h3><p class="small">Encrypts the big letter fast. Gives <b>confidentiality</b>.</p></div>
+    <div class="card"><span class="pill blue">K<sub>B</sub><sup>+</sup></span><h3 style="margin-top:8px">Bob's public key</h3><p class="small">Padlocks K<sub>S</sub> so only Bob can get it.</p></div>
+    <div class="card"><span class="pill bad">K<sub>A</sub><sup>−</sup></span><h3 style="margin-top:8px">Alice's private key</h3><p class="small">Signs H(m). Gives <b>integrity + authentication</b>.</p></div>
+  </div>
+</section>
+
+<!-- ================= STOP 6 ================= -->
+<section class="topic" id="tls" data-stop="6" data-name="TLS">
+  <div class="topic-head">
+    <div class="stop-no">6</div>
+    <div>
+      <span class="kicker">Stop 6 · Slides 58–69</span>
+      <h2>TLS: registered mail for every web page</h2>
+      <p>TLS sits just above TCP and is used by almost every browser and web server (https, port 443). It gives confidentiality (symmetric encryption), integrity (hashing) and authentication (public keys).</p>
+    </div>
+  </div>
+
+  <div class="grid4">
+    <div class="card"><h3>🤝 Handshake</h3><p class="small">Alice and Bob use certificates and private keys to check each other and create a shared secret.</p></div>
+    <div class="card"><h3>🔑 Key derivation</h3><p class="small">The shared master secret (MS) is stretched into a set of keys.</p></div>
+    <div class="card"><h3>📨 Data transfer</h3><p class="small">Data travels as a series of numbered <b>records</b>, not one big blob.</p></div>
+    <div class="card"><h3>🔚 Closure</h3><p class="small">Special messages close the connection safely.</p></div>
+  </div>
+
+  <div class="card block">
+    <h3>Why four keys?</h3>
+    <p class="small">Using one key for two jobs is considered bad. So each direction gets its own encryption key and its own MAC key, all made from the master secret.</p>
+    <div class="keys4" style="margin-top:12px">
+      <div><b>K<sub>c</sub></b><span class="small">encrypt client → server</span></div>
+      <div><b>M<sub>c</sub></b><span class="small">MAC client → server</span></div>
+      <div><b>K<sub>s</sub></b><span class="small">encrypt server → client</span></div>
+      <div><b>M<sub>s</sub></b><span class="small">MAC server → client</span></div>
+    </div>
+  </div>
+
+  <div class="lab block">
+    <span class="lab-tag">Try it</span>
+    <h3>Numbered pages: how TLS records stop Trudy</h3>
+    <p class="hint">If the MAC only came at the very end of the stream, nothing could be checked until the connection closed. So TLS splits the stream into records. Each MAC covers the data, the record <b>type</b> and a TLS <b>sequence number</b>. Try Trudy's attacks.</p>
+    <div class="records" id="records" aria-live="polite"></div>
+    <div class="row">
+      <button class="btn trudy" type="button" data-tls="reorder">Reorder records</button>
+      <button class="btn trudy" type="button" data-tls="replay">Replay a record</button>
+      <button class="btn trudy" type="button" data-tls="truncate">Forge an early close</button>
+      <button class="btn ghost" type="button" data-tls="reset">Reset</button>
+    </div>
+    <div class="verdict good" id="tlsVerdict" style="margin-top:12px">Records 0–3 carry data (type 0). The last record is type 1: a proper close. Every MAC checks out.</div>
+  </div>
+
+  <div class="grid2 block">
+    <div class="card">
+      <h3>TLS 1.3 (2018) vs TLS 1.2 (2008)</h3>
+      <p class="small">A <b>cipher suite</b> is the set of algorithms for key generation, encryption, MAC and signatures. TLS 1.3 offers only <b>5</b> choices instead of 37, requires <b>Diffie-Hellman</b> for key exchange, and uses combined "authenticated encryption" for data.</p>
+    </div>
+    <div class="card">
+      <h3>Round trips before data flows</h3>
+      <div class="rtt" style="margin-top:8px">
+        <div class="rtt-row"><span class="small"><b>t-tls toy</b></span><div class="rtt-bar"><span>TCP</span><span>verify</span><span>MS</span><span class="data">data</span></div></div>
+        <div class="rtt-row"><span class="small"><b>TLS 1.3</b></span><div class="rtt-bar"><span>1 RTT hello</span><span class="data">data</span></div></div>
+        <div class="rtt-row"><span class="small"><b>TLS 1.3 0-RTT</b></span><div class="rtt-bar"><span class="data">hello + data</span></div></div>
+      </div>
+      <p class="small" style="margin-top:8px">0-RTT resumes an earlier connection using its "resumption master secret", so the first hello already carries encrypted data. Downside: it's open to replay attacks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STOP 7 ================= -->
+<section class="topic" id="ipsec" data-stop="7" data-name="IPsec">
+  <div class="topic-head">
+    <div class="stop-no">7</div>
+    <div>
+      <span class="kicker">Stop 7 · Slides 71–82</span>
+      <h2>IPsec: the locked mailbag between branch offices</h2>
+      <p>IPsec protects every IP datagram (user data and control traffic like BGP and DNS). Picture two branch post offices, R1 and R2, sending sealed mailbags to each other across a dangerous road. That's how a VPN works.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <span class="lab-tag">Try it</span>
+    <h3>Transport mode vs tunnel mode</h3>
+    <p class="hint">Switch modes to see what gets locked up.</p>
+    <div class="tabs" role="tablist">
+      <button type="button" id="modeTunnel" aria-selected="true">Tunnel mode</button>
+      <button type="button" id="modeTransport" aria-selected="false">Transport mode</button>
+    </div>
+    <div class="dgram-wrap">
+      <div class="dgram enc" id="dgram"></div>
+      <div class="brackets" id="brackets"></div>
+    </div>
+    <p id="modeText" style="margin-top:10px"></p>
+  </div>
+
+  <div class="grid2 block">
+    <div class="card"><h3>AH protocol <span class="pill blue">RFC 4302</span></h3><p>Source authentication and integrity, but <b>no confidentiality</b>. A clear plastic mailbag with a tamper seal.</p></div>
+    <div class="card"><h3>ESP protocol <span class="pill good">RFC 4303</span></h3><p>Source authentication, integrity <b>and confidentiality</b>. A locked, opaque mailbag. Used much more than AH.</p></div>
+  </div>
+
+  <div class="grid3 block">
+    <div class="card"><h3>Security Association (SA)</h3><p class="small">Set up before sending, one per direction. It makes IPsec connection-oriented even though IP is connectionless. Holds the SPI, keys, algorithms and sequence number.</p></div>
+    <div class="card"><h3>SPD and SAD</h3><p class="small">The <b>Security Policy Database</b> decides <i>whether</i> a datagram uses IPsec. The <b>Security Association Database</b> stores <i>how</i> (the SA state). The SPI in the ESP header tells the receiver which SA to use.</p></div>
+    <div class="card"><h3>IKE</h3><p class="small">Typing in SAs by hand doesn't scale to hundreds of VPN endpoints. <b>Internet Key Exchange</b> sets them up automatically using a pre-shared secret (PSK) or certificates (PKI), in two phases.</p></div>
+  </div>
+
+  <h3 class="block" style="font-size:1.25rem">Trudy sits between R1 and R2 without the keys. Can she…</h3>
+  <p class="small" style="margin-top:4px">Tap each card to flip it.</p>
+  <div class="grid3" style="margin-top:12px" id="flips"></div>
+</section>
+
+<!-- ================= STOP 8 ================= -->
+<section class="topic" id="wireless" data-stop="8" data-name="Wireless">
+  <div class="topic-head">
+    <div class="stop-no">8</div>
+    <div>
+      <span class="kicker">Stop 8 · Slides 84–99</span>
+      <h2>Wireless security: a new carrier joins the depot</h2>
+      <p>A phone arriving at a WiFi network is like a new mail carrier showing up at a depot. Before getting the bag keys, they have to prove who they are to head office, and head office has to prove itself too.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <span class="lab-tag">Try it</span>
+    <h3>802.11 (WiFi) in four phases</h3>
+    <p class="hint">Tap a phase. The cast: mobile device, AP (access point, the depot door) and AS (authentication server, head office).</p>
+    <div class="phases" id="phases"></div>
+    <div class="phase-detail" id="phaseDetail" aria-live="polite"></div>
+  </div>
+
+  <div class="card block">
+    <h3>WPA3 handshake, step by step</h3>
+    <ol style="margin:8px 0 0;padding-left:1.2em;display:grid;gap:4px">
+      <li>AS makes Nonce<sub>AS</sub> and sends it to the mobile.</li>
+      <li>Mobile makes Nonce<sub>M</sub> and computes session key K<sub>M-AP</sub> from both nonces and the shared secret.</li>
+      <li>Mobile sends Nonce<sub>M</sub> plus an HMAC-signed value built from Nonce<sub>AS</sub> and the shared secret.</li>
+      <li>AS derives the same K<sub>M-AP</sub>. Both sides now hold the key without ever sending it.</li>
+    </ol>
+    <p class="small" style="margin-top:8px">Under the hood: EAP (RFC 3748) runs end to end. It's carried as EAPoL over 802.11 between mobile and AP, then over RADIUS/UDP between AP and AS.</p>
+  </div>
+
+  <div class="card block cmp">
+    <h3>Cellular: 4G LTE vs 5G</h3>
+    <p class="small" style="margin-bottom:8px">In 4G, the visited network's <b>MME</b> plus the home network's <b>HSS</b> together play the role of WiFi's AS. The mobile's SIM card holds a secret shared in advance with the HSS. The mobile proves itself by computing res<sub>M</sub>, which must match the HSS's xres<sub>HSS</sub>. It knows the network is real from the auth_token.</p>
+    <table>
+      <tr><th></th><th>4G</th><th>5G</th></tr>
+      <tr><td><b>Who decides</b></td><td>MME in the visited network</td><td>Home network decides; visited MME is a middleman that can still reject</td></tr>
+      <tr><td><b>Keys</b></td><td>Shared in advance (SIM)</td><td>Not shared in advance for IoT</td></tr>
+      <tr><td><b>Device ID (IMSI)</b></td><td>Sent in clear text to the base station</td><td>Hidden with public key crypto</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ================= STOP 9 ================= -->
+<section class="topic" id="firewall" data-stop="9" data-name="Firewalls">
+  <div class="topic-head">
+    <div class="stop-no">9</div>
+    <div>
+      <span class="kicker">Stop 9 · Slides 101–112</span>
+      <h2>Firewalls &amp; IDS: the guard at the post office door</h2>
+      <p>A firewall separates the trusted inside network from the untrusted Internet. It lets some packets in and blocks others. It helps stop denial-of-service (like SYN flooding), illegal access to inside data, and lets only authorized users in.</p>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card"><h3>Stateless packet filter</h3><p class="small">Checks each envelope alone: source/dest IP, source/dest port, protocol, ICMP type, SYN/ACK bits. Fast but heavy-handed.</p></div>
+    <div class="card"><h3>Stateful packet filter</h3><p class="small">Keeps a logbook of every TCP connection (SYN to FIN). Drops packets that "make no sense", like an ACK for a conversation that never started.</p></div>
+    <div class="card"><h3>Application gateway</h3><p class="small">Reads the application data too. Example: all telnet must go through the gateway, which checks the user and relays the session.</p></div>
+  </div>
+
+  <div class="lab block">
+    <span class="lab-tag">Play</span>
+    <h3>You're the door guard</h3>
+    <p class="hint">Inside network is 222.22.0.0/16. Read each envelope, decide Allow or Drop, then check against the access control list (ACL). Rules run top to bottom; the first match wins.</p>
+    <div class="acl"><table id="aclTable">
+      <tr><th>#</th><th>action</th><th>source</th><th>dest</th><th>proto</th><th>src port</th><th>dst port</th><th>flag</th></tr>
+      <tr data-r="1"><td>1</td><td class="allow">allow</td><td>222.22/16</td><td>outside</td><td>TCP</td><td>&gt;1023</td><td>80</td><td>any</td></tr>
+      <tr data-r="2"><td>2</td><td class="allow">allow</td><td>outside</td><td>222.22/16</td><td>TCP</td><td>80</td><td>&gt;1023</td><td>ACK</td></tr>
+      <tr data-r="3"><td>3</td><td class="allow">allow</td><td>222.22/16</td><td>outside</td><td>UDP</td><td>&gt;1023</td><td>53</td><td>—</td></tr>
+      <tr data-r="4"><td>4</td><td class="allow">allow</td><td>outside</td><td>222.22/16</td><td>UDP</td><td>53</td><td>&gt;1023</td><td>—</td></tr>
+      <tr data-r="5"><td>5</td><td class="deny">deny</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td></tr>
+    </table></div>
+    <div class="gate">
+      <div class="pkt" id="pkt"></div>
+      <div class="row" style="flex-direction:column;align-items:stretch">
+        <button class="btn good" id="fwAllow" type="button">✓ Allow</button>
+        <button class="btn red" id="fwDrop" type="button">✕ Drop</button>
+      </div>
+    </div>
+    <div class="fw-result" id="fwResult" aria-live="polite"></div>
+    <div class="row" style="margin-top:12px;justify-content:space-between">
+      <span class="score" id="fwScore">Envelope 1 of 7 · Score 0</span>
+      <button class="btn ghost" id="fwNext" type="button" disabled>Next envelope →</button>
+    </div>
+  </div>
+
+  <div class="grid2 block">
+    <div class="card">
+      <h3>Intrusion detection systems (IDS)</h3>
+      <p class="small">Packet filters only read the outside of the envelope (TCP/IP headers) and treat each one alone. An IDS does <b>deep packet inspection</b>: it opens suspicious parcels and compares the contents to a database of known virus and attack strings. It also connects the dots across many packets to spot port scanning, network mapping and DoS attacks.</p>
+    </div>
+    <div class="card">
+      <h3>Where the guards stand</h3>
+      <p class="small">Public servers (web, FTP, DNS) sit in a <b>demilitarized zone (DMZ)</b> between the firewall and the internal network. Several IDS sensors at different spots each do different checks.</p>
+      <p class="small"><b>Limits:</b> filters can't detect IP spoofing, each app needs its own gateway, clients must be configured to use the gateway, and UDP is often all-or-nothing. There's always a tradeoff between openness and security.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="topic" id="quiz" data-stop="10" data-name="Quiz">
+  <div class="topic-head">
+    <div class="stop-no">✓</div>
+    <div>
+      <span class="kicker">Final delivery</span>
+      <h2>Sorting office quiz</h2>
+      <p>Ten quick questions on the whole chapter. Penny cheers when you get one right.</p>
+    </div>
+  </div>
+  <div class="quiz-grid" id="quizGrid"></div>
+  <div class="quiz-score">
+    <div class="big" id="quizScore">0 / 10</div>
+    <p id="quizMsg" style="flex:1 1 240px">Answer the questions above to fill your mailbag.</p>
+    <button class="btn ghost" id="quizReset" type="button">Try again</button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="stripe" style="margin-bottom:16px;border-radius:4px" aria-hidden="true"></div>
+    <p>Based on <i>Computer Networking: A Top-Down Approach</i>, 8th edition, Kurose &amp; Ross (Pearson, 2020), Chapter 8 slides. <a href="../index.html">← Back to all chapters</a> at the Network Post Office.</p><p style="margin-top:8px">Summary: cryptography (symmetric and public key), message integrity and end-point authentication are the building blocks, used in secure e-mail, TLS, IPsec, 802.11 and 4G/5G, plus firewalls and IDS.</p>
+  </div>
+</footer>
+
+<!-- Penny the mail carrier -->
+<div class="penny">
+  <div class="bubble" id="bubble" role="status" aria-live="polite">
+    <div class="name">Penny the mail carrier</div>
+    <div id="bubbleText">Hi! I'm Penny. I'll walk the security route with you. Tap me any time for a tip.</div>
+    <div class="acts"><button type="button" id="tipBtn">Another tip</button><button type="button" id="hideBtn">Hide</button></div>
+  </div>
+  <button class="penny-btn" id="pennyBtn" type="button" aria-label="Penny the mail carrier. Tap for a tip.">
+    <svg viewBox="0 0 120 160" aria-hidden="true">
+      <!-- legs -->
+      <rect x="40" y="118" width="14" height="32" rx="5" fill="var(--uniform-dark)"/>
+      <rect x="64" y="118" width="14" height="32" rx="5" fill="var(--uniform-dark)"/>
+      <ellipse cx="46" cy="152" rx="11" ry="5" fill="#2A2A2A"/>
+      <ellipse cx="72" cy="152" rx="11" ry="5" fill="#2A2A2A"/>
+      <!-- body -->
+      <rect x="32" y="70" width="56" height="56" rx="16" fill="var(--uniform)"/>
+      <path d="M52 70 L60 82 L68 70" fill="#FFFFFF"/>
+      <rect x="58" y="84" width="3" height="34" fill="var(--uniform-dark)"/>
+      <!-- satchel strap and bag -->
+      <path d="M36 74 L84 112" stroke="var(--satchel)" stroke-width="6" stroke-linecap="round"/>
+      <g id="pennyLetter"><rect x="24" y="96" width="24" height="16" rx="2" fill="#FFF7E6" stroke="#2A2A2A" stroke-width="1.5"/><path d="M24 97 L36 106 L48 97" fill="none" stroke="#2A2A2A" stroke-width="1.5"/><circle cx="36" cy="107" r="3" fill="#D33A3A"/></g>
+      <rect x="18" y="104" width="34" height="24" rx="5" fill="var(--satchel)"/>
+      <rect x="18" y="104" width="34" height="8" rx="4" fill="#7E4F26"/>
+      <circle cx="35" cy="116" r="3" fill="#F2B33D"/>
+      <!-- left arm -->
+      <rect x="24" y="76" width="12" height="30" rx="6" fill="var(--uniform)"/>
+      <!-- right arm (waves) -->
+      <g id="pennyArm">
+        <rect x="82" y="76" width="12" height="32" rx="6" fill="var(--uniform)"/>
+        <circle cx="88" cy="110" r="7" fill="var(--skin)"/>
+      </g>
+      <!-- head -->
+      <circle cx="60" cy="46" r="24" fill="var(--skin)"/>
+      <circle cx="51" cy="45" r="3" fill="#2A2A2A"/>
+      <circle cx="69" cy="45" r="3" fill="#2A2A2A"/>
+      <circle cx="46" cy="53" r="4" fill="#F29A8E" opacity=".6"/>
+      <circle cx="74" cy="53" r="4" fill="#F29A8E" opacity=".6"/>
+      <path d="M38 38 q-5 14 2 26" stroke="#6B3E1F" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M82 38 q5 14 -2 26" stroke="#6B3E1F" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M53 60 Q60 65 67 60" stroke="#2A2A2A" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- cap -->
+      <path d="M34 36 Q36 16 60 15 Q84 16 86 36 Z" fill="var(--uniform-dark)"/>
+      <rect x="34" y="32" width="52" height="6" fill="#D33A3A"/>
+      <path d="M58 37 Q78 37 92 42 Q78 44 58 42 Z" fill="#1A1A1A"/>
+      <rect x="54" y="21" width="12" height="9" rx="2" fill="#F2B33D"/>
+      <path d="M56 23 L60 27 L64 23" stroke="#3a2a05" stroke-width="1.2" fill="none"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- Penny ---------- */
+const tips={
+  security:["Trudy is the classic network bad guy. She can eavesdrop, insert, impersonate, hijack, or flood.","Remember the four promises: confidentiality, authentication, integrity, availability. Think envelope, ID card, wax seal, open doors.","IP spoofing means writing a fake return address on the envelope. Routers can't easily tell!"],
+  crypto:["Symmetric key: Alice and Bob share the SAME key. Public key: Bob has a public padlock and a private key.","RSA tip: public key is (n, e), private key is (n, d). Encrypt with c = mᵉ mod n, decrypt with m = cᵈ mod n.","In real life we use RSA only to send a session key, then switch to fast symmetric crypto like AES."],
+  auth:["Each ap version fixes the last one's hole. 1.0: just a claim. 2.0: IP address. 3.0: password. 4.0: nonce. 5.0: public key.","Playback attack = Trudy records a letter and mails it again later. Nonces stop that.","ap5.0's weak spot is man-in-the-middle: Trudy hands each side her own public key."],
+  integrity:["A hash is a fingerprint: tiny, fixed size, and you can't work backwards to forge a letter.","Digital signature = sign the hash with your PRIVATE key. Anyone verifies with your PUBLIC key.","Certificates answer 'is this public key really Bob's?' The CA vouches for it."],
+  email:["Alice uses three keys for secure e-mail: K_S, Bob's public key, and her own private key.","Bob reverses everything: private key to get K_S, K_S to open the letter, Alice's public key to check the signature."],
+  tls:["TLS = https, port 443. Handshake, key derivation, records, closure.","Sequence numbers inside the MAC stop reordering and replay. A special close record (type 1) stops truncation.","TLS 1.3 needs only 1 round trip, and 0 RTT when resuming, but 0-RTT can be replayed."],
+  ipsec:["Tunnel mode wraps the WHOLE original datagram in a new one. Transport mode protects only the payload.","AH = authentication + integrity. ESP = those plus encryption. ESP is used far more.","Each SA is one-way, so a two-way chat needs two SAs. IKE sets them up for you."],
+  wireless:["WiFi phases: discover, authenticate both ways, distribute the key, then talk encrypted.","In 4G the SIM's shared secret proves who you are. 5G hides your IMSI using public key crypto."],
+  firewall:["Rules are read from the top. The first rule that matches decides.","A stateless filter can be fooled by a fake ACK. A stateful filter checks its connection logbook.","An IDS opens the parcels (deep packet inspection). A plain filter only reads the envelope."],
+  quiz:["Take your time. Each answer explains why, so wrong answers still teach you something!","You've got this. You've delivered every letter on the route."]
+};
+let curSection="security",tipIdx={};
+const bubble=$("#bubble"),bubbleText=$("#bubbleText"),pennyBtn=$("#pennyBtn");
+let hideTimer=null;
+function say(text,mood){
+  bubbleText.textContent=text;bubble.classList.remove("hide");
+  clearTimeout(hideTimer);if(window.innerWidth<600)hideTimer=setTimeout(()=>bubble.classList.add("hide"),7000);
+  pennyBtn.classList.remove("wave","hop","sad");void pennyBtn.offsetWidth;
+  pennyBtn.classList.add(mood||"wave");
+}
+function nextTip(){
+  const list=tips[curSection]||tips.security;tipIdx[curSection]=((tipIdx[curSection]??-1)+1)%list.length;
+  say(list[tipIdx[curSection]]);
+}
+pennyBtn.addEventListener("click",()=>{if(bubble.classList.contains("hide"))nextTip();else nextTip()});
+$("#tipBtn").addEventListener("click",nextTip);
+$("#hideBtn").addEventListener("click",()=>bubble.classList.add("hide"));
+setTimeout(()=>pennyBtn.classList.add("wave"),600);
+
+/* ---------- route / passport ---------- */
+const sections=[...document.querySelectorAll("section.topic")];
+const done=new Set(store.get("ch8-done",[]));
+const stopsEl=$("#stops");
+sections.forEach(s=>{
+  const a=document.createElement("a");a.href="#"+s.id;a.className="stop";a.dataset.id=s.id;
+  a.innerHTML='<span class="dot">✓</span>'+s.dataset.name;stopsEl.appendChild(a);
+  if(s.id!=="quiz"){
+    const box=document.createElement("div");box.className="stamp-btn";
+    box.innerHTML='<button type="button" class="btn">Stamp my passport</button><span class="small">Mark stop '+s.dataset.stop+' as delivered when you feel good about it.</span>';
+    s.appendChild(box);
+    const b=box.querySelector("button");
+    const sync=()=>{const d=done.has(s.id);box.classList.toggle("done",d);b.textContent=d?"✓ Stamped":"Stamp my passport";};
+    b.addEventListener("click",()=>{if(done.has(s.id))done.delete(s.id);else{done.add(s.id);say(done.size>=9?"All nine stops stamped! Head to the quiz to finish your route.":"Stamped! Stop "+s.dataset.stop+" delivered. "+(9-done.size)+" to go.","hop");}store.set("ch8-done",[...done]);sync();paintStops();});
+    sync();
+  }
+});
+function paintStops(){stopsEl.querySelectorAll(".stop").forEach(a=>{a.classList.toggle("done",done.has(a.dataset.id));a.classList.toggle("here",a.dataset.id===curSection)})}
+paintStops();
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&curSection!==e.target.id){curSection=e.target.id;paintStops();const here=stopsEl.querySelector('[data-id="'+curSection+'"]');if(here&&here.scrollIntoView){const w=stopsEl.parentElement;w.scrollTo({left:here.offsetLeft-40,behavior:"smooth"});}if(!bubble.classList.contains("hide")){tipIdx[curSection]=-1;nextTip();}}})},{rootMargin:"-35% 0px -60% 0px"});
+  sections.forEach(s=>io.observe(s));
+}
+
+/* ---------- Stop 1: attacks ---------- */
+const attacks=[
+  {k:"Eavesdrop",t:"Trudy quietly reads the letter as it passes. Bob still gets it and never knows. Fix: encryption (confidentiality).",end:"bob",env:"m 👀"},
+  {k:"Insert",t:"Trudy slips her own fake letter into the stream. Bob thinks Alice sent it. Fix: authentication + integrity.",end:"bob",env:"T!"},
+  {k:"Impersonate",t:"Trudy writes Alice's return address on her own envelope (spoofing the source address). Fix: authentication.",end:"bob",env:"A?"},
+  {k:"Hijack",t:"Trudy kicks Alice out of the conversation and carries on in her place. Fix: authentication on every message.",end:"trudy",env:"m"},
+  {k:"Denial of service",t:"Trudy floods the post office with junk so real letters can't get through. Fix: firewalls and filtering (availability).",end:"stop",env:"🗑️"}
+];
+const al=$("#attackList"),env=$("#routeEnv"),tr=$("#trudyOnRoad");
+attacks.forEach((a,i)=>{const b=document.createElement("button");b.type="button";b.textContent=a.k;b.setAttribute("aria-pressed","false");b.addEventListener("click",()=>runAttack(i,b));al.appendChild(b)});
+function runAttack(i,btn){
+  al.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false"));btn.setAttribute("aria-pressed","true");
+  const a=attacks[i];tr.classList.add("on");env.style.transition="none";env.style.left="0";env.textContent="m";void env.offsetWidth;env.style.transition="";
+  const road=env.parentElement.clientWidth-44;
+  setTimeout(()=>{env.style.left=(road/2)+"px"},30);
+  setTimeout(()=>{env.textContent=a.env;env.style.left=a.end==="bob"?road+"px":a.end==="trudy"?(road/2)+"px":(road*0.35)+"px"},1200);
+  $("#attackOut").innerHTML="<b>"+a.k+":</b> "+a.t;
+}
+
+/* ---------- Stop 2: substitution cipher ---------- */
+const plainAB="abcdefghijklmnopqrstuvwxyz",cipherAB="mnbvcxzasdfghjklpoiuytrewq";
+const kt=$("#keyTable");kt.innerHTML="<tr>"+[...plainAB].map(c=>"<td>"+c+"</td>").join("")+"</tr><tr>"+[...cipherAB].map(c=>"<td>"+c+"</td>").join("")+"</tr>";
+function sub(s,from,to){return [...s].map(ch=>{const lo=ch.toLowerCase(),i=from.indexOf(lo);if(i<0)return ch;const o=to[i];return ch===lo?o:o.toUpperCase()}).join("")}
+function updCipher(){const p=$("#plainIn").value;const c=sub(p,plainAB,cipherAB);$("#cipherOut").textContent=c||" ";$("#decOut").textContent=sub(c,cipherAB,plainAB)||" "}
+$("#plainIn").addEventListener("input",updCipher);updCipher();
+
+/* ---------- Stop 2: RSA ---------- */
+function gcd(a,b){while(b){[a,b]=[b,a%b]}return a}
+function modpow(b,e,m){b=BigInt(b);e=BigInt(e);m=BigInt(m);let r=1n;b%=m;while(e>0n){if(e&1n)r=r*b%m;b=b*b%m;e>>=1n}return r}
+function updRSA(){
+  const [p,q]=$("#rsaPrimes").value.split(",").map(Number);const n=p*q,z=(p-1)*(q-1);
+  let e=2;while(gcd(e,z)!==1)e++;
+  let d=1;while((e*d)%z!==1||d===e)d++;
+  const mi=$("#rsaM");mi.max=n-1;let m=parseInt(mi.value,10);if(isNaN(m)||m<0)m=0;if(m>=n){m=n-1;mi.value=m}
+  const c=modpow(m,e,n),back=modpow(c,d,n);
+  $("#rsaSteps").innerHTML=
+    "<div>1. Primes: p = <b>"+p+"</b>, q = <b>"+q+"</b></div>"+
+    "<div>2. n = pq = <b>"+n+"</b>,  z = (p−1)(q−1) = <b>"+z+"</b></div>"+
+    "<div>3. e = <b>"+e+"</b>  (shares no factor with z)</div>"+
+    "<div>4. d = <b>"+d+"</b>  (e·d − 1 = "+(e*d-1)+" divides by z exactly: ed mod z = 1)</div>"+
+    "<div>5. Public key (n, e) = <b>("+n+", "+e+")</b>   Private key (n, d) = <b>("+n+", "+d+")</b></div>";
+  $("#rsaMOut").textContent=m;$("#rsaCOut").textContent=c.toString();$("#rsaDOut").textContent=back.toString();
+}
+$("#rsaPrimes").addEventListener("change",updRSA);$("#rsaM").addEventListener("input",updRSA);updRSA();
+
+/* ---------- Stop 3: authentication ---------- */
+const aps=[
+  {id:"ap1.0",title:"Alice says \"I am Alice\"",ok:[["A","r","\"I am Alice\""]],bad:[["T","r","\"I am Alice\""]],flaw:"In a network Bob can't see Alice, so Trudy just says it too. Like anyone writing \"From: Alice\" on an envelope."},
+  {id:"ap2.0",title:"\"I am Alice\" inside a packet with Alice's IP address",ok:[["A","r","[src: Alice's IP] \"I am Alice\""]],bad:[["T","r","[src: Alice's IP (spoofed)] \"I am Alice\""]],flaw:"Trudy builds a packet that spoofs Alice's address. A fake return address costs nothing."},
+  {id:"ap3.0",title:"\"I am Alice\" + her secret password",ok:[["A","r","\"I am Alice\", password"],["B","l","OK"]],bad:[["T","r","(records Alice's packet)"],["T","r","replays: \"I am Alice\", password"],["B","l","OK 😱"]],flaw:"Playback attack: Trudy records Alice's packet and mails a copy later."},
+  {id:"ap3.1",title:"\"I am Alice\" + her encrypted password",ok:[["A","r","\"I am Alice\", encrypted password"],["B","l","OK"]],bad:[["T","r","(records the encrypted packet)"],["T","r","replays it unchanged"],["B","l","OK 😱"]],flaw:"Still a playback attack. Trudy doesn't need to read the password, she just resends the same envelope."},
+  {id:"ap4.0",title:"Bob sends a nonce R; Alice returns K_A-B(R)",ok:[["A","r","\"I am Alice\""],["B","l","nonce R"],["A","r","K_A-B(R)"]],bad:[["T","r","replays an old K_A-B(R')"],["B","l","✕ wrong nonce, rejected"]],flaw:"Playback is beaten: an old reply can't match today's fresh nonce. Drawback: Alice and Bob must already share a symmetric key.",win:true},
+  {id:"ap5.0",title:"Nonce + public key: Alice returns K_A⁻(R)",ok:[["A","r","\"I am Alice\""],["B","l","nonce R"],["A","r","K_A⁻(R)"],["B","l","\"send me your public key\""],["A","r","K_A⁺"]],bad:[["T","r","to Bob: \"I am Alice\", K_T⁻(R), K_T⁺"],["T","l","to Alice: \"I am Bob\", K_T⁺"],["B","l","m sealed with K_T⁺ → Trudy reads, re-seals for Alice"]],flaw:"Man-in-the-middle: Trudy poses as Alice to Bob and as Bob to Alice, handing each side her own public key. Both think everything is fine. Fix: certificates from a CA (Stop 4)."}
+];
+let apIdx=0,apShowBad=false;
+const apTabs=$("#apTabs");
+aps.forEach((a,i)=>{const b=document.createElement("button");b.type="button";b.role="tab";b.textContent=a.id;b.addEventListener("click",()=>{apIdx=i;apShowBad=false;renderAP()});apTabs.appendChild(b)});
+function msgRow(m,evil){
+  const who={A:"Alice",B:"Bob",T:"Trudy"};
+  const left=m[1]==="r"?who[m[0]]:(evil?"Alice":"Alice"),right=m[1]==="r"?"Bob":who[m[0]];
+  return '<div class="msg'+(m[0]==="T"?" evil":"")+'"><span class="who">'+(m[1]==="r"?who[m[0]]:"")+'</span><span class="arrow '+m[1]+'">'+m[2]+'</span><span class="who">'+(m[1]==="l"?who[m[0]]:"Bob")+'</span></div>';
+}
+function renderAP(){
+  apTabs.querySelectorAll("button").forEach((b,i)=>b.setAttribute("aria-selected",i===apIdx?"true":"false"));
+  const a=aps[apIdx];
+  let h='<h4 style="font-size:1.1rem">'+a.id+': '+a.title+'</h4><div class="seq">'+a.ok.map(m=>msgRow(m)).join("")+'</div>';
+  if(apShowBad){h+='<div class="small" style="font-weight:800;color:var(--trudy)">Trudy\'s attempt:</div><div class="seq">'+a.bad.map(m=>msgRow(m,true)).join("")+'</div><div class="verdict '+(a.win?"good":"bad")+'">'+(a.win?"✓ ":"✕ ")+a.flaw+'</div>'}
+  $("#apBody").innerHTML=h;
+  $("#apAttack").disabled=apShowBad;$("#apNext").disabled=apIdx===aps.length-1;
+}
+$("#apAttack").addEventListener("click",()=>{apShowBad=true;renderAP();const a=aps[apIdx];say(a.win?"Ha! The nonce stopped Trudy's replay.":"Uh oh, Trudy got through. Let's fix it in the next version.",a.win?"hop":"sad")});
+$("#apNext").addEventListener("click",()=>{if(apIdx<aps.length-1){apIdx++;apShowBad=false;renderAP()}});
+renderAP();
+
+/* ---------- Stop 4: hash & seal ---------- */
+async function hashHex(s){
+  try{if(window.crypto&&crypto.subtle){const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("").slice(0,32)}}catch(e){}
+  let h1=0x811c9dc5,h2=0x1b873593;for(let i=0;i<s.length;i++){h1=Math.imul(h1^s.charCodeAt(i),16777619)>>>0;h2=Math.imul(h2+s.charCodeAt(i),2654435761)>>>0}
+  return (h1.toString(16).padStart(8,"0")+h2.toString(16).padStart(8,"0")).repeat(2);
+}
+let lastSeal=null;
+async function updSeal(){
+  const a=await hashHex($("#sigOrig").value),b=await hashHex($("#sigRecv").value);
+  $("#fpOrig").textContent="H(m) = "+a;$("#fpRecv").textContent="H(m′) = "+b;
+  const ok=a===b,s=$("#waxSeal");s.className="waxseal "+(ok?"ok":"broken");s.innerHTML=ok?"SEAL<br>OK":"SEAL<br>BROKEN";
+  $("#sealMsg").textContent=ok?"The fingerprints match: this letter really is Bob's and nobody changed it.":"The fingerprints don't match! Even one tiny change gives a totally different fingerprint, so Alice knows the letter was altered.";
+  if(lastSeal!==null&&lastSeal!==ok)say(ok?"Seal intact again. Integrity restored!":"See that? One small change and the seal check fails.",ok?"hop":"sad");
+  lastSeal=ok;
+}
+$("#sigOrig").addEventListener("input",()=>{$("#sigRecv").value=$("#sigOrig").value;updSeal()});
+$("#sigRecv").addEventListener("input",updSeal);
+const swaps=[["5pm","9pm"],["post office","train station"],["Meet","Avoid"],["Bob","Trudy"]];let swapI=0;
+$("#tamperBtn").addEventListener("click",()=>{const t=$("#sigRecv");let v=t.value;for(let k=0;k<swaps.length;k++){const [x,y]=swaps[(swapI+k)%swaps.length];if(v.includes(x)){t.value=v.replace(x,y);swapI=(swapI+k+1)%swaps.length;updSeal();return}}t.value=v+"!";updSeal()});
+$("#restoreBtn").addEventListener("click",()=>{$("#sigRecv").value=$("#sigOrig").value;updSeal()});
+updSeal();
+
+/* ---------- Stop 5: secure e-mail ---------- */
+const L=(cls,cap,inner)=>'<div class="layer '+cls+' pop"><span class="cap">'+cap+'</span>'+(inner||"")+'</div>';
+const M='<div class="layer m"><span class="cap">m</span>📝 letter</div>';
+const SIG='<div class="layer sig"><span class="cap">K<sub>A</sub>⁻(H(m))</span>🔴 signature</div>';
+const H='<div class="layer sig"><span class="cap">H(m)</span>🔎 fingerprint</div>';
+const KS='<div class="layer ks"><span class="cap">K<sub>S</sub></span>🔑 new key</div>';
+const KBKS='<div class="layer kb"><span class="cap">K<sub>B</sub>⁺(K<sub>S</sub>)</span>🔒 padlocked key</div>';
+const ENC=L("ks","K<sub>S</sub>( m + signature )",'<div class="parcel-row" style="opacity:.55">'+M+SIG+'</div>');
+const mailFlows={
+  alice:[
+    {t:"Alice writes her letter m.",v:M},
+    {t:"She hashes it to get the fingerprint H(m).",v:'<div class="parcel-row">'+M+H+'</div>'},
+    {t:"She signs H(m) with her private key K<sub>A</sub>⁻. That's the wax seal.",v:'<div class="parcel-row">'+M+L("sig","K<sub>A</sub>⁻(H(m))","🔴 signature")+'</div>'},
+    {t:"She makes a fresh random symmetric key K<sub>S</sub>.",v:'<div class="parcel-row">'+M+SIG+L("ks","K<sub>S</sub>","🔑 new key")+'</div>'},
+    {t:"She encrypts letter + signature with K<sub>S</sub> (fast!).",v:'<div class="parcel-row">'+ENC+KS+'</div>'},
+    {t:"She padlocks K<sub>S</sub> with Bob's public key K<sub>B</sub>⁺.",v:'<div class="parcel-row">'+ENC.replace(" pop","")+L("kb","K<sub>B</sub>⁺(K<sub>S</sub>)","🔒 padlocked key")+'</div>'},
+    {t:"She mails both parts over the Internet. Trudy sees only locked boxes.",v:'<div class="parcel-row">'+L("kb","📮 to Bob",'<div class="parcel-row">'+ENC.replace(" pop","")+KBKS+'</div>')+'</div>'}
+  ],
+  bob:[
+    {t:"Bob receives both parts.",v:'<div class="parcel-row">'+ENC.replace(" pop","")+KBKS+'</div>'},
+    {t:"He opens the padlocked key with his private key K<sub>B</sub>⁻ to get K<sub>S</sub>.",v:'<div class="parcel-row">'+ENC.replace(" pop","")+L("ks","K<sub>S</sub>","🔑 unlocked!")+'</div>'},
+    {t:"He uses K<sub>S</sub> to decrypt the letter and signature.",v:'<div class="parcel-row">'+L("m","m","📝 letter")+L("sig","K<sub>A</sub>⁻(H(m))","🔴 signature")+'</div>'},
+    {t:"He opens the signature with Alice's public key K<sub>A</sub>⁺, getting H(m).",v:'<div class="parcel-row">'+M+L("sig","H(m) from Alice","🔎")+'</div>'},
+    {t:"He hashes m himself and compares. Match means it's really from Alice and unchanged.",v:'<div class="parcel-row">'+L("ks","H(m) = H(m) ✓","✅ verified")+'</div>'}
+  ]
+};
+let mailWho="alice",mailStep=0;
+function renderMail(){
+  const f=mailFlows[mailWho];
+  $("#mailSteps").innerHTML=f.map((s,i)=>'<li class="'+(i===mailStep?"on":i<mailStep?"past":"")+'">'+s.t+'</li>').join("");
+  $("#parcel").innerHTML=f[mailStep].v;
+  $("#mailPrev").disabled=mailStep===0;
+  $("#mailNext").textContent=mailStep===f.length-1?(mailWho==="alice"?"Now unpack as Bob →":"Start over"):"Next step →";
+  $("#mailAlice").className="btn"+(mailWho==="alice"?"":" ghost");$("#mailBob").className="btn"+(mailWho==="bob"?"":" ghost");
+  $("#mailAlice").setAttribute("aria-selected",mailWho==="alice");$("#mailBob").setAttribute("aria-selected",mailWho==="bob");
+}
+$("#mailNext").addEventListener("click",()=>{const f=mailFlows[mailWho];if(mailStep<f.length-1)mailStep++;else if(mailWho==="alice"){mailWho="bob";mailStep=0;say("Now Bob does everything in reverse. Watch the layers come off!","hop")}else{mailWho="alice";mailStep=0}renderMail()});
+$("#mailPrev").addEventListener("click",()=>{if(mailStep>0){mailStep--;renderMail()}});
+$("#mailAlice").addEventListener("click",()=>{mailWho="alice";mailStep=0;renderMail()});
+$("#mailBob").addEventListener("click",()=>{mailWho="bob";mailStep=0;renderMail()});
+renderMail();
+
+/* ---------- Stop 6: TLS records ---------- */
+const recTexts=["GET /","Host: bank","Cookie…","amount=50"];
+function rec(seq,type,txt,cls,note){return '<div class="rec '+(cls||"")+'"><b>#'+seq+(type?" close":"")+'</b>type '+type+'<br>'+txt+'<br>MAC ✓'+(note?'<br><span style="font-family:var(--body);font-weight:800">'+note+'</span>':'')+'</div>'}
+function tls(mode){
+  let h="",v="",good=false;
+  if(mode==="reset"){h=recTexts.map((t,i)=>rec(i,0,t)).join("")+rec(4,1,"bye","close");v="Records 0–3 carry data (type 0). The last record is type 1: a proper close. Every MAC checks out.";good=true}
+  if(mode==="reorder"){const o=[0,2,1,3];h=o.map((i,k)=>rec(i,0,recTexts[i],k!==i?"flag":"",k!==i?"expected #"+k:"")).join("")+rec(4,1,"bye","close");v="Trudy swapped records 1 and 2 by changing the TCP sequence numbers. But the TLS sequence number is inside each MAC, so Bob computes the MAC with the number he expected and it fails. Caught!"}
+  if(mode==="replay"){h=recTexts.map((t,i)=>rec(i,0,t)).join("")+rec(3,0,"amount=50","flag","replayed!")+rec(5,1,"bye","close");v="Trudy sent record #3 (\"amount=50\") a second time. Bob expected #4, so the MAC check fails and the copy is thrown away. No double payment!"}
+  if(mode==="truncate"){h=recTexts.slice(0,2).map((t,i)=>rec(i,0,t)).join("")+'<div class="rec flag"><b>TCP FIN</b>forged by Trudy<br>no type-1 record</div>';v="Truncation attack: Trudy forges a TCP close so Bob thinks the data ended early. Because TLS has its own close record (type 1, protected by a MAC), Bob knows a plain TCP FIN isn't a real goodbye."}
+  $("#records").innerHTML=h;const vv=$("#tlsVerdict");vv.textContent=v;vv.className="verdict "+(good?"good":"bad");
+  if(!good)say("Trudy tried, but numbered and MAC-protected records give her away!","hop");
+}
+document.querySelectorAll("[data-tls]").forEach(b=>b.addEventListener("click",()=>tls(b.dataset.tls)));
+tls("reset");
+
+/* ---------- Stop 7: IPsec ---------- */
+function ipsecMode(tunnel){
+  $("#modeTunnel").setAttribute("aria-selected",tunnel);$("#modeTransport").setAttribute("aria-selected",!tunnel);
+  const parts=tunnel?
+    [["nh","new IP header<br><span class='small'>R1 → R2</span>",1.2],["eh","ESP header<br><span class='small'>SPI, seq #</span>",1],["oh","original IP header",1.2],["pl","original datagram payload",2],["et","ESP trailer<br><span class='small'>padding</span>",1],["ea","ESP auth<br><span class='small'>MAC</span>",1]]:
+    [["oh","IP header<br><span class='small'>host → host</span>",1.2],["eh","ESP header<br><span class='small'>SPI, seq #</span>",1],["pl","transport segment (payload)",2.2],["et","ESP trailer",1],["ea","ESP auth<br><span class='small'>MAC</span>",1]];
+  const dg=$("#dgram");dg.innerHTML=parts.map(p=>'<div class="'+p[0]+'" style="flex:'+p[2]+'">'+p[1]+'</div>').join("");
+  dg.classList.add("enc");
+  // brackets: compute as fractions
+  const tot=parts.reduce((s,p)=>s+p[2],0);let x=0;const pos={};parts.forEach(p=>{pos[p[0]]=[x/tot,(x+p[2])/tot];x+=p[2]});
+  const encStart=tunnel?pos.oh[0]:pos.pl[0],encEnd=pos.et[1],authStart=pos.eh[0],authEnd=pos.et[1];
+  $("#brackets").innerHTML=
+    '<div style="margin-left:'+(encStart*100)+'%;width:'+((encEnd-encStart)*100)+'%"><div class="br enc"></div><span style="color:var(--blue)">encrypted</span></div>'+
+    '<div style="margin-left:'+(authStart*100)+'%;width:'+((authEnd-authStart)*100)+'%"><div class="br auth"></div><span style="color:var(--red)">authenticated (covered by the MAC)</span></div>';
+  $("#modeText").innerHTML=tunnel?
+    "<b>Tunnel mode:</b> the <i>entire</i> original datagram, header and all, is encrypted and placed inside a brand-new datagram addressed from router R1 to router R2. Like putting your letter inside a locked company mailbag addressed branch-to-branch. Trudy can't even see who the real sender and receiver are.":
+    "<b>Transport mode:</b> only the payload is encrypted and authenticated. The original IP header stays readable, like a sealed letter in a normal envelope: Trudy can't read the letter, but can see the address on the outside.";
+}
+$("#modeTunnel").addEventListener("click",()=>ipsecMode(true));$("#modeTransport").addEventListener("click",()=>ipsecMode(false));
+ipsecMode(true);
+const flips=[
+  ["…read the original letter inside?","No. The original datagram is encrypted with ESP."],
+  ["…see the real source and destination, protocol, and port?","No. In tunnel mode those are inside the encrypted part. She only sees R1 → R2."],
+  ["…flip bits without anyone noticing?","No. The MAC in the ESP auth field would no longer match."],
+  ["…pretend to be R1 using R1's IP address?","No. Without the SA's secret key she can't make a valid MAC."],
+  ["…replay an old datagram?","No. Every datagram carries a sequence number, and the receiver drops duplicates."],
+  ["…stop the mailbags completely?","Yes, sadly. IPsec protects what's inside, but Trudy can still drop or block traffic."]
+];
+$("#flips").innerHTML=flips.map((f,i)=>'<div class="flip"><button type="button" aria-label="Flip card: '+f[0]+'"><div class="flip-in"><div class="flip-face flip-front"><span class="pill trudy">Trudy asks</span><b>'+f[0]+'</b></div><div class="flip-face flip-back"><span class="pill good">Answer</span><span>'+f[1]+'</span></div></div></button></div>').join("");
+document.querySelectorAll(".flip button").forEach(b=>b.addEventListener("click",()=>b.parentElement.classList.toggle("on")));
+
+/* ---------- Stop 8: wireless phases ---------- */
+const phases=[
+  ["Discovery","The AP announces itself and the kinds of authentication and encryption it offers. The device asks for the ones it wants. They are talking, but the device isn't trusted yet and has no keys.","Like a depot posting a sign: \"we accept these ID types\"."],
+  ["Mutual authentication","The AS and the mobile already share a secret (like a password). They use it plus nonces (to stop replay attacks) and hashing (for integrity) to prove themselves to each other, and both derive the same symmetric session key.","The new carrier and head office each prove they know the shared secret."],
+  ["Key distribution","The same key was derived at the mobile and at the AS. The AS now tells the AP the session key.","Head office phones the depot: \"here's the key for this carrier's mailbag\"."],
+  ["Encrypted talk","The mobile and the remote host communicate through the AP, encrypted over the wireless link with the shared key.","Every letter now travels in a locked bag only the depot and carrier can open."]
+];
+const ph=$("#phases");
+phases.forEach((p,i)=>{const b=document.createElement("button");b.type="button";b.className="phase";b.innerHTML='<div class="n">'+(i+1)+'</div><b>'+p[0]+'</b>';b.addEventListener("click",()=>showPhase(i));ph.appendChild(b)});
+function showPhase(i){ph.querySelectorAll(".phase").forEach((b,k)=>b.setAttribute("aria-pressed",k===i));$("#phaseDetail").innerHTML='<h4 style="margin-bottom:6px">Phase '+(i+1)+': '+phases[i][0]+'</h4><p>'+phases[i][1]+'</p><p class="small" style="margin-top:6px">✉️ '+phases[i][2]+'</p>'}
+showPhase(0);
+
+/* ---------- Stop 9: firewall game ---------- */
+const pkts=[
+  {src:"222.22.4.7",sp:3456,dst:"93.184.1.1",dp:80,pr:"TCP",fl:"SYN",note:"An inside user opening a website.",rule:1},
+  {src:"93.184.1.1",sp:80,dst:"222.22.4.7",dp:3456,pr:"TCP",fl:"ACK",note:"The website's reply.",rule:2},
+  {src:"66.1.2.3",sp:4444,dst:"222.22.1.1",dp:23,pr:"TCP",fl:"SYN",note:"An outsider trying to telnet in.",rule:5},
+  {src:"222.22.9.9",sp:5000,dst:"8.8.8.8",dp:53,pr:"UDP",fl:"—",note:"An inside DNS query.",rule:3},
+  {src:"8.8.8.8",sp:53,dst:"222.22.9.9",dp:5000,pr:"UDP",fl:"—",note:"The DNS answer.",rule:4},
+  {src:"66.1.2.3",sp:1234,dst:"222.22.4.7",dp:80,pr:"TCP",fl:"SYN",note:"An outsider trying to start a connection to an inside web server.",rule:5},
+  {src:"66.1.2.3",sp:80,dst:"222.22.4.7",dp:3999,pr:"TCP",fl:"ACK",note:"Looks like a web reply… but no inside host ever opened this connection.",rule:2,stateful:true}
+];
+let fwI=0,fwScore=0,fwAnswered=false;
+function renderPkt(){
+  const p=pkts[fwI];
+  $("#pkt").innerHTML='<span class="tagline">Envelope '+(fwI+1)+'</span><div>from <b>'+p.src+'</b> : '+p.sp+'</div><div>to&nbsp;&nbsp; <b>'+p.dst+'</b> : '+p.dp+'</div><div>'+p.pr+'  flag: <b>'+p.fl+'</b></div><div class="small" style="font-family:var(--body)">'+p.note+'</div>';
+  document.querySelectorAll("#aclTable tr").forEach(r=>r.classList.remove("hit"));
+  $("#fwResult").className="fw-result";$("#fwAllow").disabled=false;$("#fwDrop").disabled=false;$("#fwNext").disabled=true;fwAnswered=false;
+  $("#fwScore").textContent="Envelope "+(fwI+1)+" of "+pkts.length+" · Score "+fwScore;
+}
+function fwAnswer(allow){
+  if(fwAnswered)return;fwAnswered=true;
+  const p=pkts[fwI],correct=p.rule!==5,right=allow===correct;if(right)fwScore++;
+  const row=document.querySelector('#aclTable tr[data-r="'+p.rule+'"]');if(row)row.classList.add("hit");
+  let msg=(right?"✓ Correct! ":"✕ Not quite. ")+"Rule "+p.rule+" matches first, so the packet is <b>"+(correct?"allowed":"dropped")+"</b>.";
+  if(p.stateful)msg+=" <br><b>But notice:</b> a <i>stateless</i> filter lets this fake ACK through. A <i>stateful</i> filter would check its connection table, see no connection was ever set up, and drop it.";
+  const r=$("#fwResult");r.innerHTML=msg;r.className="fw-result show "+(right?"good":"bad");
+  $("#fwAllow").disabled=true;$("#fwDrop").disabled=true;$("#fwNext").disabled=false;
+  $("#fwScore").textContent="Envelope "+(fwI+1)+" of "+pkts.length+" · Score "+fwScore;
+  if(fwI===pkts.length-1){$("#fwNext").textContent="Play again";say("Shift over! You scored "+fwScore+" of "+pkts.length+" at the door.",fwScore>=5?"hop":"wave")}
+  else say(right?"Good call, guard!":"Tricky one. Check which rule matched first.",right?"hop":"sad");
+}
+$("#fwAllow").addEventListener("click",()=>fwAnswer(true));$("#fwDrop").addEventListener("click",()=>fwAnswer(false));
+$("#fwNext").addEventListener("click",()=>{if(fwI<pkts.length-1)fwI++;else{fwI=0;fwScore=0;$("#fwNext").textContent="Next envelope →"}renderPkt()});
+renderPkt();
+
+/* ---------- Quiz ---------- */
+const quiz=[
+  {q:"Which property means only Alice and Bob can understand the message?",o:["Integrity","Confidentiality","Availability","Authentication"],a:1,w:"Confidentiality: the sender encrypts, and only the intended receiver can decrypt."},
+  {q:"In symmetric key cryptography…",o:["Alice and Bob share the same key","Bob has a public and a private key","No key is needed","Only the algorithm is secret"],a:0,w:"Symmetric means both sides use the same shared key K_S."},
+  {q:"RSA with p=5, q=7, e=5, d=29. What is n?",o:["24","12","35","29"],a:2,w:"n = p × q = 35. (z = (p−1)(q−1) = 24.)"},
+  {q:"Why is RSA hard to break?",o:["The algorithm is secret","Factoring a very large n into p and q is hard","Keys change every second","It uses 56-bit keys"],a:1,w:"Finding d from (n, e) means factoring n, which is infeasible for huge numbers."},
+  {q:"What stops a playback (replay) attack in authentication?",o:["A longer password","Sending the IP address","A nonce","Encrypting the password"],a:2,w:"A nonce is used once, so an old recorded reply won't match the new challenge (ap4.0)."},
+  {q:"A digital signature is made by encrypting H(m) with…",o:["The receiver's public key","The sender's private key","A session key","The CA's public key"],a:1,w:"Only the sender has their private key; anyone can verify with the sender's public key."},
+  {q:"What problem do Certification Authorities solve?",o:["Slow encryption","Proving a public key really belongs to someone","Packet loss","Choosing port numbers"],a:1,w:"A CA signs a certificate binding an identity (like Bob) to a public key, stopping tricks like the pizza prank."},
+  {q:"In TLS, what stops Trudy from reordering records?",o:["TLS sequence numbers included in the MAC","The TCP checksum","Port 443","Using four keys"],a:0,w:"The TLS sequence number is part of each MAC, so a reordered record fails verification."},
+  {q:"IPsec tunnel mode encrypts…",o:["Only the payload","Only the IP header","The entire original datagram","Nothing, it only authenticates"],a:2,w:"Tunnel mode encrypts the whole original datagram and wraps it in a new IP datagram (e.g. R1 → R2)."},
+  {q:"Which tool inspects the actual packet contents for attack strings?",o:["Stateless packet filter","Stateful packet filter","Intrusion detection system (IDS)","NAT"],a:2,w:"An IDS does deep packet inspection, while packet filters only look at headers."}
+];
+const qg=$("#quizGrid");let qAns=store.get("ch8-quiz",{});
+function renderQuiz(){
+  qg.innerHTML="";
+  quiz.forEach((it,i)=>{
+    const d=document.createElement("div");d.className="q";
+    d.innerHTML='<h4>'+(i+1)+'. '+it.q+'</h4><div class="opts"></div><div class="why">'+it.w+'</div>';
+    const opts=d.querySelector(".opts");
+    it.o.forEach((o,k)=>{const b=document.createElement("button");b.type="button";b.textContent=o;b.addEventListener("click",()=>answer(i,k));opts.appendChild(b)});
+    qg.appendChild(d);paintQ(i);
+  });
+  scoreQ();
+}
+function paintQ(i){
+  const d=qg.children[i],it=quiz[i],sel=qAns[i];if(sel==null)return;
+  d.classList.add("answered");
+  [...d.querySelectorAll(".opts button")].forEach((b,k)=>{b.disabled=true;if(k===it.a)b.classList.add("right");else if(k===sel)b.classList.add("wrong")});
+}
+function answer(i,k){
+  if(qAns[i]!=null)return;qAns[i]=k;store.set("ch8-quiz",qAns);paintQ(i);scoreQ();
+  say(k===quiz[i].a?["Delivered! That's right.","Spot on!","Perfect delivery!","Yes! Nice work."][i%4]:"Not quite. Read the note under the question, it explains why.",k===quiz[i].a?"hop":"sad");
+}
+function scoreQ(){
+  const n=Object.keys(qAns).length,c=Object.entries(qAns).filter(([i,k])=>quiz[i].a===k).length;
+  $("#quizScore").textContent=c+" / "+quiz.length;
+  $("#quizMsg").textContent=n<quiz.length?"Answered "+n+" of "+quiz.length+". Keep going!":c===quiz.length?"Perfect score! Every letter delivered safely. You're a network security postmaster.":c>=7?"Great job! Look over the ones you missed and try again.":"Good start. Revisit the stops for the ones you missed, then try again.";
+  if(n===quiz.length&&c===quiz.length)say("Perfect score! You've earned your Chapter 8 postmaster badge. 🏅","hop");
+}
+$("#quizReset").addEventListener("click",()=>{qAns={};store.set("ch8-quiz",qAns);renderQuiz()});
+renderQuiz();
+
+})();
+</script>
+
+
+</body></html>

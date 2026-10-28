@@ -1,0 +1,997 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Chapter 4 Post Office</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* Layout: a storybook. One scene on screen at a time, in a single column. Each scene opens with a question, then reveals a letter's journey you step through. */
+:root{
+  --bg:#EEF3F9; --paper:#FFFFFF; --paper2:#F5F8FC; --ink:#1D2944; --muted:#58668A; --line:#D3DCEA;
+  --red:#D93A3A; --blue:#2356C4; --gold:#E9A92B; --green:#23946A; --kraft:#E8D0A0; --kraft-ink:#6B4E1C;
+  --red-soft:#FBE3E3; --blue-soft:#E0E9F9; --green-soft:#DCF1E8; --gold-soft:#FBF0D5;
+  --shadow:0 2px 0 rgba(29,41,68,.07),0 10px 28px -10px rgba(29,41,68,.22);
+  --f-display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Courier Prime","Courier New",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111827; --paper:#1A2336; --paper2:#212C44; --ink:#E9EEF8; --muted:#A4B0CB; --line:#34425F;
+  --red:#FF6E6E; --blue:#79A2FF; --gold:#F4C35E; --green:#4CCB97; --kraft:#6A5530; --kraft-ink:#F6E2B8;
+  --red-soft:#3B2026; --blue-soft:#1D2C4D; --green-soft:#16362A; --gold-soft:#3A2F17;
+  --shadow:0 2px 0 rgba(0,0,0,.3),0 10px 28px -10px rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111827; --paper:#1A2336; --paper2:#212C44; --ink:#E9EEF8; --muted:#A4B0CB; --line:#34425F;
+  --red:#FF6E6E; --blue:#79A2FF; --gold:#F4C35E; --green:#4CCB97; --kraft:#6A5530; --kraft-ink:#F6E2B8;
+  --red-soft:#3B2026; --blue-soft:#1D2C4D; --green-soft:#16362A; --gold-soft:#3A2F17;
+  --shadow:0 2px 0 rgba(0,0,0,.3),0 10px 28px -10px rgba(0,0,0,.6); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.62;margin:0}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0;font-weight:600}
+p{margin:0}
+code,.mono{font-family:var(--f-mono)}
+b,strong{font-weight:800}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.wrap{max-width:780px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.airmail{height:8px;background:repeating-linear-gradient(135deg,var(--red) 0 12px,var(--paper) 12px 24px,var(--blue) 24px 36px,var(--paper) 36px 48px)}
+
+/* Top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.top-in{display:flex;align-items:center;gap:12px;padding-block:10px}
+.back{font-weight:800;color:var(--blue);text-decoration:none;border:1.5px solid var(--line);background:var(--paper);padding:4px 12px;border-radius:999px;font-size:.88rem;white-space:nowrap}
+.back:hover{border-color:var(--blue)}
+.where{flex:1;min-width:0;font-family:var(--f-mono);font-size:.82rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.where b{color:var(--ink)}
+.trail{display:flex;gap:4px;padding-bottom:10px;flex-wrap:wrap}
+.trail button{width:22px;height:16px;border-radius:3px;border:1.5px solid var(--line);background:var(--paper);padding:0}
+.trail button.done{background:var(--green);border-color:var(--green)}
+.trail button.here{border-color:var(--red);box-shadow:0 0 0 2px var(--red-soft)}
+
+/* Cover */
+.cover{padding-block:30px 10px;display:grid;gap:14px}
+.eyebrow{font-family:var(--f-mono);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700}
+
+/* Scene */
+main{padding-block:16px 150px}
+.scene{background:var(--paper);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;animation:enter .45s ease}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}}
+.scene-in{padding:24px clamp(18px,4vw,36px) 30px;display:grid;gap:18px}
+.kicker{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.scene h2{font-size:clamp(1.7rem,4.2vw,2.3rem)}
+.story{font-size:1.06rem}
+.story em{font-style:normal;background:var(--gold-soft);padding:0 4px;border-radius:4px}
+
+/* Hook: question first */
+.hook{border:2px dashed var(--blue);border-radius:16px;padding:16px 18px;display:grid;gap:12px;background:var(--blue-soft)}
+.hook-q{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.hook-q .face{width:44px;height:44px}
+.hook-q p{font-family:var(--f-display);font-size:1.18rem;font-weight:500;line-height:1.35}
+.hook-fb{font-weight:700}
+.hook.opened{border-style:solid;border-color:var(--line);background:var(--paper2)}
+.hook.opened [data-reveal]{display:none}
+.reveal{display:grid;gap:18px;animation:enter .5s ease}
+.guesses{display:grid;gap:8px}
+.guesses button{text-align:left;border:2px solid var(--line);background:var(--paper);border-radius:12px;padding:10px 14px;font-weight:700}
+.guesses button:hover{border-color:var(--blue)}
+.guesses button.right{border-color:var(--green);background:var(--green-soft)}
+.guesses button.wrong{border-color:var(--red);background:var(--red-soft)}
+.guesses.locked button{cursor:default}
+
+.btn{border:2px solid var(--ink);background:var(--gold);color:#1D2944;font-family:var(--f-display);font-weight:600;font-size:1.02rem;padding:8px 18px;border-radius:999px;box-shadow:0 3px 0 var(--ink)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+.btn.red{background:var(--red);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* Notebook: the takeaway */
+.notebook{background:var(--gold-soft);border-radius:14px;padding:16px 18px;display:grid;gap:8px;background-image:repeating-linear-gradient(transparent 0 27px,rgba(233,169,43,.25) 27px 28px)}
+.notebook h3{font-size:1.05rem;color:var(--kraft-ink);display:flex;align-items:center;gap:8px}
+.notebook ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+.term{font-weight:800;color:var(--red)}
+
+/* Journey engine */
+.journey{display:grid;gap:12px;background:var(--paper2);border:1px solid var(--line);border-radius:16px;padding:14px}
+.jtitle{font-family:var(--f-display);font-weight:600;font-size:1.1rem}
+.jscroll{overflow-x:auto;margin-inline:-4px}
+.stage{position:relative;min-width:540px;margin-inline:4px}
+.stage svg.links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ln{stroke:var(--line);stroke-width:3;stroke-dasharray:6 6;fill:none;transition:stroke .3s,opacity .3s}
+.ln.on{stroke:var(--red);stroke-dasharray:none}
+.ln.ctl{stroke-dasharray:2 5}
+.ln.off{opacity:0}
+.node{position:absolute;width:46px;height:46px;transform:translate(-50%,-50%);transition:opacity .3s}
+.node svg{width:46px;height:46px;display:block;transition:transform .3s}
+.node .nl{position:absolute;left:50%;top:100%;transform:translateX(-50%);width:130px;text-align:center;font-size:.76rem;line-height:1.2;font-weight:800;margin-top:3px}
+.node .nl small{display:block;font-family:var(--f-mono);font-weight:400;color:var(--muted);font-size:.7rem;margin-top:1px}
+.node.lt-t .nl{top:auto;bottom:100%;margin:0 0 3px}
+.node.lt-r .nl{left:100%;top:50%;transform:translateY(-50%);text-align:left;width:110px;margin:0 0 0 6px}
+.node.hl svg{transform:scale(1.15)}
+.node.hl::before{content:"";position:absolute;inset:-7px;border-radius:50%;background:var(--gold);opacity:.35}
+.node.dim{opacity:.3}
+.node.t1::before,.node.t2::before,.node.t3::before{content:"";position:absolute;inset:-9px;border-radius:14px;opacity:.45}
+.node.t1::before{background:var(--blue)} .node.t2::before{background:var(--green)} .node.t3::before{background:var(--gold)}
+.lt{position:absolute;width:36px;height:24px;transform:translate(-50%,-50%);z-index:3;transition:left .75s cubic-bezier(.5,.05,.3,1),top .75s cubic-bezier(.5,.05,.3,1),opacity .4s}
+.lt i{position:absolute;inset:0;background:var(--kraft);border:2px solid var(--kraft-ink);border-radius:4px;overflow:hidden}
+.lt i::before{content:"";position:absolute;left:-2px;right:-2px;top:-12px;height:24px;border-bottom:2px solid var(--kraft-ink);transform:scaleY(.9) rotate(0);clip-path:polygon(0 50%,50% 100%,100% 50%,100% 100%,0 100%);}
+.lt i::after{content:"";position:absolute;left:3px;right:3px;top:1px;height:12px;background:linear-gradient(to bottom right,transparent 47%,var(--kraft-ink) 48%,var(--kraft-ink) 56%,transparent 57%) left/50% 100% no-repeat,linear-gradient(to bottom left,transparent 47%,var(--kraft-ink) 48%,var(--kraft-ink) 56%,transparent 57%) right/50% 100% no-repeat}
+.lt span{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);margin-bottom:3px;white-space:nowrap;font-family:var(--f-mono);font-size:.68rem;font-weight:700;background:var(--paper);border:1px solid var(--line);padding:0 5px;border-radius:5px;color:var(--ink)}
+.lt span:empty{display:none}
+.lt.under span{bottom:auto;top:100%;margin:3px 0 0}
+.lt.red i{background:var(--red);border-color:var(--red)} .lt.red i::after{filter:brightness(3)}
+.lt.green i{background:var(--green);border-color:var(--green)}
+.lt.blue i{background:var(--blue);border-color:var(--blue)}
+.lt.v4 i{background:var(--gold);border-color:var(--kraft-ink);box-shadow:0 0 0 3px var(--blue)}
+.lt.chart i{background:var(--paper);border-color:var(--blue);border-style:dashed}
+.lt.chat{width:26px;height:18px}
+.lt.chat i{background:var(--blue-soft);border-color:var(--blue)}
+.lt.big{width:56px;height:36px}
+.lt.gone{opacity:.35}
+.lt.gone i{border-color:var(--red)}
+.lt.gone::after{content:"✕";position:absolute;inset:0;display:grid;place-items:center;color:var(--red);font-weight:900;font-size:1.4rem;z-index:2}
+.cap{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:64px}
+.cap-n{font-family:var(--f-display);font-weight:700;color:var(--blue)}
+.jpanel{background:var(--kraft);color:var(--kraft-ink);border:2px solid var(--kraft-ink);border-radius:12px;padding:10px 14px;font-family:var(--f-mono);font-size:.86rem;overflow-x:auto}
+.jpanel table{font-size:.86rem}
+.jpanel th{color:var(--kraft-ink)}
+.jctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.jdots{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.jdots span{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.jdots span.on{background:var(--red)}
+
+/* Tables & labs */
+.scrollx{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tn,td.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr.hit td{background:var(--green-soft)}
+tr.partial td{background:var(--gold-soft)}
+tr.miss td{opacity:.5}
+.bit-on{color:var(--green);font-weight:700}
+.bit-off{color:var(--red);text-decoration:underline wavy}
+input[type=text],input[type=number]{font:inherit;font-family:var(--f-mono);background:var(--paper);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:7px 10px;min-width:0}
+.out{font-family:var(--f-mono);font-size:.92rem;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:4px 12px;font-family:var(--f-mono);font-size:.82rem;font-weight:700}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* Header envelope */
+.dgram{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));gap:3px;min-width:560px}
+.dgram button{border:1.5px solid var(--kraft-ink);background:var(--kraft);color:var(--kraft-ink);border-radius:5px;padding:8px 4px;font-weight:800;font-size:.76rem;line-height:1.2}
+.dgram button.seen{background:var(--gold-soft)}
+.dgram button[aria-pressed="true"]{background:var(--red);color:#fff;border-color:var(--red)}
+.dgram .data{background:var(--paper);border-style:dashed}
+.ruler{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.7rem;color:var(--muted);min-width:560px}
+.explain{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px;min-height:90px}
+.explain h3{color:var(--red);font-size:1.1rem}
+
+/* Scheduler */
+.queues{display:grid;gap:8px}
+.q{display:flex;align-items:center;gap:6px;min-height:34px;flex-wrap:wrap}
+.q .qname{width:84px;flex:none;font-weight:800;font-size:.82rem}
+.mail{width:38px;height:26px;border-radius:4px;display:grid;place-items:center;font-family:var(--f-mono);font-weight:700;font-size:.75rem;color:#fff;flex:none;transition:transform .3s,opacity .3s}
+.c-r{background:var(--red)} .c-b{background:var(--blue)} .c-g{background:var(--green)}
+.mail.gone{opacity:.15;transform:scale(.8)}
+.outrow{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;padding:6px;border:2px dashed var(--line);border-radius:10px;background:var(--paper)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:1.5px solid var(--line);background:var(--paper);padding:6px 12px;border-radius:999px;font-weight:800;font-size:.88rem}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* Scene footer */
+.scene-nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:2px dashed var(--line);padding-top:18px;align-items:center}
+.scene-nav .hint{color:var(--muted);font-size:.9rem}
+
+/* Quiz */
+.qcard{background:var(--paper2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px}
+.qcard .fb{font-size:.95rem;color:var(--muted)}
+.score{font-family:var(--f-display);font-size:1.4rem;font-weight:700}
+
+/* Penny buddy */
+.buddy{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:flex-end;gap:8px;pointer-events:none}
+.bubble{pointer-events:auto;max-width:min(290px,62vw);background:var(--paper);border:2px solid var(--ink);border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:.9rem;box-shadow:var(--shadow);position:relative}
+.bubble .who{font-family:var(--f-display);color:var(--red);font-weight:600}
+.bubble .bx{position:absolute;top:2px;right:6px;border:0;background:none;font-size:1rem;color:var(--muted);padding:2px 4px}
+.bubble .more{margin-top:6px;border:0;background:none;color:var(--blue);font-weight:800;padding:0;font-size:.85rem}
+.carrier{pointer-events:auto;border:0;background:none;padding:0;width:84px;height:108px;flex:none}
+.carrier svg{width:100%;height:100%;overflow:visible}
+.carrier .arm{transform-origin:62px 70px}
+.carrier.wave .arm{animation:wave .5s ease-in-out 3}
+@keyframes wave{50%{transform:rotate(-35deg)}}
+.buddy.min .bubble{display:none}
+
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding-block:0 30px}
+@media (max-width:600px){.carrier{width:62px;height:80px}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="airmail" aria-hidden="true"></div>
+<div class="top">
+  <div class="wrap">
+    <div class="top-in">
+      <a class="back" href="../index.html">← All chapters</a>
+      <div class="where" id="where"></div>
+    </div>
+    <div class="trail" id="trail" aria-label="Scenes"></div>
+  </div>
+</div>
+
+<main class="wrap">
+<header class="cover" id="cover">
+  <div class="eyebrow">Chapter 4 · Network Layer: Data Plane</div>
+  <h1 style="font-size:clamp(2.1rem,6vw,3.2rem)">One letter, all the way to Bob</h1>
+  <p class="story">Alice wants to send Bob a letter across the city. Penny the mail carrier will follow it through every sorting office on the way. Each scene starts with a puzzle. Make a guess, then watch what really happens.</p>
+</header>
+
+<!-- ============ SCENE 1 ============ -->
+<section class="scene" data-id="jobs" data-title="Two different jobs" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 1 · slides 4–8</div>
+  <h2>Two different jobs</h2>
+  <p class="story">Alice writes <em>223.1.2.9</em> (Bob's address) on the envelope and drops it in the postbox. Between her house and Bob's there are four sorting offices, and at every one somebody has to decide which door the letter leaves by.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>Does each sorting office need to know the whole route to Bob?</p></div>
+    <div class="guesses" data-ok="1"><button>Yes, every office plans the whole trip</button><button>No, each office only picks the next door</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <p class="story">Think of a road trip to a town you've never been to. You don't carry the whole map in your head. At each junction you read the <b>road sign</b>: "Bobtown → turn left". A router does exactly that. Its <b>forwarding table</b> is the set of road signs at that one junction.</p>
+    <div class="journey" data-j="route"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li><span class="term">Forwarding</span>: move a letter from an office's input door to the right output door. Local, done in hardware, takes <b>nanoseconds</b>. This is the <b>data plane</b>.</li>
+      <li><span class="term">Routing</span>: work out the whole path from source to destination. Network-wide, done in software, takes <b>milliseconds</b>. This is the <b>control plane</b>.</li>
+      <li>The network layer wraps the transport segment in a <b>datagram</b> at the sender and unwraps it at the receiver. Every host and router speaks it.</li></ul></div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>Those charts all agreed with each other. So who writes them?</p></div>
+    <div class="row"><button class="btn" data-reveal>Watch two ways to do it</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="charts"></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 2 ============ -->
+<section class="scene" data-id="promise" data-title="What's promised?" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 2 · slides 9–12</div>
+  <h2>What does the post office promise?</h2>
+  <p class="story">Alice is excited, so she writes Bob five letters, numbers them 1 to 5, and posts them all at once.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>What will Bob find in his mailbox?</p></div>
+    <div class="guesses" data-ok="2"><button>All five, in order 1 to 5</button><button>All five, maybe jumbled up</button><button>Maybe jumbled, maybe some missing</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="besteffort"></div>
+    <p class="story">The Internet's network layer is <b>best effort</b>. It tries hard, but it promises nothing: no guaranteed delivery, no order, no minimum bandwidth, no timing. If Alice needs a receipt, a layer above (like TCP) has to arrange one.</p>
+    <div class="scrollx"><table>
+      <thead><tr><th>Network</th><th>Service model</th><th>Bandwidth</th><th>No loss</th><th>In order</th><th>Timing</th></tr></thead>
+      <tbody>
+        <tr><td>Internet</td><td><b>best effort</b></td><td>none</td><td>no</td><td>no</td><td>no</td></tr>
+        <tr><td>ATM</td><td>Constant Bit Rate</td><td>constant rate</td><td>yes</td><td>yes</td><td>yes</td></tr>
+        <tr><td>ATM</td><td>Available Bit Rate</td><td>guaranteed min</td><td>no</td><td>yes</td><td>no</td></tr>
+        <tr><td>Internet</td><td>Intserv Guaranteed (RFC 1633)</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Internet</td><td>Diffserv (RFC 2475)</td><td>possible</td><td>possibly</td><td>possibly</td><td>no</td></tr>
+      </tbody></table></div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>A post office that promises nothing... and yet the whole world uses it. Why?</p></div>
+    <div class="row"><button class="btn" data-reveal>Find out</button></div></div>
+  <div class="reveal" hidden>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li>The mechanism is <b>simple</b>, so it could be deployed everywhere.</li>
+      <li>With enough bandwidth, voice and video are "good enough" most of the time.</li>
+      <li>Copies of services (data centres, CDNs) sit close to users.</li>
+      <li>Congestion control helps "elastic" services cope.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 3 ============ -->
+<section class="scene" data-id="inside" data-title="Inside the office" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 3 · slides 14–29</div>
+  <h2>Inside the sorting office</h2>
+  <p class="story">Penny follows Alice's letter through the front door of Office 1. Inside is a huge building, yet the letter is out the other side almost instantly.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>What happens to the letter in those few nanoseconds?</p></div>
+    <div class="row"><button class="btn" data-reveal>Go inside with Penny</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="router"></div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>Rush hour: three letters arrive at three doors at the same moment. How does the building carry them all across?</p></div>
+    <div class="row"><button class="btn" data-reveal>Watch three building designs</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="fabric"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li>A router = <span class="term">input ports</span> + <span class="term">switching fabric</span> + <span class="term">output ports</span>, with a <span class="term">routing processor</span> on top.</li>
+      <li>Lookup happens at the input port, using its own copy of the table ("match plus action").</li>
+      <li><b>Destination-based</b> forwarding looks only at the destination IP. <b>Generalized</b> forwarding can look at any header field (Scene 12).</li>
+      <li>Switching rate: with N inputs, the fabric should run about N times the line rate.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 4 ============ -->
+<section class="scene" data-id="lpm" data-title="Two lines match" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 4 · slides 17–23</div>
+  <h2>Two lines match!</h2>
+  <p class="story">Back at Office 1's input door, a letter for <em>200.23.24.170</em> arrives. The clerk checks the chart. It doesn't list single addresses, only address <b>prefixes</b> (the first bits). Penny reads the address in binary and gets confused.</p>
+  <div class="out" id="lpmChart"></div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>The green bits match on two lines. Which door should the letter go through?</p></div>
+    <div class="guesses" data-ok="1"><button>Door 0</button><button>Door 1</button><button>Door 2</button><button>Door 3</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="lpm"></div>
+    <p class="story">This rule is <b>longest prefix matching</b>. When several entries fit, use the one with the longest matching prefix, because it is the most specific. It's like a chart saying "postcodes starting SW go to bag 3" and "SW1A 1AA goes to bag 1".</p>
+    <div class="lab journey" style="gap:10px">
+      <div class="jtitle">Your turn: post any address</div>
+      <div class="row"><input type="text" id="lpmIn" value="200.23.22.161" size="16" spellcheck="false" aria-label="Destination address">
+        <button class="btn" id="lpmGo">Post it</button>
+        <button class="chip" data-lpm="200.23.25.9">200.23.25.9</button><button class="chip" data-lpm="200.23.17.1">200.23.17.1</button><button class="chip" data-lpm="10.0.0.1">10.0.0.1</button></div>
+      <div class="scrollx"><table id="lpmTable"><thead><tr><th>Prefix</th><th>Bits</th><th>Door</th></tr></thead><tbody></tbody></table></div>
+      <p id="lpmVerdict" style="font-weight:700"></p>
+    </div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li>Forwarding tables store <b>prefixes</b>, not every address.</li>
+      <li>Longest prefix wins.</li>
+      <li>Routers do this in one clock cycle with <b>TCAMs</b> (ternary content-addressable memory). A Cisco Catalyst holds about 1 million entries.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 5 ============ -->
+<section class="scene" data-id="queues" data-title="Rush hour" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 5 · slides 30–41</div>
+  <h2>Rush hour</h2>
+  <p class="story">It's Monday morning and the whole city is posting letters. At Office 1's exit, letters pour in <b>3 per tick</b>, but the road out can only take <b>1 per tick</b>. The mailbag at the door holds <b>5</b> letters.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>What happens after a few ticks?</p></div>
+    <div class="guesses" data-ok="1"><button>Nothing. They all wait patiently</button><button>Some letters get thrown away</button><button>The road speeds up to cope</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="overflow"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li><span class="term">Output queueing</span>: when letters arrive faster than the link can send, they wait (delay) and, when the buffer is full, get dropped (loss).</li>
+      <li><b>Drop policy</b>: <i>tail drop</i> (drop the newcomer), or drop by <i>priority</i>. Routers can also <b>mark</b> letters to warn of congestion (ECN, RED).</li>
+      <li>How big a buffer? RFC 3439: RTT × link capacity (250 ms × 10 Gbps = 2.5 Gbit). With N flows: RTT·C/√N. Too much buffering causes long delays ("bufferbloat").</li></ul></div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>There's a sneakier jam at the <i>input</i> doors. Can a letter get stuck even when its exit is empty?</p></div>
+    <div class="row"><button class="btn" data-reveal>Watch</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="hol"></div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>The road is free again. Nine letters are waiting: some Priority, some Standard, some Bulk. Which one goes next?</p></div>
+    <div class="row"><button class="btn" data-reveal>It depends on the rules. Try them</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey">
+      <div class="jtitle">Packet scheduling</div>
+      <div class="tabs" role="tablist" id="schedTabs">
+        <button role="tab" aria-selected="true" data-s="fcfs">First come, first served</button>
+        <button role="tab" aria-selected="false" data-s="prio">Priority</button>
+        <button role="tab" aria-selected="false" data-s="rr">Round robin</button>
+        <button role="tab" aria-selected="false" data-s="wfq">Weighted fair</button>
+      </div>
+      <p id="schedDesc"></p>
+      <div class="queues" id="schedQueues"></div>
+      <div class="row"><button class="btn red" id="dispatch">Send them out</button><b style="font-size:.9rem">Leaving on the road →</b></div>
+      <div class="outrow" id="schedOut" aria-live="polite"></div>
+    </div>
+    <div class="notebook"><h3>Who decides the rules? Network neutrality</h3>
+      <p>Scheduling and buffer rules are exactly what an ISP could use to favour some traffic. The 2015 US FCC Open Internet order set three bright lines: <b>no blocking</b>, <b>no throttling</b>, <b>no paid prioritization</b>. The legal question is whether an ISP is a "telecommunications service" (Title II, common-carrier duties) or an "information service" (Title I).</p></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 6 ============ -->
+<section class="scene" data-id="envelope" data-title="The envelope" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 6 · slides 43–44</div>
+  <h2>Writing on the envelope</h2>
+  <p class="story">While the letter waits in the bag, Penny turns it over. The envelope is covered in little boxes of numbers. This is the <b>IPv4 datagram header</b>, usually 20 bytes.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>What could all these boxes be for?</p></div>
+    <div class="row"><button class="btn" data-reveal>Look closer</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey">
+      <div class="jtitle">Tap each box on the envelope</div>
+      <div class="scrollx"><div class="ruler"><span>bit 0</span><span>8</span><span>16</span><span>24</span><span>31</span></div><div class="dgram" id="dgram"></div></div>
+      <div class="explain" id="dgOut" aria-live="polite"><h3>Pick a box</h3><p><span id="dgCount">0</span> of 14 discovered.</p></div>
+    </div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>Two offices have a mistake in their charts and keep passing a letter back and forth. Does it bounce forever?</p></div>
+    <div class="guesses" data-ok="1"><button>Yes, forever</button><button>No, something stops it</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="ttl"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li><b>TTL</b> goes down by 1 at every router. At 0 the datagram is dropped, so loops can't last forever.</li>
+      <li>The <b>upper layer</b> field says who opens it at the end (6 = TCP, 17 = UDP).</li>
+      <li>Overhead: 20 bytes TCP + 20 bytes IP = <b>40 bytes</b> per segment, before any app data.</li>
+      <li>Routers also send error notes using <b>ICMP</b>.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 7 ============ -->
+<section class="scene" data-id="subnets" data-title="Streets & subnets" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 7 · slides 45–51</div>
+  <h2>Streets and neighbourhoods</h2>
+  <p class="story">Alice lives at 223.1.1.1. Her street has two other houses: 223.1.1.2 and 223.1.1.3. Bob's cousin lives at 223.1.2.2, over on another street.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>Can Alice hand a letter straight to 223.1.1.3 without the sorting office? What about 223.1.2.2?</p></div>
+    <div class="guesses" data-ok="1"><button>Both need the sorting office</button><button>223.1.1.3 directly, 223.1.2.2 needs the office</button><button>Both can go directly</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="subnet"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li>An <span class="term">IP address</span> is a 32-bit number for an <b>interface</b> (where a device meets a link), not for the device. Routers have many; laptops have one or two.</li>
+      <li><code>223.1.1.1</code> = <code>11011111 00000001 00000001 00000001</code></li>
+      <li>A <span class="term">subnet</span> = interfaces that can reach each other without a router. Same subnet part (high bits), different host part (low bits).</li>
+      <li><b>/24</b> is the subnet mask: the first 24 bits are the subnet part.</li></ul></div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>Does the street part always have to be 24 bits?</p></div>
+    <div class="row"><button class="btn" data-reveal>Meet CIDR</button></div></div>
+  <div class="reveal" hidden>
+    <p class="story">No. <b>CIDR</b> (Classless InterDomain Routing, said "cider") lets the subnet part be any length. Write it as <code>a.b.c.d/x</code>, where x is the number of subnet bits.</p>
+    <div class="journey" style="gap:10px">
+      <div class="jtitle">Try any address</div>
+      <div class="row"><input type="text" id="cidrIn" value="200.23.16.42/23" size="18" spellcheck="false" aria-label="Address with prefix length">
+        <button class="chip" data-cidr="223.1.1.4/24">223.1.1.4/24</button><button class="chip" data-cidr="200.23.16.0/20">200.23.16.0/20</button><button class="chip" data-cidr="10.0.0.3/8">10.0.0.3/8</button></div>
+      <div class="out" id="cidrOut"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 8 ============ -->
+<section class="scene" data-id="dhcp" data-title="No address yet" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 8 · slides 52–58</div>
+  <h2>The house with no address</h2>
+  <p class="story">Alice buys a new laptop and opens it in a café. It has no IP address at all. It can't sign a return address, and it doesn't even know who to ask.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>How can it send a letter asking for an address, when it doesn't have one?</p></div>
+    <div class="row"><button class="btn" data-reveal>Watch it ask</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="dhcp"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li><span class="term">DHCP</span> (Dynamic Host Configuration Protocol) hands out addresses automatically: plug-and-play. Addresses are <b>leased</b>, renewable, and reused when you leave.</li>
+      <li>Four messages: <b>D</b>iscover, <b>O</b>ffer, <b>R</b>equest, <b>A</b>CK ("DORA"). All broadcast, since the client has no address yet.</li>
+      <li>Runs over <b>UDP</b> (server port 67, client 68), inside IP, inside an Ethernet frame sent to FF:FF:FF:FF:FF:FF.</li>
+      <li>Also returns: first-hop router, DNS server, network mask. Often the DHCP server is built into the router.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 9 ============ -->
+<section class="scene" data-id="isp" data-title="Moving ISP" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 9 · slides 59–63</div>
+  <h2>Who owns the street names?</h2>
+  <p class="story">Alice works at <b>Organization 1</b>. Its addresses, <em>200.23.18.0/23</em>, came from its ISP, Fly-By-Night, which owns the bigger block <em>200.23.16.0/20</em> and sliced it into eight pieces for eight customers.</p>
+  <div class="scrollx"><table><thead><tr><th>Who</th><th>Binary</th><th>Block</th></tr></thead><tbody class="tn" id="ispTable"></tbody></table></div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>Organization 1 switches to a different ISP, ISPs-R-Us, but keeps its addresses. Fly-By-Night still tells the world "send me everything in 200.23.16.0/20". Where does a letter for Organization 1 go now?</p></div>
+    <div class="guesses" data-ok="1"><button>Still to Fly-By-Night</button><button>To ISPs-R-Us</button><button>Nowhere. It gets lost</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="isp"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li><span class="term">Hierarchical addressing</span> lets one ISP advertise one block for many customers: <b>route aggregation</b>.</li>
+      <li>A <b>more specific route</b> plus longest prefix match handles customers who move.</li>
+      <li>ISPs get blocks from <b>ICANN</b> via 5 regional registries. ICANN also manages the DNS root. The last IPv4 chunks went out in 2011.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 10 ============ -->
+<section class="scene" data-id="nat" data-title="One address" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 10 · slides 65–69</div>
+  <h2>A whole house, one address</h2>
+  <p class="story">At home, Alice has a laptop and a phone. But the ISP gave the whole house just <b>one</b> address: <em>138.76.29.7</em>. Inside, the devices use private addresses like 10.0.0.1 that mean nothing to the outside world.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>The laptop asks a web server for a page. How does the reply find the laptop and not the phone?</p></div>
+    <div class="row"><button class="btn" data-reveal>Follow the request</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="nat"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li><span class="term">NAT</span>: all devices on a local network share one public IPv4 address. Private ranges: <code>10/8</code>, <code>172.16/12</code>, <code>192.168/16</code>.</li>
+      <li>Outgoing: replace (source IP, port) with (NAT IP, new port) and remember it. Incoming: look it up and swap back.</li>
+      <li>16-bit port numbers allow about 60,000 connections on one address.</li></ul></div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>It works. But is NAT a good idea?</p></div>
+    <div class="row"><button class="btn" data-reveal>Hear both sides</button></div></div>
+  <div class="reveal" hidden>
+    <div class="notebook" style="background-color:var(--green-soft)"><h3>For it</h3><ul><li>One address from the ISP for every device.</li><li>Change home addresses without telling anyone.</li><li>Change ISP without renumbering.</li><li>Inside devices can't be addressed directly from outside.</li></ul></div>
+    <div class="notebook" style="background-color:var(--red-soft)"><h3>Against it</h3><ul><li>Routers "should" only process up to layer 3, but NAT rewrites ports.</li><li>The address shortage "should" be solved by IPv6.</li><li>It breaks the end-to-end argument.</li><li>NAT traversal: outsiders struggle to reach a server behind NAT.</li></ul></div>
+    <p class="story">Either way, NAT is here to stay: homes, institutions, and 4G/5G cellular networks all use it.</p>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 11 ============ -->
+<section class="scene" data-id="ipv6" data-title="New envelopes" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 11 · slides 70–77</div>
+  <h2>The new envelope</h2>
+  <p class="story">32-bit addresses are running out, so a new envelope was designed: <b>IPv6</b>, with <b>128-bit</b> addresses and a fixed <b>40-byte</b> header. Alice's office (A, B) and Bob's office (E, F) have upgraded. But offices C and D in the middle of town still only read old IPv4 envelopes.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>How can an IPv6 letter get through C and D?</p></div>
+    <div class="guesses" data-ok="1"><button>Wait until every office upgrades</button><button>Put the IPv6 letter inside an IPv4 envelope</button><button>Send it by a different road</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="tunnel"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li><span class="term">Tunneling</span>: carry an IPv6 datagram as the payload of an IPv4 datagram ("a packet within a packet"). Also used in 4G/5G.</li>
+      <li>IPv6 drops the <b>checksum</b>, <b>fragmentation in routers</b>, and <b>options</b> (moved to "next header"). It adds a <b>flow label</b>.</li>
+      <li>Adoption: about 40% of Google's clients use IPv6 (2023). It has taken 25+ years, because the network layer is hard to change.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 12 ============ -->
+<section class="scene" data-id="frag" data-title="Too big to fit" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 12 · slides 101–102</div>
+  <h2>Too big for the road</h2>
+  <p class="story">Alice sends Bob a big parcel: a <b>4000-byte</b> IPv4 datagram. Halfway there the road changes. The next link's <b>MTU</b> (largest frame it can carry) is only <b>1500 bytes</b>.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>It doesn't fit. What will the office do?</p></div>
+    <div class="row"><button class="btn" data-reveal>Watch</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="frag"></div>
+    <div class="journey" style="gap:10px">
+      <div class="jtitle">Try your own parcel</div>
+      <div class="row"><label for="fragL"><b>Datagram bytes</b></label><input type="number" id="fragL" value="4000" min="40" max="65535" style="width:110px"><label for="fragM"><b>MTU</b></label><input type="number" id="fragM" value="1500" min="68" max="9000" style="width:100px"></div>
+      <div class="scrollx"><table><thead><tr><th>Piece</th><th>Length</th><th>ID</th><th>More flag</th><th>Offset (×8 B)</th></tr></thead><tbody class="tn" id="fragOut"></tbody></table></div>
+      <p style="font-size:.9rem;color:var(--muted)">20-byte header per piece. Data per piece is a multiple of 8 because the offset counts 8-byte units.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 13 ============ -->
+<section class="scene" data-id="rules" data-title="The rule book" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 13 · slides 79–88</div>
+  <h2>The new rule book</h2>
+  <p class="story">Office 1 gets a new manager, who hands the clerks a rule book. The rules don't just read the "To" address. They can look at <b>anything</b> on the envelope, and do more than forward: drop it, change it, or ask head office.</p>
+  <div class="out"><b>Rule book (highest priority first)</b><table id="flowTable" style="margin-top:6px"><thead><tr><th>Match</th><th>Action</th><th>Count</th></tr></thead><tbody></tbody></table></div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>A letter <b>from 128.119.1.1</b> going <b>to 51.6.0.8</b> arrives. Two rules match. What happens?</p></div>
+    <div class="guesses" data-ok="1"><button>Forward out port 6</button><button>Drop it</button><button>Send it to the controller</button></div>
+    <p class="hook-fb" hidden></p></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="flow"></div>
+    <div class="row" id="pkts"></div>
+    <div class="notebook"><h3>Penny's notebook</h3><ul>
+      <li><span class="term">Generalized forwarding</span> = match + action. Match on link, network or transport fields. Actions: forward, drop, modify, send to controller. <b>Priority</b> breaks ties; <b>counters</b> track bytes and packets.</li>
+      <li><b>OpenFlow</b> is the standard way to write these flow tables.</li>
+      <li>One idea covers many devices: <b>router</b> (longest IP prefix → forward), <b>switch</b> (MAC → forward or flood), <b>firewall</b> (IP and ports → permit or deny), <b>NAT</b> (IP and port → rewrite).</li>
+      <li>Program the tables across many switches and you get network-wide behaviour.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 14 ============ -->
+<section class="scene" data-id="end" data-title="Delivered" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Scene 14 · slides 90–98</div>
+  <h2>Delivered. Looking back at the route</h2>
+  <p class="story">Bob opens Alice's letter. Penny looks back at everything the letter passed through on its way.</p>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>Not every box on the way was a plain sorting office. What else did the letter meet?</p></div>
+    <div class="row"><button class="btn" data-reveal>Show me</button></div></div>
+  <div class="reveal" hidden>
+    <div class="journey" data-j="middle"></div>
+  </div>
+  <div class="hook"><div class="hook-q"><span class="face"></span><p>So where should the cleverness live: inside the network, or at Alice's and Bob's houses?</p></div>
+    <div class="row"><button class="btn" data-reveal>The Internet's answer</button></div></div>
+  <div class="reveal" hidden>
+    <div class="notebook"><h3>The IP hourglass</h3><p>Lots of apps on top (HTTP, SMTP, RTP…), lots of link types underneath (Ethernet, Wi-Fi, cable…), and one thin waist in the middle: <b>IP</b>. In "middle age" the waist has thickened a little, with NAT, firewalls and caches living there.</p></div>
+    <div class="notebook"><h3>RFC 1958</h3><p>"The goal is connectivity, the tool is the Internet Protocol, and the intelligence is end to end rather than hidden in the network."</p></div>
+    <div class="notebook"><h3>The end-to-end argument</h3><p>Things like reliable delivery could be built into the network or at the edges. But only Bob can truly check that the right letter arrived intact, so the edges must do it anyway. Doing it inside the network can only be a speed-up.</p></div>
+    <p class="story">One mystery is left. Who actually computes all those charts? That's the <b>control plane</b>, in Chapter 5.</p>
+  </div>
+</div></section>
+
+<!-- ============ SCENE 15 ============ -->
+<section class="scene" data-id="quiz" data-title="Sorting test" hidden><div class="airmail"></div><div class="scene-in">
+  <div class="kicker">Final scene</div>
+  <div class="row" style="justify-content:space-between"><h2>Penny's sorting test</h2><span class="score" id="score">0 / 10</span></div>
+  <p class="story">Ten letters to sort. Get them right and Penny signs off your round.</p>
+  <div id="qz" style="display:grid;gap:14px"></div>
+</div></section>
+
+<nav class="scene-nav" id="sceneNav" aria-label="Scene navigation" style="margin-top:18px">
+  <button class="btn ghost" id="prevS">← Back</button>
+  <span class="hint" id="navHint"></span>
+  <button class="btn red" id="nextS">Next scene →</button>
+</nav>
+</main>
+<footer class="wrap"><p><a class="back" href="../index.html">← Back to all chapters</a></p><p style="margin-top:10px">Based on Kurose &amp; Ross, <i>Computer Networking: A Top-Down Approach</i>, 8th ed., Chapter 4.</p></footer>
+
+<div class="buddy" id="buddy">
+  <div class="bubble" aria-live="polite">
+    <button class="bx" id="bx" aria-label="Hide Penny's tip">×</button>
+    <div class="who">Penny</div>
+    <div id="bubbleText"></div>
+    <button class="more" id="more">Another tip</button>
+  </div>
+  <button class="carrier" id="carrier" aria-label="Penny the mail carrier. Tap for a tip"></button>
+</div>
+
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- Penny art ---------- */
+const PENNY=`<svg viewBox="0 0 100 130" aria-hidden="true">
+ <ellipse cx="50" cy="126" rx="28" ry="4" fill="var(--line)"/>
+ <rect x="36" y="96" width="11" height="26" rx="4" fill="#1D2944"/><rect x="53" y="96" width="11" height="26" rx="4" fill="#1D2944"/>
+ <rect x="32" y="118" width="16" height="7" rx="3" fill="#3a2a1a"/><rect x="52" y="118" width="16" height="7" rx="3" fill="#3a2a1a"/>
+ <rect x="30" y="58" width="40" height="44" rx="12" fill="#2356C4"/>
+ <path d="M33 62 L70 92" stroke="#7a4f22" stroke-width="5"/>
+ <rect x="58" y="86" width="22" height="18" rx="4" fill="#E9A92B"/><rect x="61" y="90" width="12" height="7" rx="1" fill="#fff"/>
+ <rect x="20" y="62" width="11" height="28" rx="5" fill="#2356C4"/><circle cx="25" cy="92" r="5" fill="#F2C39B"/>
+ <g class="arm"><rect x="66" y="40" width="11" height="30" rx="5" fill="#2356C4"/><circle cx="71" cy="38" r="5.5" fill="#F2C39B"/>
+  <rect x="74" y="24" width="20" height="13" rx="2" fill="#E8D0A0" stroke="#6B4E1C" stroke-width="1.5"/><path d="M74 25 L84 31 L94 25" fill="none" stroke="#6B4E1C" stroke-width="1.5"/></g>
+ <path d="M34 36 q-8 14 -2 26" stroke="#6b3e1f" stroke-width="7" fill="none" stroke-linecap="round"/>
+ <circle cx="50" cy="40" r="17" fill="#F2C39B"/>
+ <circle cx="44" cy="40" r="2.2" fill="#1D2944"/><circle cx="56" cy="40" r="2.2" fill="#1D2944"/>
+ <path d="M44 47 Q50 52 56 47" fill="none" stroke="#1D2944" stroke-width="2" stroke-linecap="round"/>
+ <circle cx="40" cy="45" r="2.5" fill="#F09A8A" opacity=".7"/><circle cx="60" cy="45" r="2.5" fill="#F09A8A" opacity=".7"/>
+ <path d="M31 32 Q50 14 69 32 Z" fill="#D93A3A"/><rect x="29" y="29" width="42" height="6" rx="2" fill="#2356C4"/>
+ <path d="M50 33 L72 36 L50 37 Z" fill="#A82828"/><circle cx="50" cy="24" r="3" fill="#E9A92B"/></svg>`;
+const FACE=`<svg viewBox="26 14 48 48" width="44" height="44" aria-hidden="true"><circle cx="50" cy="40" r="20" fill="var(--paper)"/>
+ <path d="M34 36 q-8 14 -2 22" stroke="#6b3e1f" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="50" cy="40" r="17" fill="#F2C39B"/>
+ <circle cx="44" cy="40" r="2.2" fill="#1D2944"/><circle cx="56" cy="40" r="2.2" fill="#1D2944"/><path d="M44 47 Q50 52 56 47" fill="none" stroke="#1D2944" stroke-width="2" stroke-linecap="round"/>
+ <path d="M31 32 Q50 14 69 32 Z" fill="#D93A3A"/><rect x="29" y="29" width="42" height="6" rx="2" fill="#2356C4"/></svg>`;
+$('#carrier').innerHTML=PENNY; $$('.face').forEach(f=>f.innerHTML=FACE);
+
+/* ---------- Icons ---------- */
+const I={
+ house:`<svg viewBox="0 0 46 46"><path d="M4 22 L23 6 L42 22Z" fill="var(--red)"/><rect x="9" y="21" width="28" height="21" rx="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/><rect x="19" y="29" width="8" height="13" fill="var(--gold)" stroke="var(--ink)" stroke-width="1.5"/></svg>`,
+ office:`<svg viewBox="0 0 46 46"><rect x="5" y="12" width="36" height="30" rx="3" fill="var(--blue)"/><rect x="5" y="18" width="36" height="5" fill="var(--red)"/><rect x="14" y="27" width="18" height="11" rx="1" fill="var(--kraft)" stroke="var(--kraft-ink)" stroke-width="1.5"/><path d="M14 28 L23 33 L32 28" stroke="var(--kraft-ink)" stroke-width="1.5" fill="none"/><path d="M23 12 V3 h9 v5 h-9" fill="var(--gold)" stroke="var(--ink)" stroke-width="1.5"/></svg>`,
+ v4office:`<svg viewBox="0 0 46 46"><rect x="5" y="12" width="36" height="30" rx="3" fill="var(--muted)"/><rect x="5" y="18" width="36" height="5" fill="var(--gold)"/><text x="23" y="37" text-anchor="middle" font-family="Courier Prime,monospace" font-weight="700" font-size="11" fill="#fff">v4</text></svg>`,
+ v6office:`<svg viewBox="0 0 46 46"><rect x="5" y="12" width="36" height="30" rx="3" fill="var(--blue)"/><rect x="5" y="18" width="36" height="5" fill="var(--red)"/><text x="23" y="37" text-anchor="middle" font-family="Courier Prime,monospace" font-weight="700" font-size="11" fill="#fff">v6</text></svg>`,
+ hq:`<svg viewBox="0 0 46 46"><rect x="8" y="14" width="30" height="28" rx="3" fill="var(--ink)"/><path d="M23 14 V4" stroke="var(--ink)" stroke-width="2"/><circle cx="23" cy="4" r="3" fill="var(--red)"/><g fill="var(--gold)"><rect x="13" y="20" width="6" height="5"/><rect x="27" y="20" width="6" height="5"/><rect x="13" y="30" width="6" height="5"/><rect x="27" y="30" width="6" height="5"/></g></svg>`,
+ server:`<svg viewBox="0 0 46 46"><g fill="var(--paper)" stroke="var(--ink)" stroke-width="2"><rect x="9" y="6" width="28" height="10" rx="2"/><rect x="9" y="18" width="28" height="10" rx="2"/><rect x="9" y="30" width="28" height="10" rx="2"/></g><g fill="var(--green)"><circle cx="15" cy="11" r="2"/><circle cx="15" cy="23" r="2"/><circle cx="15" cy="35" r="2"/></g></svg>`,
+ laptop:`<svg viewBox="0 0 46 46"><rect x="9" y="10" width="28" height="19" rx="2" fill="var(--blue-soft)" stroke="var(--ink)" stroke-width="2"/><path d="M4 33 h38 l-3 5 h-32z" fill="var(--ink)"/></svg>`,
+ phone:`<svg viewBox="0 0 46 46"><rect x="14" y="5" width="18" height="36" rx="4" fill="var(--blue-soft)" stroke="var(--ink)" stroke-width="2"/><circle cx="23" cy="36" r="2" fill="var(--ink)"/></svg>`,
+ cloud:`<svg viewBox="0 0 46 46"><path d="M12 34 a8 8 0 0 1 0-16 a11 11 0 0 1 21-3 a9 9 0 0 1 2 19z" fill="var(--paper)" stroke="var(--blue)" stroke-width="2.5"/></svg>`,
+ port:`<svg viewBox="0 0 46 46"><rect x="8" y="8" width="30" height="30" rx="6" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="2.5"/><path d="M16 23 h14 m-5 -5 l5 5 l-5 5" stroke="var(--blue)" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`,
+ fabric:`<svg viewBox="0 0 46 46"><rect x="5" y="5" width="36" height="36" rx="6" fill="var(--gold-soft)" stroke="var(--gold)" stroke-width="2.5"/><g stroke="var(--kraft-ink)" stroke-width="1.6"><path d="M12 14 H34 M12 23 H34 M12 32 H34 M14 12 V34 M23 12 V34 M32 12 V34"/></g></svg>`,
+ road:`<svg viewBox="0 0 46 46"><rect x="3" y="15" width="40" height="16" rx="3" fill="var(--muted)"/><path d="M7 23 h8 m6 0 h8 m6 0 h6" stroke="var(--paper)" stroke-width="2"/></svg>`,
+ bag:`<svg viewBox="0 0 46 46"><path d="M10 14 h26 l3 26 h-32z" fill="var(--gold)" stroke="var(--kraft-ink)" stroke-width="2"/><path d="M16 14 q7 -10 14 0" stroke="var(--kraft-ink)" stroke-width="2.5" fill="none"/></svg>`,
+ door:`<svg viewBox="0 0 46 46"><rect x="11" y="5" width="24" height="36" rx="2" fill="var(--green-soft)" stroke="var(--green)" stroke-width="2.5"/><circle cx="29" cy="24" r="2" fill="var(--green)"/></svg>`,
+ bin:`<svg viewBox="0 0 46 46"><rect x="11" y="12" width="24" height="28" rx="3" fill="var(--red-soft)" stroke="var(--red)" stroke-width="2.5"/><path d="M8 12 h30 M18 7 h10" stroke="var(--red)" stroke-width="2.5"/><path d="M18 20 l10 12 m0 -12 l-10 12" stroke="var(--red)" stroke-width="2.5"/></svg>`,
+ firewall:`<svg viewBox="0 0 46 46"><g fill="var(--red)" stroke="var(--paper)" stroke-width="1.5"><rect x="5" y="8" width="18" height="9"/><rect x="23" y="8" width="18" height="9"/><rect x="5" y="17" width="9" height="9"/><rect x="14" y="17" width="18" height="9"/><rect x="32" y="17" width="9" height="9"/><rect x="5" y="26" width="18" height="9"/><rect x="23" y="26" width="18" height="9"/></g></svg>`,
+ nat:`<svg viewBox="0 0 46 46"><rect x="6" y="10" width="34" height="32" rx="3" fill="var(--gold)" stroke="var(--kraft-ink)" stroke-width="2"/><rect x="12" y="16" width="22" height="8" rx="1" fill="var(--paper)"/><path d="M15 31 h16 M15 36 h16" stroke="var(--kraft-ink)" stroke-width="2"/></svg>`
+};
+
+/* ---------- Journey engine ---------- */
+const NS='http://www.w3.org/2000/svg';
+function Journey(host,cfg){
+  host.innerHTML=(cfg.title?'<div class="jtitle">'+cfg.title+'</div>':'')+'<div class="jscroll"><div class="stage" style="height:'+(cfg.h||250)+'px"><svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none"></svg></div></div><div class="cap"><span class="cap-n"></span><span class="cap-t"></span></div><div class="jpanel" hidden></div>'+(cfg.manual?'':'<div class="jctl"><div class="jdots"></div><button class="btn ghost jb">Back</button><button class="btn red jn">Next step</button></div>');
+  const stage=$('.stage',host), svg=$('svg',stage), nodes={}, letters={}, links={};
+  for(const id in cfg.nodes){const n=cfg.nodes[id];const d=document.createElement('div');d.className='node'+(n.lp?' lt-'+n.lp:'');d.style.left=n.x+'%';d.style.top=n.y+'%';
+    d.innerHTML=(I[n.icon||'office'])+'<div class="nl">'+(n.label||'')+'<small>'+(n.sub||'')+'</small></div>';stage.appendChild(d);nodes[id]={n,el:d,sub:$('small',d)}}
+  (cfg.links||[]).forEach(([a,b,c])=>{const l=document.createElementNS(NS,'line');const A=cfg.nodes[a],B=cfg.nodes[b];l.setAttribute('x1',A.x);l.setAttribute('y1',A.y);l.setAttribute('x2',B.x);l.setAttribute('y2',B.y);l.setAttribute('vector-effect','non-scaling-stroke');l.setAttribute('class','ln '+(c||''));svg.appendChild(l);links[a+'-'+b]={el:l,base:c||''}});
+  const pos=at=>Array.isArray(at)?{x:at[0],y:at[1]}:{x:cfg.nodes[at].x,y:cfg.nodes[at].y};
+  function place(e,L,p){e.style.left='calc('+p.x+'% + '+(L.dx||0)+'px)';e.style.top='calc('+p.y+'% + '+(L.dy||0)+'px)'}
+  function render(s){
+    const seen=new Set();
+    for(const id in (s.letters||{})){const L=s.letters[id];seen.add(id);let e=letters[id];
+      if(!e){e=document.createElement('div');e.innerHTML='<i></i><span></span>';stage.appendChild(e);letters[id]=e;place(e,L.from?{}:L,pos(L.from||L.at));if(L.from){e.style.left='calc('+pos(L.from).x+'% + 0px)';e.style.top='calc('+pos(L.from).y+'% + 0px)';void e.offsetWidth}}
+      place(e,L,pos(L.at));e.className='lt '+(L.c||'')+(L.g?' gone':'')+(L.under?' under':'');$('span',e).textContent=L.t||''}
+    for(const id in letters)if(!seen.has(id)){letters[id].remove();delete letters[id]}
+    for(const id in nodes){const N=nodes[id];N.el.classList.toggle('hl',(s.hl||[]).includes(id));N.el.classList.toggle('dim',(s.dim||[]).includes(id));
+      N.el.classList.remove('t1','t2','t3');if(s.tint&&s.tint[id])N.el.classList.add(s.tint[id]);
+      N.sub.textContent=(s.sub&&id in s.sub)?s.sub[id]:(N.n.sub||'')}
+    for(const k in links){const L=links[k];L.el.setAttribute('class','ln '+L.base+((s.on||[]).includes(k)?' on':'')+(((s.off||cfg.off||[]).includes(k)&&!(s.show||[]).includes(k))?' off':''))}
+    $('.cap-t',host).innerHTML=s.cap||'';
+    const pn=$('.jpanel',host);pn.hidden=!s.panel;if(s.panel)pn.innerHTML=s.panel;
+  }
+  let i=0;const steps=cfg.steps||[];
+  function go(k){i=k;render(steps[i]);$('.cap-n',host).textContent=(i+1)+'.';
+    if(cfg.manual)return;
+    $('.jdots',host).innerHTML=steps.map((_,j)=>'<span class="'+(j<=i?'on':'')+'"></span>').join('');
+    $('.jb',host).disabled=i===0;$('.jn',host).textContent=i===steps.length-1?'Play again':'Next step';
+    if(i===steps.length-1&&cfg.done)cfg.done()}
+  if(!cfg.manual){$('.jn',host).addEventListener('click',()=>{if(i===steps.length-1){for(const id in letters){letters[id].remove();delete letters[id]}go(0)}else go(i+1)});
+    $('.jb',host).addEventListener('click',()=>{if(i>0)go(i-1)});}
+  if(steps.length)go(0);
+  return {render,go,setCap(n,t){$('.cap-n',host).textContent=n;$('.cap-t',host).innerHTML=t}};
+}
+const J={};
+function mount(name,cfg){const h=$('[data-j="'+name+'"]');if(h)J[name]=Journey(h,cfg)}
+
+/* ---------- Scene 1 ---------- */
+mount('route',{title:'Follow Alice\'s letter',h:250,
+ nodes:{alice:{x:7,y:50,icon:'house',label:'Alice'},r1:{x:29,y:50,label:'Office 1'},r2:{x:51,y:20,label:'Office 2'},r3:{x:51,y:76,label:'Office 3'},r4:{x:73,y:50,label:'Office 4'},bob:{x:93,y:50,icon:'house',label:'Bob',sub:'223.1.2.9'}},
+ links:[['alice','r1'],['r1','r2'],['r1','r3'],['r2','r4'],['r3','r4'],['r4','bob']],
+ steps:[
+  {letters:{L:{at:'alice',t:'to 223.1.2.9'}},cap:'Alice posts her letter. All it carries is Bob\'s address.'},
+  {letters:{L:{at:'r1',t:'to 223.1.2.9'}},hl:['r1'],on:['alice-r1'],sub:{r1:'sign: 223.1.2.x → north'},cap:'Office 1 reads the address and looks at its road signs (the <b>forwarding table</b>): "223.1.2.x → north door". Out it goes. One junction, one quick decision. That\'s <b>forwarding</b>.'},
+  {letters:{L:{at:'r2',t:'to 223.1.2.9'}},hl:['r2'],on:['r1-r2'],sub:{r2:'223.1.2.x → east'},cap:'Office 2 does the same with its own chart. It has no idea about the whole trip. It only knows which door to use next.'},
+  {letters:{L:{at:'r4',t:'to 223.1.2.9'}},hl:['r4'],on:['r2-r4'],sub:{r4:'223.1.2.x → Bob\'s road'},cap:'Office 4 too. Each decision takes nanoseconds and is done by hardware. This is the <b>data plane</b>.'},
+  {letters:{L:{at:'bob',t:'delivered!'}},hl:['r1','r2','r4'],on:['alice-r1','r1-r2','r2-r4','r4-bob'],cap:'Delivered! Notice the charts all agreed, so the letter never wandered off via Office 3. Somebody planned the whole path ahead of time. That planning is <b>routing</b>, and it happens on the <b>control plane</b>.'}]});
+mount('charts',{title:'Who writes the charts?',h:240,
+ nodes:{hq:{x:50,y:16,icon:'hq',label:'Head office',sub:'remote controller'},r1:{x:12,y:68,label:'Office 1'},r2:{x:37,y:68,label:'Office 2'},r3:{x:63,y:68,label:'Office 3'},r4:{x:88,y:68,label:'Office 4'}},
+ links:[['r1','r2'],['r2','r3'],['r3','r4'],['hq','r1','ctl'],['hq','r2','ctl'],['hq','r3','ctl'],['hq','r4','ctl']],
+ steps:[
+  {dim:['hq'],letters:{a:{from:'r1',at:'r2',c:'chat',t:'I reach Bob in 3'},b:{from:'r4',at:'r3',c:'chat',under:1}},on:['r1-r2','r3-r4'],cap:'<b>Way 1: a control plane in every router.</b> Each office runs a piece of the routing algorithm and swaps notes with its neighbours.'},
+  {dim:['hq'],letters:{a:{at:'r3',c:'chat',t:''},b:{at:'r2',c:'chat'}},on:['r2-r3'],sub:{r1:'own chart ✓',r2:'own chart ✓',r3:'own chart ✓',r4:'own chart ✓'},cap:'After enough note-swapping, every office has worked out its <b>own</b> chart.'},
+  {hl:['hq'],letters:{c1:{from:'hq',at:'r1',c:'chart'},c2:{from:'hq',at:'r2',c:'chart'},c3:{from:'hq',at:'r3',c:'chart'},c4:{from:'hq',at:'r4',c:'chart'}},on:['hq-r1','hq-r2','hq-r3','hq-r4'],sub:{r1:'chart from HQ',r2:'chart from HQ',r3:'chart from HQ',r4:'chart from HQ'},cap:'<b>Way 2: Software-Defined Networking (SDN).</b> A remote controller works out every route and sends each office a finished chart. The offices just follow it. More on this in Chapter 5.'}]});
+
+/* ---------- Scene 2 ---------- */
+const st=[-48,-24,0,24,48];
+mount('besteffort',{title:'Five letters, all at once',h:250,
+ nodes:{alice:{x:8,y:50,icon:'house',label:'Alice'},net:{x:50,y:50,icon:'cloud',label:'The Internet'},bob:{x:92,y:50,icon:'house',label:'Bob'}},
+ links:[['alice','net'],['net','bob']],
+ steps:[
+  {letters:Object.fromEntries([1,2,3,4,5].map((n,k)=>['l'+n,{at:'alice',dx:28,dy:st[k],t:''+n}])),cap:'Five letters, posted in order: 1, 2, 3, 4, 5.'},
+  {letters:{l1:{at:[38,26],t:'1'},l2:{at:[60,38],t:'2'},l3:{at:[45,70],t:'3'},l4:{at:[66,62],t:'4'},l5:{at:[30,52],t:'5'}},on:['alice-net','net-bob'],cap:'They set off together, but each one takes its own way through the network, and some meet traffic.'},
+  {letters:{l2:{at:'bob',dx:-34,dy:-40,t:'2'},l1:{at:'bob',dx:-34,dy:-12,t:'1'},l4:{at:'bob',dx:-34,dy:16,t:'4'},l5:{at:'bob',dx:-34,dy:44,t:'5'},l3:{at:[50,78],g:1,t:'3 lost'}},cap:'Bob gets <b>2, 1, 4, 5</b>. Letter 3 vanished somewhere, and nobody told anyone. That is completely allowed.'}],
+ done(){}});
+
+/* ---------- Scene 3 ---------- */
+mount('router',{title:'Inside Office 1',h:240,
+ nodes:{rin:{x:6,y:66,icon:'road',label:'Road in'},inp:{x:28,y:66,icon:'port',label:'Input port'},fab:{x:50,y:66,icon:'fabric',label:'Switching fabric'},outp:{x:72,y:66,icon:'port',label:'Output port'},rout:{x:94,y:66,icon:'road',label:'Road out'},cpu:{x:28,y:14,icon:'hq',label:'Routing processor',sub:'control plane',lp:'r'}},
+ links:[['rin','inp'],['inp','fab'],['fab','outp'],['outp','rout'],['cpu','inp','ctl']],
+ steps:[
+  {letters:{C:{from:'cpu',at:'inp',dx:26,dy:-30,c:'chart',t:'chart copy'},L:{at:'rin',t:'bits'}},on:['cpu-inp'],hl:['cpu'],cap:'Before any mail arrives, the <b>routing processor</b> (software, works in milliseconds) copies the forwarding table down to every input port.'},
+  {letters:{C:{at:'inp',dx:26,dy:-30,c:'chart'},L:{at:'inp',t:'bits'}},on:['rin-inp'],hl:['inp'],sub:{inp:'line termination'},cap:'The letter arrives as a stream of bits on the wire. <b>Line termination</b> receives them.'},
+  {letters:{C:{at:'inp',dx:26,dy:-30,c:'chart'},L:{at:'inp',t:'unwrap frame'}},hl:['inp'],sub:{inp:'link layer'},cap:'The <b>link-layer</b> part unwraps the mailbag (the frame) and finds the IP datagram inside.'},
+  {letters:{C:{at:'inp',dx:26,dy:-30,c:'chart'},L:{at:'inp',t:'→ output 2'}},hl:['inp'],sub:{inp:'lookup + queue'},cap:'<b>Lookup</b>: the port checks its own copy of the chart, right there at the door ("match plus action"). If the fabric is busy, the letter waits in the <b>input queue</b>.'},
+  {letters:{C:{at:'inp',dx:26,dy:-30,c:'chart'},L:{at:'fab',t:'→ output 2'}},on:['inp-fab'],hl:['fab'],cap:'The <b>switching fabric</b> carries it across the building to the right output port.'},
+  {letters:{C:{at:'inp',dx:26,dy:-30,c:'chart'},L:{at:'outp',t:'waiting'}},on:['fab-outp'],hl:['outp'],sub:{outp:'output queue'},cap:'At the output port it may wait again, if letters arrive faster than the road out can carry them. (Remember this for Scene 5.)'},
+  {letters:{C:{at:'inp',dx:26,dy:-30,c:'chart'},L:{at:'rout',t:'off it goes'}},on:['outp-rout'],cap:'Out it goes. All of that took nanoseconds, in hardware. That\'s the <b>data plane</b> at work.'}]});
+const fabN={i1:{x:8,y:16,icon:'port',label:'In 1'},i2:{x:8,y:48,icon:'port',label:'In 2'},i3:{x:8,y:80,icon:'port',label:'In 3'},m:{x:50,y:48,icon:'fabric',label:'Memory'},o1:{x:92,y:16,icon:'port',label:'Out 1'},o2:{x:92,y:48,icon:'port',label:'Out 2'},o3:{x:92,y:80,icon:'port',label:'Out 3'}};
+const fl=(p,s)=>({['A'+p]:{at:s[0]||'i1',dx:s[0]?0:28,t:'A→3'},['B'+p]:{at:s[1]||'i2',dx:s[1]?0:28,t:'B→1',c:'blue'},['C'+p]:{at:s[2]||'i3',dx:s[2]?0:28,t:'C→2',c:'green'}});
+mount('fabric',{title:'Three ways to cross the building',h:300,nodes:fabN,
+ links:[['i1','m'],['i2','m'],['i3','m'],['m','o1'],['m','o2'],['m','o3']],
+ steps:[
+  {letters:fl(1,[]),sub:{m:'Memory'},cap:'<b>Design 1: switching via memory.</b> The first routers were ordinary computers. Three letters are waiting.'},
+  {letters:fl(1,['m']),sub:{m:'Memory'},on:['i1-m'],hl:['m'],cap:'The CPU copies letter A into the computer\'s memory…'},
+  {letters:fl(1,['o3']),sub:{m:'Memory'},on:['m-o3'],cap:'…and then copies it out again. That\'s <b>2 bus crossings</b> per letter, so speed is limited by memory bandwidth. B and C are still waiting.'},
+  {letters:fl(2,[]),sub:{m:'Shared bus'},cap:'<b>Design 2: switching via a bus.</b> Letters go straight from input to output over one shared bus.'},
+  {letters:fl(2,['o3']),sub:{m:'Shared bus'},on:['i1-m','m-o3'],cap:'Only one letter can use the bus at a time (<b>bus contention</b>). A goes first…'},
+  {letters:fl(2,['o3','o1']),sub:{m:'Shared bus'},on:['i2-m','m-o1'],cap:'…then B, then C. A 32 Gbps bus (Cisco 5600) is fast enough for small access routers.'},
+  {letters:fl(3,[]),sub:{m:'Crossbar'},cap:'<b>Design 3: an interconnection network</b>, like a crossbar: a grid with many paths through it.'},
+  {letters:fl(3,['o3','o1','o2']),sub:{m:'Crossbar'},on:['i1-m','i2-m','i3-m','m-o1','m-o2','m-o3'],cap:'All three cross <b>at the same time</b>. Big routers chop letters into fixed-size cells and run several switching planes in parallel (Cisco CRS: up to hundreds of Tbps).'}]});
+
+/* ---------- Scene 4: LPM ---------- */
+const lpmRules=[{p:'110010000001011100010',d:0},{p:'110010000001011100011000',d:1},{p:'110010000001011100011',d:2},{p:'',d:3}];
+const fmtBits=s=>s.replace(/(.{8})/g,'$1 ').trim();
+function ipToBits(ip){const m=String(ip).trim().match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);if(!m)return null;const o=m.slice(1).map(Number);if(o.some(x=>x>255))return null;return o.map(x=>x.toString(2).padStart(8,'0')).join('')}
+function lpmRows(bits){let best=null;const rows=lpmRules.map(r=>{const ok=bits.startsWith(r.p);if(ok&&(!best||r.p.length>best.p.length))best=r;
+  let s='';if(!r.p)s='<i>otherwise</i>';else{for(let k=0;k<r.p.length;k++){if(k&&k%8===0)s+=' ';s+='<span class="'+(r.p[k]===bits[k]?'bit-on':'bit-off')+'">'+r.p[k]+'</span>'}s+=' ***'}return {r,ok,s}});return {rows,best}}
+(function(){const bits=ipToBits('200.23.24.170');const {rows}=lpmRows(bits);
+  $('#lpmChart').innerHTML='<div>Letter to 200.23.24.170 = <b>'+fmtBits(bits)+'</b></div><table style="margin-top:8px"><thead><tr><th>Chart line (prefix)</th><th>Door</th></tr></thead><tbody>'+rows.map(x=>'<tr><td class="mono">'+x.s+'</td><td class="tn">'+x.r.d+'</td></tr>').join('')+'</tbody></table>'})();
+const doorsN={desk:{x:12,y:46,icon:'office',label:'Office 1'},d0:{x:82,y:12,icon:'door',label:'Door 0',lp:'r'},d1:{x:82,y:36,icon:'door',label:'Door 1',lp:'r'},d2:{x:82,y:60,icon:'door',label:'Door 2',lp:'r'},d3:{x:82,y:84,icon:'door',label:'Door 3',lp:'r'}};
+mount('lpm',{title:'Watch the clerk decide',h:260,nodes:doorsN,links:[['desk','d0'],['desk','d1'],['desk','d2'],['desk','d3']],
+ steps:[
+  {letters:{L:{at:'desk',t:'200.23.24.170'}},hl:['desk'],cap:'The clerk compares the address with every line. Line for Door 1 matches 24 bits. Line for Door 2 matches 21 bits. The "otherwise" line matches anything.'},
+  {letters:{L:{at:'d1',t:'200.23.24.170'}},hl:['d1'],on:['desk-d1'],cap:'The <b>longest</b> match wins: 24 bits beats 21 bits. The letter goes through <b>Door 1</b>.'}]});
+let lpmSeq=0;
+function lpmPost(){const v=$('#lpmIn').value,bits=ipToBits(v),tb=$('#lpmTable tbody');
+  if(!bits){$('#lpmVerdict').textContent='Type an address like 200.23.22.161';tb.innerHTML='';return}
+  const {rows,best}=lpmRows(bits);
+  tb.innerHTML=rows.map(x=>'<tr class="'+(x.r===best?'hit':x.ok?'partial':'miss')+'"><td class="mono">'+x.s+'</td><td class="tn">'+(x.r.p.length||0)+'</td><td class="tn">'+x.r.d+'</td></tr>').join('');
+  const m=rows.filter(x=>x.ok).length;
+  $('#lpmVerdict').innerHTML='Matches '+m+' line'+(m>1?'s':'')+'. Longest is '+(best.p.length?best.p.length+' bits':'"otherwise"')+', so it goes through <b>Door '+best.d+'</b>.';
+  const id='p'+(++lpmSeq),j=J.lpm;
+  j.render({letters:{[id]:{at:'desk',t:v}},hl:['desk'],cap:'Checking '+v+'…'});j.setCap('→','Checking '+v+'…');
+  setTimeout(()=>{j.render({letters:{[id]:{at:'d'+best.d,t:v}},hl:['d'+best.d],on:['desk-d'+best.d],cap:''});j.setCap('→',v+' goes through <b>Door '+best.d+'</b> (longest match: '+(best.p.length||0)+' bits).')},650);
+}
+$('#lpmGo').addEventListener('click',lpmPost);$('#lpmIn').addEventListener('keydown',e=>{if(e.key==='Enter')lpmPost()});
+$$('[data-lpm]').forEach(b=>b.addEventListener('click',()=>{$('#lpmIn').value=b.dataset.lpm;lpmPost()}));
+
+/* ---------- Scene 5 ---------- */
+(function(){
+  const slot=k=>-68+34*k, steps=[];let bag=[],n=0,dropped=[],sent=null;
+  const caps=['Tick 1: three letters arrive. Plenty of room in the bag.','Tick 2: one letter leaves, three more arrive. The bag is now full.','Tick 3: one leaves, three arrive, but there\'s room for only one. Two are thrown away: <b>tail drop</b>.','Tick 4: the same again. Letters wait longer and longer (<b>delay</b>) and more get dropped (<b>loss</b>).'];
+  for(let t=0;t<4;t++){sent=null;if(t>0&&bag.length)sent=bag.shift();dropped=[];
+    for(let a=0;a<3;a++){const id='m'+(++n);if(bag.length<5)bag.push(id);else dropped.push(id)}
+    const L={};bag.forEach((id,k)=>L[id]={from:'in',at:'bag',dx:slot(k),dy:-42,t:id.slice(1)});
+    if(sent)L[sent]={at:'out',t:sent.slice(1)};dropped.forEach((id,k)=>L[id]={from:'in',at:'bag',dx:-20+40*k,dy:46,g:1,t:id.slice(1)});
+    steps.push({letters:L,cap:caps[t],on:['in-bag'].concat(sent?['bag-out']:[]),sub:{bag:bag.length+' of 5 slots'}})}
+  mount('overflow',{title:'Watch the mailbag',h:250,nodes:{in:{x:7,y:60,icon:'road',label:'Arriving',sub:'3 per tick'},bag:{x:50,y:60,icon:'bag',label:'Output buffer',sub:'holds 5'},out:{x:93,y:60,icon:'road',label:'Road out',sub:'1 per tick'}},links:[['in','bag'],['bag','out']],steps});
+})();
+mount('hol',{title:'Head-of-the-line blocking',h:260,
+ nodes:{i1:{x:12,y:22,icon:'port',label:'In 1'},i2:{x:12,y:72,icon:'port',label:'In 2'},f:{x:50,y:47,icon:'fabric',label:'Fabric'},o1:{x:88,y:22,icon:'port',label:'Out 1'},o2:{x:88,y:72,icon:'port',label:'Out 2'}},
+ links:[['i1','f'],['i2','f'],['f','o1'],['f','o2']],
+ steps:[
+  {letters:{r1:{at:'i1',dx:30,c:'red',t:'→ Out 1'},r2:{at:'i2',dx:30,c:'red',t:'→ Out 1'},g:{at:'i2',dx:-26,c:'green',t:'→ Out 2',under:1}},cap:'Two red letters both want <b>Out 1</b>. Behind the red one at In 2, a green letter wants <b>Out 2</b>, which is free.'},
+  {letters:{r1:{at:'o1',c:'red',t:'→ Out 1'},r2:{at:'i2',dx:30,c:'red',t:'waiting'},g:{at:'i2',dx:-26,c:'green',t:'→ Out 2'}},on:['i1-f','f-o1'],cap:'Only one letter can go to Out 1 at a time. The top red letter goes. The bottom red letter must wait.'},
+  {letters:{r1:{at:'o1',c:'red',t:''},r2:{at:'i2',dx:30,c:'red',t:'waiting'},g:{at:'i2',dx:-26,c:'green',t:'stuck!'}},hl:['o2'],sub:{o2:'idle'},cap:'And the green letter? It\'s <b>stuck behind</b> the red one, even though Out 2 is completely idle. That\'s <b>head-of-the-line (HOL) blocking</b>.'},
+  {letters:{r2:{at:'o1',c:'red'},g:{at:'o2',c:'green'}},on:['i2-f','f-o1','f-o2'],cap:'Only now can both move. Input queueing happens when the fabric is slower than all the inputs combined, and HOL blocking makes it worse.'}]});
+// scheduler
+const arrivals=[['P',1],['S',2],['B',3],['S',4],['P',5],['B',6],['S',7],['P',8],['S',9]];
+const cls={P:'c-r',S:'c-b',B:'c-g'},names={P:'Priority',S:'Standard',B:'Bulk'};
+const schedDesc={fcfs:'<b>First come, first served (FIFO)</b>: one line, sent in arrival order. Like one queue at the counter.',prio:'<b>Priority</b>: always send from the highest-priority queue that has mail. First come, first served inside each class.',rr:'<b>Round robin</b>: visit each class in turn and send one letter from each.',wfq:'<b>Weighted fair queueing</b>: round robin with weights. Here Priority 3, Standard 2, Bulk 1, so each class gets a guaranteed share of the road: w<sub>i</sub> / Σw.'};
+let sched='fcfs',timer=null;
+function order(k){const q={P:[],S:[],B:[]};arrivals.forEach(a=>q[a[0]].push(a));if(k==='fcfs')return arrivals.slice();if(k==='prio')return [...q.P,...q.S,...q.B];
+  const w=k==='rr'?{P:1,S:1,B:1}:{P:3,S:2,B:1},out=[];while(q.P.length||q.S.length||q.B.length)for(const c of ['P','S','B'])for(let i=0;i<w[c]&&q[c].length;i++)out.push(q[c].shift());return out}
+function drawQ(){clearInterval(timer);$('#schedDesc').innerHTML=schedDesc[sched];
+  const qs=sched==='fcfs'?[['All mail',arrivals]]:['P','S','B'].map(c=>[names[c],arrivals.filter(a=>a[0]===c)]);
+  $('#schedQueues').innerHTML=qs.map(([n,l])=>'<div class="q"><span class="qname">'+n+'</span>'+l.map(a=>'<span class="mail '+cls[a[0]]+'" data-n="'+a[1]+'">'+a[0]+a[1]+'</span>').join('')+'</div>').join('');$('#schedOut').innerHTML=''}
+$$('#schedTabs button').forEach(b=>b.addEventListener('click',()=>{$$('#schedTabs button').forEach(x=>x.setAttribute('aria-selected',x===b?'true':'false'));sched=b.dataset.s;drawQ()}));drawQ();
+$('#dispatch').addEventListener('click',()=>{drawQ();const o=order(sched);let i=0;timer=setInterval(()=>{if(i>=o.length){clearInterval(timer);return}const a=o[i++];const el=$('#schedQueues [data-n="'+a[1]+'"]');if(el)el.classList.add('gone');
+  $('#schedOut').insertAdjacentHTML('beforeend','<span class="mail '+cls[a[0]]+'">'+a[0]+a[1]+'</span>')},380)});
+
+/* ---------- Scene 6 ---------- */
+const fields=[['ver',4,'Version','IP version number: 4. Which style of envelope this is.'],['head len',4,'Header length','How long the header is, since options can make it longer.'],['type of service',8,'Type of service','Diffserv and ECN bits: what kind of data this is, and room to flag congestion. Like "Express" or "Fragile" stickers.'],['length',16,'Total length','Whole datagram length in bytes. Max 64K, usually 1500 or less.'],['16-bit identifier',16,'Identifier','Shared by every piece of a fragmented datagram so they can be matched up (Scene 12).'],['flgs',3,'Flags','Fragmentation flags, e.g. "more pieces follow".'],['fragment offset',13,'Fragment offset','Where this piece belongs in the original, counted in 8-byte units.'],['time to live',8,'Time to live (TTL)','Hops left. Each router subtracts 1. At 0 the letter is thrown away.'],['upper layer',8,'Upper layer protocol','Who opens it at the end: 6 = TCP, 17 = UDP.'],['header checksum',16,'Header checksum','Error check on the header. Recomputed at every router, because TTL changes.'],['source IP address',32,'Source address','The return address: 32 bits.'],['destination IP address',32,'Destination address','The "To" address. This is what forwarding reads.'],['options (if any)',32,'Options','Rare extras such as timestamps or recording the route.'],['payload data (usually a TCP or UDP segment)',32,'Payload','The letter itself, usually a TCP or UDP segment.']];
+const seen=new Set();
+fields.forEach((f,i)=>{const b=document.createElement('button');b.style.gridColumn='span '+f[1];b.textContent=f[0];if(i===fields.length-1)b.classList.add('data');b.setAttribute('aria-pressed','false');
+  b.addEventListener('click',()=>{$$('#dgram button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');b.classList.add('seen');seen.add(i);
+    $('#dgOut').innerHTML='<h3>'+f[2]+' · '+f[1]+' bits</h3><p>'+f[3]+'</p><p style="color:var(--muted);font-size:.9rem;margin-top:6px">'+seen.size+' of 14 discovered.</p>';
+    if(seen.size===14)say('You found every box on the envelope!')});$('#dgram').appendChild(b)});
+mount('ttl',{title:'A letter stuck in a loop',h:250,
+ nodes:{alice:{x:7,y:50,icon:'house',label:'Alice'},a:{x:38,y:22,label:'Office A',sub:'chart: → B'},b:{x:66,y:72,label:'Office B',sub:'chart: → A (oops)'},bob:{x:93,y:22,icon:'house',label:'Bob'}},
+ links:[['alice','a'],['a','b'],['b','bob','ctl']],
+ steps:[
+  {letters:{L:{at:'alice',t:'TTL 3'}},cap:'Alice\'s computer sets <b>TTL = 3</b> on the envelope (real ones start around 64).'},
+  {letters:{L:{at:'a',t:'TTL 2'}},on:['alice-a'],hl:['a'],cap:'Office A subtracts 1. TTL is now 2. Its chart says "send to B".'},
+  {letters:{L:{at:'b',t:'TTL 1'}},on:['a-b'],hl:['b'],cap:'Office B subtracts 1. TTL 1. But B\'s chart has a mistake: "send back to A".'},
+  {letters:{L:{at:'a',t:'TTL 0'}},on:['a-b'],hl:['a'],cap:'Back at A, TTL hits <b>0</b>…'},
+  {letters:{L:{at:'a',t:'TTL 0',g:1},E:{from:'a',at:'alice',c:'chat',t:'error (ICMP)'}},on:['alice-a'],cap:'…so A throws the letter away and sends Alice a short error note. Loops can\'t go on forever.'}]});
+
+/* ---------- Scene 7 ---------- */
+mount('subnet',{title:'Three streets, one sorting office',h:330,
+ nodes:{a:{x:8,y:14,icon:'house',label:'Alice',sub:'223.1.1.1'},b:{x:8,y:50,icon:'house',label:'',sub:'223.1.1.2'},c:{x:8,y:84,icon:'house',label:'',sub:'223.1.1.3'},r:{x:46,y:50,icon:'office',label:'Sorting office',sub:'doors: .1.4 · .2.9 · .3.27'},d:{x:76,y:14,icon:'house',label:'',sub:'223.1.2.1'},e:{x:94,y:14,icon:'house',label:'Cousin',sub:'223.1.2.2'},f:{x:76,y:84,icon:'house',label:'',sub:'223.1.3.1'},g:{x:94,y:84,icon:'house',label:'',sub:'223.1.3.2'}},
+ links:[['a','b'],['b','c'],['b','r'],['r','d'],['d','e'],['r','f'],['f','g']],
+ steps:[
+  {letters:{L:{at:'a',dx:30,t:'to 223.1.1.3'}},cap:'First letter: Alice to <b>223.1.1.3</b>, on her own street.'},
+  {letters:{L:{at:'c',dx:30,t:'to 223.1.1.3'}},on:['a-b','b-c'],tint:{a:'t1',b:'t1',c:'t1'},cap:'Same street: the first 24 bits (223.1.1) match. Alice hands it over directly. No sorting office needed.'},
+  {letters:{M:{at:'a',dx:30,t:'to 223.1.2.2'}},cap:'Second letter: to <b>223.1.2.2</b>. That\'s on a different street.'},
+  {letters:{M:{at:'r',t:'to 223.1.2.2'}},on:['a-b','b-r'],hl:['r'],cap:'It has to go through the sorting office. The office has one door on each street. Each door is an <b>interface</b> with its own address.'},
+  {letters:{M:{at:'e',dx:-30,t:'delivered'}},on:['r-d','d-e'],tint:{d:'t2',e:'t2'},cap:'Out the 223.1.2 door and on to the cousin.'},
+  {letters:{},tint:{a:'t1',b:'t1',c:'t1',d:'t2',e:'t2',f:'t3',g:'t3'},off:['b-r','r-d','r-f'],cap:'Now detach every house and the office from their doors. Three islands are left: <b>223.1.1.0/24</b>, <b>223.1.2.0/24</b>, <b>223.1.3.0/24</b>. Each island is a <b>subnet</b>.'}]});
+const toIp=n=>[24,16,8,0].map(s=>(n>>>s)&255).join('.');
+function cidr(){const m=$('#cidrIn').value.trim().match(/^(\d{1,3}(?:\.\d{1,3}){3})\/(\d{1,2})$/),o=$('#cidrOut');
+  if(!m||+m[2]>32||!ipToBits(m[1])){o.textContent='Type an address like 200.23.16.42/23';return}
+  const x=+m[2],bits=ipToBits(m[1]),ip=parseInt(bits,2)>>>0,mask=x===0?0:(0xFFFFFFFF<<(32-x))>>>0,net=(ip&mask)>>>0,bc=(net|(~mask>>>0))>>>0,size=2**(32-x);
+  o.innerHTML='<div>'+bits.split('').map((b,k)=>(k&&k%8===0?' ':'')+'<span style="font-weight:700;color:var('+(k<x?'--blue':'--red')+')">'+b+'</span>').join('')+'</div><div style="margin-top:8px;display:grid;gap:2px"><div><b style="color:var(--blue)">Street (subnet) part</b>: '+x+' bits · <b style="color:var(--red)">House (host) part</b>: '+(32-x)+' bits</div><div><b>Mask:</b> '+toIp(mask)+'</div><div><b>Subnet:</b> '+toIp(net)+'/'+x+'</div><div><b>Addresses:</b> '+size.toLocaleString()+(x<=30?' ('+(size-2).toLocaleString()+' for hosts)':'')+'</div><div><b>Range:</b> '+toIp(net)+' – '+toIp(bc)+'</div></div>'}
+$('#cidrIn').addEventListener('input',cidr);$$('[data-cidr]').forEach(b=>b.addEventListener('click',()=>{$('#cidrIn').value=b.dataset.cidr;cidr()}));cidr();
+
+/* ---------- Scene 8 ---------- */
+const dmsg=(n,q,s,d,y,id)=>'<b>'+n+'</b><br>"'+q+'"<br>src: '+s+' · dest: '+d+'<br>yiaddr: '+y+' · '+id;
+const bc=(p,src,to)=>Object.fromEntries(to.map(t=>[p+t,{from:src,at:t,c:'chat',t:''}]));
+mount('dhcp',{title:'DHCP: four shouts across the café',h:280,
+ nodes:{lap:{x:10,y:48,icon:'laptop',label:'New laptop',sub:'no address'},n1:{x:50,y:14,icon:'phone',label:'Someone\'s phone'},n2:{x:50,y:82,icon:'laptop',label:'Someone\'s laptop'},srv:{x:90,y:48,icon:'server',label:'DHCP server',sub:'223.1.2.5'}},
+ links:[['lap','srv'],['lap','n1','ctl'],['lap','n2','ctl'],['srv','n1','ctl'],['srv','n2','ctl']],
+ steps:[
+  {letters:Object.assign(bc('d','lap',['n1','n2']),{D:{from:'lap',at:'srv',t:'Discover'}}),on:['lap-srv'],hl:['lap'],cap:'<b>Discover.</b> With no address, the laptop shouts to <i>everyone</i> (broadcast to 255.255.255.255): "Is there a DHCP server here?" The others ignore it.',panel:dmsg('DHCP Discover','Is there a DHCP server out there?','0.0.0.0, 68','255.255.255.255, 67','0.0.0.0','transaction ID 654')},
+  {letters:Object.assign(bc('o','srv',['n1','n2']),{O:{from:'srv',at:'lap',t:'Offer'}}),on:['lap-srv'],hl:['srv'],sub:{lap:'offered 223.1.2.4'},cap:'<b>Offer.</b> The server shouts back: "You can use 223.1.2.4."',panel:dmsg('DHCP Offer','I\'m a DHCP server! Here\'s an IP address you can use','223.1.2.5, 67','255.255.255.255, 68','223.1.2.4','transaction ID 654 · lifetime 3600 s')},
+  {letters:Object.assign(bc('r','lap',['n1','n2']),{R:{from:'lap',at:'srv',t:'Request'}}),on:['lap-srv'],hl:['lap'],sub:{lap:'asking for 223.1.2.4'},cap:'<b>Request.</b> "Yes please, I\'d like 223.1.2.4." Still a shout, since it isn\'t official yet.',panel:dmsg('DHCP Request','OK. I would like to use this IP address!','0.0.0.0, 68','255.255.255.255, 67','223.1.2.4','transaction ID 655 · lifetime 3600 s')},
+  {letters:Object.assign(bc('a','srv',['n1','n2']),{A:{from:'srv',at:'lap',t:'ACK'}}),on:['lap-srv'],hl:['srv'],sub:{lap:'223.1.2.4 ✓'},cap:'<b>ACK.</b> "It\'s yours for 3600 seconds." The laptop finally has an address.',panel:dmsg('DHCP ACK','OK. You\'ve got that IP address!','223.1.2.5, 67','255.255.255.255, 68','223.1.2.4','transaction ID 655 · lifetime 3600 s')},
+  {letters:{},hl:['lap'],sub:{lap:'223.1.2.4 ✓'},cap:'Discover, Offer, Request, ACK: <b>DORA</b>. A laptop that remembers its old address can skip the first two.',panel:'<b>The ACK also carried:</b><br>· first-hop router (default gateway)<br>· DNS server name and address<br>· network mask (which bits are the street)'}]});
+
+/* ---------- Scene 9 ---------- */
+$('#ispTable').innerHTML='<tr><td><b>Fly-By-Night block</b></td><td class="mono">11001000 00010111 0001<u>0000</u> 00000000</td><td class="mono">200.23.16.0/20</td></tr>'+[0,1,2,7].map(k=>{const t=16+2*k,b=t.toString(2).padStart(8,'0');return '<tr><td>Organization '+k+'</td><td class="mono">11001000 00010111 '+b.slice(0,7)+'<u>'+b[7]+'</u> 00000000</td><td class="mono">200.23.'+t+'.0/23</td></tr>'+(k===2?'<tr><td>…</td><td></td><td></td></tr>':'')}).join('');
+mount('isp',{title:'Adverts and a move',h:320,
+ nodes:{net:{x:8,y:48,icon:'cloud',label:'Rest of the Internet'},fbn:{x:46,y:18,icon:'office',label:'Fly-By-Night-ISP',sub:'"200.23.16.0/20"'},rus:{x:46,y:80,icon:'office',label:'ISPs-R-Us',sub:'"199.31.0.0/16"'},o0:{x:90,y:12,icon:'house',label:'Org 0',sub:'200.23.16.0/23'},o1:{x:90,y:48,icon:'house',label:'Org 1',sub:'200.23.18.0/23'},o2:{x:90,y:84,icon:'house',label:'Org 2',sub:'199.31.x.x'}},
+ links:[['net','fbn'],['net','rus'],['fbn','o0'],['fbn','o1'],['rus','o1'],['rus','o2']],off:['rus-o1'],
+ steps:[
+  {letters:{L:{at:'net',dx:30,t:'to 200.23.16.5'}},cap:'The rest of the Internet only hears two adverts, one from each ISP. Here\'s a letter for Org 0.'},
+  {letters:{L:{at:'fbn',t:'to 200.23.16.5'}},on:['net-fbn'],hl:['fbn'],cap:'It matches Fly-By-Night\'s advert, so it goes there. One advert covers all 8 organizations. That\'s <b>route aggregation</b>.'},
+  {letters:{L:{at:'o0',dx:-30,t:'delivered'}},on:['fbn-o0'],cap:'Fly-By-Night hands it to Org 0.'},
+  {letters:{},off:['fbn-o1'],show:['rus-o1'],hl:['rus'],sub:{rus:'"199.31.0.0/16" + "200.23.18.0/23"'},cap:'Org 1 moves to ISPs-R-Us. Now ISPs-R-Us also advertises the <b>more specific</b> route 200.23.18.0/23.'},
+  {letters:{M:{at:'net',dx:30,t:'to 200.23.18.7'}},off:['fbn-o1'],show:['rus-o1'],sub:{rus:'"199.31.0.0/16" + "200.23.18.0/23"'},cap:'A letter for Org 1 arrives. It matches <i>both</i> adverts: the /20 and the /23.'},
+  {letters:{M:{at:'rus',t:'to 200.23.18.7'}},off:['fbn-o1'],show:['rus-o1'],on:['net-rus'],hl:['rus'],sub:{rus:'"199.31.0.0/16" + "200.23.18.0/23"'},cap:'Longest prefix match: /23 beats /20. It goes to ISPs-R-Us.'},
+  {letters:{M:{at:'o1',dx:-30,t:'delivered'}},off:['fbn-o1'],show:['rus-o1'],on:['rus-o1'],sub:{rus:'"199.31.0.0/16" + "200.23.18.0/23"'},cap:'Delivered to Org 1 at its new ISP. Fly-By-Night didn\'t have to change anything.'}]});
+
+/* ---------- Scene 10 ---------- */
+const natT=on=>'<b>NAT translation table</b><table style="margin-top:4px"><thead><tr><th>WAN side</th><th>LAN side</th></tr></thead><tbody>'+(on?'<tr><td>138.76.29.7, 5001</td><td>10.0.0.1, 3345</td></tr>':'<tr><td colspan="2">(empty)</td></tr>')+'</tbody></table>';
+mount('nat',{title:'One request, one reply',h:280,
+ nodes:{lap:{x:8,y:20,icon:'laptop',label:'Laptop',sub:'10.0.0.1'},ph:{x:8,y:78,icon:'phone',label:'Phone',sub:'10.0.0.2'},nat:{x:44,y:48,icon:'nat',label:'NAT router',sub:'outside: 138.76.29.7'},srv:{x:90,y:48,icon:'server',label:'Web server',sub:'128.119.40.186'}},
+ links:[['lap','nat'],['ph','nat'],['nat','srv']],
+ steps:[
+  {letters:{L:{at:'lap',dx:34,t:'S 10.0.0.1:3345'}},cap:'The laptop sends a request. Return address: <b>10.0.0.1, port 3345</b>. To: 128.119.40.186, port 80.',panel:natT(0)},
+  {letters:{L:{at:'nat',t:'S 138.76.29.7:5001'}},on:['lap-nat'],hl:['nat'],cap:'The NAT router crosses out the return address and writes its own: <b>138.76.29.7, port 5001</b>. It notes the swap in its table.',panel:natT(1)},
+  {letters:{L:{at:'srv',t:'S 138.76.29.7:5001'}},on:['nat-srv'],cap:'The server only ever sees 138.76.29.7. It has no idea the laptop exists.',panel:natT(1)},
+  {letters:{R:{at:'srv',c:'blue',t:'D 138.76.29.7:5001'}},hl:['srv'],cap:'The reply goes back to the only address the server knows: <b>138.76.29.7, port 5001</b>.',panel:natT(1)},
+  {letters:{R:{at:'nat',c:'blue',t:'D 10.0.0.1:3345'}},on:['nat-srv'],hl:['nat'],cap:'The NAT router looks up port 5001 in its table and rewrites the destination back to <b>10.0.0.1, port 3345</b>.',panel:natT(1)},
+  {letters:{R:{at:'lap',dx:34,c:'blue',t:'delivered'}},on:['lap-nat'],cap:'The laptop gets its reply. The phone never sees it.',panel:natT(1)}]});
+
+/* ---------- Scene 11 ---------- */
+const tn={A:{x:7,y:50,icon:'v6office',label:'A',sub:'IPv6'},B:{x:24,y:50,icon:'v6office',label:'B',sub:'IPv6/v4'},C:{x:41,y:50,icon:'v4office',label:'C',sub:'IPv4 only'},D:{x:58,y:50,icon:'v4office',label:'D',sub:'IPv4 only'},E:{x:75,y:50,icon:'v6office',label:'E',sub:'IPv6/v4'},F:{x:93,y:50,icon:'v6office',label:'F',sub:'IPv6'}};
+const inner='<div style="border:2px solid var(--blue);background:var(--blue-soft);color:var(--ink);border-radius:8px;padding:6px 10px;margin-top:4px">IPv6 · src A · dest F · flow X<br>data</div>';
+const outer=c=>'<div style="border:2px solid var(--kraft-ink);background:var(--gold-soft);color:var(--ink);border-radius:8px;padding:6px 10px">IPv4 · src B · dest E<br>'+c+'</div>';
+mount('tunnel',{title:'Through the tunnel, A to F',h:200,nodes:tn,links:[['A','B'],['B','C'],['C','D'],['D','E'],['E','F']],
+ steps:[
+  {letters:{L:{at:'A',c:'blue',t:'IPv6'}},cap:'A sends an ordinary IPv6 letter addressed to F.',panel:inner},
+  {letters:{L:{at:'B',c:'v4',t:'IPv4[IPv6]'}},on:['A-B'],hl:['B'],cap:'B knows C can\'t read IPv6, so it puts the whole IPv6 letter <b>inside</b> an IPv4 envelope addressed to E.',panel:outer(inner)},
+  {letters:{L:{at:'C',c:'v4',t:'IPv4[IPv6]'}},on:['B-C'],hl:['C'],cap:'C only reads the outer IPv4 envelope: "to E". Fine by C.',panel:outer(inner)},
+  {letters:{L:{at:'D',c:'v4',t:'IPv4[IPv6]'}},on:['C-D'],hl:['D'],cap:'D does the same. Neither C nor D ever sees the IPv6 letter inside.',panel:outer(inner)},
+  {letters:{L:{at:'E',c:'blue',t:'IPv6'}},on:['D-E'],hl:['E'],cap:'E opens the outer envelope and takes out the original IPv6 letter.',panel:inner},
+  {letters:{L:{at:'F',c:'blue',t:'delivered'}},on:['E-F'],cap:'Delivered as IPv6. To A and F it looks like B and E were directly connected: a <b>tunnel</b>.',panel:inner}]});
+
+/* ---------- Scene 12 ---------- */
+mount('frag',{title:'Splitting the parcel',h:260,
+ nodes:{alice:{x:7,y:50,icon:'house',label:'Alice'},r:{x:40,y:50,label:'Office',sub:'next road: MTU 1500'},bob:{x:93,y:50,icon:'house',label:'Bob'}},links:[['alice','r'],['r','bob']],
+ steps:[
+  {letters:{P:{at:'alice',dx:36,c:'big',t:'4000 bytes'}},cap:'A 4000-byte datagram: 20 bytes of header + 3980 bytes of data.'},
+  {letters:{P:{at:'r',c:'big',t:'too big!'}},on:['alice-r'],hl:['r'],cap:'At the office, the next road only fits 1500 bytes.'},
+  {letters:{f1:{at:'r',dx:34,dy:-50,t:'1500 · off 0 · more'},f2:{at:'r',dx:34,dy:0,t:'1500 · off 185 · more'},f3:{at:'r',dx:34,dy:50,t:'1040 · off 370 · last'}},hl:['r'],cap:'It <b>fragments</b> the parcel into 3 pieces, each with its own header. All share the same ID. Offsets are in 8-byte units: 1480 ÷ 8 = 185.',panel:'<table><thead><tr><th>Piece</th><th>Length</th><th>More</th><th>Offset</th></tr></thead><tbody><tr><td>1</td><td>1500</td><td>1</td><td>0</td></tr><tr><td>2</td><td>1500</td><td>1</td><td>185</td></tr><tr><td>3</td><td>1040</td><td>0</td><td>370</td></tr></tbody></table>'},
+  {letters:{f1:{at:[60,26],t:'piece 1'},f2:{at:[72,50],t:'piece 2'},f3:{at:[64,72],t:'piece 3'}},on:['r-bob'],cap:'The pieces travel on separately. They might even arrive out of order.'},
+  {letters:{f1:{at:'bob',dx:-40,dy:-36,t:'1'},f2:{at:'bob',dx:-40,dy:0,t:'2'},f3:{at:'bob',dx:-40,dy:36,t:'3'}},cap:'Only at Bob\'s house are they put back in order, using the ID, offsets and "more" flag.'},
+  {letters:{Q:{at:'bob',dx:-40,c:'big',t:'4000 ✓'}},cap:'<b>Reassembled</b> at the destination only, never in the middle. (IPv6 routers refuse to fragment at all.)'}]});
+function frag(){const L=Math.max(40,+$('#fragL').value||0),M=Math.max(68,+$('#fragM').value||0),data=L-20,per=Math.floor((M-20)/8)*8,rows=[];
+  if(L<=M)rows.push([1,L,'x',0,0]);else{let off=0,i=1;while(off<data&&i<200){const d=Math.min(per,data-off);rows.push([i++,d+20,'x',off+d<data?1:0,off/8]);off+=d}}
+  $('#fragOut').innerHTML=rows.map(r=>'<tr>'+r.map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')}
+['#fragL','#fragM'].forEach(s=>$(s).addEventListener('input',frag));frag();
+
+/* ---------- Scene 13 ---------- */
+const rules=[{m:'IP src = 128.119.1.1',a:'drop',to:'drop',t:p=>p.src==='128.119.1.1'},{m:'TCP dst port = 22 (ssh)',a:'drop',to:'drop',t:p=>p.dport===22},{m:'IP dst = 51.6.0.8',a:'forward(6)',to:'p6',t:p=>p.dst==='51.6.0.8'},{m:'MAC dst = 22:A7:23:11:E1:02',a:'forward(3)',to:'p3',t:p=>p.mac==='22:A7:23:11:E1:02'},{m:'* anything else',a:'send to controller',to:'ctl',t:()=>true}];
+const counts=rules.map(()=>0);
+function flowTable(hit){$('#flowTable tbody').innerHTML=rules.map((r,i)=>'<tr class="'+(hit===i?'hit':'')+'"><td class="mono">'+r.m+'</td><td><b>'+r.a+'</b></td><td class="tn">'+counts[i]+'</td></tr>').join('')}flowTable(-1);
+const pk=[{n:'From 128.119.1.1',src:'128.119.1.1',dst:'51.6.0.8',dport:80,mac:'0C:4F:11:20:9A:01'},{n:'Web request',src:'10.1.0.1',dst:'51.6.0.8',dport:80,mac:'0C:4F:11:20:9A:01'},{n:'SSH login',src:'10.1.0.2',dst:'51.6.0.8',dport:22,mac:'0C:4F:11:20:9A:01'},{n:'Local frame',src:'10.3.0.5',dst:'10.3.0.6',dport:53,mac:'22:A7:23:11:E1:02'},{n:'Something new',src:'10.2.0.3',dst:'8.8.8.8',dport:53,mac:'0C:4F:11:20:9A:01'}];
+mount('flow',{title:'Post a letter through the rule book',h:290,manual:1,
+ nodes:{in:{x:6,y:55,icon:'road',label:'Arriving'},sw:{x:38,y:55,icon:'office',label:'Office 1',sub:'flow table'},ctl:{x:38,y:12,icon:'hq',label:'Controller',lp:'r'},p6:{x:84,y:14,icon:'door',label:'Port 6',lp:'r'},p3:{x:84,y:50,icon:'door',label:'Port 3',lp:'r'},drop:{x:84,y:84,icon:'bin',label:'Dropped',lp:'r'}},
+ links:[['in','sw'],['sw','ctl','ctl'],['sw','p6'],['sw','p3'],['sw','drop']]});
+let fseq=0;
+function postPkt(i){const p=pk[i],all=rules.map((r,k)=>r.t(p)?k:-1).filter(k=>k>=0),hit=all[0],r=rules[hit],id='f'+(++fseq),j=J.flow;
+  $$('#pkts .chip').forEach((b,k)=>b.setAttribute('aria-pressed',k===i?'true':'false'));
+  j.render({letters:{[id]:{at:'in',dx:30,t:p.n}}});j.setCap('→','<b>'+p.n+'</b>: src '+p.src+', dst '+p.dst+':'+p.dport+', MAC '+p.mac);
+  setTimeout(()=>{j.render({letters:{[id]:{at:'sw',t:'checking…'}},hl:['sw'],on:['in-sw']});j.setCap('→','Checking the rule book from the top. It matches '+all.length+' rule'+(all.length>1?'s':'')+'.')},700);
+  setTimeout(()=>{counts[hit]++;flowTable(hit);j.render({letters:{[id]:{at:r.to,t:r.a,g:r.to==='drop'?1:0}},hl:[r.to],on:['sw-'+r.to]});j.setCap('→','The highest-priority match is <b>'+r.m+'</b>, so: <b>'+r.a+'</b>.')},1500)}
+$('#pkts').innerHTML='<b style="width:100%">Post a letter:</b>'+pk.map((p,i)=>'<button class="chip" data-p="'+i+'" aria-pressed="false">'+p.n+'</button>').join('');
+$$('#pkts .chip').forEach(b=>b.addEventListener('click',()=>postPkt(+b.dataset.p)));
+J.flow&&J.flow.setCap('→','Tap a letter below to post it.');
+
+/* ---------- Scene 14 ---------- */
+mount('middle',{title:'The boxes along the way',h:240,
+ nodes:{alice:{x:6,y:50,icon:'house',label:'Alice'},nat:{x:22,y:50,icon:'nat',label:'NAT',sub:'home router'},fw:{x:40,y:50,icon:'firewall',label:'Firewall',sub:'company gate'},r:{x:58,y:50,icon:'office',label:'Plain router',sub:'just sorts'},lb:{x:76,y:50,icon:'fabric',label:'Load balancer',sub:'picks a server'},bob:{x:94,y:50,icon:'server',label:'Bob\'s servers'}},
+ links:[['alice','nat'],['nat','fw'],['fw','r'],['r','lb'],['lb','bob']],
+ steps:[
+  {letters:{L:{at:'alice',t:'Alice\'s letter'}},cap:'A <b>middlebox</b> is "any intermediary box performing functions apart from normal, standard functions of an IP router" (RFC 3234). Let\'s count them.'},
+  {letters:{L:{at:'nat',t:'address rewritten'}},on:['alice-nat'],hl:['nat'],cap:'Middlebox #1: <b>NAT</b> rewrote the return address (Scene 10).'},
+  {letters:{L:{at:'fw',t:'checked'}},on:['nat-fw'],hl:['fw'],cap:'Middlebox #2: a <b>firewall</b> checked the addresses and ports against its rules and let it in. (Intrusion detection systems also live here.)'},
+  {letters:{L:{at:'r',t:'sorted'}},on:['fw-r'],hl:['r'],cap:'A plain router. It just forwards, the way the network layer intended.'},
+  {letters:{L:{at:'lb',t:'→ server 3'}},on:['r-lb'],hl:['lb'],cap:'Middlebox #3: a <b>load balancer</b> picked which of Bob\'s many servers should get it. Caches and CDNs are middleboxes too.'},
+  {letters:{L:{at:'bob',dx:-34,t:'delivered'}},on:['lb-bob'],cap:'Delivered. Middleboxes are moving from closed hardware to open "whitebox" hardware, programmable match+action, and <b>NFV</b>: network functions as software on ordinary servers.'}]});
+
+/* ---------- Quiz ---------- */
+const Q=[['Moving a datagram from an input link to the right output link is…',['Forwarding (data plane)','Routing (control plane)','Tunneling'],0,'Forwarding is local and fast: the data plane.'],
+ ['The Internet network layer promises…',['Delivery within 40 ms','In-order delivery','Nothing: best effort'],2,'No guarantees on delivery, order, bandwidth or timing.'],
+ ['Entries 200.23.16.0/21 and 200.23.24.0/24. Where does 200.23.24.170 go?',['The /21 entry','The /24 entry','The default route'],1,'The /24 matches, and longest prefix wins.'],
+ ['Head-of-the-line blocking happens at…',['Input ports','Output ports','The DNS server'],0,'The front letter in an input queue blocks those behind it.'],
+ ['Which scheduler gives each class a guaranteed share of the link?',['FIFO','Weighted fair queueing','Tail drop'],1,'Class i gets w_i / Σw of the link.'],
+ ['A datagram\'s TTL reaches 0. What happens?',['It is returned unchanged','It is dropped','It is fragmented'],1,'TTL stops letters looping forever.'],
+ ['How many addresses are in a /24 block?',['24','256','65,536'],1,'8 host bits: 2⁸ = 256 (254 for hosts).'],
+ ['The order of DHCP messages is…',['Discover, Offer, Request, ACK','Request, Offer, Discover, ACK','Offer, Request, ACK, Discover'],0,'DORA.'],
+ ['On the way out, a NAT router rewrites…',['Destination IP and port','Source IP and port','Only the TTL'],1,'(source IP, port) → (NAT IP, new port), saved in the table.'],
+ ['How does an IPv6 datagram cross IPv4-only routers?',['Fragmentation','Tunneling inside an IPv4 datagram','NAT'],1,'An envelope inside an envelope.']];
+let right=0;
+$('#qz').innerHTML=Q.map((q,i)=>'<div class="qcard" data-q="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="guesses">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><p class="fb" hidden></p></div>').join('');
+$$('.qcard').forEach(c=>{const q=Q[+c.dataset.q];$$('.guesses button',c).forEach(b=>b.addEventListener('click',()=>{if(c.dataset.done)return;c.dataset.done=1;$('.guesses',c).classList.add('locked');const j=+b.dataset.j;
+  $$('.guesses button',c)[q[2]].classList.add('right');if(j!==q[2])b.classList.add('wrong');else right++;
+  const fb=$('.fb',c);fb.hidden=false;fb.innerHTML=(j===q[2]?'<b style="color:var(--green)">Delivered!</b> ':'<b style="color:var(--red)">Returned to sender.</b> ')+q[3];
+  $('#score').textContent=right+' / 10';const done=$$('.qcard[data-done]').length;
+  if(done===10){say(right>=8?'Round complete! '+right+'/10. You sort mail like a pro.':right+'/10. Not bad! Go back through any scene and try again later.');markDone('quiz')}
+  else say(j===q[2]?'Delivered! '+q[3]:'Oops, returned to sender. '+q[3])}))});
+
+/* ---------- Hooks & reveals ---------- */
+let opened=new Set(store.get('pip-ch4-open',[]));
+const scenes=$$('.scene');
+function hookKey(h){const s=h.closest('.scene');return s.dataset.id+':'+$$('.hook',s).indexOf(h)}
+function openReveal(h,scroll){h.classList.add('opened');const r=h.nextElementSibling;if(r&&r.classList.contains('reveal')){r.hidden=false;if(scroll)setTimeout(()=>r.scrollIntoView({behavior:'smooth',block:'start'}),60)}
+  opened.add(hookKey(h));store.set('pip-ch4-open',[...opened]);const s=h.closest('.scene');if($$('.hook',s).every(x=>x.classList.contains('opened')))markDone(s.dataset.id)}
+$$('.hook').forEach(h=>{const rb=$('[data-reveal]',h);if(rb)rb.addEventListener('click',()=>openReveal(h,true));
+  const g=$('.guesses',h);if(g){const ok=+g.dataset.ok,bs=$$('button',g);bs.forEach((b,j)=>b.addEventListener('click',()=>{if(g.classList.contains('locked'))return;g.classList.add('locked');bs[ok].classList.add('right');if(j!==ok)b.classList.add('wrong');
+    const fb=$('.hook-fb',h);fb.hidden=false;fb.innerHTML=j===ok?'<span style="color:var(--green)">Good guess!</span> Let\'s watch it happen.':'<span style="color:var(--red)">Not quite.</span> Watch what really happens.';
+    say(j===ok?'Nice thinking! Now watch.':'Interesting guess! Let\'s see.');setTimeout(()=>openReveal(h,true),500)}))}
+  if(opened.has(hookKey(h))){if(g){g.classList.add('locked');$$('button',g)[+g.dataset.ok].classList.add('right')}openReveal(h,false)}});
+
+/* ---------- Scene navigation ---------- */
+let done=new Set(store.get('pip-ch4-done',[]));
+function markDone(id){if(done.has(id))return;done.add(id);store.set('pip-ch4-done',[...done]);drawTrail()}
+let cur=Math.min(store.get('pip-ch4-scene',0),scenes.length-1);
+const trail=$('#trail');
+function drawTrail(){trail.innerHTML=scenes.map((s,i)=>'<button class="'+(done.has(s.dataset.id)?'done ':'')+(i===cur?'here':'')+'" data-i="'+i+'" aria-label="Scene '+(i+1)+': '+s.dataset.title+'" title="'+(i+1)+'. '+s.dataset.title+'"></button>').join('');
+  $$('button',trail).forEach(b=>b.addEventListener('click',()=>show(+b.dataset.i,true)))}
+function show(i,scroll){cur=i;store.set('pip-ch4-scene',i);scenes.forEach((s,k)=>s.hidden=k!==i);$('#cover').hidden=i!==0;
+  const s=scenes[i];$('#where').innerHTML='Scene <b>'+(i+1)+'</b> of '+scenes.length+' · <b>'+s.dataset.title+'</b>';
+  $('#prevS').disabled=i===0;const nx=scenes[i+1];$('#nextS').hidden=!nx;$('#navHint').textContent=nx?'Next: '+nx.dataset.title:'End of the route';
+  drawTrail();tipI=0;if(!buddy.classList.contains('min'))say(tips[s.dataset.id][0],true);
+  if(scroll)window.scrollTo({top:0,behavior:'smooth'})}
+$('#prevS').addEventListener('click',()=>{if(cur>0)show(cur-1,true)});
+$('#nextS').addEventListener('click',()=>{if(cur<scenes.length-1)show(cur+1,true)});
+
+/* ---------- Penny tips ---------- */
+const tips={jobs:['Hi, I\'m Penny! I\'ll follow Alice\'s letter all the way to Bob. Start by making a guess.','Forwarding = one office, one door. Routing = the whole trip.','In SDN, head office writes every chart.'],
+ promise:['Best effort means: try hard, promise nothing.','If you need delivery receipts, TCP adds them on top.'],
+ inside:['Lookup happens at the input door, so the fabric only has to carry.','Memory: one at a time, twice. Bus: one at a time. Crossbar: all at once.'],
+ lpm:['When two lines match, the longer one wins.','Try 200.23.24.170 yourself: it matches 3 lines!'],
+ queues:['A full bag means dropped letters: that\'s packet loss.','HOL blocking: the front letter blocks the ones behind it.','Round robin is just weighted fair queueing with equal weights.'],
+ envelope:['TTL counts down at every office. At zero, the letter is binned.','Protocol 6 = TCP, 17 = UDP.'],
+ subnets:['Addresses belong to doors (interfaces), not houses.','/24 means the first 24 bits are the street.'],
+ dhcp:['Remember DORA: Discover, Offer, Request, ACK.','No address yet? Shout to everyone: 255.255.255.255.'],
+ isp:['One big advert for many customers = route aggregation.','The more specific advert always wins.'],
+ nat:['NAT swaps (IP, port) going out and swaps back coming in.','The table is the front desk\'s ledger.'],
+ ipv6:['Tunneling: an envelope inside an envelope.','IPv6: 128-bit addresses, 40-byte header, no checksum.'],
+ frag:['Offsets count in 8-byte units: 1480 / 8 = 185.','Only the destination reassembles.'],
+ rules:['Match + action: look at any field, then forward, drop, modify, or ask head office.','Highest priority match wins.'],
+ end:['The thin waist of the hourglass is IP.','Intelligence lives at the edges.'],
+ quiz:['Take your time. Every answer comes with a reason.','Stuck? Go back to the scene and replay the journey.']};
+let tipI=0;const buddy=$('#buddy'),carrier=$('#carrier'),bt=$('#bubbleText');
+function say(h,quiet){bt.innerHTML=h;if(!quiet)buddy.classList.remove('min');carrier.classList.remove('wave');void carrier.offsetWidth;carrier.classList.add('wave')}
+function nextTip(){const t=tips[scenes[cur].dataset.id];tipI=(tipI+1)%t.length;say(t[tipI])}
+carrier.addEventListener('click',()=>{if(buddy.classList.contains('min')){buddy.classList.remove('min');say(tips[scenes[cur].dataset.id][tipI])}else nextTip()});
+$('#more').addEventListener('click',nextTip);$('#bx').addEventListener('click',()=>buddy.classList.add('min'));
+if(window.innerWidth<600)buddy.classList.add('min');
+show(cur,false);
+})();
+</script>
+
+</body></html>
