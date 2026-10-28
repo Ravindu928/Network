@@ -1,674 +1,670 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Link Layer Post Office</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
-<style>
-/* Layout: a mail route. A sticky stamp-book bar, then ten "stops" down one column; every hands-on lab wears an airmail border. */
-:root{
-  --bg:#EEF3FA; --surface:#FFFFFF; --surface-2:#E3EBF6; --ink:#18233A; --muted:#56637B; --line:#CAD6E7;
-  --blue:#1D4E9E; --blue-soft:#D8E4F8; --red:#D23F2D; --red-soft:#FADDD7; --yellow:#E9A520; --yellow-soft:#FCEFCF;
-  --green:#1C8A57; --green-soft:#D3F0E1; --on-accent:#FFFFFF;
-  --kraft:#D8B47E; --kraft-dark:#A67C43; --paper:#FFFDF8; --paper-ink:#1B2433; --paper-red:#C23A2A; --paper-blue:#1D4E9E; --paper-line:#E5DCCB;
-  --uniform:#2B5DB3; --uniform-dark:#1A3E7E; --skin:#F1C39C; --blush:#F29B8B; --face:#1B2433; --shadow:rgba(24,35,58,.12);
-  --display:'Fredoka','Baloo 2','Trebuchet MS',system-ui,sans-serif;
-  --body:'Nunito','Segoe UI',system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0F1626; --surface:#18223A; --surface-2:#212D4A; --ink:#E9EEF8; --muted:#A4B1C9; --line:#2F3C5E;
-  --blue:#8DB2F5; --blue-soft:#22355E; --red:#FF8A78; --red-soft:#4A2A28; --yellow:#F6C55A; --yellow-soft:#463A1C;
-  --green:#5ED39A; --green-soft:#173D2D; --on-accent:#0F1626;
-  --kraft:#C9A06A; --kraft-dark:#8E6A3A; --uniform:#3D6FC6; --uniform-dark:#264C92; --shadow:rgba(0,0,0,.35); color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0F1626; --surface:#18223A; --surface-2:#212D4A; --ink:#E9EEF8; --muted:#A4B1C9; --line:#2F3C5E;
-  --blue:#8DB2F5; --blue-soft:#22355E; --red:#FF8A78; --red-soft:#4A2A28; --yellow:#F6C55A; --yellow-soft:#463A1C;
-  --green:#5ED39A; --green-soft:#173D2D; --on-accent:#0F1626;
-  --kraft:#C9A06A; --kraft-dark:#8E6A3A; --uniform:#3D6FC6; --uniform-dark:#264C92; --shadow:rgba(0,0,0,.35); color-scheme:dark}
+<!doctype html>
+<html lang="si">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>6 වන පරිච්ඡේදය · සබැඳි ස්ථර තැපැල් කාර්යාලය (The Link Layer & LANs)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Noto+Sans+Sinhala:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+    :root{
+      color-scheme:light;
+      --bg:#EEF3FA; --surface:#FFFFFF; --surface-2:#E3EBF6; --ink:#18233A; --muted:#56637B; --line:#CAD6E7;
+      --blue:#1D4E9E; --blue-soft:#D8E4F8; --red:#D23F2D; --red-soft:#FADDD7; --yellow:#E9A520; --yellow-soft:#FCEFCF;
+      --green:#1C8A57; --green-soft:#D3F0E1; --on-accent:#FFFFFF;
+      --kraft:#D8B47E; --kraft-dark:#A67C43; --paper:#FFFDF8; --paper-ink:#1B2433; --paper-red:#C23A2A; --paper-blue:#1D4E9E; --paper-line:#E5DCCB;
+      --uniform:#2B5DB3; --uniform-dark:#1A3E7E; --skin:#F1C39C; --blush:#F29B8B; --face:#1B2433; --shadow:rgba(24,35,58,.12);
+      --display:'Familjen Grotesk','Noto Sans Sinhala',system-ui,sans-serif;
+      --body:'Noto Sans Sinhala','Familjen Grotesk','Segoe UI',system-ui,sans-serif;
+      --mono:'JetBrains Mono','Noto Sans Sinhala',ui-monospace,monospace;
+    }
+    @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+      --bg:#0F1626; --surface:#18223A; --surface-2:#212D4A; --ink:#E9EEF8; --muted:#A4B1C9; --line:#2F3C5E;
+      --blue:#8DB2F5; --blue-soft:#22355E; --red:#FF8A78; --red-soft:#4A2A28; --yellow:#F6C55A; --yellow-soft:#463A1C;
+      --green:#5ED39A; --green-soft:#173D2D; --on-accent:#0F1626;
+      --kraft:#C9A06A; --kraft-dark:#8E6A3A; --uniform:#3D6FC6; --uniform-dark:#264C92; --shadow:rgba(0,0,0,.35); color-scheme:dark
+    }}
+    *{box-sizing:border-box}
+    [hidden]{display:none!important}
+    body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.68;margin:0;padding-bottom:140px}
+    h1,h2,h3,h4{font-family:var(--display);line-height:1.25;margin:0;font-weight:700}
+    p{margin:0}
+    code,.mono{font-family:var(--mono);font-size:.88em}
+    a{color:var(--blue)}
+    button{font:inherit;cursor:pointer}
+    :focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:6px}
+    .wrap{max-width:920px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+    .airmail-top{height:9px;background:repeating-linear-gradient(-45deg,var(--red) 0 12px,var(--surface) 12px 20px,var(--blue) 20px 32px,var(--surface) 32px 40px)}
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;margin:0}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
-h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0;font-weight:600}
-p{margin:0}
-code,.mono{font-family:var(--mono);font-size:.88em}
-a{color:var(--blue)}
-button{font:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
-.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+    /* Sticky Top Bar & Route */
+    .bar{position:sticky;top:0;z-index:25;background:var(--surface);border-bottom:1px solid var(--line);padding-block:10px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .brand{font-family:var(--display);font-weight:700;font-size:.92rem;text-decoration:none;color:var(--blue);border:2px solid var(--line);background:var(--bg);padding:4px 14px;border-radius:999px}
+    .brand:hover{border-color:var(--blue)}
+    .where{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+    .where b{color:var(--ink)}
+    .stampbook{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.82rem;color:var(--muted);font-family:var(--mono)}
+    .stampbook .dots{display:flex;gap:3px}
+    .stampbook .dots i{width:10px;height:12px;border-radius:2px;background:var(--surface-2);border:1px dashed var(--line)}
+    .stampbook .dots i.got{background:var(--red);border:1px solid var(--red)}
+    .route-bar{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:10px}
+    .stop-btn{background:var(--bg);border:1.5px dashed var(--line);border-radius:6px;padding:5px 2px;font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0}
+    .stop-btn span{font-family:var(--body);font-size:.66rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+    .stop-btn.here{border-style:solid;border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:700}
+    .stop-btn.done{border-style:solid;border-color:var(--green);background:var(--green-soft);color:var(--green)}
+    .prog-line{height:5px;background:var(--line);border-radius:99px;margin-top:8px;overflow:hidden}
+    .prog-line i{display:block;height:100%;background:var(--red);transition:width .35s ease}
 
-/* top bar */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
-.bar .wrap{display:flex;align-items:center;gap:12px;padding-block:10px}
-.brand{font-family:var(--display);font-weight:600;font-size:1rem;white-space:nowrap;text-decoration:none;color:var(--blue);flex:none}
-.route{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
-.route::-webkit-scrollbar{display:none}
-.route a{flex:none;text-decoration:none;color:var(--muted);font-weight:700;font-size:.85rem;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
-.route a.on{background:var(--blue);color:var(--on-accent);border-color:var(--blue)}
-.stampbook{flex:none;display:flex;align-items:center;gap:8px;font-weight:800;font-size:.85rem;color:var(--muted)}
-.stampbook .dots{display:flex;gap:3px}
-.stampbook .dots i{width:10px;height:12px;border-radius:2px;background:var(--surface-2);border:1px dashed var(--line)}
-.stampbook .dots i.got{background:var(--red);border:1px solid var(--red)}
-@media (max-width:700px){.stampbook .dots{display:none}}
+    /* Hero */
+    .hero{padding-block:26px 12px}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:24px;align-items:center;background:var(--surface);border-radius:18px;padding:22px;box-shadow:0 4px 20px var(--shadow)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--red);font-family:var(--mono)}
+    .hero h1{font-size:clamp(1.85rem,4.5vw,2.6rem);margin-top:8px}
+    .hero h1 span{color:var(--blue)}
+    .hero .lede{margin-top:10px;font-size:1.02rem;color:var(--muted)}
+    .hero-art{display:flex;flex-direction:column;align-items:center;gap:8px}
+    .speech{background:var(--surface);border:2px solid var(--ink);border-radius:16px;padding:10px 14px;font-weight:700;font-size:.88rem;line-height:1.45;box-shadow:4px 4px 0 var(--shadow)}
 
-/* hero */
-.hero{padding-block:44px 28px}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:28px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
-.hero h1{font-size:clamp(2.2rem,5.6vw,3.6rem);margin-top:10px;font-weight:700}
-.hero h1 span{color:var(--blue)}
-.hero .lede{margin-top:14px;font-size:1.15rem;max-width:58ch;color:var(--muted)}
-.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.hero-art{position:relative;display:flex;justify-content:center}
-.hero-art .speech{position:absolute;top:-6px;left:-30px;max-width:190px}
-@media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero-art{order:-1;justify-content:flex-start;gap:12px;align-items:flex-end}.hero-art .speech{position:static}.hero-art svg{width:110px}}
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--blue);background:var(--blue);color:var(--on-accent);font-weight:700;padding:8px 16px;border-radius:12px;text-decoration:none;font-size:.92rem;transition:transform .12s}
+    .btn:active{transform:translateY(1px)}
+    .btn.ghost{background:transparent;color:var(--blue)}
+    .btn.red{background:var(--red);border-color:var(--red);color:#fff}
+    .btn.sm{padding:6px 12px;font-size:.84rem;border-radius:10px}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 
-.speech{background:var(--surface);border:2px solid var(--ink);border-radius:16px;padding:10px 14px;font-weight:700;font-size:.92rem;line-height:1.4;box-shadow:4px 4px 0 var(--shadow)}
+    /* Stop Scene Card */
+    .stop{background:var(--surface);border-radius:18px;box-shadow:0 4px 20px var(--shadow);margin-top:18px;padding:24px clamp(16px,4vw,32px) 28px;animation:enter .35s ease}
+    @keyframes enter{from{opacity:.3;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .stop-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;margin-bottom:20px}
+    .postmark{width:70px;height:70px;border-radius:50%;border:3px double var(--red);display:grid;place-items:center;text-align:center;color:var(--red);font-family:var(--display);font-weight:700;line-height:1;transform:rotate(-8deg)}
+    .postmark small{display:block;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase}
+    .postmark b{font-size:1.55rem}
+    .stop h2{font-size:clamp(1.45rem,3.4vw,2rem)}
+    .stop-head p{color:var(--muted);margin-top:4px}
 
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--blue);background:var(--blue);color:var(--on-accent);font-weight:800;padding:9px 16px;border-radius:12px;text-decoration:none;font-size:.95rem;transition:transform .12s}
-.btn:hover{transform:translateY(-1px)}
-.btn:active{transform:translateY(1px)}
-.btn.ghost{background:transparent;color:var(--blue)}
-.btn.red{background:var(--red);border-color:var(--red)}
-.btn.sm{padding:6px 12px;font-size:.85rem;border-radius:10px}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    /* Interactive Question Hook */
+    .ask{background:var(--yellow-soft);border:2px dashed var(--yellow);border-radius:14px;padding:15px 18px;margin-bottom:18px;display:grid;gap:10px}
+    .ask-q{font-family:var(--display);font-weight:700;font-size:1.1rem;display:flex;gap:10px;align-items:flex-start}
+    .ask-q::before{content:"?";flex:none;width:28px;height:28px;border-radius:50%;background:var(--yellow);color:#18233A;display:grid;place-items:center;font-weight:700}
+    .ask-opts{display:grid;gap:7px}
+    .ask-opt{text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:9px 14px;font-weight:700}
+    .ask-opt:hover:not(:disabled){border-color:var(--blue)}
+    .ask-opt.right{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+    .ask-opt.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+    .ask-verdict{font-size:.94rem;font-weight:700}
 
-/* stops */
-.stop{padding-block:44px;border-top:2px dashed var(--line)}
-.stop-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;margin-bottom:22px}
-.postmark{width:74px;height:74px;border-radius:50%;border:3px double var(--red);display:grid;place-items:center;text-align:center;color:var(--red);font-family:var(--display);font-weight:600;line-height:1;transform:rotate(-8deg)}
-.postmark small{display:block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
-.postmark b{font-size:1.7rem;font-weight:700}
-.stop h2{font-size:clamp(1.6rem,3.6vw,2.2rem)}
-.stop-head p{color:var(--muted);margin-top:4px;max-width:62ch}
-.prose{max-width:66ch;display:grid;gap:12px}
-.grid{display:grid;gap:14px}
-.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media (max-width:760px){.g2,.g3{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:0}
-.card h3{font-size:1.15rem;margin-bottom:6px}
-.card p{color:var(--muted);font-size:.97rem}
-.card .is{display:inline-block;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:4px}
-.tag{display:inline-block;font-weight:800;font-size:.75rem;padding:2px 8px;border-radius:6px;background:var(--blue-soft);color:var(--blue)}
-.analogy{display:flex;gap:12px;align-items:flex-start;background:var(--yellow-soft);border-radius:14px;padding:14px 16px;margin-block:16px;max-width:76ch}
-.analogy svg{flex:none;width:44px}
-.analogy p{font-size:.98rem}
-.analogy b{font-family:var(--display);font-weight:600}
+    .grid{display:grid;gap:14px}
+    .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:15px 16px;min-width:0}
+    .card h3{font-size:1.1rem;margin-bottom:5px}
+    .card p{color:var(--muted);font-size:.94rem}
+    .card .is{display:inline-block;font-size:.73rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--blue);margin-bottom:4px;font-family:var(--mono)}
+    .tag{display:inline-block;font-weight:700;font-size:.75rem;padding:2px 8px;border-radius:6px;background:var(--blue-soft);color:var(--blue);font-family:var(--mono)}
+    .analogy{display:flex;gap:12px;align-items:flex-start;background:var(--yellow-soft);border-radius:14px;padding:14px 16px;margin-block:16px}
+    .analogy svg{flex:none;width:44px}
 
-/* airmail lab */
-.lab{border:7px solid transparent;border-radius:20px;background:linear-gradient(var(--surface),var(--surface)) padding-box,repeating-linear-gradient(-45deg,var(--red) 0 12px,var(--surface) 12px 18px,var(--blue) 18px 30px,var(--surface) 30px 36px) border-box;padding:18px 20px;margin-top:18px;min-width:0}
-.lab-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.lab-title h3{font-size:1.25rem}
-.lab-title .tag{background:var(--red-soft);color:var(--red)}
-.hint{font-size:.9rem;color:var(--muted)}
-.out{margin-top:12px;padding:10px 14px;border-radius:12px;background:var(--surface-2);font-weight:700;min-height:2.6em}
-.out.good{background:var(--green-soft);color:var(--green)}
-.out.bad{background:var(--red-soft);color:var(--red)}
-label.ctl{display:grid;gap:4px;font-size:.85rem;font-weight:800;color:var(--muted)}
-select,input[type=text]{font:inherit;font-size:.95rem;padding:7px 10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
-input[type=text]{font-family:var(--mono)}
-input[type=range]{accent-color:var(--blue);width:150px}
+    /* Airmail Lab */
+    .lab{border:6px solid transparent;border-radius:20px;background:linear-gradient(var(--surface),var(--surface)) padding-box,repeating-linear-gradient(-45deg,var(--red) 0 12px,var(--surface) 12px 18px,var(--blue) 18px 30px,var(--surface) 30px 36px) border-box;padding:18px 20px;margin-top:18px;min-width:0;box-shadow:0 2px 12px var(--shadow)}
+    .lab-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+    .lab-title h3{font-size:1.2rem}
+    .lab-title .tag{background:var(--red-soft);color:var(--red)}
+    .hint{font-size:.9rem;color:var(--muted)}
+    .out{margin-top:12px;padding:10px 14px;border-radius:12px;background:var(--surface-2);font-weight:700;min-height:2.6em}
+    .out.good{background:var(--green-soft);color:var(--green)}
+    .out.bad{background:var(--red-soft);color:var(--red)}
+    label.ctl{display:grid;gap:4px;font-size:.84rem;font-weight:700;color:var(--muted)}
+    select,input[type=text]{font:inherit;font-size:.94rem;padding:7px 10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+    input[type=text]{font-family:var(--mono)}
+    input[type=range]{accent-color:var(--blue);width:150px}
 
-/* envelope / letter objects (paper stays light in both themes) */
-.env{background:var(--paper);color:var(--paper-ink);border-radius:10px;border:2px solid var(--kraft-dark);position:relative;box-shadow:0 6px 16px var(--shadow)}
-.letter{background:var(--paper);color:var(--paper-ink);border:1.5px solid var(--paper-line);border-radius:8px;padding:10px 12px;font-size:.9rem;background-image:repeating-linear-gradient(transparent 0 22px,var(--paper-line) 22px 23px)}
-.letter b{color:var(--paper-blue)}
+    /* Envelope & Widgets */
+    .env{background:var(--paper);color:var(--paper-ink);border-radius:10px;border:2px solid var(--kraft-dark);position:relative;box-shadow:0 6px 16px var(--shadow)}
+    .letter{background:var(--paper);color:var(--paper-ink);border:1.5px solid var(--paper-line);border-radius:8px;padding:10px 12px;font-size:.9rem;background-image:repeating-linear-gradient(transparent 0 22px,var(--paper-line) 22px 23px)}
+    .letter b{color:var(--paper-blue)}
+    .wrapstage{display:grid;place-items:center;padding:14px 0 6px}
+    .frame-env{width:min(460px,100%);padding:12px;transition:background .3s,border-color .3s;background:transparent;border:2px dashed transparent;border-radius:14px}
+    .frame-env .fpart{max-height:0;opacity:0;overflow:hidden;transition:all .45s ease;font-family:var(--mono);font-size:.8rem;border-radius:8px;padding:0 10px}
+    .frame-env.wrapped{background:var(--kraft);border:2px solid var(--kraft-dark)}
+    .frame-env.wrapped .fpart{max-height:80px;opacity:1;padding:8px 10px;margin-block:6px;background:var(--paper);color:var(--paper-ink)}
+    .fpart b{color:var(--paper-red)}
 
-/* wrap demo */
-.wrapstage{display:grid;place-items:center;padding:18px 0 6px}
-.frame-env{width:min(440px,100%);padding:12px;transition:background .3s,border-color .3s;background:transparent;border:2px dashed transparent;border-radius:14px}
-.frame-env .fpart{max-height:0;opacity:0;overflow:hidden;transition:all .45s ease;font-family:var(--mono);font-size:.8rem;border-radius:8px;padding:0 10px}
-.frame-env.wrapped{background:var(--kraft);border:2px solid var(--kraft-dark)}
-.frame-env.wrapped .fpart{max-height:80px;opacity:1;padding:8px 10px;margin-block:6px;background:var(--paper);color:var(--paper-ink)}
-.fpart b{color:var(--paper-red)}
+    .legs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px}
+    .leg{border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:12px;text-align:left;color:var(--ink)}
+    .leg[aria-pressed=true]{border-color:var(--blue);background:var(--blue-soft)}
+    .leg .lg-t{font-family:var(--display);font-weight:700;font-size:1rem}
+    .leg .lg-s{font-size:.84rem;color:var(--muted)}
 
-/* journey */
-.legs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:6px}
-.leg{border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:12px;text-align:left;color:var(--ink)}
-.leg[aria-pressed=true]{border-color:var(--blue);background:var(--blue-soft)}
-.leg .lg-t{font-family:var(--display);font-weight:600;font-size:1.05rem}
-.leg .lg-s{font-size:.85rem;color:var(--muted)}
-@media (max-width:560px){.legs{grid-template-columns:1fr}}
+    .bits{display:flex;flex-wrap:wrap;gap:6px}
+    .bit{width:40px;height:44px;border-radius:9px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--mono);font-weight:600;font-size:1.1rem;display:grid;place-items:center}
+    button.bit:hover{border-color:var(--blue)}
+    .bit.par{background:var(--yellow-soft);border-color:var(--yellow)}
+    .bit.flip{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+    .bitlabel{font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:10px 0 6px}
+    .grid2d{display:inline-grid;grid-template-columns:repeat(5,40px);gap:5px}
+    .grid2d .bit.bad{border-color:var(--red);box-shadow:0 0 0 3px var(--red-soft)}
+    .grid2d .bit.cross{background:var(--red);color:var(--on-accent);border-color:var(--red)}
+    .crc-io{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+    .crc-io input{width:170px}
+    .crcwork{margin-top:12px;overflow-x:auto;background:var(--paper);color:var(--paper-ink);border-radius:12px;padding:12px 14px;border:1.5px solid var(--paper-line)}
+    .crcwork pre{margin:0;font-family:var(--mono);font-size:.88rem;line-height:1.55}
+    .crcwork .g{color:var(--paper-blue);font-weight:600}
+    .crcwork .r{color:var(--paper-red);font-weight:600}
 
-/* bits */
-.bits{display:flex;flex-wrap:wrap;gap:6px}
-.bit{width:40px;height:44px;border-radius:9px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--mono);font-weight:600;font-size:1.1rem;display:grid;place-items:center}
-button.bit:hover{border-color:var(--blue)}
-.bit.par{background:var(--yellow-soft);border-color:var(--yellow)}
-.bit.flip{background:var(--red-soft);border-color:var(--red);color:var(--red)}
-.bitlabel{font-size:.8rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:10px 0 6px}
-.grid2d{display:inline-grid;grid-template-columns:repeat(5,40px);gap:5px}
-.grid2d .bit.bad{border-color:var(--red);box-shadow:0 0 0 3px var(--red-soft)}
-.grid2d .bit.cross{background:var(--red);color:var(--on-accent);border-color:var(--red)}
-.crc-io{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
-.crc-io input{width:170px}
-.crcwork{margin-top:12px;overflow-x:auto;background:var(--paper);color:var(--paper-ink);border-radius:12px;padding:12px 14px;border:1.5px solid var(--paper-line)}
-.crcwork pre{margin:0;font-family:var(--mono);font-size:.88rem;line-height:1.55}
-.crcwork .g{color:var(--paper-blue);font-weight:600}
-.crcwork .r{color:var(--paper-red);font-weight:600}
+    .simctl{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+    .simgrid-wrap{overflow-x:auto;margin-top:14px}
+    .simgrid{display:grid;gap:3px;min-width:560px}
+    .simgrid .lbl{font-size:.75rem;font-weight:700;color:var(--muted);display:flex;align-items:center;white-space:nowrap;padding-right:6px}
+    .cell{height:22px;border-radius:4px;background:var(--surface-2);display:grid;place-items:center;font-size:.65rem;font-weight:700;font-family:var(--mono)}
+    .cell.tx-s{background:var(--green);color:var(--on-accent)}
+    .cell.tx-c{background:var(--red);color:var(--on-accent)}
+    .cell.tok{outline:2px solid var(--yellow);outline-offset:-2px}
+    .cell.ch-S{background:var(--green-soft);color:var(--green)}
+    .cell.ch-C{background:var(--red-soft);color:var(--red)}
+    .cell.ch-E{background:var(--surface-2);color:var(--muted)}
+    .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--muted);margin-top:8px}
+    .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+    .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .stat{background:var(--surface-2);border-radius:12px;padding:8px 14px;min-width:120px}
+    .stat b{display:block;font-family:var(--display);font-size:1.45rem;font-weight:700}
+    .stat span{font-size:.78rem;color:var(--muted);font-weight:700}
+    .backoff-bar{position:relative;height:30px;border-radius:8px;background:var(--surface-2);margin-top:10px;overflow:hidden}
+    .backoff-bar .fill{position:absolute;inset:0 auto 0 0;background:var(--blue-soft);transition:width .3s}
+    .backoff-bar .k{position:absolute;top:2px;bottom:2px;width:6px;border-radius:3px;background:var(--red);transition:left .3s}
 
-/* MAC sim */
-.simctl{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
-.simgrid-wrap{overflow-x:auto;margin-top:14px}
-.simgrid{display:grid;gap:3px;min-width:560px}
-.simgrid .lbl{font-size:.75rem;font-weight:800;color:var(--muted);display:flex;align-items:center;white-space:nowrap;padding-right:6px}
-.cell{height:22px;border-radius:4px;background:var(--surface-2);display:grid;place-items:center;font-size:.65rem;font-weight:800;font-family:var(--mono)}
-.cell.tx-s{background:var(--green);color:var(--on-accent)}
-.cell.tx-c{background:var(--red);color:var(--on-accent)}
-.cell.tok{outline:2px solid var(--yellow);outline-offset:-2px}
-.cell.ch-S{background:var(--green-soft);color:var(--green)}
-.cell.ch-C{background:var(--red-soft);color:var(--red)}
-.cell.ch-E{background:var(--surface-2);color:var(--muted)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--muted);margin-top:8px}
-.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px}
-.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-.stat{background:var(--surface-2);border-radius:12px;padding:8px 14px;min-width:120px}
-.stat b{display:block;font-family:var(--display);font-size:1.5rem;font-weight:600;font-variant-numeric:tabular-nums}
-.stat span{font-size:.78rem;color:var(--muted);font-weight:700}
-.backoff-bar{position:relative;height:30px;border-radius:8px;background:var(--surface-2);margin-top:10px;overflow:hidden}
-.backoff-bar .fill{position:absolute;inset:0 auto 0 0;background:var(--blue-soft);transition:width .3s}
-.backoff-bar .k{position:absolute;top:2px;bottom:2px;width:6px;border-radius:3px;background:var(--red);transition:left .3s}
+    .street{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;position:relative;padding-bottom:18px;margin-top:12px}
+    .street::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:6px;border-radius:3px;background:repeating-linear-gradient(90deg,var(--muted) 0 14px,transparent 14px 24px);opacity:.5}
+    .house{border:2px solid var(--line);border-radius:14px 14px 10px 10px;padding:10px;background:var(--surface);position:relative;min-width:0;transition:all .3s}
+    .house::before{content:"";position:absolute;left:12px;right:12px;top:-12px;height:12px;background:var(--kraft);clip-path:polygon(0 100%,50% 0,100% 100%)}
+    .house h4{margin:0;font-family:var(--display);font-size:1.05rem;font-weight:700}
+    .house .ip{font-family:var(--mono);font-size:.72rem;color:var(--blue);overflow-wrap:anywhere}
+    .house .mac{font-family:var(--mono);font-size:.7rem;color:var(--muted);overflow-wrap:anywhere}
+    .house .say{font-size:.76rem;font-weight:700;margin-top:6px;min-height:2.6em;line-height:1.3}
+    .house.me{border-color:var(--blue)}
+    .house.hear{border-color:var(--yellow);background:var(--yellow-soft)}
+    .house.reply{border-color:var(--green);background:var(--green-soft)}
+    .house.quiet{opacity:.55}
+    table.t{border-collapse:collapse;width:100%;font-size:.86rem}
+    table.t th,table.t td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+    table.t th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+    table.t td{font-family:var(--mono)}
+    .tablebox{overflow-x:auto;margin-top:12px}
 
-/* ARP */
-.street{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;position:relative;padding-bottom:18px}
-.street::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:6px;border-radius:3px;background:repeating-linear-gradient(90deg,var(--muted) 0 14px,transparent 14px 24px);opacity:.5}
-.house{border:2px solid var(--line);border-radius:14px 14px 10px 10px;padding:10px;background:var(--surface);position:relative;min-width:0;transition:all .3s}
-.house::before{content:"";position:absolute;left:12px;right:12px;top:-12px;height:12px;background:var(--kraft);clip-path:polygon(0 100%,50% 0,100% 100%)}
-.house h4{margin:0;font-family:var(--display);font-size:1.2rem;font-weight:600}
-.house .ip{font-family:var(--mono);font-size:.74rem;color:var(--blue);overflow-wrap:anywhere}
-.house .mac{font-family:var(--mono);font-size:.74rem;color:var(--muted);overflow-wrap:anywhere}
-.house .say{font-size:.78rem;font-weight:700;margin-top:6px;min-height:2.6em;line-height:1.3}
-.house.me{border-color:var(--blue)}
-.house.hear{border-color:var(--yellow);background:var(--yellow-soft)}
-.house.reply{border-color:var(--green);background:var(--green-soft)}
-.house.quiet{opacity:.55}
-@media (max-width:620px){.street{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}}
-table.t{border-collapse:collapse;width:100%;font-size:.86rem}
-table.t th,table.t td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
-table.t th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-table.t td{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.tablebox{overflow-x:auto;margin-top:12px}
+    .hops{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center}
+    .hop{border:2px solid var(--line);border-radius:14px;padding:10px;text-align:center;background:var(--surface);transition:all .3s;min-width:0}
+    .hop h4{margin:0;font-family:var(--display);font-weight:700;font-size:1rem}
+    .hop .mono{font-size:.68rem;color:var(--muted);display:block;overflow-wrap:anywhere}
+    .hop.at{border-color:var(--red);background:var(--red-soft)}
+    .wire{width:34px;height:4px;border-radius:2px;background:var(--line);transition:background .3s}
+    .wire.at{background:var(--red)}
+    .envshow{margin-top:16px;display:grid;justify-items:center}
+    .envshow .env{width:min(520px,100%);padding:12px 14px 14px}
+    .envline{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:.8rem;margin-bottom:10px}
+    .envline span{padding:2px 6px;border-radius:5px}
+    .envline .chg{background:var(--yellow);color:var(--paper-ink)}
+    .stepdots{display:flex;gap:6px;justify-content:center;margin-top:12px}
+    .stepdots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+    .stepdots i.on{background:var(--red)}
 
-/* subnet stepper */
-.hops{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center}
-.hop{border:2px solid var(--line);border-radius:14px;padding:10px;text-align:center;background:var(--surface);transition:all .3s;min-width:0}
-.hop h4{margin:0;font-family:var(--display);font-weight:600;font-size:1.05rem}
-.hop .mono{font-size:.68rem;color:var(--muted);display:block;overflow-wrap:anywhere}
-.hop.at{border-color:var(--red);background:var(--red-soft)}
-.wire{width:34px;height:4px;border-radius:2px;background:var(--line);transition:background .3s}
-.wire.at{background:var(--red)}
-.envshow{margin-top:16px;display:grid;justify-items:center}
-.envshow .env{width:min(520px,100%);padding:12px 14px 14px}
-.envline{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:.8rem;margin-bottom:10px}
-.envline span{padding:2px 6px;border-radius:5px}
-.envline .chg{background:var(--yellow);color:var(--paper-ink)}
-.stepdots{display:flex;gap:6px;justify-content:center;margin-top:12px}
-.stepdots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
-.stepdots i.on{background:var(--red)}
-@media (max-width:560px){.wire{width:12px}.hop{padding:6px}.hop .mono{font-size:.6rem}}
+    .eframe{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px}
+    .ef{flex:1 0 auto;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px 8px;text-align:center;min-width:80px}
+    .ef b{display:block;font-family:var(--display);font-weight:700;font-size:.92rem}
+    .ef small{font-size:.72rem;color:var(--muted);font-weight:700}
+    .ef.data{flex-grow:4}
+    .ef[aria-pressed=true]{border-color:var(--red);background:var(--red-soft)}
 
-/* ethernet frame */
-.eframe{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px}
-.ef{flex:1 0 auto;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px 8px;text-align:center;min-width:76px}
-.ef b{display:block;font-family:var(--display);font-weight:600;font-size:.95rem}
-.ef small{font-size:.72rem;color:var(--muted);font-weight:700}
-.ef.data{flex-grow:4}
-.ef[aria-pressed=true]{border-color:var(--red);background:var(--red-soft)}
+    .sw-floor{display:grid;gap:12px}
+    .sw-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .sw-host{border:2px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--surface);transition:all .3s;min-width:0}
+    .sw-host h4{margin:0;font-family:var(--display);font-weight:700;font-size:.95rem}
+    .sw-host .mono{font-size:.7rem;color:var(--muted)}
+    .sw-host .st{font-size:.76rem;font-weight:700;min-height:1.3em}
+    .sw-host.src{border-color:var(--blue);background:var(--blue-soft)}
+    .sw-host.got{border-color:var(--green);background:var(--green-soft)}
+    .sw-host.copy{border-color:var(--yellow);background:var(--yellow-soft)}
+    .sw-box{border-radius:14px;background:var(--uniform-dark);color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .ports{display:flex;gap:6px}
+    .port{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:.75rem;font-weight:700;transition:background .3s}
+    .port.lit{background:var(--yellow);color:var(--paper-ink)}
+    .port.in{background:#7FB0FF;color:var(--paper-ink)}
+    .log{margin-top:10px;font-size:.86rem;display:grid;gap:4px;max-height:150px;overflow:auto}
+    .log div{padding:5px 8px;border-radius:8px;background:var(--surface-2)}
 
-/* switch */
-.sw-floor{display:grid;gap:12px}
-.sw-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.sw-host{border:2px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--surface);transition:all .3s;min-width:0}
-.sw-host h4{margin:0;font-family:var(--display);font-weight:600}
-.sw-host .mono{font-size:.7rem;color:var(--muted)}
-.sw-host .st{font-size:.76rem;font-weight:800;min-height:1.3em}
-.sw-host.src{border-color:var(--blue);background:var(--blue-soft)}
-.sw-host.got{border-color:var(--green);background:var(--green-soft)}
-.sw-host.copy{border-color:var(--yellow);background:var(--yellow-soft)}
-.sw-box{border-radius:14px;background:var(--uniform-dark);color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.sw-box b{font-family:var(--display);font-weight:600}
-.ports{display:flex;gap:6px}
-.port{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:.75rem;font-weight:800;transition:background .3s}
-.port.lit{background:var(--yellow);color:var(--paper-ink)}
-.port.in{background:#7FB0FF;color:var(--paper-ink)}
-.log{margin-top:10px;font-size:.88rem;display:grid;gap:4px;max-height:150px;overflow:auto}
-.log div{padding:4px 8px;border-radius:8px;background:var(--surface-2)}
+    .vports{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px;background:var(--uniform-dark);padding:12px;border-radius:14px}
+    .vport{aspect-ratio:1/1.15;border-radius:8px;border:3px solid transparent;font-weight:700;font-size:.85rem;color:var(--paper-ink);display:grid;place-items:center;transition:all .25s}
+    .vport.EE{background:#9CC0FF}
+    .vport.CS{background:#FFB3A6}
+    .vport.hit{border-color:var(--yellow);box-shadow:0 0 0 3px var(--yellow)}
+    .vport.dim{opacity:.35}
+    .vtag{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;font-size:.78rem;font-weight:700}
+    .vtag span{padding:6px 8px;border-radius:8px;background:var(--surface-2)}
+    .vtag span.new{background:var(--yellow-soft);border:1.5px dashed var(--yellow)}
 
-/* vlan */
-.vports{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px;background:var(--uniform-dark);padding:12px;border-radius:14px}
-.vport{aspect-ratio:1/1.15;max-width:100%;border-radius:8px;border:3px solid transparent;font-weight:800;font-size:.85rem;color:var(--paper-ink);display:grid;place-items:center;transition:all .25s}
-.vport.EE{background:#9CC0FF}
-.vport.CS{background:#FFB3A6}
-.vport.hit{border-color:var(--yellow);box-shadow:0 0 0 3px var(--yellow)}
-.vport.dim{opacity:.35}
-@media (max-width:560px){.vports{grid-template-columns:repeat(6,minmax(0,1fr))}}
-.vtag{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;font-size:.78rem;font-weight:700}
-.vtag span{padding:6px 8px;border-radius:8px;background:var(--surface-2)}
-.vtag span.new{background:var(--yellow-soft);border:1.5px dashed var(--yellow)}
+    .mpls svg{width:100%;height:auto;max-width:640px;display:block;margin:auto}
+    .mpls .edge{stroke:var(--line);stroke-width:5;stroke-linecap:round}
+    .mpls .edge.broken{stroke:var(--red);stroke-dasharray:6 7}
+    .mpls .flowA{stroke:var(--blue);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .mpls .flowB{stroke:var(--red);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 6}
+    .mpls .node circle{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+    .mpls .node text{fill:var(--ink);font-family:var(--display);font-size:13px;font-weight:700;text-anchor:middle;dominant-baseline:central}
+    .mpls .host rect{fill:var(--kraft);stroke:var(--kraft-dark);stroke-width:2}
 
-/* mpls */
-.mpls svg{width:100%;height:auto;max-width:640px;display:block;margin:auto}
-.mpls .edge{stroke:var(--line);stroke-width:5;stroke-linecap:round}
-.mpls .edge.broken{stroke:var(--red);stroke-dasharray:6 7}
-.mpls .flowA{stroke:var(--blue);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.mpls .flowB{stroke:var(--red);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 6}
-.mpls .node circle{fill:var(--surface);stroke:var(--ink);stroke-width:2}
-.mpls .node text{fill:var(--ink);font-family:var(--display);font-size:14px;font-weight:600;text-anchor:middle;dominant-baseline:central}
-.mpls .host rect{fill:var(--kraft);stroke:var(--kraft-dark);stroke-width:2}
+    .dc{display:grid;gap:10px;text-align:center}
+    .dc-tier{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+    .dc-tier .lab-n{width:100%;font-size:.74rem;font-weight:700;text-transform:uppercase;color:var(--muted)}
+    .dcn{padding:6px 10px;border-radius:9px;border:2px solid var(--line);background:var(--surface);font-weight:700;font-size:.8rem;min-width:56px;transition:all .25s}
+    .dcn.rack{background:var(--surface-2)}
+    .dcn.on{border-color:var(--red);background:var(--red-soft);color:var(--red)}
 
-/* datacenter */
-.dc{display:grid;gap:10px;text-align:center}
-.dc-tier{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.dc-tier .lab-n{width:100%;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.dcn{padding:6px 10px;border-radius:9px;border:2px solid var(--line);background:var(--surface);font-weight:800;font-size:.8rem;min-width:56px;transition:all .25s}
-.dcn.rack{background:var(--surface-2)}
-.dcn.on{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+    .day{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+    .day h4{font-family:var(--display);font-weight:700;font-size:1.2rem;margin:0 0 6px}
+    .nest{padding:10px;border-radius:12px;border:2px solid var(--kraft-dark);background:var(--kraft);color:var(--paper-ink);font-size:.8rem;font-weight:700}
+    .nest .nest{margin-top:6px;background:var(--paper);border-color:var(--paper-line)}
+    .nest .nest .nest{background:#EAF1FD;border-color:#BCD0F2}
+    .nest .nest .nest .nest{background:#FFF1D6;border-color:#EDC77A}
+    .nest .nest .nest .nest .nest{background:#FCE3DE;border-color:#EBA79B}
+    .nest small{display:block;font-family:var(--mono);font-weight:400;font-size:.72rem}
+    .daytrack{display:flex;gap:4px;margin-top:14px}
+    .daytrack button{flex:1;height:8px;border:0;border-radius:4px;background:var(--line);padding:0}
+    .daytrack button.on{background:var(--red)}
 
-/* day in the life */
-.day{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
-@media (max-width:760px){.day{grid-template-columns:1fr}}
-.day h4{font-family:var(--display);font-weight:600;font-size:1.25rem;margin:0 0 6px}
-.nest{padding:10px;border-radius:12px;border:2px solid var(--kraft-dark);background:var(--kraft);color:var(--paper-ink);font-size:.8rem;font-weight:800}
-.nest .nest{margin-top:6px;background:var(--paper);border-color:var(--paper-line)}
-.nest .nest .nest{background:#EAF1FD;border-color:#BCD0F2}
-.nest .nest .nest .nest{background:#FFF1D6;border-color:#EDC77A}
-.nest .nest .nest .nest .nest{background:#FCE3DE;border-color:#EBA79B}
-.nest small{display:block;font-family:var(--mono);font-weight:400;font-size:.72rem}
-.daytrack{display:flex;gap:4px;margin-top:14px}
-.daytrack button{flex:1;height:8px;border:0;border-radius:4px;background:var(--line);padding:0}
-.daytrack button.on{background:var(--red)}
+    .qs{display:grid;gap:14px}
+    .q{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+    .q p.qt{font-weight:700;margin-bottom:10px}
+    .opts{display:grid;gap:6px}
+    .opt{text-align:left;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:600}
+    .opt:hover:not(:disabled){border-color:var(--blue)}
+    .opt.right{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+    .opt.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+    .q .why{margin-top:8px;font-size:.92rem;color:var(--muted)}
+    .cert{margin-top:20px;text-align:center}
+    .cert .env{display:inline-block;padding:20px 26px;max-width:520px}
 
-/* quiz */
-.qs{display:grid;gap:14px}
-.q{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.q p.qt{font-weight:800;margin-bottom:10px}
-.opts{display:grid;gap:6px}
-.opt{text-align:left;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:600}
-.opt:hover:not(:disabled){border-color:var(--blue)}
-.opt.right{border-color:var(--green);background:var(--green-soft);color:var(--green)}
-.opt.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
-.opt:disabled{cursor:default}
-.q .why{margin-top:8px;font-size:.92rem;color:var(--muted)}
-.cert{margin-top:20px;text-align:center}
-.cert .env{display:inline-block;padding:20px 26px;max-width:520px}
-.cert h3{font-size:1.5rem}
+    /* Scene Bottom Nav */
+    .scene-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;padding:14px 18px;background:var(--surface);border-radius:16px;box-shadow:0 4px 20px var(--shadow);flex-wrap:wrap}
+    .scene-nav .nav-hint{font-family:var(--mono);font-size:.84rem;color:var(--muted)}
 
-/* floating guide */
-.guide{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:25;display:flex;align-items:flex-end;gap:8px;pointer-events:none}
-.guide .speech{pointer-events:auto;max-width:260px;font-size:.88rem;transform-origin:bottom right;transition:opacity .2s,transform .2s}
-.guide .speech.off{opacity:0;transform:scale(.85);pointer-events:none}
-.guide button.pip{pointer-events:auto;width:72px;height:88px;border:0;background:transparent;padding:0}
-.guide button.pip svg{width:72px;height:88px}
-.guide .pip.hop svg{animation:hop .6s ease 2}
-@keyframes hop{50%{transform:translateY(-12px)}}
-.carrier .wave-arm{transform-box:view-box;transform-origin:42px 86px;animation:wave 2.4s ease-in-out infinite}
-@keyframes wave{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-16deg)}80%{transform:rotate(10deg)}90%{transform:rotate(-10deg)}}
-.carrier .bag-letter{animation:peek 3s ease-in-out infinite}
-@keyframes peek{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.toast{position:fixed;left:50%;top:calc(70px + env(safe-area-inset-top,0px));transform:translateX(-50%) translateY(-20px);opacity:0;z-index:40;background:var(--red);color:var(--on-accent);font-weight:800;padding:8px 16px;border-radius:999px;transition:all .3s;pointer-events:none;white-space:nowrap}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-footer{padding-block:30px 120px;color:var(--muted);font-size:.85rem;border-top:2px dashed var(--line)}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
-</style>
+    /* Floating Guide */
+    .guide{position:fixed;right:14px;bottom:14px;z-index:30;display:flex;align-items:flex-end;gap:8px;pointer-events:none}
+    .guide .speech{pointer-events:auto;max-width:270px;font-size:.86rem;transition:opacity .2s,transform .2s}
+    .guide .speech.off{opacity:0;transform:scale(.85);pointer-events:none}
+    .guide button.pip{pointer-events:auto;width:72px;height:88px;border:0;background:transparent;padding:0}
+    .guide button.pip svg{width:72px;height:88px}
+    .toast{position:fixed;left:50%;top:72px;transform:translateX(-50%) translateY(-20px);opacity:0;z-index:40;background:var(--red);color:var(--on-accent);font-weight:700;padding:8px 16px;border-radius:999px;transition:all .3s;pointer-events:none;white-space:nowrap}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    footer{padding-block:26px 40px;color:var(--muted);font-size:.85rem;text-align:center}
 
-<div class="bar"><div class="wrap">
-  <a class="brand" href="../index.html">← All chapters</a>
-  <nav class="route" id="route" aria-label="Route stops">
-    <a href="#intro">1 Last hop</a><a href="#errors">2 Tamper checks</a><a href="#sharing">3 Sharing the road</a><a href="#arp">4 Addresses &amp; ARP</a><a href="#ethernet">5 Ethernet</a><a href="#switches">6 Switches</a><a href="#vlans">7 VLANs</a><a href="#mpls">8 MPLS &amp; data centers</a><a href="#day">9 A day in the life</a><a href="#quiz">10 Quiz</a>
+    @media (max-width:760px){
+      .hero-grid,.g2,.g3,.day{grid-template-columns:1fr}
+      .route-bar{grid-template-columns:repeat(5,1fr)}
+      .street{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}
+      .legs{grid-template-columns:1fr}
+      .vports{grid-template-columns:repeat(6,minmax(0,1fr))}
+    }
+  </style>
+</head>
+<body>
+
+<div class="airmail-top" aria-hidden="true"></div>
+<header class="bar">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="brand" href="../index.html">← සියලුම පරිච්ඡේද</a>
+      <div class="where" id="where"></div>
+      <div class="stampbook" title="එකතු කළ මුද්දර"><span class="dots" id="dots"></span><span id="stampCount">මුද්දර 0/10</span></div>
+    </div>
+    <nav class="route-bar" id="routeBar" aria-label="පරිච්ඡේද නැවතුම්"></nav>
+    <div class="prog-line" aria-hidden="true"><i id="progBar"></i></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Hero Cover (Shown on Stop 1) -->
+  <section class="hero" id="heroCover">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">6 වන පරිච්ඡේදය · සබැඳි ස්ථරය සහ ප්‍රාදේශීය ජාල (The Link Layer &amp; LANs)</span>
+        <h1>සෑම ලිපියකටම <span>අවසන් පියවරේ</span> තැපැල්කරුවෙකු අවශ්‍යයි.</h1>
+        <p class="lede">ජාල ස්ථරය (Network layer) නගරයෙන් නගරයට ගමන් මාර්ගය තීරණය කරයි. සබැඳි ස්ථරය (Link layer) යනු එක් ගොඩනැගිල්ලක සිට ඊළඟට යාබදව ඇති ගොඩනැගිල්ල වෙත ලිපිය රැගෙන යන ප්‍රාදේශීය තැපැල්කරුවායි. තැපැල්කරු වළගම්බා සමඟ නැවතුම් දහය පසු කරමින් පරීක්ෂණාගාර අත්හදා බලා මුද්දර එකතු කර ගන්න.</p>
+      </div>
+      <div class="hero-art">
+        <div class="speech">ආයුබෝවන්, මම වළගම්බා! මම ලිපි රැගෙන යන්නේ වරකට එක් පියවරක් (one hop) පමණයි. ඉඟියක් සඳහා ඕනෑම විටක මා මත ක්ලික් කරන්න.</div>
+        <div id="heroCarrier"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STOP 1 -->
+  <section class="stop" id="intro" data-title="අවසන් පියවර">
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>1</b></span></div>
+      <div><h2>අවසන් පියවර: සබැඳි ස්ථරය කරන්නේ කුමක්ද?</h2><p>ධාරක පරිගණක (Hosts) සහ රවුටර <b>නෝඩ් (nodes)</b> ලෙස හැඳින්වේ. යාබද නෝඩ් දෙකක් අතර ඇති රැහැන හෝ ගුවන් තරංග මාර්ගය <b>සබැඳියකි (link)</b>. සබැඳි ස්ථරය මඟින් එක් සබැඳියක් හරහා එක් <b>රාමුවක් (frame)</b> ගෙන යයි.</p></div>
+    </div>
+
+    <div class="ask" data-ans="1" data-why="ජාල ස්ථරයේ IP ඩේටාග්‍රෑමය (ලිපිය) මුළු ගමන පුරාම නොවෙනස්ව පවතින අතර, සෑම සබැඳියකදීම (hop) එය අලුත් සබැඳි ස්ථර රාමුවක (frame) බහා යවනු ලැබේ.">
+      <div class="ask-q">අනුර එවන ලිපියක් රවුටර කිහිපයක් හරහා රනිල් වෙත යන විට, සෑම පියවරකදීම (hop) අලුතින්ම මාරු කරන්නේ කුමක්ද?</div>
+      <div class="ask-opts">
+        <button class="ask-opt">ඇතුළත ඇති IP ලිපිය (IP Datagram)</button>
+        <button class="ask-opt">පිටතින් යොදන සබැඳි ස්ථර ලියුම් කවරය (Link-layer Frame)</button>
+      </div>
+      <div class="ask-verdict" hidden></div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card"><span class="is">Node (නෝඩය)</span><h3>තැපැල් කාර්යාලයක් හෝ නිවසක්</h3><p>ඕනෑම ධාරක පරිගණකයක් හෝ රවුටරයක්. ගමන අතරතුර ලිපිය මේ සෑම තැනකම නතර වේ.</p></div>
+      <div class="card"><span class="is">Link (සබැඳිය)</span><h3>අසල්වැසියන් අතර මාර්ගය</h3><p>රැහැන්ගත (Ethernet) හෝ රැහැන් රහිත (Wi-Fi). සෑම මාර්ගයකම වෙනස් වර්ගයක ප්‍රවාහන ක්‍රමයක් තිබිය හැක.</p></div>
+      <div class="card"><span class="is">Frame (රාමුව)</span><h3>ප්‍රාදේශීය ලියුම් කවරය</h3><p>IP ඩේටාග්‍රෑමය යනු ලිපියයි. රාමුව (Frame) යනු එක් පියවරක් සඳහා පමණක් භාවිතා වන පිටත ලියුම් කවරයයි.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>ලිපිය රාමුවක් (Frame) තුළ මුද්‍රා තබන්න</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">යවන්නාගේ ජාල කාඩ්පත (NIC) මඟින් ශීර්ෂකයක් (MAC ලිපින, වර්ගය) සහ වලිගයක් (CRC දෝෂ පරීක්ෂාව) එක් කරයි. ලබන්නාගේ NIC එක මුද්‍රාව පරීක්ෂා කර ලිපිය එළියට ගනී.</p>
+      <div class="wrapstage">
+        <div class="frame-env" id="frameEnv">
+          <div class="fpart"><b>HEADER (ශීර්ෂකය)</b> ලබන MAC: 58-23-D7-FA-20-B0 · එවන MAC: 71-65-F7-2B-08-53 · වර්ගය: IPv4</div>
+          <div class="letter"><b>IP ඩේටාග්‍රෑමය</b> (අනුරගේ ලිපිය)<br>IP 137.196.7.23 (අනුර) → IP 137.196.7.14 (රනිල්)<br>"ආයුබෝවන් මිත්‍රයා!"</div>
+          <div class="fpart"><b>TRAILER (වලිගය)</b> CRC මුද්‍රාව: 0x3A9F51C2</div>
+        </div>
+      </div>
+      <div class="row" style="justify-content:center"><button class="btn" id="wrapBtn">රාමුවක් තුළ මුද්‍රා තබන්න</button></div>
+      <div class="out" id="wrapOut">ලිපිය සූදානම්. එක් පියවරක ගමන සඳහා එය රාමුවක් තුළ මුද්‍රා තබන්න.</div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>එක් ගමනක්, ප්‍රවාහන ක්‍රම රැසක්</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">පොතේ උදාහරණයට අනුව සංචාරකයෙකු ත්‍රිරෝද රථයක්, දුම්රියක් සහ ගුවන් යානයක් භාවිතා කර ගමනක් යයි. අනුරගේ ලිපියද එසේමය. එක් එක් ගමන් කොටස මත ක්ලික් කරන්න.</p>
+      <div class="legs" id="legs">
+        <button class="leg" data-i="0" aria-pressed="true"><div class="lg-t">බයිසිකල් පණිවිඩකරු</div><div class="lg-s">අනුරගේ ලැප්ටොප් එක → නිවසේ රවුටරය</div></button>
+        <button class="leg" data-i="1" aria-pressed="false"><div class="lg-t">තැපැල් ලොරිය</div><div class="lg-s">මහින්දගේ රවුටරය → කාවන්තිස්සගේ රවුටරය</div></button>
+        <button class="leg" data-i="2" aria-pressed="false"><div class="lg-t">භාණ්ඩ ප්‍රවාහන ගුවන් යානය</div><div class="lg-s">රවුටරය → දුටුගැමුණුගේ සේවාදායකය</div></button>
+      </div>
+      <div class="out" id="legOut"></div>
+      <p class="hint" style="margin-top:10px">සංසන්දනය: සංචාරකයා = <b>ඩේටාග්‍රෑමය (datagram)</b> · එක් ගමන් කොටසක් = <b>සබැඳිය (link)</b> · ප්‍රවාහන මාධ්‍යය = <b>සබැඳි ස්ථර ප්‍රොටෝකෝලය</b> · සංචාරක නියෝජිතයා = <b>මංගත ඇල්ගොරිතමය (routing algorithm)</b>.</p>
+    </div>
+
+    <h3 style="margin-top:24px;font-size:1.25rem">සබැඳි ස්ථරයක් මඟින් ලබා දිය හැකි සේවාවන්</h3>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card"><span class="is">Framing (රාමුගත කිරීම)</span><p>ශීර්ෂකයක් සහ වලිගයක් සහිත ලියුම් කවරයක ඩේටාග්‍රෑමය බහාලීම. මෙම සබැඳියේ යවන්නා සහ ලබන්නා හඳුනා ගැනීමට MAC ලිපින භාවිතා වේ.</p></div>
+      <div class="card"><span class="is">Link access (සබැඳි ප්‍රවේශය)</span><p>හවුල් මාර්ගයක කවුරුන් කුමන වේලාවක ගමන් කළ යුතුද යන්න MAC ප්‍රොටෝකෝලයක් මඟින් තීරණය කරයි.</p></div>
+      <div class="card"><span class="is">Reliable delivery (විශ්වාසදායක බෙදාහැරීම)</span><p>නැතිවූ රාමු නැවත යැවීම. තඹ හෝ ෆයිබර් රැහැන් මත කලාතුරකින් භාවිතා වන අතර, දෝෂ බහුල රැහැන් රහිත (Wi-Fi) සබැඳි මත බහුලව භාවිතා වේ.</p></div>
+      <div class="card"><span class="is">Flow control (ප්‍රවාහ පාලනය)</span><p>අසල්වැසියාට කියවිය හැකි වේගයට වඩා වැඩි වේගයකින් ඔහුගේ තැපැල් පෙට්ටිය පිරවීම වළක්වයි.</p></div>
+      <div class="card"><span class="is">Error detection &amp; correction</span><p>ඝෝෂාව නිසා වෙනස් වූ බිටු හඳුනා ගැනීම සහ ඉවත දැමීම, හෝ එතැනදීම නිවැරදි කිරීම.</p></div>
+      <div class="card"><span class="is">Half / Full duplex</span><p>Half duplex: දෙපසටම කතා කළ හැකි නමුත් එකම වේලාවේ නොවේ. Full duplex: දෙපසටම එකම වේලාවේ කතා කළ හැක.</p></div>
+    </div>
+    <div class="analogy"><div data-carrier-mini></div><p><b>මෙය පිහිටා ඇත්තේ කොතැනද?</b> සෑම පරිගණකයකම ඇති <b>ජාල අතුරුමුහුණත් කාඩ්පතේ (NIC - Network Interface Card)</b> හෝ චිපයක් මතය. එය ගොඩනැගිල්ලේ තැපැල් කාමරය වැනිය.</p></div>
+  </section>
+
+  <!-- STOP 2 -->
+  <section class="stop" id="errors" data-title="දෝෂ පරීක්ෂාව" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>2</b></span></div>
+      <div><h2>දෝෂ හඳුනා ගැනීම සහ නිවැරදි කිරීම (EDC &amp; CRC)</h2><p>මාර්ගයේ ඇති වන බාධා (ඝෝෂාව) නිසා බිටු වෙනස් විය හැක. ලබන්නාට හානි හඳුනා ගැනීම සඳහා යවන්නා අමතර පරීක්ෂණ බිටු (<b>EDC</b>) එක් කරයි.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>තනි සමානතා බිටුව (Single Parity Bit)</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">දත්ත බිටු වෙනස් කිරීමට ඒවා මත ක්ලික් කරන්න. <b>ඉරට්ටේ සමානතාවය (Even parity)</b> යටතේ, මුළු 1 හි ඒවා ගණන ඉරට්ටේ සංඛ්‍යාවක් වන පරිදි සමානතා බිටුව සැකසේ. ඉන්පසු එය කුණාටුව හරහා යවන්න.</p>
+      <div class="bitlabel">යවන්නා (අනුර): දත්ත බිටු + සමානතා බිටුව (Parity)</div>
+      <div class="bits" id="parSend"></div>
+      <div class="row" style="margin-top:12px">
+        <label class="ctl" for="flipN">කුණාටුවේ ප්‍රබලතාවය<select id="flipN"><option value="1">බිටු 1 ක් වෙනස් කරන්න</option><option value="2">බිටු 2 ක් වෙනස් කරන්න</option><option value="0">කුණාටුවක් නැත</option></select></label>
+        <button class="btn" id="parGo">කුණාටුව හරහා යවන්න</button>
+      </div>
+      <div class="bitlabel">ලබන්නාට (රනිල්ට) ලැබුණු බිටු</div>
+      <div class="bits" id="parRecv"></div>
+      <div class="out" id="parOut">ලිපියක් එනතුරු බලා සිටියි…</div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>ද්විමාන සමානතාවය (2D Parity): දෝෂය සොයා නිවැරදි කරන්න</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">දත්ත 4×4 දැලක තබා සෑම පේළියකටම සහ තීරුවකටම සමානතා බිටුවක් (කහ පැහැයෙන්) එක් කර ඇත. එක් බිටුවක් වෙනස් වූ විට, නොගැළපෙන පේළිය සහ තීරුව හමුවන ස්ථානයෙන් වැරදි බිටුව හඳුනාගෙන නැවත ගෙන්වා ගැනීමකින් තොරව නිවැරදි කළ හැක!</p>
+      <div class="row" style="align-items:flex-start;gap:20px">
+        <div class="grid2d" id="g2d"></div>
+        <div style="flex:1;min-width:200px;display:grid;gap:10px">
+          <div class="row"><button class="btn red" id="g2Flip">අහඹු බිටුවක් වෙනස් කරන්න</button><button class="btn" id="g2Fix" disabled>එය නිවැරදි කරන්න</button><button class="btn ghost sm" id="g2New">නව ලිපියක්</button></div>
+          <p class="hint">ඔබටම ඕනෑම දත්ත බිටුවක් මත ක්ලික් කර එය වෙනස් කළ හැක.</p>
+          <div class="out" id="g2Out">සියලුම පේළි සහ තීරු නිවැරදියි.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>CRC ගණක යන්ත්‍රය (Cyclic Redundancy Check)</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">D දත්තවලට අගින් බිංදු r ගණනක් එක් කර, XOR භාවිතයෙන් G ජනකයෙන් (Generator) බෙදූ විට ලැබෙන ඉතිරිය R වේ. පෙළපොතේ උදාහරණය: D = 101110, G = 1001.</p>
+      <div class="crc-io">
+        <label class="ctl" for="crcD">දත්ත (Data D)<input type="text" id="crcD" value="101110" inputmode="numeric" maxlength="20"></label>
+        <label class="ctl" for="crcG">ජනකය (Generator G)<input type="text" id="crcG" value="1001" inputmode="numeric" maxlength="8"></label>
+        <button class="btn" id="crcGo">බෙදන්න (Divide)</button>
+      </div>
+      <div class="crcwork"><pre id="crcWork"></pre></div>
+      <div class="out" id="crcOut"></div>
+    </div>
+  </section>
+
+  <!-- STOP 3 -->
+  <section class="stop" id="sharing" data-title="මාර්ගය බෙදාගැනීම" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>3</b></span></div>
+      <div><h2>මාර්ගය බෙදා ගැනීම: බහු ප්‍රවේශ ප්‍රොටෝකෝල (MAC Protocols)</h2><p>සමහර සබැඳි සියලු දෙනාම බෙදා ගන්නා <b>විකාශන (broadcast)</b> මාර්ග වේ. තැපැල්කරුවන් දෙදෙනෙකු එකම මොහොතේ මාර්ගයට පිවිසියහොත් ලිපි එකිනෙක ගැටේ: එය <b>ගැටුමක් (collision)</b> ලෙස හැඳින්වේ.</p></div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card"><span class="is">Channel partitioning</span><h3>නාලිකාව කොටස්වලට බෙදීම</h3><p><b>TDMA</b>: සෑම වටයකදීම එක් එක් අයට කාල කවුළුවක් ලැබේ. <b>FDMA</b>: එක් එක් අයට වෙනම සංඛ්‍යාත තීරුවක් ලැබේ.</p></div>
+      <div class="card"><span class="is">Random access</span><h3>අහඹු ප්‍රවේශය</h3><p>සම්පූර්ණ වේගයෙන් යවන්න. ගැටුමක් සිදුවුවහොත් අහඹු කාලයකට පසු නැවත උත්සාහ කරන්න (<b>Slotted ALOHA</b>, <b>CSMA/CD</b>, <b>CSMA/CA</b>).</p></div>
+      <div class="card"><span class="is">Taking turns</span><h3>වාරයෙන් වාරය යැවීම</h3><p><b>Polling</b>: ප්‍රධානියෙකු විසින් එක් එක් අයට අවස්ථාව ලබා දෙයි. <b>Token passing</b>: ටෝකනය අතැති අය පමණක් දත්ත යවයි.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>හවුල් මාර්ග අනුකරණය (Shared-Road Simulator)</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">සෑම තීරුවක්ම එක් කාල කවුළුවකි (time slot). කොළ පැහැයෙන් සාර්ථක යැවීම්ද, රතු පැහැයෙන් ගැටුම්ද දැක්වේ.</p>
+      <div class="simctl">
+        <label class="ctl" for="simProto">ප්‍රොටෝකෝලය<select id="simProto"><option value="aloha">Slotted ALOHA</option><option value="tdma">TDMA (කාල කවුළු)</option><option value="token">Token passing (ටෝකනය)</option></select></label>
+        <label class="ctl" for="simN">තැපැල්කරුවන්: <span id="simNv">4</span><input type="range" id="simN" min="2" max="6" value="4"></label>
+        <label class="ctl" for="simP" id="simPwrap">යැවීමේ සම්භාවිතාව p: <span id="simPv">0.25</span><input type="range" id="simP" min="0.05" max="1" step="0.05" value="0.25"></label>
+        <label class="ctl" for="simL">ලිපි පැමිණීම: <span id="simLv">කාර්යබහුලයි</span><input type="range" id="simL" min="0.05" max="1" step="0.05" value="1"></label>
+        <button class="btn" id="simGo">කවුළු 30 ක් ක්‍රියාත්මක කරන්න</button>
+      </div>
+      <div class="simgrid-wrap"><div class="simgrid" id="simGrid"></div></div>
+      <div class="legend"><span><i style="background:var(--green)"></i>සාර්ථකව ගමන් කළා</span><span><i style="background:var(--red)"></i>ගැටුමක් (Collision)</span><span><i style="background:var(--surface-2);outline:2px solid var(--yellow);outline-offset:-2px"></i>ටෝකනය / කවුළුව හිමි අය</span></div>
+      <div class="stats"><div class="stat"><b id="stS">0</b><span>සාර්ථක කවුළු</span></div><div class="stat"><b id="stC">0</b><span>ගැටුම්</span></div><div class="stat"><b id="stE">0</b><span>හිස් කවුළු</span></div><div class="stat"><b id="stEff">0%</b><span>කාර්යක්ෂමතාවය</span></div><div class="stat" id="stTheoryBox"><b id="stTheory">0%</b><span>ALOHA න්‍යායාත්මක අගය</span></div></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>Ethernet හි ද්වීමය පසුබැසීම (Binary Exponential Backoff)</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">එක දිගට සිදුවූ m වන ගැටුමෙන් පසුව, Ethernet විසින් {0, 1, …, 2<sup>m</sup>−1} අතරින් අහඹු ලෙස K අගයක් තෝරා K × 512 බිටු කාලයක් බලා සිටියි.</p>
+      <div class="row"><button class="btn red" id="boGo">ගැටුමක් ඇති කරන්න! (Collide)</button><button class="btn ghost sm" id="boReset">රාමුව බෙදා හැරියා (Reset)</button></div>
+      <div class="backoff-bar"><div class="fill" id="boFill" style="width:0"></div><div class="k" id="boK" style="left:-10px"></div></div>
+      <div class="out" id="boOut">තවම ගැටුම් නොමැත. Ethernet කරන දේ බැලීමට 'ගැටුමක් ඇති කරන්න!' ඔබන්න.</div>
+    </div>
+  </section>
+
+  <!-- STOP 4 -->
+  <section class="stop" id="arp" data-title="ලිපින සහ ARP" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>4</b></span></div>
+      <div><h2>ලිපින වර්ග දෙකක් සහ ARP ප්‍රොටෝකෝලය</h2><p>සෑම අතුරුමුහුණතකටම බිටු 32 ක <b>IP ලිපිනයක්</b> සහ බිටු 48 ක <b>MAC ලිපිනයක්</b> ඇත.</p></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card"><span class="is">IP ලිපිනය · උදා: 137.196.7.23</span><h3>තැපැල් ලිපිනයක් වැනිය</h3><p>ජාල ස්ථරයට අයත් වේ. ඔබ සිටින උපජාලය (subnet) මත රඳා පවතින බැවින් වෙනත් තැනකට යන විට වෙනස් වේ.</p></div>
+      <div class="card"><span class="is">MAC ලිපිනය · උදා: 1A-2F-BB-76-09-AD</span><h3>ජාතික හැඳුනුම්පත් අංකයක් වැනිය</h3><p>සබැඳි ස්ථරයට අයත් වේ. ජාල කාඩ්පතේ (NIC) ස්ථිරව සටහන් කර ඇත. ඔබ කොතැනකට ගියද එය වෙනස් නොවේ.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>ARP: "මෙම IP ලිපිනයේ ජීවත් වන්නේ කවුද?"</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">ඔබ අනුර (A) වේ. රාමුවක් යැවීමට ඔබට අසල්වැසියාගේ MAC ලිපිනය අවශ්‍ය වුවද ඔබ දන්නේ IP ලිපිනය පමණි. ARP මඟින් මුළු වීදියටම ඇසෙන සේ විමසන අතර (FF-FF-FF-FF-FF-FF), අයිතිකරු පමණක් පිළිතුරු දෙයි.</p>
+      <div class="street" id="street"></div>
+      <div class="row" style="margin-top:12px" id="arpBtns"></div>
+      <div class="out" id="arpOut">ලිපියක් යැවීමට අසල්වැසියෙකු තෝරන්න.</div>
+      <div class="tablebox"><table class="t"><thead><tr><th>IP ලිපිනය</th><th>MAC ලිපිනය</th><th>TTL (මිනිත්තු)</th></tr></thead><tbody id="arpTable"><tr><td colspan="3" style="font-family:var(--body);color:var(--muted)">අනුරගේ (A) ARP වගුව හිස්ය.</td></tr></tbody></table></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>වෙනත් උපජාලයකට යැවීම: ලිපිය එලෙසමයි, ලියුම් කවරය වෙනස් වේ</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">අනුර (A) විසින් මහින්දගේ රවුටරය (R) හරහා රනිල්ට (B) ලිපියක් යවයි. ඇතුළත ඇති IP ලිපින කිසිවිටෙක වෙනස් නොවන අතර සෑම පියවරකදීම MAC ලියුම් කවරය වෙනස් වන ආකාරය බලන්න.</p>
+      <div class="hops">
+        <div class="hop" id="h0"><h4>අනුර (A)</h4><span class="mono">111.111.111.111</span><span class="mono">74-29-9C-E8-FF-55</span></div>
+        <div class="wire" id="w0"></div>
+        <div class="hop" id="h1"><h4>රවුටරය (R)</h4><span class="mono">වම: 111.111.111.110 · E6-E9-00-17-BB-4B</span><span class="mono">දකුණ: 222.222.222.220 · 1A-23-F9-CD-06-9B</span></div>
+        <div class="wire" id="w1"></div>
+        <div class="hop" id="h2"><h4>රනිල් (B)</h4><span class="mono">222.222.222.222</span><span class="mono">49-BD-D2-C7-56-2A</span></div>
+      </div>
+      <div class="envshow"><div class="env" id="subEnv"></div></div>
+      <p style="margin-top:12px;text-align:center;font-weight:700" id="subText"></p>
+      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn ghost" id="subPrev">ආපසු</button><button class="btn" id="subNext">ඊළඟ පියවර</button></div>
+      <div class="stepdots" id="subDots"></div>
+    </div>
+  </section>
+
+  <!-- STOP 5 -->
+  <section class="stop" id="ethernet" data-title="Ethernet" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>5</b></span></div>
+      <div><h2>Ethernet: වඩාත්ම ජනප්‍රිය ලියුම් කවරය</h2><p>ලාභදායී, සරල සහ 10 Mbps සිට 400 Gbps දක්වා වේගයෙන් දියුණු වූ ප්‍රධානතම රැහැන්ගත LAN තාක්ෂණයයි.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>Ethernet ලියුම් කවරය විවෘත කර බලන්න</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">රාමුවේ එක් එක් කොටස මත ක්ලික් කරන්න.</p>
+      <div class="eframe" id="eframe"></div>
+      <div class="out" id="efOut"></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card"><span class="is">සම්බන්ධතා-රහිත සහ අවිශ්වාසදායක</span><p>යැවීමට පෙර අතට අත දීමක් (handshake) නැත, ලැබුණු බවට ACK ලදුපත් එවන්නේද නැත. රාමුවක් නැති වුවහොත් එය නැවත යවන්නේ ඉහළින් ඇති TCP මඟිනි.</p></div>
+      <div class="card"><span class="is">එදා සහ අද සැකැස්ම (Topology)</span><p><b>බස් (Bus)</b>: සියලු දෙනාම එකම කේබලයක් බෙදා ගත්තේය. <b>ස්විච් (Switched)</b>: අද කාලයේ මැද ස්විචයක් ඇති අතර සෑම උපාංගයකටම වෙනම සබැඳියක් ඇති නිසා ගැටුම් ඇති නොවේ.</p></div>
+    </div>
+  </section>
+
+  <!-- STOP 6 -->
+  <section class="stop" id="switches" data-title="ස්විච (Switches)" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>6</b></span></div>
+      <div><h2>ස්විච (Switches): ස්වයං-ඉගෙනුම් තේරීම් කාමරය</h2><p>ස්විචයක් සෑම රාමුවකම ගමනාන්ත MAC ලිපිනය කියවා අදාළ පෝට් එකට පමණක් එය යොමු කරයි. එය <b>එවන්නාගේ ලිපිනය (Source MAC) දෙස බලා ඉබේම ඉගෙන ගනී (self-learning)</b>.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>තේරීම් කාමරයට උගන්වන්න</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">මුලදී ස්විච් වගුව හිස්ය. පළමුව අනුර (A) → සමන්තභද්‍ර (D) වෙත යවන්න (ස්ථානය නොදන්නා නිසා ස්විචය සියලුම පෝට්වලට යවයි - flood). ඉන්පසු D → A යවන්න: දැන් ස්විචය අනුර සිටින තැන දන්නා නිසා කෙලින්ම එහි යවයි!</p>
+      <div class="row" style="margin-bottom:12px">
+        <label class="ctl" for="swFrom">යවන්නා<select id="swFrom"></select></label>
+        <label class="ctl" for="swTo">ලබන්නා<select id="swTo"></select></label>
+        <button class="btn" id="swGo">රාමුව යවන්න</button>
+        <button class="btn ghost sm" id="swReset">වගුව හිස් කරන්න</button>
+      </div>
+      <div class="sw-floor">
+        <div class="sw-row" id="swTop"></div>
+        <div class="sw-box"><b>ස්විචය (Switch)</b><div class="ports" id="swPorts"></div></div>
+        <div class="sw-row" id="swBot"></div>
+      </div>
+      <div class="grid g2" style="margin-top:12px">
+        <div><div class="bitlabel">ස්විච් වගුව (Switch Table)</div><div class="tablebox" style="margin-top:0"><table class="t"><thead><tr><th>MAC ලිපිනය</th><th>පෝට් එක</th><th>වේලාව</th></tr></thead><tbody id="swTable"></tbody></table></div></div>
+        <div><div class="bitlabel">සිදුවූ දේ</div><div class="log" id="swLog"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STOP 7 -->
+  <section class="stop" id="vlans" data-title="VLAN ජාල" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>7</b></span></div>
+      <div><h2>VLANs: එක් ගොඩනැගිල්ලක් තුළ වෙනම තැපැල් මලු</h2><p>එක් විශාල LAN ජාලයක සෑම විකාශන පණිවිඩයක්ම (ARP, DHCP) සියලු දෙනාටම යයි. ආරක්ෂාව සහ කාර්යක්ෂමතාවය සඳහා එක් භෞතික ස්විචයක් තාර්කිකව වෙනම අතථ්‍ය ජාල (Virtual LANs) වලට බෙදිය හැක.</p></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>එක් ස්විචයක් LAN ජාල දෙකකට බෙදන්න</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">නිල් පෝට් ඉංජිනේරු (EE) අංශයටද, රෝස පෝට් පරිගණක විද්‍යා (CS) අංශයටද අයත් වේ. පෝට් එකක් මත ක්ලික් කර එහි VLAN එක මාරු කර, විකාශනයක් (broadcast) යවා බලන්න.</p>
+      <div class="vports" id="vports"></div>
+      <div class="row" style="margin-top:12px">
+        <label class="ctl" for="vFrom">විකාශනය කරන පෝට් එක<select id="vFrom"></select></label>
+        <button class="btn" id="vGo">විකාශනය යවන්න</button>
+      </div>
+      <div class="out" id="vOut">පෝට් 1–6 EE වන අතර, පෝට් 7–12 CS වේ.</div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card"><span class="is">Port-based VLAN</span><p>ස්විච් මෘදුකාංගය මඟින් පෝට් කාණ්ඩ කරයි. එක් VLAN එකකින් එන විකාශන යන්නේ එම VLAN එකේ පෝට් වලට පමණි.</p></div>
+      <div class="card"><span class="is">Trunk ports සහ 802.1Q</span><p>ස්විච කිහිපයක් අතර VLAN රාමු ගෙන යන Trunk සබැඳි මත රාමුවට බයිට් 4 ක 802.1Q VLAN ටැගයක් එක් කෙරේ:</p>
+        <div class="vtag"><span>dest</span><span>src</span><span class="new">TPID 81-00</span><span class="new">12-bit VLAN ID</span><span>type</span><span>data</span><span class="new">නව CRC</span></div></div>
+    </div>
+  </section>
+
+  <!-- STOP 8 -->
+  <section class="stop" id="mpls" data-title="MPLS සහ දත්ත මධ්‍යස්ථාන" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>8</b></span></div>
+      <div><h2>MPLS අධිවේගී ලේබල් සහ දත්ත මධ්‍යස්ථාන (Data Centers)</h2><p><b>MPLS</b> මඟින් සෑම පැකට්ටුවකටම ස්ථාවර දිගකින් යුත් කෙටි ලේබලයක් අලවයි. MPLS රවුටර IP ලිපිනය කියවන්නේ නැතිව ලේබලය දෙස පමණක් බලා ඉතා වේගයෙන් පැකට් යොමු කරයි.</p></div>
+    </div>
+
+    <div class="lab mpls">
+      <div class="lab-title"><h3>සාමාන්‍ය IP මංගත කිරීම සහ MPLS මංගත කිරීම</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <p class="hint">අනුර (A) සහ රනිල් (B) වෙතින් දුටුගැමුණු (D) වෙත දත්ත ප්‍රවාහ දෙකක් ගමන් කරයි. එක් එක් ක්‍රමය තෝරා වෙනස බලන්න.</p>
+      <div class="row" id="mplsBtns" style="margin-bottom:10px">
+        <button class="btn sm" data-m="ip">සාමාන්‍ය IP</button>
+        <button class="btn ghost sm" data-m="te">MPLS Traffic Engineering</button>
+        <button class="btn ghost sm" data-m="fr">MPLS Fast Reroute (සබැඳිය බිඳ වැටීම)</button>
+      </div>
+      <svg viewBox="0 0 560 220" id="mplsSvg"></svg>
+      <div class="legend"><span><i style="background:var(--blue)"></i>අනුරගේ (A) ප්‍රවාහය</span><span><i style="background:var(--red)"></i>රනිල්ගේ (B) ප්‍රවාහය</span></div>
+      <div class="out" id="mplsOut"></div>
+    </div>
+
+    <div class="lab">
+      <div class="lab-title"><h3>දත්ත මධ්‍යස්ථානයක් (Data Center) හරහා ඉල්ලීමක් යවන්න</h3><span class="tag">පරීක්ෂණාගාරය</span></div>
+      <div class="dc" id="dc"></div>
+      <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" id="dcGo">ඉල්ලීමක් යවන්න</button></div>
+      <div class="out" id="dcOut">අන්තර්ජාලයෙන් එන ඉල්ලීම් Load Balancer වෙත පැමිණේ.</div>
+    </div>
+  </section>
+
+  <!-- STOP 9 -->
+  <section class="stop" id="day" data-title="වෙබ් ඉල්ලීමක ජීවිතය" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>9</b></span></div>
+      <div><h2>වෙබ් ඉල්ලීමක එක් දවසක් (A Day in the Life of a Web Request)</h2><p>අනුර තම ලැප්ටොප් පරිගණකය විශ්වවිද්‍යාල ජාලයට සම්බන්ධ කර <b>www.google.com</b> ඉල්ලා සිටියි. අප ඉගෙන ගත් සියලුම ස්ථර එකට ක්‍රියා කරන ආකාරය පියවරෙන් පියවර බලන්න.</p></div>
+    </div>
+    <div class="lab">
+      <div class="day">
+        <div><span class="tag" id="dayNum">පියවර 1 / 7</span><h4 id="dayTitle" style="margin-top:8px"></h4><p id="dayMail" style="font-weight:700"></p><p id="dayTech" class="hint" style="margin-top:8px"></p></div>
+        <div><div class="bitlabel" style="margin-top:0">රැහැන මත ගමන් කරන කවර (පිටත සිට ඇතුළතට)</div><div id="dayNest"></div></div>
+      </div>
+      <div class="daytrack" id="dayTrack"></div>
+      <div class="row" style="justify-content:center;margin-top:14px"><button class="btn ghost" id="dayPrev">ආපසු</button><button class="btn" id="dayNext">ඊළඟ පියවර</button></div>
+    </div>
+  </section>
+
+  <!-- STOP 10 -->
+  <section class="stop" id="quiz" data-title="ප්‍රශ්නාවලිය" hidden>
+    <div class="stop-head">
+      <div class="postmark"><span><small>නැවතුම</small><b>10</b></span></div>
+      <div><h2>ප්‍රධාන තැපැල් ස්ථානාධිපති ප්‍රශ්නාවලිය</h2><p>කෙටි ප්‍රශ්න දොළහකි. අවසාන මුද්දරය දිනා ගැනීමට සියල්ලටම පිළිතුරු දෙන්න.</p></div>
+    </div>
+    <div class="row" style="margin-bottom:12px"><span class="tag" id="qScore">ලකුණු 0 / 12</span><button class="btn ghost sm" id="qReset">මුල සිට අරඹන්න</button></div>
+    <div class="qs" id="qs"></div>
+    <div class="cert" id="cert" hidden><div class="env"><div data-carrier-mini></div><h3>සහතිකලත් සබැඳි-ස්ථර තැපැල්කරු!</h3><p style="margin-top:6px">ඔබ 6 වන පරිච්ඡේදයේ සියලුම මුද්දර සාර්ථකව එකතු කර ගත්තා!</p></div></div>
+  </section>
+
+  <!-- Step-by-step Scene Navigation -->
+  <nav class="scene-nav" aria-label="නැවතුම් යාත්‍රණය">
+    <button class="btn ghost" id="prevStop">&larr; ආපසු</button>
+    <span class="nav-hint" id="navHint"></span>
+    <button class="btn red" id="nextStop">ඊළඟ නැවතුම &rarr;</button>
   </nav>
-  <div class="stampbook" title="Stamps collected"><span class="dots" id="dots"></span><span id="stampCount">0/10</span></div>
-</div></div>
 
-<header class="hero"><div class="wrap">
-  <div>
-    <span class="eyebrow">Chapter 6 · The Link Layer and LANs</span>
-    <h1>Every letter needs a <span>last-hop</span> carrier.</h1>
-    <p class="lede">The network layer decides the route from city to city. The link layer is the local carrier who walks a letter from one building to the very next one. Follow Penny along ten stops, play with each lab, and collect a stamp at every stop.</p>
-    <div class="hero-cta"><a class="btn" href="#intro">Start the route</a><a class="btn ghost" href="#quiz">Jump to the quiz</a><a class="btn ghost" href="../index.html">Back to all chapters</a></div>
-  </div>
-  <div class="hero-art">
-    <div class="speech">Hi, I'm Penny! I only ever carry mail one hop at a time. Tap me in the corner any time for a tip.</div>
-    <div id="heroCarrier"></div>
-  </div>
-</div></header>
-
-<main>
-<!-- 1 -->
-<section class="stop" id="intro"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>1</b></span></div>
-    <div><h2>The last hop: what the link layer does</h2><p>Hosts and routers are <b>nodes</b>. The wire or radio between two neighbours is a <b>link</b>. The link layer moves one <b>frame</b> across one link.</p></div></div>
-
-  <div class="grid g3">
-    <div class="card"><span class="is">Node</span><h3>A post office or a house</h3><p>Any host or router. Mail stops at each one on the way.</p></div>
-    <div class="card"><span class="is">Link</span><h3>The road between neighbours</h3><p>Wired (Ethernet) or wireless (WiFi). Each road can use a different kind of carrier.</p></div>
-    <div class="card"><span class="is">Frame</span><h3>The local delivery envelope</h3><p>The IP datagram is the letter. The frame is the outer envelope that only lasts for one hop.</p></div>
-  </div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Seal the letter into a frame</h3><span class="tag">Lab</span></div>
-    <p class="hint">The sending NIC adds a header (MAC addresses, type) and a trailer (CRC error check). The receiving NIC checks the seal and pulls the letter back out.</p>
-    <div class="wrapstage">
-      <div class="frame-env" id="frameEnv">
-        <div class="fpart"><b>HEADER</b> to MAC 58-23-D7-FA-20-B0 · from MAC 71-65-F7-2B-08-53 · type IPv4</div>
-        <div class="letter"><b>IP datagram</b> (the letter)<br>From IP 137.196.7.23 → To IP 137.196.7.14<br>"Hello neighbour!"</div>
-        <div class="fpart"><b>TRAILER</b> CRC seal: 0x3A9F51C2</div>
-      </div>
-    </div>
-    <div class="row" style="justify-content:center"><button class="btn" id="wrapBtn">Seal into a frame</button></div>
-    <div class="out" id="wrapOut">The letter is ready. Seal it into a frame for its one-hop trip.</div>
-  </div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>One trip, many carriers</h3><span class="tag">Lab</span></div>
-    <p class="hint">The book's analogy: a tourist travels Princeton → Lausanne using a limo, a plane and a train. Our letter does the same. Tap each leg.</p>
-    <div class="legs" id="legs">
-      <button class="leg" data-i="0" aria-pressed="true"><div class="lg-t">Bike courier</div><div class="lg-s">Laptop → home router</div></button>
-      <button class="leg" data-i="1" aria-pressed="false"><div class="lg-t">Mail truck</div><div class="lg-s">Router → router</div></button>
-      <button class="leg" data-i="2" aria-pressed="false"><div class="lg-t">Cargo plane</div><div class="lg-s">Router → server</div></button>
-    </div>
-    <div class="out" id="legOut"></div>
-    <p class="hint" style="margin-top:10px">Mapping: tourist = <b>datagram</b> · each trip segment = <b>link</b> · transport mode = <b>link-layer protocol</b> · travel agent = <b>routing algorithm</b>.</p>
-  </div>
-
-  <h3 style="margin-top:28px;font-size:1.3rem">Services a link layer may offer</h3>
-  <div class="grid g3" style="margin-top:12px">
-    <div class="card"><span class="is">Framing</span><p>Put the datagram in an envelope with a header and trailer. MAC addresses in the header name the sender and receiver on this link.</p></div>
-    <div class="card"><span class="is">Link access</span><p>On a shared road, a MAC protocol decides who may drive when.</p></div>
-    <div class="card"><span class="is">Reliable delivery</span><p>Resend lost frames between neighbours. Rare on fiber or copper, common on wireless where errors are frequent.</p></div>
-    <div class="card"><span class="is">Flow control</span><p>Don't stuff the neighbour's mailbox faster than they can empty it.</p></div>
-    <div class="card"><span class="is">Error detection &amp; correction</span><p>Noise and weak signals smudge bits. Detect it and drop or resend, or even fix it on the spot.</p></div>
-    <div class="card"><span class="is">Half / full duplex</span><p>Half duplex: both ends can talk, but not at the same time. Full duplex: both at once.</p></div>
-  </div>
-  <div class="analogy"><div data-carrier-mini></div><p><b>Where does it live?</b> In every host's <b>network interface card (NIC)</b> or on a chip. It is the building's own mailroom: hardware, software and firmware that attach to the host's bus and handle both the link and physical layers.</p></div>
-</div></section>
-
-<!-- 2 -->
-<section class="stop" id="errors"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>2</b></span></div>
-    <div><h2>Tamper checks: error detection and correction</h2><p>Rain on the road (noise, attenuation) can smudge bits. The sender adds extra check bits, called <b>EDC</b>, so the receiver can spot damage. It is never 100% sure, but more check bits catch more.</p></div></div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Single parity bit</h3><span class="tag">Lab</span></div>
-    <p class="hint">Tap the data bits to change them. With <b>even parity</b>, the parity bit makes the total count of 1s even. Then send it through the storm.</p>
-    <div class="bitlabel">Sender: data bits + parity</div>
-    <div class="bits" id="parSend"></div>
-    <div class="row" style="margin-top:12px">
-      <label class="ctl" for="flipN">Storm strength<select id="flipN"><option value="1">Flip 1 bit</option><option value="2">Flip 2 bits</option><option value="0">No storm</option></select></label>
-      <button class="btn" id="parGo">Send through the storm</button>
-    </div>
-    <div class="bitlabel">Receiver got</div>
-    <div class="bits" id="parRecv"></div>
-    <div class="out" id="parOut">Waiting for a letter…</div>
-  </div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Two-dimensional parity: find and fix</h3><span class="tag">Lab</span></div>
-    <p class="hint">Data sits in a 4×4 grid with a parity bit for every row and column (yellow). Flip one bit in transit, then the receiver finds the row and column that disagree. Their crossing is the bad bit, so it can be fixed with no resend.</p>
-    <div class="row" style="align-items:flex-start;gap:20px">
-      <div class="grid2d" id="g2d"></div>
-      <div style="flex:1;min-width:200px;display:grid;gap:10px">
-        <div class="row"><button class="btn red" id="g2Flip">Flip a random bit</button><button class="btn" id="g2Fix" disabled>Fix it</button><button class="btn ghost sm" id="g2New">New letter</button></div>
-        <p class="hint">You can also tap any data bit to smudge it yourself.</p>
-        <div class="out" id="g2Out">All rows and columns check out.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid g2" style="margin-top:18px">
-    <div class="card"><span class="is">Internet checksum (review from ch. 3)</span><p>Treat the segment as 16-bit numbers, add them with one's complement, and put the result in the checksum field. The receiver redoes the sum. Cheap, but weaker than CRC.</p></div>
-    <div class="card"><span class="is">CRC: the strong seal</span><p>Pick a generator <b>G</b> of r+1 bits. The sender appends r bits <b>R</b> so that &lt;D,R&gt; divides exactly by G using mod-2 math (XOR). Catches every burst error shorter than r+1 bits. Used by Ethernet and WiFi.</p></div>
-  </div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>CRC calculator</h3><span class="tag">Lab</span></div>
-    <p class="hint">Append r zeros to D, divide by G with XOR, and the remainder is R. The textbook example is filled in: D = 101110, G = 1001.</p>
-    <div class="crc-io">
-      <label class="ctl" for="crcD">Data D<input type="text" id="crcD" value="101110" inputmode="numeric" maxlength="20"></label>
-      <label class="ctl" for="crcG">Generator G<input type="text" id="crcG" value="1001" inputmode="numeric" maxlength="8"></label>
-      <button class="btn" id="crcGo">Divide</button>
-    </div>
-    <div class="crcwork"><pre id="crcWork"></pre></div>
-    <div class="out" id="crcOut"></div>
-  </div>
-</div></section>
-
-<!-- 3 -->
-<section class="stop" id="sharing"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>3</b></span></div>
-    <div><h2>Sharing the road: multiple access protocols</h2><p>Some links are point-to-point (one private driveway). Others are <b>broadcast</b>: one shared road for everyone, like WiFi, old Ethernet or cable upstream. If two carriers drive onto it at once, letters crash: a <b>collision</b>.</p></div></div>
-
-  <div class="analogy"><div data-carrier-mini></div><p><b>The tricky part:</b> carriers must agree who goes next, but the only way to talk is the same shared road. There is no side channel. The ideal protocol gives one sender the full rate R, gives M senders R/M each, needs no boss and no shared clock, and stays simple.</p></div>
-
-  <div class="grid g3">
-    <div class="card"><span class="is">Channel partitioning</span><h3>Everyone gets a slice</h3><p><b>TDMA</b>: each carrier owns a time slot every round. <b>FDMA</b>: each owns a frequency lane. Fair under heavy load, wasteful when most are idle.</p></div>
-    <div class="card"><span class="is">Random access</span><h3>Just go, and retry on crashes</h3><p>Send at full speed. Detect collisions and retry later. <b>ALOHA</b>, <b>slotted ALOHA</b>, <b>CSMA</b>, <b>CSMA/CD</b> (Ethernet), <b>CSMA/CA</b> (WiFi).</p></div>
-    <div class="card"><span class="is">Taking turns</span><h3>Pass the mailbag</h3><p><b>Polling</b>: a dispatcher invites each carrier in turn (Bluetooth). <b>Token passing</b>: only the holder of the token may send. Overhead, latency, single point of failure.</p></div>
-  </div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Shared-road simulator</h3><span class="tag">Lab</span></div>
-    <p class="hint">Each column is one time slot. Green means a letter got through, red means a crash. Try slotted ALOHA with many carriers, then switch to TDMA under light traffic.</p>
-    <div class="simctl">
-      <label class="ctl" for="simProto">Protocol<select id="simProto"><option value="aloha">Slotted ALOHA</option><option value="tdma">TDMA (time slots)</option><option value="token">Token passing</option></select></label>
-      <label class="ctl" for="simN">Carriers: <span id="simNv">4</span><input type="range" id="simN" min="2" max="6" value="4"></label>
-      <label class="ctl" for="simP" id="simPwrap">Send probability p: <span id="simPv">0.25</span><input type="range" id="simP" min="0.05" max="1" step="0.05" value="0.25"></label>
-      <label class="ctl" for="simL">Mail arriving: <span id="simLv">busy</span><input type="range" id="simL" min="0.05" max="1" step="0.05" value="1"></label>
-      <button class="btn" id="simGo">Run 30 slots</button>
-    </div>
-    <div class="simgrid-wrap"><div class="simgrid" id="simGrid"></div></div>
-    <div class="legend"><span><i style="background:var(--green)"></i>sent, got through</span><span><i style="background:var(--red)"></i>sent, collided</span><span><i style="background:var(--surface-2);outline:2px solid var(--yellow);outline-offset:-2px"></i>holds the token / owns the slot</span></div>
-    <div class="stats"><div class="stat"><b id="stS">0</b><span>successful slots</span></div><div class="stat"><b id="stC">0</b><span>collisions</span></div><div class="stat"><b id="stE">0</b><span>empty slots</span></div><div class="stat"><b id="stEff">0%</b><span>efficiency</span></div><div class="stat" id="stTheoryBox"><b id="stTheory">0%</b><span>ALOHA theory Np(1-p)^(N-1)</span></div></div>
-  </div>
-
-  <div class="grid g2" style="margin-top:18px">
-    <div class="card"><span class="is">Slotted ALOHA</span><p>Fixed slots, synced clocks. On a crash, retry each later slot with probability p. Best case efficiency is <b>1/e ≈ 37%</b>. <b>Pure ALOHA</b> (no slots) only reaches <b>1/(2e) ≈ 18%</b>, since a frame can clash with anything sent one frame-time before or after.</p></div>
-    <div class="card"><span class="is">CSMA and CSMA/CD</span><p><b>Listen before you knock</b>: if the road is busy, wait. Collisions still happen because of propagation delay: two carriers may not yet hear each other. <b>CD</b> adds "stop talking when you hear a crash", which wastes less time. Easy on wires, hard on wireless.</p></div>
-  </div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Ethernet's binary (exponential) backoff</h3><span class="tag">Lab</span></div>
-    <p class="hint">After the m-th collision in a row, Ethernet picks K at random from {0, 1, …, 2<sup>m</sup>−1} and waits K × 512 bit times. More crashes mean a wider range, so carriers spread out.</p>
-    <div class="row"><button class="btn red" id="boGo">Collide!</button><button class="btn ghost sm" id="boReset">Frame delivered (reset)</button></div>
-    <div class="backoff-bar"><div class="fill" id="boFill" style="width:0"></div><div class="k" id="boK" style="left:-10px"></div></div>
-    <div class="out" id="boOut">No collisions yet. Press Collide! to see what Ethernet does.</div>
-  </div>
-
-  <div class="card" style="margin-top:18px"><span class="is">Real-world mix: cable access (DOCSIS)</span><p>Downstream uses FDM channels broadcast by the CMTS. Upstream mixes TDM (slots assigned by a MAP frame) with random access (contention slots with binary backoff) for requesting slots. All three families in one network.</p></div>
-</div></section>
-
-<!-- 4 -->
-<section class="stop" id="arp"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>4</b></span></div>
-    <div><h2>Two kinds of address, and ARP</h2><p>Every interface has a 32-bit <b>IP address</b> and a 48-bit <b>MAC address</b>. They do different jobs.</p></div></div>
-
-  <div class="grid g2">
-    <div class="card"><span class="is">IP address · e.g. 137.196.7.23</span><h3>Like a postal address</h3><p>Network layer. Depends on the subnet you live in, so it changes when you move. Used for routing across the world.</p></div>
-    <div class="card"><span class="is">MAC address · e.g. 1A-2F-BB-76-09-AD</span><h3>Like a national ID number</h3><p>Link layer. Burned into the NIC's ROM (sometimes software-settable). Flat and portable: it stays the same wherever you plug in. IEEE hands blocks to manufacturers so every one is unique. Used only to reach a neighbour on the same subnet.</p></div>
-  </div>
-  <div class="analogy"><div data-carrier-mini></div><p><b>Broadcast address FF-FF-FF-FF-FF-FF</b> is like writing "To every resident on this street". Every NIC on the LAN opens it.</p></div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>ARP: "Who lives at this address?"</h3><span class="tag">Lab</span></div>
-    <p class="hint">You are house A. To send a frame you need the neighbour's MAC, but you only know their IP. ARP shouts the question to the whole street, the owner answers, and you save it in your ARP table for 20 minutes (sped up here: 1 second = 1 minute).</p>
-    <div class="street" id="street"></div>
-    <div class="row" style="margin-top:12px" id="arpBtns"></div>
-    <div class="out" id="arpOut">Pick a neighbour to send a letter to.</div>
-    <div class="tablebox"><table class="t"><thead><tr><th>IP address</th><th>MAC address</th><th>TTL (min)</th></tr></thead><tbody id="arpTable"><tr><td colspan="3" style="font-family:var(--body);color:var(--muted)">A's ARP table is empty.</td></tr></tbody></table></div>
-  </div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Sending to another subnet: the letter stays, the envelope changes</h3><span class="tag">Lab</span></div>
-    <p class="hint">A sends to B through router R. Watch the addresses. The IP letter inside never changes. The MAC envelope is replaced at every hop.</p>
-    <div class="hops">
-      <div class="hop" id="h0"><h4>A</h4><span class="mono">111.111.111.111</span><span class="mono">74-29-9C-E8-FF-55</span></div>
-      <div class="wire" id="w0"></div>
-      <div class="hop" id="h1"><h4>Router R</h4><span class="mono">left: 111.111.111.110 · E6-E9-00-17-BB-4B</span><span class="mono">right: 222.222.222.220 · 1A-23-F9-CD-06-9B</span></div>
-      <div class="wire" id="w1"></div>
-      <div class="hop" id="h2"><h4>B</h4><span class="mono">222.222.222.222</span><span class="mono">49-BD-D2-C7-56-2A</span></div>
-    </div>
-    <div class="envshow"><div class="env" id="subEnv"></div></div>
-    <p style="margin-top:12px;text-align:center;font-weight:700" id="subText"></p>
-    <div class="row" style="justify-content:center;margin-top:10px"><button class="btn ghost" id="subPrev">Back</button><button class="btn" id="subNext">Next step</button></div>
-    <div class="stepdots" id="subDots"></div>
-  </div>
-</div></section>
-
-<!-- 5 -->
-<section class="stop" id="ethernet"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>5</b></span></div>
-    <div><h2>Ethernet: the most common envelope</h2><p>The first widely used LAN, still dominant: cheap, simple, and it kept up with the speed race from 10 Mbps to 400 Gbps. Co-inventor Bob Metcalfe won the 2022 Turing Award.</p></div></div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Open the Ethernet envelope</h3><span class="tag">Lab</span></div>
-    <p class="hint">Tap each part of the frame.</p>
-    <div class="eframe" id="eframe"></div>
-    <div class="out" id="efOut"></div>
-  </div>
-
-  <div class="grid g2" style="margin-top:18px">
-    <div class="card"><span class="is">Connectionless &amp; unreliable</span><p>No handshake before sending, and no ACK or NAK back. It's ordinary post, not registered mail. If a frame is dropped, only a higher layer like TCP will notice and resend.</p></div>
-    <div class="card"><span class="is">Topology then and now</span><p><b>Bus</b> (to mid-90s): one coax cable, everyone in the same collision domain. <b>Switched</b> (today): a switch in the middle, each spoke its own link, so nodes never collide.</p></div>
-    <div class="card"><span class="is">CSMA/CD in Ethernet</span><p>Sense the channel. Idle: send. Busy: wait until idle. Collision while sending: abort, send a jam signal, then do binary backoff (see stop 3).</p></div>
-    <div class="card"><span class="is">802.3 standards</span><p>Many physical media (copper, fiber: 100BASE-TX, 100BASE-FX, …) and speeds, but one common MAC protocol and frame format.</p></div>
-  </div>
-</div></section>
-
-<!-- 6 -->
-<section class="stop" id="switches"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>6</b></span></div>
-    <div><h2>Switches: the self-learning sorting room</h2><p>A switch reads each frame's destination MAC and sends it only where it needs to go. Hosts don't know it's there, and nobody configures it: it is plug-and-play and <b>learns by watching return addresses</b>.</p></div></div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Teach the sorting room</h3><span class="tag">Lab</span></div>
-    <p class="hint">The table starts empty. Send A → D first (unknown, so the switch floods every port). Then send D → A: now the switch knows where A lives and sends it straight there.</p>
-    <div class="row" style="margin-bottom:12px">
-      <label class="ctl" for="swFrom">From<select id="swFrom"></select></label>
-      <label class="ctl" for="swTo">To<select id="swTo"></select></label>
-      <button class="btn" id="swGo">Send frame</button>
-      <button class="btn ghost sm" id="swReset">Clear table</button>
-    </div>
-    <div class="sw-floor">
-      <div class="sw-row" id="swTop"></div>
-      <div class="sw-box"><b>Switch</b><div class="ports" id="swPorts"></div></div>
-      <div class="sw-row" id="swBot"></div>
-    </div>
-    <div class="grid g2" style="margin-top:12px">
-      <div><div class="bitlabel">Switch table</div><div class="tablebox" style="margin-top:0"><table class="t"><thead><tr><th>MAC</th><th>Port</th><th>Learned</th></tr></thead><tbody id="swTable"></tbody></table></div></div>
-      <div><div class="bitlabel">What happened</div><div class="log" id="swLog"></div></div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:18px"><span class="is">The rule, step by step</span>
-    <p>1. Record the sender's MAC and the port it came in on. 2. Look up the destination MAC. 3. Found it? If it's on the same port the frame came from, drop it; otherwise forward on that one port. Not found? <b>Flood</b>: send on every port except the one it arrived on. Switches chained together learn the same way.</p></div>
-
-  <div class="card" style="margin-top:14px"><span class="is">Why switches beat a shared bus</span><p>Each host has its own link to the switch, the switch buffers frames, and links are full duplex. Each link is its own collision domain, so A→A′ and B→B′ can happen at the same time. Two hosts sending to the same destination still have to queue.</p></div>
-
-  <div class="tablebox" style="margin-top:14px"><table class="t" style="font-family:var(--body)">
-    <thead><tr><th></th><th>Switch</th><th>Router</th></tr></thead>
-    <tbody style="font-family:var(--body)">
-      <tr><td style="font-family:var(--body);font-weight:800">Layer</td><td style="font-family:var(--body)">Link layer (reads MAC headers)</td><td style="font-family:var(--body)">Network layer (reads IP headers)</td></tr>
-      <tr><td style="font-family:var(--body);font-weight:800">Builds its table by</td><td style="font-family:var(--body)">Flooding and self-learning</td><td style="font-family:var(--body)">Routing algorithms</td></tr>
-      <tr><td style="font-family:var(--body);font-weight:800">Both</td><td colspan="2" style="font-family:var(--body)">Store-and-forward devices with forwarding tables</td></tr>
-    </tbody></table></div>
-  <p class="hint" style="margin-top:10px">Scale check: the UMass campus network runs 2000+ switches, 6000 WiFi access points and 10 routers, looked after by about 15 people.</p>
-</div></section>
-
-<!-- 7 -->
-<section class="stop" id="vlans"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>7</b></span></div>
-    <div><h2>VLANs: separate mailbags in one building</h2><p>In one big LAN, every broadcast (ARP, DHCP, unknown MAC) reaches everyone. That hurts efficiency, security and privacy. And if a CS person moves to the EE office, they still want to be on the CS network.</p></div></div>
-
-  <div class="lab">
-    <div class="lab-title"><h3>Split one switch into two LANs</h3><span class="tag">Lab</span></div>
-    <p class="hint">Blue ports belong to the EE VLAN, pink ports to CS. Tap a port to move it to the other VLAN, then broadcast from a port and see who hears it.</p>
-    <div class="vports" id="vports"></div>
-    <div class="row" style="margin-top:12px">
-      <label class="ctl" for="vFrom">Broadcast from port<select id="vFrom"></select></label>
-      <button class="btn" id="vGo">Send broadcast</button>
-    </div>
-    <div class="out" id="vOut">Ports 1–6 are EE, ports 7–12 are CS.</div>
-  </div>
-
-  <div class="grid g2" style="margin-top:18px">
-    <div class="card"><span class="is">Port-based VLAN</span><p>Switch software groups ports. Frames from ports in one VLAN only reach ports in the same VLAN. Membership can change on the fly, and VLANs can also be defined by MAC address. Traffic between VLANs goes through a router.</p></div>
-    <div class="card"><span class="is">Trunk ports and 802.1Q</span><p>To stretch a VLAN across several switches, a trunk port carries frames for every VLAN. Each frame gets a tag saying which VLAN it belongs to:</p>
-      <div class="vtag"><span>dest</span><span>src</span><span class="new">TPID 81-00</span><span class="new">12-bit VLAN ID + 3-bit priority</span><span>type</span><span>data</span><span class="new">recomputed CRC</span></div></div>
-  </div>
-  <div class="card" style="margin-top:14px"><span class="is">EVPN / VXLAN</span><p>Carry Ethernet frames inside IP datagrams between sites, so one layer-2 network can be "stretched" over a layer-3 network (RFC 7348). An envelope mailed inside another envelope.</p></div>
-</div></section>
-
-<!-- 8 -->
-<section class="stop" id="mpls"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>8</b></span></div>
-    <div><h2>MPLS express labels and data-center mega-hubs</h2><p><b>MPLS</b> sticks a short fixed-length label on each packet. Label-switched routers forward by the label alone, without reading the IP address, much like a coloured "Route 7 express" sticker sorting mail faster than reading full addresses.</p></div></div>
-
-  <div class="lab mpls">
-    <div class="lab-title"><h3>IP routing vs MPLS routing</h3><span class="tag">Lab</span></div>
-    <p class="hint">Two flows (from A and from B) go to D. Plain IP picks the path by destination only. MPLS can send them different ways, and switch to a backup path instantly when a link fails.</p>
-    <div class="row" id="mplsBtns" style="margin-bottom:10px">
-      <button class="btn sm" data-m="ip">Plain IP</button>
-      <button class="btn ghost sm" data-m="te">MPLS traffic engineering</button>
-      <button class="btn ghost sm" data-m="fr">MPLS fast reroute (link fails)</button>
-    </div>
-    <svg viewBox="0 0 560 220" id="mplsSvg" role="img" aria-label="Network of routers R1 to R6 between sources A, B and destination D"></svg>
-    <div class="legend"><span><i style="background:var(--blue)"></i>flow from A</span><span><i style="background:var(--red)"></i>flow from B</span></div>
-    <div class="out" id="mplsOut"></div>
-  </div>
-  <p class="hint" style="margin-top:10px">Signaling: OSPF and IS-IS are extended to flood link bandwidth info, and the entry router uses RSVP-TE to set up labels downstream. Each router keeps an MPLS table: in-label → out-label, out-interface.</p>
-
-  <h3 style="margin-top:28px;font-size:1.3rem">Data centers: the mega sorting hub</h3>
-  <p class="prose" style="margin-top:6px;color:var(--muted)">Tens to hundreds of thousands of servers packed close together (Amazon, YouTube, Google). The hard parts: huge numbers of clients, reliability, and balancing load without bottlenecks.</p>
-  <div class="lab">
-    <div class="lab-title"><h3>Route a request through the hub</h3><span class="tag">Lab</span></div>
-    <p class="hint">Rich interconnection gives many paths between racks: more throughput and more redundancy. Each request may take a different route.</p>
-    <div class="dc" id="dc"></div>
-    <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" id="dcGo">Send a request</button></div>
-    <div class="out" id="dcOut">Requests enter from the Internet at the load balancer.</div>
-  </div>
-  <div class="grid g3" style="margin-top:14px">
-    <div class="card"><span class="is">Load balancer</span><p>Application-layer routing: takes client requests, picks a server, and hides the inside of the data center.</p></div>
-    <div class="card"><span class="is">Top-of-rack (TOR)</span><p>One switch per rack of 20–40 server blades, 100G–400G Ethernet to each blade. Tier-2 switches each connect about 16 TORs.</p></div>
-    <div class="card"><span class="is">Protocol tricks</span><p>RoCE (remote DMA over Ethernet), ECN-based congestion control (DCTCP, DCQCN), SDN everywhere (Google's Orion), and placing related services in the same rack.</p></div>
-  </div>
-</div></section>
-
-<!-- 9 -->
-<section class="stop" id="day"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>9</b></span></div>
-    <div><h2>A day in the life of a web request</h2><p>A student plugs a laptop into the campus network and asks for www.google.com. Every layer we've learned shows up. Step through it.</p></div></div>
-  <div class="lab">
-    <div class="day">
-      <div><span class="tag" id="dayNum">Step 1 of 7</span><h4 id="dayTitle" style="margin-top:8px"></h4><p id="dayMail" style="font-weight:700"></p><p id="dayTech" class="hint" style="margin-top:8px"></p></div>
-      <div><div class="bitlabel" style="margin-top:0">What's on the wire (outermost first)</div><div id="dayNest"></div></div>
-    </div>
-    <div class="daytrack" id="dayTrack"></div>
-    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn ghost" id="dayPrev">Back</button><button class="btn" id="dayNext">Next step</button></div>
-  </div>
-</div></section>
-
-<!-- 10 -->
-<section class="stop" id="quiz"><div class="wrap">
-  <div class="stop-head"><div class="postmark"><span><small>Stop</small><b>10</b></span></div>
-    <div><h2>Postmaster quiz</h2><p>Twelve quick questions. Answer them all to earn the last stamp.</p></div></div>
-  <div class="row" style="margin-bottom:12px"><span class="tag" id="qScore">Score 0 / 12</span><button class="btn ghost sm" id="qReset">Start over</button></div>
-  <div class="qs" id="qs"></div>
-  <div class="cert" id="cert" hidden><div class="env"><div data-carrier-mini></div><h3>Certified Link-Layer Carrier</h3><p style="margin-top:6px">You collected every stamp on the Chapter 6 route. Next up: wireless and security.</p></div></div>
-</div></section>
 </main>
 
-<footer><div class="wrap">Based on Kurose &amp; Ross, <i>Computer Networking: A Top-Down Approach</i>, 8th edition, Chapter 6 slides. Stamps are saved in this browser only. <a href="../index.html">Back to all chapters</a></div></footer>
+<footer><div class="wrap">Kurose &amp; Ross, <i>Computer Networking: A Top-Down Approach</i>, 8 වන සංස්කරණය, 6 වන පරිච්ඡේදය ඇසුරිනි. <a href="../index.html">සියලුම පරිච්ඡේද වෙත ආපසු</a></div></footer>
 
-<div class="guide"><div class="speech off" id="gSpeech" role="status"></div><button class="pip" id="gBtn" aria-label="Ask Penny for a tip"></button></div>
+<div class="guide"><div class="speech off" id="gSpeech" role="status"></div><button class="pip" id="gBtn" aria-label="වළගම්බාගෙන් ඉඟියක් අසන්න"></button></div>
 <div class="toast" id="toast"></div>
 
 <script>
 (function(){
-const $=s=>document.querySelector(s);
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const rnd=n=>Math.floor(Math.random()*n);
 
@@ -691,100 +687,138 @@ function carrier(w){return `<svg class="carrier" viewBox="0 0 140 180" width="${
 <circle cx="61" cy="56" r="3.2" fill="var(--face)"/><circle cx="79" cy="56" r="3.2" fill="var(--face)"/>
 <circle cx="55" cy="64" r="4" fill="var(--blush)"/><circle cx="85" cy="64" r="4" fill="var(--blush)"/>
 <path d="M62 66 Q70 74 78 66" stroke="var(--face)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`}
-$('#heroCarrier').innerHTML=carrier(200);
+$('#heroCarrier').innerHTML=carrier(150);
 $('#gBtn').innerHTML=carrier(72);
-document.querySelectorAll('[data-carrier-mini]').forEach(el=>el.outerHTML=carrier(44));
+$$('[data-carrier-mini]').forEach(el=>el.outerHTML=carrier(44));
 
-/* ---------- stamps ---------- */
+/* ---------- Question Hooks ---------- */
+$$('.ask').forEach(ask=>{
+  const ans=+ask.dataset.ans, why=ask.dataset.why, opts=$$('.ask-opt',ask), v=$('.ask-verdict',ask);
+  opts.forEach((btn,i)=>btn.onclick=()=>{
+    opts.forEach((b,j)=>{b.disabled=true;if(j===ans)b.classList.add('right')});
+    if(i!==ans)btn.classList.add('wrong');
+    v.hidden=false;
+    v.innerHTML=(i===ans?'<span style="color:var(--green)">හරියටම හරි!</span> ':'<span style="color:var(--red)">හොඳ උත්සාහයක්!</span> ')+why;
+  });
+});
+
+/* ---------- Stamps & Step-by-Step Scene Controller ---------- */
 const STOPS=['intro','errors','sharing','arp','ethernet','switches','vlans','mpls','day','quiz'];
-let got=new Set();
-try{got=new Set(JSON.parse(localStorage.getItem('ch6-stamps')||'[]'))}catch(e){}
+const stopEls=STOPS.map(id=>document.getElementById(id));
+let curIdx=0, got=new Set();
+try{
+  got=new Set(JSON.parse(localStorage.getItem('ch6-stamps')||'[]'));
+  curIdx=Math.min(STOPS.length-1,Math.max(0,+JSON.parse(localStorage.getItem('ch6-scene')||'0')));
+}catch(e){}
+
+const rBar=$('#routeBar');
+stopEls.forEach((el,i)=>{
+  const b=document.createElement('button');
+  b.className='stop-btn';
+  b.innerHTML=`<b>${i+1}</b><span>${el.dataset.title}</span>`;
+  b.onclick=()=>showScene(i,true);
+  rBar.appendChild(b);
+});
+
 function drawStamps(){
   $('#dots').innerHTML=STOPS.map(s=>`<i class="${got.has(s)?'got':''}"></i>`).join('');
-  $('#stampCount').textContent=`Stamps ${got.size}/10`;
+  $('#stampCount').textContent=`මුද්දර ${got.size}/10`;
   $('#cert').hidden=got.size<10;
+  $$('.stop-btn',rBar).forEach((b,i)=>{
+    b.classList.toggle('here',i===curIdx);
+    b.classList.toggle('done',got.has(STOPS[i])&&i!==curIdx);
+  });
 }
+
 const toastEl=$('#toast');let tt;
 function award(id,msg){
   if(got.has(id))return;
   got.add(id);try{localStorage.setItem('ch6-stamps',JSON.stringify([...got]))}catch(e){}
   drawStamps();
-  toastEl.textContent=`Stamp collected! ${got.size}/10`;toastEl.classList.add('show');
+  toastEl.textContent=`මුද්දරයක් ලබා ගත්තා! ${got.size}/10`;toastEl.classList.add('show');
   clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),2200);
-  say(msg,true);
+  if(msg)say(msg);
 }
-drawStamps();
 
-/* ---------- guide ---------- */
 const TIPS={
- top:["Hi! I'm Penny. The link layer is me: I carry a frame across exactly one link, then hand it off.","Look for the striped airmail boxes. Each one is a lab, and using it earns a stamp."],
- intro:["Remember: datagram = the letter, frame = the local envelope. A new envelope at every hop!","Reliable delivery at the link layer matters most on wireless links, where errors are common."],
- errors:["Parity can't catch two flipped bits: they cancel out. That's why CRC exists.","CRC math is just XOR. No carries, no borrows."],
- sharing:["Try slotted ALOHA with 6 carriers and p = 0.15. You'll land near 37%, the 1/e limit.","TDMA wastes slots when traffic is light. Drag 'Mail arriving' low and compare."],
- arp:["ARP questions go to everyone (FF-FF-FF-FF-FF-FF). ARP answers go only to the asker.","Crossing a router? The IP addresses stay put. Only the MAC envelope changes."],
- ethernet:["The preamble is like a doorbell rhythm: 10101010 ×7, then 10101011 says 'here it comes!'","Ethernet never sends ACKs. TCP above it handles lost frames."],
- switches:["A switch learns from the FROM address, never the TO address.","Unknown destination? Flood. Known? Send it to one port only."],
- vlans:["Broadcasts never leave their VLAN. To talk to the other VLAN, go through a router.","802.1Q adds a 4-byte tag, so the CRC must be recomputed."],
- mpls:["MPLS routers look only at the label, never the IP address.","Fast reroute works because backup paths are computed ahead of time."],
- day:["Order to remember: DHCP → ARP → DNS → TCP → HTTP.","Every message on the LAN is still wrapped in an Ethernet frame."],
- quiz:["Take your time. Every answer explains itself after you pick.","Finish all 12 questions to earn the last stamp."]
+ intro:["මතක තබා ගන්න: ඩේටාග්‍රෑමය = ලිපිය, රාමුව (frame) = ප්‍රාදේශීය ලියුම් කවරය. සෑම පියවරකදීම අලුත් කවරයක්!","සබැඳි ස්ථරයේ විශ්වාසදායක බෙදාහැරීම වඩාත්ම වැදගත් වන්නේ දෝෂ බහුල රැහැන් රහිත (Wi-Fi) සබැඳි මතය."],
+ errors:["තනි සමානතා බිටුවකට (Single parity) බිටු දෙකක් වෙනස් වීම හඳුනාගත නොහැක. CRC අවශ්‍ය වන්නේ එබැවිනි.","CRC ගණනය කිරීම යනු හුදෙක් XOR මෙහෙයුම පමණි."],
+ sharing:["Slotted ALOHA හි උපරිම කාර්යක්ෂමතාවය 1/e ≈ 37% ක් පමණි.","ගමනාගමනය අඩු විට TDMA මඟින් කාල කවුළු අපතේ යවයි."],
+ arp:["ARP ප්‍රශ්න සියලු දෙනාටම යයි (FF-FF-FF-FF-FF-FF). ARP පිළිතුරු යන්නේ ඇසූ කෙනාට පමණි.","රවුටරයක් හරහා යන විට IP ලිපින වෙනස් නොවේ; වෙනස් වන්නේ MAC ලියුම් කවරය පමණි."],
+ ethernet:["Preamble යනු දොරට තට්ටු කරන රිද්මයක් වැනිය: 10101010 ×7 සහ අවසානයේ 10101011.","Ethernet කිසිවිටෙක ACK ලදුපත් යවන්නේ නැත."],
+ switches:["ස්විචයක් ඉගෙන ගන්නේ එවන්නාගේ (Source) MAC ලිපිනයෙන් මිස ලබන්නාගේ ලිපිනයෙන් නොවේ.","ලබන්නා නොදන්නා විට සියලුම පෝට්වලට යවයි (Flood); දන්නා විට අදාළ පෝට් එකට පමණක් යවයි."],
+ vlans:["විකාශන (Broadcasts) කිසිවිටෙක තම VLAN එකෙන් පිටතට නොයයි.","802.1Q මඟින් බයිට් 4 ක ටැගයක් එක් කරන නිසා CRC අගය නැවත ගණනය කළ යුතුය."],
+ mpls:["MPLS රවුටර බලන්නේ ලේබලය දෙස පමණි, IP ලිපිනය දෙස නොවේ."],
+ day:["මතක තබා ගත යුතු අනුපිළිවෙල: DHCP → ARP → DNS → TCP → HTTP."],
+ quiz:["සෑම ප්‍රශ්නයකටම පිළිතුරු දී 10 වන මුද්දරයත් දිනා ගන්න!"]
 };
-let cur='top',tipI=0,gTimer;
+let tipI=0,gTimer;
 const gS=$('#gSpeech'),gB=$('#gBtn');
-function say(text,hop){
+function say(text){
   gS.textContent=text;gS.classList.remove('off');
-  if(hop){gB.classList.remove('hop');void gB.offsetWidth;gB.classList.add('hop')}
   clearTimeout(gTimer);gTimer=setTimeout(()=>gS.classList.add('off'),6500);
 }
-gB.addEventListener('click',()=>{const t=TIPS[cur];say(t[tipI%t.length],true);tipI++});
-const links=[...document.querySelectorAll('#route a')];
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){cur=e.target.id;tipI=0;
-  links.forEach(a=>{const on=a.getAttribute('href')==='#'+cur;a.classList.toggle('on',on);if(on)a.scrollIntoView({block:'nearest',inline:'nearest'})})}})},{rootMargin:'-40% 0px -55% 0px'});
-STOPS.forEach(id=>io.observe(document.getElementById(id)));
-setTimeout(()=>say(TIPS.top[1]),1200);
+gB.addEventListener('click',()=>{const t=TIPS[STOPS[curIdx]];say(t[tipI%t.length]);tipI++});
 
-/* ---------- 1. wrap ---------- */
+function showScene(idx,scroll){
+  curIdx=Math.max(0,Math.min(STOPS.length-1,idx));
+  try{localStorage.setItem('ch6-scene',JSON.stringify(curIdx))}catch(e){}
+  $('#heroCover').hidden=(curIdx!==0);
+  stopEls.forEach((el,i)=>el.hidden=(i!==curIdx));
+  $('#progBar').style.width=((curIdx+1)/STOPS.length*100)+'%';
+  $('#where').innerHTML=`නැවතුම <b>${curIdx+1}</b> / ${STOPS.length} · <b>${stopEls[curIdx].dataset.title}</b>`;
+  $('#prevStop').disabled=(curIdx===0);
+  $('#nextStop').disabled=(curIdx===STOPS.length-1);
+  $('#navHint').textContent=curIdx<STOPS.length-1?`ඊළඟට: ${stopEls[curIdx+1].dataset.title}`:'මාර්ගයේ අවසානය';
+  drawStamps();
+  tipI=0;say(TIPS[STOPS[curIdx]][0]);
+  if(scroll)window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+}
+$('#prevStop').onclick=()=>showScene(curIdx-1,true);
+$('#nextStop').onclick=()=>showScene(curIdx+1,true);
+
+/* ---------- 1. Wrap & Legs ---------- */
 let wrapped=false;
 $('#wrapBtn').addEventListener('click',()=>{
   wrapped=!wrapped;$('#frameEnv').classList.toggle('wrapped',wrapped);
-  $('#wrapBtn').textContent=wrapped?'Open at the next hop':'Seal into a frame';
-  $('#wrapOut').textContent=wrapped?'Sealed! Header and trailer added. This envelope only lives for one hop.':'Opened at the neighbour: CRC checked, header and trailer thrown away, letter passed up to IP.';
-  if(!wrapped)award('intro','Nice! That envelope swap happens at every single hop.');
+  $('#wrapBtn').textContent=wrapped?'ඊළඟ නැවතුමේදී විවෘත කරන්න':'රාමුවක් තුළ මුද්‍රා තබන්න';
+  $('#wrapOut').textContent=wrapped?'මුද්‍රා තැබුවා! ශීර්ෂකය (Header) සහ වලිගය (Trailer) එක් කරන ලදී. මෙම කවරය වලංගු වන්නේ එක් පියවරකට පමණි.':'අසල්වැසි නෝඩයේදී විවෘත කළා: CRC පරීක්ෂා කර, කවරය ඉවත් කර, ලිපිය IP ස්ථරයට භාර දුන්නා.';
+  if(!wrapped)award('intro','නියමයි! සෑම පියවරකදීම මෙම ලියුම් කවර මාරුව සිදු වේ.');
 });
 const LEGS=[
- ['WiFi (802.11)','The first link is radio. WiFi has lots of noise, so it does its own link-level resends (reliable delivery) and uses CSMA/CA to share the air.'],
- ['Ethernet','Router to router over copper or fiber. Very few bit errors, so Ethernet skips ACKs entirely and leaves recovery to TCP.'],
- ['Fiber / long-haul link','Another link, another protocol. The letter (IP datagram) is the same the whole way. Only the carrier and the envelope change.']];
-function leg(i){document.querySelectorAll('.leg').forEach(b=>b.setAttribute('aria-pressed',b.dataset.i==i));$('#legOut').innerHTML=`<b>${LEGS[i][0]}:</b> ${LEGS[i][1]}`}
-document.querySelectorAll('.leg').forEach(b=>b.addEventListener('click',()=>leg(+b.dataset.i)));leg(0);
+ ['Wi-Fi (802.11)','පළමු සබැඳිය ගුවන් තරංග වේ. Wi-Fi හි ඝෝෂාව වැඩි නිසා එය සබැඳි මට්ටමින් නැවත යැවීම් (ACKs) සහ CSMA/CA භාවිතා කරයි.'],
+ ['Ethernet','තඹ හෝ ෆයිබර් රැහැන් හරහා මහින්දගේ රවුටරයේ සිට කාවන්තිස්සගේ රවුටරයට. බිටු දෝෂ ඉතා අඩු නිසා Ethernet ACK ලදුපත් යවන්නේ නැත.'],
+ ['ෆයිබර් / දිගු-දුර සබැඳිය','තවත් සබැඳියක්, තවත් ප්‍රොටෝකෝලයක්. ඇතුළත ඇති ලිපිය (IP ඩේටාග්‍රෑමය) මුළු ගමන පුරාම එකම වේ. වෙනස් වන්නේ තැපැල්කරු සහ පිටත කවරය පමණි.']
+];
+function leg(i){$$('.leg').forEach(b=>b.setAttribute('aria-pressed',b.dataset.i==i));$('#legOut').innerHTML=`<b>${LEGS[i][0]}:</b> ${LEGS[i][1]}`}
+$$('.leg').forEach(b=>b.addEventListener('click',()=>leg(+b.dataset.i)));leg(0);
 
-/* ---------- 2. parity ---------- */
+/* ---------- 2. Parity, 2D Parity & CRC ---------- */
 let pbits=[0,1,1,1,0,0,0,1];
 const parity=a=>a.reduce((s,b)=>s+b,0)%2;
 function drawPar(){
   const p=parity(pbits);
-  $('#parSend').innerHTML=pbits.map((b,i)=>`<button class="bit" data-i="${i}" aria-label="data bit ${i+1}: ${b}">${b}</button>`).join('')+`<span class="bit par" title="parity bit">${p}</span>`;
+  $('#parSend').innerHTML=pbits.map((b,i)=>`<button class="bit" data-i="${i}">${b}</button>`).join('')+`<span class="bit par" title="සමානතා බිටුව">${p}</span>`;
   $('#parSend').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{pbits[+b.dataset.i]^=1;drawPar()}));
 }
-drawPar();$('#parRecv').innerHTML='<span class="hint">Nothing received yet.</span>';
+drawPar();$('#parRecv').innerHTML='<span class="hint">තවම කිසිවක් ලැබී නැත.</span>';
 $('#parGo').addEventListener('click',()=>{
   const sent=[...pbits,parity(pbits)],n=+$('#flipN').value,flips=new Set();
   while(flips.size<n)flips.add(rnd(9));
   const recv=sent.map((b,i)=>flips.has(i)?b^1:b);
   $('#parRecv').innerHTML=recv.map((b,i)=>`<span class="bit ${i===8?'par':''} ${flips.has(i)?'flip':''}">${b}</span>`).join('');
   const ok=parity(recv)===0,o=$('#parOut');
-  if(!ok){o.className='out bad';o.textContent='Error detected! The count of 1s is odd, so something got smudged. Drop it or ask for a resend.'}
-  else if(n===2){o.className='out bad';o.textContent='Parity says "looks fine", but two bits flipped! They cancelled each other out. Single parity misses even numbers of errors.';award('errors','Sneaky! Two flips fool a single parity bit.')}
-  else{o.className='out good';o.textContent='Even number of 1s: no error detected. The letter arrived clean.'}
+  if(!ok){o.className='out bad';o.textContent='දෝෂයක් හමු විය! 1 හි බිටු ගණන ඔත්තේ සංඛ්‍යාවකි. රාමුව ඉවත දමන්න හෝ නැවත ඉල්ලන්න.'}
+  else if(n===2){o.className='out bad';o.textContent='සමානතා පරීක්ෂාව "නිවැරදියි" කියයි, නමුත් බිටු දෙකක්ම වෙනස් වී ඇත! තනි සමානතා බිටුවකට ඉරට්ටේ දෝෂ ගණනක් හඳුනාගත නොහැක.';award('errors','බිටු දෙකක් වෙනස් වූ විට තනි සමානතා බිටුව රැවටේ!')}
+  else{o.className='out good';o.textContent='1 හි බිටු ගණන ඉරට්ටේ වේ: කිසිදු දෝෂයක් නැත. ලිපිය නිරුපද්‍රිතව ලැබුණි.'}
 });
 
-/* 2D parity */
-let g=[],gRow=[],gCol=[],gCorner=0,gFlip=null;
-function newGrid(){g=Array.from({length:4},()=>Array.from({length:4},()=>rnd(2)));gRow=g.map(r=>parity(r));gCol=[0,1,2,3].map(c=>parity(g.map(r=>r[c])));gCorner=parity(gRow);gFlip=null;drawG()}
+let g=[],gRow=[],gCol=[],gCorner=0;
+function newGrid(){g=Array.from({length:4},()=>Array.from({length:4},()=>rnd(2)));gRow=g.map(r=>parity(r));gCol=[0,1,2,3].map(c=>parity(g.map(r=>r[c])));gCorner=parity(gRow);drawG()}
 function drawG(){
   const badR=g.map((r,i)=>parity(r)!==gRow[i]),badC=[0,1,2,3].map(c=>parity(g.map(r=>r[c]))!==gCol[c]);
   let h='';
-  for(let r=0;r<4;r++){for(let c=0;c<4;c++){const x=badR[r]&&badC[c];h+=`<button class="bit ${x?'cross':''} ${(badR[r]||badC[c])&&!x?'bad':''}" data-r="${r}" data-c="${c}" aria-label="row ${r+1} column ${c+1}">${g[r][c]}</button>`}
+  for(let r=0;r<4;r++){for(let c=0;c<4;c++){const x=badR[r]&&badC[c];h+=`<button class="bit ${x?'cross':''} ${(badR[r]||badC[c])&&!x?'bad':''}" data-r="${r}" data-c="${c}">${g[r][c]}</button>`}
     h+=`<span class="bit par ${badR[r]?'bad':''}">${gRow[r]}</span>`}
   for(let c=0;c<4;c++)h+=`<span class="bit par ${badC[c]?'bad':''}">${gCol[c]}</span>`;
   h+=`<span class="bit par">${gCorner}</span>`;
@@ -792,26 +826,24 @@ function drawG(){
   $('#g2d').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{g[+b.dataset.r][+b.dataset.c]^=1;drawG()}));
   const nr=badR.filter(Boolean).length,nc=badC.filter(Boolean).length,o=$('#g2Out');
   $('#g2Fix').disabled=!(nr===1&&nc===1);
-  if(!nr&&!nc){o.className='out good';o.textContent='All rows and columns check out.'}
-  else if(nr===1&&nc===1){const r=badR.indexOf(true),c=badC.indexOf(true);o.className='out bad';o.textContent=`Row ${r+1} and column ${c+1} disagree. The bad bit is where they cross. Press Fix it!`}
-  else{o.className='out bad';o.textContent=`${nr} rows and ${nc} columns disagree. Errors detected, but with more than one flip we can't always tell which bits to fix.`}
+  if(!nr&&!nc){o.className='out good';o.textContent='සියලුම පේළි සහ තීරු නිවැරදියි.'}
+  else if(nr===1&&nc===1){const r=badR.indexOf(true),c=badC.indexOf(true);o.className='out bad';o.textContent=`${r+1} වන පේළිය සහ ${c+1} වන තීරුව නොගැළපේ. ඒ දෙක හමුවන තැන වැරදි බිටුව ඇත. 'එය නිවැරදි කරන්න' ඔබන්න!`}
+  else{o.className='out bad';o.textContent=`පේළි ${nr} ක් සහ තීරු ${nc} ක් නොගැළපේ. දෝෂ හඳුනා ගත්තද බිටු එකකට වඩා වෙනස් වී ඇත.`}
 }
-$('#g2Flip').addEventListener('click',()=>{const r=rnd(4),c=rnd(4);g[r][c]^=1;drawG()});
+$('#g2Flip').addEventListener('click',()=>{g[rnd(4)][rnd(4)]^=1;drawG()});
 $('#g2Fix').addEventListener('click',()=>{
   const badR=g.map((r,i)=>parity(r)!==gRow[i]),badC=[0,1,2,3].map(c=>parity(g.map(r=>r[c]))!==gCol[c]);
   g[badR.indexOf(true)][badC.indexOf(true)]^=1;drawG();
-  $('#g2Out').textContent='Fixed without asking for a resend. That is error correction!';
-  award('errors','You corrected an error on the spot. No resend needed!');
+  $('#g2Out').textContent='නැවත ගෙන්වා ගැනීමකින් තොරව එතැනදීම නිවැරදි කළා (Forward Error Correction)!';
+  award('errors','ඔබ දෝෂයක් එතැනදීම නිවැරදි කළා!');
 });
-$('#g2New').addEventListener('click',newGrid);
-newGrid();
+$('#g2New').addEventListener('click',newGrid);newGrid();
 
-/* CRC */
 function crc(){
   const D=$('#crcD').value.trim(),G=$('#crcG').value.trim(),o=$('#crcOut'),w=$('#crcWork');
-  if(!/^[01]{1,20}$/.test(D)||!/^1[01]{1,7}$/.test(G)){o.className='out bad';o.textContent='Use only 0s and 1s. G must start with 1 and have 2 to 8 bits.';w.textContent='';return}
+  if(!/^[01]{1,20}$/.test(D)||!/^1[01]{1,7}$/.test(G)){o.className='out bad';o.textContent='0 සහ 1 පමණක් භාවිතා කරන්න. G අගය 1 න් ආරම්භ විය යුතුය.';w.textContent='';return}
   const r=G.length-1,a=(D+'0'.repeat(r)).split('').map(Number),gb=G.split('').map(Number);
-  let lines=[`D·2^${r} = ${a.join('')}   (D with ${r} zeros appended)`,''];
+  let lines=[`D·2^${r} = ${a.join('')}   (D අගට බිංදු ${r} ක් එක් කරන ලදී)`,''];
   for(let i=0;i<D.length;i++){
     if(!a[i])continue;
     const pad=' '.repeat(i);
@@ -821,16 +853,15 @@ function crc(){
     lines.push(`  ${'-'.repeat(a.length)}`);
   }
   const R=a.slice(-r).join('');
-  lines.push(`  ${a.slice(0,-r).join('')}<span class="r">${R}</span>   ← remainder R`);
+  lines.push(`  ${a.slice(0,-r).join('')}<span class="r">${R}</span>   ← ඉතිරිය (Remainder R)`);
   w.innerHTML=lines.join('\n');
-  o.className='out good';o.innerHTML=`R = <span class="mono">${R}</span>. The sender transmits <span class="mono">${D}${R}</span>, which divides exactly by G. If the receiver's division leaves anything but zero, an error happened.`;
+  o.className='out good';o.innerHTML=`R = <span class="mono">${R}</span>. යවන්නා <span class="mono">${D}${R}</span> සම්ප්‍රේෂණය කරයි. ලබන්නා එය G ගෙන් බෙදූ විට ඉතිරිය 0 නොවේ නම් දෝෂයක් සිදුවී ඇත.`;
 }
-$('#crcGo').addEventListener('click',()=>{crc();award('errors','CRC computed. Ethernet does this in hardware for every frame!')});
-crc();
+$('#crcGo').addEventListener('click',()=>{crc();award('errors','CRC ගණනය කළා!')});crc();
 
-/* ---------- 3. MAC sim ---------- */
+/* ---------- 3. MAC Sim & Backoff ---------- */
 const SLOTS=30;let simT=null;
-function lblLoad(v){return v>=.95?'busy':v>=.5?'steady':v>=.2?'light':'very light'}
+function lblLoad(v){return v>=.95?'කාර්යබහුලයි':v>=.5?'සාමාන්‍යයි':v>=.2?'අඩුයි':'ඉතා අඩුයි'}
 function syncSim(){
   $('#simNv').textContent=$('#simN').value;$('#simPv').textContent=(+$('#simP').value).toFixed(2);$('#simLv').textContent=lblLoad(+$('#simL').value);
   const al=$('#simProto').value==='aloha';$('#simPwrap').style.opacity=al?1:.4;$('#simP').disabled=!al;$('#stTheoryBox').hidden=!al;
@@ -851,13 +882,14 @@ function simulate(){
   }
   return {N,cols,p,proto};
 }
+const cNames=['අනුර','රනිල්','දනුජ','සමන්තභද්‍ර','මහින්ද','කාවන්තිස්ස'];
 function drawSim(sim,upto){
   const {N,cols}=sim,grid=$('#simGrid');
-  grid.style.gridTemplateColumns=`86px repeat(${SLOTS},minmax(14px,1fr))`;
+  grid.style.gridTemplateColumns=`96px repeat(${SLOTS},minmax(14px,1fr))`;
   let h='';
-  for(let i=0;i<N;i++){h+=`<div class="lbl">Carrier ${String.fromCharCode(65+i)}</div>`;
+  for(let i=0;i<N;i++){h+=`<div class="lbl">${cNames[i]}</div>`;
     for(let t=0;t<SLOTS;t++){const c=cols[t];let cls='cell';if(t<upto){if(c.tx.includes(i))cls+=c.res==='S'?' tx-s':' tx-c';if(sim.proto!=='aloha'&&c.own===i)cls+=' tok'}h+=`<div class="${cls}"></div>`}}
-  h+='<div class="lbl">Road</div>';
+  h+='<div class="lbl">මාර්ගය</div>';
   for(let t=0;t<SLOTS;t++){const c=cols[t];h+=t<upto?`<div class="cell ch-${c.res}">${c.res}</div>`:'<div class="cell"></div>'}
   grid.innerHTML=h;
   const done=cols.slice(0,upto),S=done.filter(c=>c.res==='S').length,C=done.filter(c=>c.res==='C').length,E=done.filter(c=>c.res==='E').length;
@@ -868,116 +900,121 @@ function runSim(animate){
   clearInterval(simT);syncSim();const sim=simulate();
   if(!animate||reduce){drawSim(sim,SLOTS);return}
   let k=0;$('#simGo').disabled=true;
-  simT=setInterval(()=>{k++;drawSim(sim,k);if(k>=SLOTS){clearInterval(simT);$('#simGo').disabled=false;award('sharing','You shared the road! Notice how collisions eat up slots.')}},110);
+  simT=setInterval(()=>{k++;drawSim(sim,k);if(k>=SLOTS){clearInterval(simT);$('#simGo').disabled=false;award('sharing','ඔබ සාර්ථකව මාර්ගය බෙදා ගත්තා!')}},90);
 }
 $('#simGo').addEventListener('click',()=>runSim(true));
 syncSim();runSim(false);
 
-/* backoff */
 let m=0;
 $('#boGo').addEventListener('click',()=>{
   m=Math.min(m+1,10);const range=2**m,K=rnd(range),bits=K*512;
   $('#boFill').style.width='100%';
   $('#boK').style.left=`calc(${(K+.5)/range*100}% - 3px)`;
   $('#boOut').className='out';
-  $('#boOut').innerHTML=`Collision #${m}${m===10?' (range stops growing after 10)':''}: pick K from {0, …, ${range-1}} (${range} choices) → K = <b>${K}</b>. Wait ${K} × 512 = <b>${bits.toLocaleString()}</b> bit times (${(bits/10).toLocaleString()} µs on 10 Mbps Ethernet).`;
-  if(m>=3)award('sharing','See how the waiting range doubles? That spreads carriers out.');
+  $('#boOut').innerHTML=`ගැටුම #${m}: {0, …, ${range-1}} අතරින් K තෝරයි → K = <b>${K}</b>. බිටු කාල ${K} × 512 = <b>${bits.toLocaleString()}</b> ක් බලා සිටියි.`;
+  if(m>=2)award('sharing','පසුබැසීමේ පරාසය දෙගුණ වන ආකාරය දුටුවාද?');
 });
-$('#boReset').addEventListener('click',()=>{m=0;$('#boFill').style.width='0';$('#boK').style.left='-10px';$('#boOut').className='out good';$('#boOut').textContent='Frame delivered. The collision counter goes back to zero.'});
+$('#boReset').addEventListener('click',()=>{m=0;$('#boFill').style.width='0';$('#boK').style.left='-10px';$('#boOut').className='out good';$('#boOut').textContent='රාමුව බෙදා හැරියා! ගැටුම් ගණකය නැවත 0 බවට පත් වේ.'});
 
-/* ---------- 4. ARP ---------- */
-const HOUSES=[{n:'A',ip:'137.196.7.23',mac:'71-65-F7-2B-08-53'},{n:'B',ip:'137.196.7.14',mac:'58-23-D7-FA-20-B0'},{n:'C',ip:'137.196.7.78',mac:'1A-2F-BB-76-09-AD'},{n:'D',ip:'137.196.7.88',mac:'0C-C4-11-6F-E3-98'}];
-$('#street').innerHTML=HOUSES.map((h,i)=>`<div class="house ${i===0?'me':''}" id="hs${i}"><h4>${h.n}${i===0?' (you)':''}</h4><div class="ip">${h.ip}</div><div class="mac">${h.mac}</div><div class="say" id="say${i}"></div></div>`).join('');
-$('#arpBtns').innerHTML=HOUSES.slice(1).map((h,i)=>`<button class="btn" data-t="${i+1}">Send to ${h.n} (${h.ip})</button>`).join('');
+/* ---------- 4. ARP & Subnet Stepper ---------- */
+const HOUSES=[
+  {n:'අනුර (A)',ip:'137.196.7.23',mac:'71-65-F7-2B-08-53'},
+  {n:'රනිල් (B)',ip:'137.196.7.14',mac:'58-23-D7-FA-20-B0'},
+  {n:'දනුජ (C)',ip:'137.196.7.78',mac:'1A-2F-BB-76-09-AD'},
+  {n:'සමන්තභද්‍ර (D)',ip:'137.196.7.88',mac:'0C-C4-11-6F-E3-98'}
+];
+$('#street').innerHTML=HOUSES.map((h,i)=>`<div class="house ${i===0?'me':''}" id="hs${i}"><h4>${h.n}</h4><div class="ip">${h.ip}</div><div class="mac">${h.mac}</div><div class="say" id="say${i}"></div></div>`).join('');
+$('#arpBtns').innerHTML=HOUSES.slice(1).map((h,i)=>`<button class="btn" data-t="${i+1}">${h.n} වෙත යවන්න</button>`).join('');
 const arpT=new Map();let arpBusy=false;
 function drawArp(){
   const rows=[...arpT.entries()];
-  $('#arpTable').innerHTML=rows.length?rows.map(([ip,e])=>`<tr><td>${ip}</td><td>${e.mac}</td><td>${e.ttl}</td></tr>`).join(''):'<tr><td colspan="3" style="font-family:var(--body);color:var(--muted)">A\'s ARP table is empty.</td></tr>';
+  $('#arpTable').innerHTML=rows.length?rows.map(([ip,e])=>`<tr><td>${ip}</td><td>${e.mac}</td><td>${e.ttl}</td></tr>`).join(''):'<tr><td colspan="3" style="font-family:var(--body);color:var(--muted)">අනුරගේ (A) ARP වගුව හිස්ය.</td></tr>';
 }
 setInterval(()=>{let ch=false;for(const [ip,e] of arpT){e.ttl--;ch=true;if(e.ttl<=0)arpT.delete(ip)}if(ch)drawArp()},1000);
 function resetHouses(){HOUSES.forEach((h,i)=>{$('#hs'+i).className='house'+(i===0?' me':'');$('#say'+i).textContent=''})}
 const wait=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,150):ms));
-document.querySelectorAll('#arpBtns button').forEach(b=>b.addEventListener('click',async()=>{
+$$('#arpBtns button').forEach(b=>b.addEventListener('click',async()=>{
   if(arpBusy)return;const t=+b.dataset.t,T=HOUSES[t],o=$('#arpOut');resetHouses();
-  if(arpT.has(T.ip)){o.className='out good';o.textContent=`${T.ip} is already in A's ARP table → ${arpT.get(T.ip).mac}. No need to ask. The frame goes straight out.`;$('#hs'+t).classList.add('reply');$('#say'+t).textContent='Got your letter!';return}
+  if(arpT.has(T.ip)){o.className='out good';o.textContent=`${T.ip} දැනටමත් ARP වගුවේ ඇත → ${arpT.get(T.ip).mac}. කෙලින්ම යවයි!`;$('#hs'+t).classList.add('reply');$('#say'+t).textContent='ලිපිය ලැබුණා!';return}
   arpBusy=true;o.className='out';
-  $('#say0').textContent=`Who has ${T.ip}? Tell ${HOUSES[0].ip}`;
-  o.innerHTML=`<b>1. ARP query, broadcast.</b> A doesn't know ${T.n}'s MAC, so the frame goes to <span class="mono">FF-FF-FF-FF-FF-FF</span>. Everyone on the street hears it.`;
+  $('#say0').textContent=`${T.ip} කාගේද?`;
+  o.innerHTML=`<b>1. ARP විමසුම (Broadcast):</b> අනුර <span class="mono">FF-FF-FF-FF-FF-FF</span> වෙත විකාශනය කරයි. වීදියේ සියලු දෙනාටම එය ඇසේ.`;
   HOUSES.forEach((h,i)=>{if(i)$('#hs'+i).classList.add('hear')});
-  await wait(1700);
-  HOUSES.forEach((h,i)=>{if(i&&i!==t){$('#hs'+i).className='house quiet';$('#say'+i).textContent='Not me. Ignored.'}});
-  $('#hs'+t).className='house reply';$('#say'+t).textContent=`That's me! My MAC is ${T.mac}`;
-  o.innerHTML=`<b>2. ARP reply, sent only to A</b> (to <span class="mono">${HOUSES[0].mac}</span>). ${T.n} answers with its MAC address.`;
-  await wait(1700);
+  await wait(1400);
+  HOUSES.forEach((h,i)=>{if(i&&i!==t){$('#hs'+i).className='house quiet';$('#say'+i).textContent='මම නොවේ.'}});
+  $('#hs'+t).className='house reply';$('#say'+t).textContent=`ඒ මමයි! MAC: ${T.mac}`;
+  o.innerHTML=`<b>2. ARP පිළිතුර (Unicast):</b> ${T.n} තම MAC ලිපිනය අනුරට පමණක් එවයි.`;
+  await wait(1400);
   arpT.set(T.ip,{mac:T.mac,ttl:20});drawArp();
-  $('#say0').textContent=`Saved ${T.n}'s MAC. Sending!`;
-  o.className='out good';o.innerHTML=`<b>3. Saved in A's ARP table for 20 minutes.</b> ARP is plug-and-play: no admin set anything up. Try sending to ${T.n} again before the TTL runs out.`;
-  arpBusy=false;award('arp','ARP solved! IP address in, MAC address out.');
+  $('#say0').textContent=`MAC ලිපිනය සුරැකුවා!`;
+  o.className='out good';o.innerHTML=`<b>3. අනුරගේ ARP වගුවේ සුරැකුණි!</b> දැන් නැවතත් ${T.n} වෙත යවා බලන්න.`;
+  arpBusy=false;award('arp','ARP ගැටලුව විසඳුවා!');
 }));
 
-/* subnet stepper */
 const SUB=[
- {at:'h0',t:'A writes the letter: an IP datagram from A to B.',mac:null},
- {at:'h0',t:'A wraps it in a frame. B is on another subnet, so the frame goes to the router\'s MAC (A found it with ARP).',mac:['74-29-9C-E8-FF-55','E6-E9-00-17-BB-4B'],chg:true},
- {at:'w0',t:'The frame travels across the first link, A → R.',mac:['74-29-9C-E8-FF-55','E6-E9-00-17-BB-4B']},
- {at:'h1',t:'R opens the envelope, reads the IP letter, and picks the outgoing interface toward B.',mac:null},
- {at:'h1',t:'R wraps the same letter in a brand-new frame: from R\'s right interface to B\'s MAC.',mac:['1A-23-F9-CD-06-9B','49-BD-D2-C7-56-2A'],chg:true},
- {at:'w1',t:'The new frame travels across the second link, R → B.',mac:['1A-23-F9-CD-06-9B','49-BD-D2-C7-56-2A']},
- {at:'h2',t:'B opens the envelope and passes the datagram up to IP. The IP addresses never changed along the way!',mac:null}];
+ {at:'h0',t:'අනුර (A) රනිල් (B) වෙත IP ඩේටාග්‍රෑමය (ලිපිය) ලියයි.',mac:null},
+ {at:'h0',t:'රනිල් වෙනත් උපජාලයක සිටින නිසා අනුර රාමුවේ ලබන්නා ලෙස මහින්දගේ රවුටරයේ (R) වම් MAC ලිපිනය යොදයි.',mac:['74-29-9C-E8-FF-55','E6-E9-00-17-BB-4B'],chg:true},
+ {at:'w0',t:'රාමුව පළමු සබැඳිය හරහා A → R වෙත ගමන් කරයි.',mac:['74-29-9C-E8-FF-55','E6-E9-00-17-BB-4B']},
+ {at:'h1',t:'රවුටරය (R) කවරය විවෘත කර, IP ලිපිනය කියවා, දකුණු පස අතුරුමුහුණත තෝරා ගනී.',mac:null},
+ {at:'h1',t:'රවුටරය එම IP ලිපියම අලුත්ම MAC කවරයක බහාලයි: R හි දකුණු MAC ලිපිනයේ සිට රනිල්ගේ (B) MAC ලිපිනය වෙත.',mac:['1A-23-F9-CD-06-9B','49-BD-D2-C7-56-2A'],chg:true},
+ {at:'w1',t:'නව රාමුව දෙවන සබැඳිය හරහා R → B වෙත ගමන් කරයි.',mac:['1A-23-F9-CD-06-9B','49-BD-D2-C7-56-2A']},
+ {at:'h2',t:'රනිල් (B) කවරය විවෘත කර ලිපිය ලබා ගනී. මුළු ගමන පුරාම IP ලිපින වෙනස් වූයේ නැත!',mac:null}
+];
 let sub=0;
 function drawSub(){
   const s=SUB[sub];['h0','h1','h2','w0','w1'].forEach(id=>$('#'+id).classList.toggle('at',id===s.at));
-  const letter=`<div class="letter"><b>IP datagram</b><br>IP src 111.111.111.111 → IP dest 222.222.222.222</div>`;
-  $('#subEnv').style.background=s.mac?'':'transparent';$('#subEnv').style.borderColor=s.mac?'':'transparent';$('#subEnv').style.boxShadow=s.mac?'':'none';
+  const letter=`<div class="letter"><b>IP ඩේටාග්‍රෑමය</b><br>IP src 111.111.111.111 (අනුර) → IP dest 222.222.222.222 (රනිල්)</div>`;
+  $('#subEnv').style.background=s.mac?'':'transparent';$('#subEnv').style.borderColor=s.mac?'':'transparent';
   $('#subEnv').innerHTML=s.mac?`<div class="envline"><span class="${s.chg?'chg':''}">MAC src ${s.mac[0]}</span><span class="${s.chg?'chg':''}">MAC dest ${s.mac[1]}</span></div>${letter}`:letter;
-  $('#subText').textContent=`Step ${sub+1}: ${s.t}`;
-  $('#subPrev').disabled=sub===0;$('#subNext').textContent=sub===SUB.length-1?'Start over':'Next step';
+  $('#subText').textContent=`පියවර ${sub+1}: ${s.t}`;
+  $('#subPrev').disabled=sub===0;$('#subNext').textContent=sub===SUB.length-1?'මුල සිට':'ඊළඟ පියවර';
   $('#subDots').innerHTML=SUB.map((x,i)=>`<i class="${i<=sub?'on':''}"></i>`).join('');
 }
-$('#subNext').addEventListener('click',()=>{if(sub===SUB.length-1){sub=0}else{sub++;if(sub===SUB.length-1)award('arp','Same letter, new envelope at every hop. You got it!')}drawSub()});
+$('#subNext').addEventListener('click',()=>{if(sub===SUB.length-1)sub=0;else{sub++;if(sub===SUB.length-1)award('arp','සෑම පියවරකදීම අලුත් MAC කවරයක්!')}drawSub()});
 $('#subPrev').addEventListener('click',()=>{sub=Math.max(0,sub-1);drawSub()});
 drawSub();
 
-/* ---------- 5. Ethernet frame ---------- */
+/* ---------- 5. Ethernet Frame ---------- */
 const EF=[
- ['Preamble','8 bytes','Seven bytes of 10101010 and one byte of 10101011. Like a carrier knocking in a steady rhythm so the receiver can sync its clock, then a final knock that says "letter starts now".'],
- ['Dest MAC','6 bytes','Who it\'s for. If it matches the NIC\'s own address, or it\'s a broadcast like an ARP query, the NIC passes it up. Otherwise the NIC throws it away.'],
- ['Source MAC','6 bytes','The return address of the sending interface. Switches learn from this field.'],
- ['Type','2 bytes','Which upper-layer protocol is inside: usually IP, but others exist (e.g. Novell IPX, AppleTalk). The receiver uses it to hand the letter to the right reader (demultiplexing).'],
- ['Data (payload)','46–1500 bytes','The IP datagram itself: the letter inside the envelope.'],
- ['CRC','4 bytes','The tamper seal. The receiver recomputes the CRC. If it doesn\'t match, the frame is dropped silently.']];
+ ['Preamble','බයිට් 8','10101010 බයිට් හතක් සහ 10101011 බයිට් එකක්. ලබන්නාගේ ඔරලෝසුව සමමුහුර්ත (sync) කිරීමට භාවිතා වේ.'],
+ ['Dest MAC','බයිට් 6','ලබන්නාගේ MAC ලිපිනය.'],
+ ['Source MAC','බයිට් 6','යවන්නාගේ MAC ලිපිනය. ස්විචයන් ඉගෙන ගන්නේ මෙම කොටසෙනි.'],
+ ['Type','බයිට් 2','ඇතුළත ඇති ඉහළ ස්ථර ප්‍රොටෝකෝලය කුමක්ද යන්න (බොහෝ විට IP).'],
+ ['Data (Payload)','බයිට් 46–1500','IP ඩේටාග්‍රෑමය (ලිපිය).'],
+ ['CRC','බයිට් 4','දෝෂ පරීක්ෂණ මුද්‍රාව. දෝෂයක් තිබුණහොත් රාමුව නිහඬවම ඉවත දමයි.']
+];
 $('#eframe').innerHTML=EF.map((f,i)=>`<button class="ef ${i===4?'data':''}" data-i="${i}" aria-pressed="false"><b>${f[0]}</b><small>${f[1]}</small></button>`).join('');
 const seenEF=new Set();
-function ef(i){document.querySelectorAll('.ef').forEach(b=>b.setAttribute('aria-pressed',b.dataset.i==i));$('#efOut').innerHTML=`<b>${EF[i][0]} (${EF[i][1]}):</b> ${EF[i][2]}`;seenEF.add(i);if(seenEF.size>=4)award('ethernet','You know your way around an Ethernet envelope now!')}
-document.querySelectorAll('.ef').forEach(b=>b.addEventListener('click',()=>ef(+b.dataset.i)));
-ef(1);seenEF.clear();
+function ef(i){$$('.ef').forEach(b=>b.setAttribute('aria-pressed',b.dataset.i==i));$('#efOut').innerHTML=`<b>${EF[i][0]} (${EF[i][1]}):</b> ${EF[i][2]}`;seenEF.add(i);if(seenEF.size>=3)award('ethernet','ඔබ Ethernet රාමුවේ කොටස් හඳුනා ගත්තා!')}
+$$('.ef').forEach(b=>b.addEventListener('click',()=>ef(+b.dataset.i)));ef(1);seenEF.clear();
 
 /* ---------- 6. Switch ---------- */
-const SH=['A','B','C','D','E','F'].map((n,i)=>({n,port:i+1,mac:['AA','BB','CC','DD','EE','FF'][i]+'-11-22-33-44-0'+(i+1)}));
+const sNames=['අනුර (A)','රනිල් (B)','දනුජ (C)','සමන්තභද්‍ර (D)','මහින්ද (E)','කාවන්තිස්ස (F)'];
+const SH=['A','B','C','D','E','F'].map((n,i)=>({n,lbl:sNames[i],port:i+1,mac:['AA','BB','CC','DD','EE','FF'][i]+'-11-22-33-44-0'+(i+1)}));
 let swTab=new Map(),swClock=0;
+function hostCard(h){return `<div class="sw-host" id="sh${h.n}"><h4>${h.lbl} <span class="tag">පෝට් ${h.port}</span></h4><div class="mono">${h.mac}</div><div class="st" id="st${h.n}"></div></div>`}
 $('#swTop').innerHTML=SH.slice(0,3).map(h=>hostCard(h)).join('');
 $('#swBot').innerHTML=SH.slice(3).map(h=>hostCard(h)).join('');
-function hostCard(h){return `<div class="sw-host" id="sh${h.n}"><h4>${h.n} <span class="tag">port ${h.port}</span></h4><div class="mono">${h.mac}</div><div class="st" id="st${h.n}"></div></div>`}
 $('#swPorts').innerHTML=SH.map(h=>`<span class="port" id="pt${h.port}">${h.port}</span>`).join('');
-$('#swFrom').innerHTML=SH.map(h=>`<option>${h.n}</option>`).join('');
-$('#swTo').innerHTML=SH.map((h,i)=>`<option ${i===3?'selected':''}>${h.n}</option>`).join('');
-function drawSwT(){const r=[...swTab.entries()];$('#swTable').innerHTML=r.length?r.map(([mac,e])=>`<tr><td>${mac} (${e.n})</td><td>${e.port}</td><td>t=${e.t}</td></tr>`).join(''):'<tr><td colspan="3" style="font-family:var(--body);color:var(--muted)">Empty. The switch knows nothing yet.</td></tr>'}
+$('#swFrom').innerHTML=SH.map(h=>`<option value="${h.n}">${h.lbl}</option>`).join('');
+$('#swTo').innerHTML=SH.map((h,i)=>`<option value="${h.n}" ${i===3?'selected':''}>${h.lbl}</option>`).join('');
+function drawSwT(){const r=[...swTab.entries()];$('#swTable').innerHTML=r.length?r.map(([mac,e])=>`<tr><td>${mac} (${e.n})</td><td>${e.port}</td><td>t=${e.t}</td></tr>`).join(''):'<tr><td colspan="3" style="font-family:var(--body);color:var(--muted)">හිස්ය. ස්විචය තවම කිසිවක් දන්නේ නැත.</td></tr>'}
 function swLog(t){const d=document.createElement('div');d.innerHTML=t;$('#swLog').prepend(d)}
 $('#swGo').addEventListener('click',()=>{
   const s=SH.find(h=>h.n===$('#swFrom').value),d=SH.find(h=>h.n===$('#swTo').value);
   SH.forEach(h=>{$('#sh'+h.n).className='sw-host';$('#st'+h.n).textContent='';$('#pt'+h.port).className='port'});
-  if(s===d){swLog('A host can\'t send to itself here. Pick two different hosts.');return}
+  if(s===d){swLog('කරුණාකර වෙනස් උපාංග දෙකක් තෝරන්න.');return}
   swClock++;
   const learned=!swTab.has(s.mac);swTab.set(s.mac,{port:s.port,n:s.n,t:swClock});drawSwT();
-  $('#sh'+s.n).classList.add('src');$('#st'+s.n).textContent='Sent the frame';$('#pt'+s.port).classList.add('in');
+  $('#sh'+s.n).classList.add('src');$('#st'+s.n).textContent='රාමුව යැව්වා';$('#pt'+s.port).classList.add('in');
   const e=swTab.get(d.mac);
   if(e&&e.port!==s.port){
-    $('#sh'+d.n).classList.add('got');$('#st'+d.n).textContent='Received ✓';$('#pt'+d.port).classList.add('lit');
-    swLog(`<b>${s.n} → ${d.n}:</b> ${learned?`learned ${s.n} is on port ${s.port}. `:''}${d.n} is in the table (port ${e.port}), so the frame goes out <b>only port ${e.port}</b>.`);
-    award('switches','Selective forwarding! The switch learned where that host lives.');
+    $('#sh'+d.n).classList.add('got');$('#st'+d.n).textContent='ලැබුණා ✓';$('#pt'+d.port).classList.add('lit');
+    swLog(`<b>${s.n} → ${d.n}:</b> ${d.n} වගුවේ ඇත (පෝට් ${e.port}), එබැවින් රාමුව යන්නේ <b>පෝට් ${e.port} වෙත පමණි</b>.`);
+    award('switches','ස්විචය නිවැරදි පෝට් එක ඉගෙන ගත්තා!');
   }else{
-    SH.forEach(h=>{if(h!==s){$('#pt'+h.port).classList.add('lit');if(h===d){$('#sh'+h.n).classList.add('got');$('#st'+h.n).textContent='Received ✓'}else{$('#sh'+h.n).classList.add('copy');$('#st'+h.n).textContent='Got a copy, not mine'}}});
-    swLog(`<b>${s.n} → ${d.n}:</b> ${learned?`learned ${s.n} is on port ${s.port}. `:''}${d.n} is unknown, so the switch <b>floods</b> every port except ${s.port}.`);
+    SH.forEach(h=>{if(h!==s){$('#pt'+h.port).classList.add('lit');if(h===d){$('#sh'+h.n).classList.add('got');$('#st'+h.n).textContent='ලැබුණා ✓'}else{$('#sh'+h.n).classList.add('copy');$('#st'+h.n).textContent='පිටපතක් ලැබුණි (නොසලකා හරියි)'}}});
+    swLog(`<b>${s.n} → ${d.n}:</b> ${s.n} පෝට් ${s.port} හි සිටින බව ඉගෙන ගත්තා. ${d.n} සිටින තැන නොදන්නා නිසා සියලුම පෝට්වලට යවයි (<b>Floods</b>).`);
   }
 });
 $('#swReset').addEventListener('click',()=>{swTab.clear();swClock=0;drawSwT();$('#swLog').innerHTML='';SH.forEach(h=>{$('#sh'+h.n).className='sw-host';$('#st'+h.n).textContent='';$('#pt'+h.port).className='port'})});
@@ -986,106 +1023,107 @@ drawSwT();
 /* ---------- 7. VLAN ---------- */
 const VP=Array.from({length:12},(_,i)=>i<6?'EE':'CS');
 function drawV(hit){
-  $('#vports').innerHTML=VP.map((v,i)=>{let c='vport '+v;if(hit){if(hit.has(i))c+=' hit';else if(hit.src!==i)c+=' dim'}return `<button class="${c}" data-i="${i}" aria-label="port ${i+1}, ${v} VLAN">${i+1}</button>`}).join('');
-  $('#vports').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;VP[i]=VP[i]==='EE'?'CS':'EE';drawV();$('#vOut').className='out';$('#vOut').textContent=`Port ${i+1} moved to the ${VP[i]} VLAN. No cables touched, just switch software.`}));
+  $('#vports').innerHTML=VP.map((v,i)=>{let c='vport '+v;if(hit){if(hit.has(i))c+=' hit';else if(hit.src!==i)c+=' dim'}return `<button class="${c}" data-i="${i}">${i+1}<br><small>${v}</small></button>`}).join('');
+  $('#vports').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;VP[i]=VP[i]==='EE'?'CS':'EE';drawV();$('#vOut').className='out';$('#vOut').textContent=`පෝට් ${i+1} දැන් ${VP[i]} VLAN වෙත මාරු කරන ලදී.`}));
 }
-$('#vFrom').innerHTML=VP.map((v,i)=>`<option value="${i}">Port ${i+1}</option>`).join('');
+$('#vFrom').innerHTML=VP.map((v,i)=>`<option value="${i}">පෝට් ${i+1}</option>`).join('');
 $('#vGo').addEventListener('click',()=>{
   const s=+$('#vFrom').value,hit=new Set();VP.forEach((v,i)=>{if(i!==s&&v===VP[s])hit.add(i)});hit.src=s;drawV(hit);
-  $('#vOut').className='out good';$('#vOut').textContent=`Broadcast from port ${s+1} (${VP[s]}) reached ${hit.size} port${hit.size===1?'':'s'}: ${[...hit].map(i=>i+1).join(', ')||'none'}. The ${VP[s]==='EE'?'CS':'EE'} ports never saw it.`;
-  award('vlans','Two LANs, one box. Broadcasts stay inside their VLAN.');
+  $('#vOut').className='out good';$('#vOut').textContent=`පෝට් ${s+1} (${VP[s]}) වෙතින් යැවූ විකාශනය ${VP[s]} පෝට් (${[...hit].map(i=>i+1).join(', ')}) වෙත පමණක් ලැබුණි!`;
+  award('vlans','විකාශන තම VLAN එක තුළ පමණක් රැඳේ!');
 });
 drawV();
 
-/* ---------- 8. MPLS ---------- */
+/* ---------- 8. MPLS & Data Center ---------- */
 const NP={A:[30,60],B:[30,160],R1:[120,110],R2:[220,50],R3:[340,50],R4:[220,170],R5:[340,170],R6:[440,110],D:[530,110]};
 const EDGES=[['A','R1'],['B','R1'],['R1','R2'],['R2','R3'],['R3','R6'],['R1','R4'],['R4','R5'],['R5','R6'],['R6','D']];
 const MODES={
- ip:{a:['A','R1','R2','R3','R6','D'],b:['B','R1','R2','R3','R6','D'],t:'Plain IP: the path depends only on the destination D, so both flows squeeze onto the same top path while the bottom path sits idle.'},
- te:{a:['A','R1','R2','R3','R6','D'],b:['B','R1','R4','R5','R6','D'],t:'MPLS: R1 labels each flow differently. A\'s flow takes the top path and B\'s flow takes the bottom path. This is traffic engineering, using source and destination.'},
- fr:{a:['A','R1','R4','R5','R6','D'],b:['B','R1','R4','R5','R6','D'],broken:'R2-R3',t:'The R2–R3 link failed. MPLS already had a backup path computed, so traffic switches to the bottom route right away (fast reroute).'}};
+ ip:{a:['A','R1','R2','R3','R6','D'],b:['B','R1','R2','R3','R6','D'],t:'සාමාන්‍ය IP: ගමනාන්තය (D) දෙස පමණක් බලන නිසා ප්‍රවාහ දෙකම ඉහළ මාර්ගයෙන්ම යවන අතර පහළ මාර්ගය හිස්ව පවතී.'},
+ te:{a:['A','R1','R2','R3','R6','D'],b:['B','R1','R4','R5','R6','D'],t:'MPLS Traffic Engineering: R1 විසින් ලේබල් භාවිතා කර අනුරගේ (A) ප්‍රවාහය ඉහළ මාර්ගයෙන්ද, රනිල්ගේ (B) ප්‍රවාහය පහළ මාර්ගයෙන්ද යවයි.'},
+ fr:{a:['A','R1','R4','R5','R6','D'],b:['B','R1','R4','R5','R6','D'],broken:'R2-R3',t:'R2–R3 සබැඳිය බිඳ වැටුණි! MPLS කලින්ම සූදානම් කර තිබූ පහළ උපස්ථ මාර්ගයට ක්ෂණිකව මාරු වේ (Fast Reroute).'}
+};
 function pts(path,off){return path.map(n=>`${NP[n][0]+off},${NP[n][1]+off}`).join(' ')}
-const mplsSeen=new Set();
 function drawM(mode){
   const M=MODES[mode];let h='';
   EDGES.forEach(([a,b])=>{const br=M.broken===a+'-'+b;h+=`<line class="edge ${br?'broken':''}" x1="${NP[a][0]}" y1="${NP[a][1]}" x2="${NP[b][0]}" y2="${NP[b][1]}"/>`;
-    if(br){const x=(NP[a][0]+NP[b][0])/2,y=NP[a][1];h+=`<text x="${x}" y="${y-14}" text-anchor="middle" style="fill:var(--red);font:700 13px var(--body)">link down</text>`}});
+    if(br){const x=(NP[a][0]+NP[b][0])/2,y=NP[a][1];h+=`<text x="${x}" y="${y-14}" text-anchor="middle" style="fill:var(--red);font:700 12px var(--body)">සබැඳිය බිඳ වැටුණි</text>`}});
   h+=`<polyline class="flowA" points="${pts(M.a,-4)}"/><polyline class="flowB" points="${pts(M.b,4)}"/>`;
   Object.entries(NP).forEach(([n,[x,y]])=>{
-    if(n.length===1)h+=`<g class="node host"><rect x="${x-16}" y="${y-13}" width="32" height="26" rx="5"/><text x="${x}" y="${y}" style="fill:var(--paper-ink);font-family:var(--display);font-size:14px;font-weight:600;text-anchor:middle;dominant-baseline:central">${n}</text></g>`;
+    if(n.length===1)h+=`<g class="node host"><rect x="${x-16}" y="${y-13}" width="32" height="26" rx="5"/><text x="${x}" y="${y}" style="fill:var(--paper-ink);font-family:var(--display);font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:central">${n}</text></g>`;
     else h+=`<g class="node"><circle cx="${x}" cy="${y}" r="19"/><text x="${x}" y="${y}">${n}</text></g>`});
   $('#mplsSvg').innerHTML=h;$('#mplsOut').textContent=M.t;
-  document.querySelectorAll('#mplsBtns button').forEach(b=>b.classList.toggle('ghost',b.dataset.m!==mode));
-  mplsSeen.add(mode);
+  $$('#mplsBtns button').forEach(b=>b.classList.toggle('ghost',b.dataset.m!==mode));
 }
-document.querySelectorAll('#mplsBtns button').forEach(b=>b.addEventListener('click',()=>{drawM(b.dataset.m);if(mplsSeen.size===3)award('mpls','Labels, not addresses. That\'s MPLS!')}));
-drawM('ip');mplsSeen.clear();mplsSeen.add('ip');
+$$('#mplsBtns button').forEach(b=>b.addEventListener('click',()=>{drawM(b.dataset.m);award('mpls','MPLS ලේබල් මංගත කිරීම අත්හදා බැලුවා!')}));
+drawM('ip');
 
-/* datacenter */
-const DC=[['Internet',['Internet']],['Load balancer',['LB']],['Tier-1 switches',['T1-a','T1-b']],['Tier-2 switches',['T2-a','T2-b','T2-c','T2-d']],['Top-of-rack switches',['TOR1','TOR2','TOR3','TOR4']],['Server racks',['Rack 1','Rack 2','Rack 3','Rack 4']]];
+const DC=[['අන්තර්ජාලය',['Internet']],['භාර තුලනය (Load Balancer)',['LB']],['Tier-1 ස්විච',['T1-a','T1-b']],['Tier-2 ස්විච',['T2-a','T2-b','T2-c','T2-d']],['Top-of-Rack (TOR) ස්විච',['TOR1','TOR2','TOR3','TOR4']],['සේවාදායක රාක්ක (Racks)',['රාක්ක 1','රාක්ක 2','රාක්ක 3','රාක්ක 4']]];
 $('#dc').innerHTML=DC.map(([l,ns],ti)=>`<div class="dc-tier"><span class="lab-n">${l}</span>${ns.map((n,i)=>`<span class="dcn ${ti===5?'rack':''}" id="dc${ti}-${i}">${n}</span>`).join('')}</div>`).join('');
 let dcN=0;
 $('#dcGo').addEventListener('click',()=>{
-  document.querySelectorAll('.dcn').forEach(e=>e.classList.remove('on'));
+  $$('.dcn').forEach(e=>e.classList.remove('on'));
   const t1=rnd(2),t2=rnd(4),r=rnd(4);const path=[[0,0],[1,0],[2,t1],[3,t2],[4,r],[5,r]];
-  path.forEach(([a,b],k)=>setTimeout(()=>$(`#dc${a}-${b}`).classList.add('on'),reduce?0:k*160));
+  path.forEach(([a,b],k)=>setTimeout(()=>$(`#dc${a}-${b}`).classList.add('on'),reduce?0:k*140));
   dcN++;
-  $('#dcOut').textContent=`Request ${dcN}: Internet → load balancer → ${DC[2][1][t1]} → ${DC[3][1][t2]} → ${DC[4][1][r]} → ${DC[5][1][r]}. Send another and it may take a different path.`;
-  if(dcN>=2)award('mpls','Many paths, no bottleneck. That\'s a data center fabric.');
+  $('#dcOut').textContent=`ඉල්ලීම ${dcN}: Internet → LB → ${DC[2][1][t1]} → ${DC[3][1][t2]} → ${DC[4][1][r]} → ${DC[5][1][r]}.`;
+  award('mpls','දත්ත මධ්‍යස්ථානය හරහා ඉල්ලීමක් යැව්වා!');
 });
 
 /* ---------- 9. Day in the life ---------- */
 const DAY=[
- {t:'Plug in: "I just moved in!"',m:'The new laptop has no address yet. It shouts to the whole street: "Can someone give me an address?"',x:'The laptop needs its IP address, the first-hop router\'s address and the DNS server\'s address, so it runs DHCP. The request is broadcast (dest FF-FF-FF-FF-FF-FF) and reaches the router running the DHCP server.',n:[['Ethernet frame','to FF-FF-FF-FF-FF-FF'],['IP datagram','to 255.255.255.255'],['UDP segment','port 67'],['DHCP request','']]},
- {t:'DHCP ACK: keys to the new house',m:'The post office replies: "Your address is 68.80.2.x, your local post office is the router, and directory help is the DNS server."',x:'The DHCP ACK carries the client IP, the first-hop router IP, and the DNS server\'s name and IP. On its way back, the switch learns which port the laptop is on.',n:[['Ethernet frame','to laptop MAC'],['IP datagram',''],['UDP segment',''],['DHCP ACK','IP, router, DNS']]},
- {t:'ARP: what\'s the router\'s MAC?',m:'Before mailing anything out of the neighbourhood, the laptop needs the router\'s ID number, so it asks the street.',x:'To send a DNS query, the frame must go to the router\'s interface MAC. The laptop broadcasts an ARP query; the router replies with its MAC.',n:[['Ethernet frame','to FF-FF-FF-FF-FF-FF'],['ARP query','who has the router IP?']]},
- {t:'DNS: look up the address',m:'"What is the street address of www.google.com?" The question travels out to the directory office and back.',x:'The DNS query goes through the LAN switch to the router, into the Comcast network, and is routed (by tables built with OSPF, IS-IS, RIP and BGP) to the DNS server. The reply says 64.233.169.105.',n:[['Ethernet frame','to router MAC'],['IP datagram','to DNS server'],['UDP segment','port 53'],['DNS query','www.google.com?']]},
- {t:'TCP: shake hands first',m:'Before sending the real letter, the laptop and Google agree to correspond: hello, hello back, great.',x:'The client opens a TCP socket to 64.233.169.105. The SYN is routed between domains to the web server, which answers SYNACK. Connection established.',n:[['Ethernet frame','to router MAC'],['IP datagram','to 64.233.169.105'],['TCP segment','SYN']]},
- {t:'HTTP: the actual request',m:'Now the real letter goes out: "Please send me your home page."',x:'The HTTP GET is sent into the TCP socket, wrapped in IP, routed to Google. The web server sends back an HTTP reply containing the page.',n:[['Ethernet frame','to router MAC'],['IP datagram','to 64.233.169.105'],['TCP segment','port 80'],['HTTP request','GET /']]},
- {t:'The page shows up!',m:'Mail delivered. Every carrier on every hop did its part, and the laptop never had to think about any of them.',x:'Application, transport, network and link layers all worked together. The journey down the protocol stack is complete.',n:[['Web page on screen','']]}];
+ {t:'1. ජාලයට සම්බන්ධ වීම (DHCP Request)',m:'අනුරගේ අලුත් ලැප්ටොප් පරිගණකයට තවම ලිපිනයක් නැත. එය DHCP ඉල්ලීමක් මුළු වීදියටම විකාශනය කරයි.',x:'ලැප්ටොප් එකට තම IP ලිපිනය, පළමු රවුටරයේ IP ලිපිනය සහ DNS සේවාදායකයේ ලිපිනය ලබා ගැනීමට DHCP ක්‍රියාත්මක කරයි (FF-FF-FF-FF-FF-FF).',n:[['Ethernet රාමුව','FF-FF-FF-FF-FF-FF වෙත'],['IP ඩේටාග්‍රෑමය','255.255.255.255 වෙත'],['UDP කොටස','port 67'],['DHCP ඉල්ලීම','']]},
+ {t:'2. DHCP ACK: නව නිවසේ යතුරු ලැබීම',m:'රවුටරයේ ඇති DHCP සේවාදායකය අනුරට IP ලිපිනය, රවුටරයේ ලිපිනය සහ DNS ලිපිනය ලබා දෙයි.',x:'DHCP ACK පණිවිඩය ආපසු එන විට ස්විචය අනුරගේ ලැප්ටොප් එක සම්බන්ධ වී ඇති පෝට් එකද ඉගෙන ගනී.',n:[['Ethernet රාමුව','අනුරගේ MAC වෙත'],['IP ඩේටාග්‍රෑමය',''],['UDP කොටස','port 68'],['DHCP ACK','IP, Gateway, DNS']]},
+ {t:'3. ARP: රවුටරයේ MAC ලිපිනය කුමක්ද?',m:'DNS විමසුම පිටතට යැවීමට පෙර අනුරට පළමු රවුටරයේ MAC ලිපිනය අවශ්‍ය වේ.',x:'අනුර ARP විමසුමක් විකාශනය කරන අතර රවුටරය තම MAC ලිපිනයෙන් පිළිතුරු දෙයි.',n:[['Ethernet රාමුව','FF-FF-FF-FF-FF-FF වෙත'],['ARP විමසුම','රවුටරයේ IP ඇත්තේ කාටද?']]},
+ {t:'4. DNS: www.google.com හි ලිපිනය සෙවීම',m:'අනුර DNS සේවාදායකයෙන් www.google.com හි IP ලිපිනය විමසයි.',x:'රවුටරය හරහා DNS සේවාදායකයට යන විමසුමට පිළිතුර ලෙස 64.233.169.105 ලැබේ.',n:[['Ethernet රාමුව','රවුටරයේ MAC වෙත'],['IP ඩේටාග්‍රෑමය','DNS සේවාදායකය වෙත'],['UDP කොටස','port 53'],['DNS විමසුම','www.google.com?']]},
+ {t:'5. TCP: පළමුව අතට අත දීම (3-Way Handshake)',m:'සැබෑ වෙබ් ඉල්ලීම යැවීමට පෙර අනුරගේ බ්‍රව්සරය Google සේවාදායකය සමඟ TCP සම්බන්ධතාවයක් පිහිටුවයි.',x:'TCP SYN යවා SYNACK ලබා ගැනීමෙන් සම්බන්ධතාවය ස්ථාපිත වේ.',n:[['Ethernet රාමුව','රවුටරයේ MAC වෙත'],['IP ඩේටාග්‍රෑමය','64.233.169.105 වෙත'],['TCP කොටස','SYN (port 80)']]},
+ {t:'6. HTTP: සැබෑ වෙබ් පිටු ඉල්ලීම',m:'දැන් අනුර "කරුණාකර මට ඔබේ මුල් පිටුව එවන්න" යැයි HTTP GET ඉල්ලීම යවයි.',x:'HTTP GET ඉල්ලීම TCP තුළ, IP තුළ සහ Ethernet තුළ ඔතා Google වෙත යවනු ලැබේ.',n:[['Ethernet රාමුව','රවුටරයේ MAC වෙත'],['IP ඩේටාග්‍රෑමය','64.233.169.105 වෙත'],['TCP කොටස','port 80'],['HTTP ඉල්ලීම','GET /']]},
+ {t:'7. වෙබ් පිටුව තිරය මත දිස්වේ!',m:'බෙදා හැරීම සාර්ථකයි! සියලුම ස්ථර තම රාජකාරිය මැනවින් ඉටු කළේය.',x:'යෙදුම්, ප්‍රවාහන, ජාල සහ සබැඳි ස්ථර සියල්ල එකමුතුව ක්‍රියා කළේය!',n:[['තිරය මත වෙබ් පිටුව දිස්වේ!','HTTP 200 OK']]}
+];
 let di=0;
-$('#dayTrack').innerHTML=DAY.map((d,i)=>`<button aria-label="Go to step ${i+1}" data-i="${i}"></button>`).join('');
+$('#dayTrack').innerHTML=DAY.map((d,i)=>`<button data-i="${i}"></button>`).join('');
 function nest(arr){if(!arr.length)return '';const [a,b]=arr[0];return `<div class="nest">${a}${b?`<small>${b}</small>`:''}${nest(arr.slice(1))}</div>`}
 function drawDay(){
-  const d=DAY[di];$('#dayNum').textContent=`Step ${di+1} of ${DAY.length}`;$('#dayTitle').textContent=d.t;$('#dayMail').textContent=d.m;$('#dayTech').textContent=d.x;$('#dayNest').innerHTML=nest(d.n);
-  document.querySelectorAll('#dayTrack button').forEach((b,i)=>b.classList.toggle('on',i<=di));
-  $('#dayPrev').disabled=di===0;$('#dayNext').textContent=di===DAY.length-1?'Start over':'Next step';
-  if(di===DAY.length-1)award('day','A whole web request, every layer at work. Amazing!');
+  const d=DAY[di];$('#dayNum').textContent=`පියවර ${di+1} / ${DAY.length}`;$('#dayTitle').textContent=d.t;$('#dayMail').textContent=d.m;$('#dayTech').textContent=d.x;$('#dayNest').innerHTML=nest(d.n);
+  $$('#dayTrack button').forEach((b,i)=>b.classList.toggle('on',i<=di));
+  $('#dayPrev').disabled=di===0;$('#dayNext').textContent=di===DAY.length-1?'මුල සිට':'ඊළඟ පියවර';
+  if(di===DAY.length-1)award('day','සම්පූර්ණ වෙබ් ඉල්ලීමේ ගමන අවසන්!');
 }
 $('#dayNext').addEventListener('click',()=>{di=di===DAY.length-1?0:di+1;drawDay()});
 $('#dayPrev').addEventListener('click',()=>{di=Math.max(0,di-1);drawDay()});
-document.querySelectorAll('#dayTrack button').forEach(b=>b.addEventListener('click',()=>{di=+b.dataset.i;drawDay()}));
+$$('#dayTrack button').forEach(b=>b.addEventListener('click',()=>{di=+b.dataset.i;drawDay()}));
 drawDay();
 
 /* ---------- 10. Quiz ---------- */
 const Q=[
- ['What do we call a link-layer packet?',['Segment','Datagram','Frame','Message'],2,'A frame is the link layer\'s envelope. It wraps a network-layer datagram.'],
- ['A MAC address is most like…',['A postal address that changes when you move','An ID number that stays with you','A ZIP code shared by the neighbourhood','A phone extension'],1,'MAC addresses are flat and portable, like a national ID number. IP addresses are like postal addresses.'],
- ['Why is an ARP query sent to FF-FF-FF-FF-FF-FF?',['To reach the router only','Because the sender doesn\'t know the target\'s MAC yet','To encrypt it','Because ARP uses UDP'],1,'The sender only knows the IP address, so it asks everyone on the LAN. Only the owner replies.'],
- ['A single even-parity bit can…',['Detect any single-bit error','Correct any single-bit error','Detect every 2-bit error','Detect all burst errors'],0,'One parity bit catches an odd number of flipped bits. Two flips cancel out and slip through.'],
- ['Two-dimensional parity can…',['Only detect errors','Detect and correct a single-bit error','Correct any number of errors','Replace CRC in Ethernet'],1,'The bad row and bad column cross at the flipped bit, so the receiver can fix it without a resend.'],
- ['Max efficiency of slotted ALOHA with many nodes is about…',['18%','37%','50%','100%'],1,'1/e ≈ 0.37. Pure (unslotted) ALOHA only reaches 1/(2e) ≈ 18%.'],
- ['After its 3rd collision in a row, Ethernet picks K from…',['{0,1}','{0,1,2,3}','{0,…,7}','{0,…,1023}'],2,'After the m-th collision, K comes from {0,…,2^m−1}. For m = 3 that\'s 0 to 7.'],
- ['A switch gets a frame for a MAC that isn\'t in its table. It…',['Drops the frame','Sends it back','Floods it out every port except the incoming one','Asks the router'],2,'Unknown destination means flood. When the reply comes back, the switch learns where that host is.'],
- ['A frame goes A → router R → B. At R, what changes?',['The IP source and destination','The MAC source and destination','Both IP and MAC','Nothing'],1,'R builds a brand-new frame with new MAC addresses. The IP datagram inside keeps its original IP addresses.'],
- ['What is a VLAN for?',['Faster CRC','Splitting one physical switch into separate broadcast domains','Wireless roaming','Assigning IP addresses'],1,'Port-based VLANs isolate traffic: broadcasts stay within the VLAN.'],
- ['MPLS routers forward packets based on…',['The longest IP prefix match','A fixed-length label','The source MAC','The TCP port'],1,'Label lookups are fast, and MPLS paths can differ from IP paths (traffic engineering, fast reroute).'],
- ['Ethernet is…',['Connection-oriented and reliable','Connectionless and unreliable','Connectionless but sends ACKs','Only used on wireless'],1,'No handshake and no ACKs. Lost frames are recovered only if a higher layer like TCP resends them.']];
+ ['සබැඳි ස්ථරයේ (Link-layer) පැකට්ටුවක් හඳුන්වන්නේ කුමන නමකින්ද?',['Segment (කොටස)','Datagram (ඩේටාග්‍රෑමය)','Frame (රාමුව)','Message (පණිවිඩය)'],2,'රාමුව (Frame) යනු ජාල ස්ථරයේ ඩේටාග්‍රෑමය බහාලන සබැඳි ස්ථරයේ ලියුම් කවරයයි.'],
+ ['MAC ලිපිනයක් වඩාත්ම සමාන වන්නේ…',['ඔබ නිවස මාරු කරන විට වෙනස් වන තැපැල් ලිපිනයකට','ඔබ කොතැනකට ගියද වෙනස් නොවන ජාතික හැඳුනුම්පත් අංකයකට','ප්‍රදේශයේ තැපැල් කේතයකට','දුරකථන දිගුවකට'],1,'MAC ලිපින ජාතික හැඳුනුම්පත් අංකයක් මෙන් ස්ථිර වන අතර IP ලිපින තැපැල් ලිපිනයක් මෙන් ස්ථානය අනුව වෙනස් වේ.'],
+ ['ARP විමසුමක් FF-FF-FF-FF-FF-FF වෙත යවන්නේ ඇයි?',['රවුටරයට පමණක් යැවීමට','යවන්නා තවම ඉලක්කගත උපාංගයේ MAC ලිපිනය නොදන්නා නිසා','එය රහසිගත කිරීමට','ARP මඟින් UDP භාවිතා කරන නිසා'],1,'යවන්නා දන්නේ IP ලිපිනය පමණක් බැවින් LAN ජාලයේ සිටින සියලු දෙනාගෙන්ම විමසයි.'],
+ ['තනි ඉරට්ටේ සමානතා බිටුවකට (Single even-parity bit) කළ හැක්කේ…',['ඕනෑම තනි බිටු දෝෂයක් හඳුනා ගැනීම','ඕනෑම තනි බිටු දෝෂයක් නිවැරදි කිරීම','බිටු 2 ක දෝෂ හඳුනා ගැනීම','සියලුම දෝෂ නිවැරදි කිරීම'],0,'තනි සමානතා බිටුවකට හඳුනාගත හැක්කේ ඔත්තේ බිටු ගණනක වෙනස්වීම් පමණි.'],
+ ['ද්විමාන සමානතාවයට (2D Parity) කළ හැක්කේ…',['දෝෂ හඳුනා ගැනීම පමණි','තනි බිටු දෝෂයක් හඳුනාගෙන එය නිවැරදි කිරීම','ඕනෑම දෝෂ ගණනක් නිවැරදි කිරීම','Ethernet හි CRC වෙනුවට ක්‍රියා කිරීම'],1,'වැරදි පේළිය සහ තීරුව හමුවන තැනින් දෝෂ සහිත බිටුව හඳුනාගෙන නිවැරදි කළ හැක.'],
+ ['නෝඩ් විශාල ගණනක් ඇති විට Slotted ALOHA හි උපරිම කාර්යක්ෂමතාවය කොපමණද?',['18%','37%','50%','100%'],1,'1/e ≈ 37% කි. Pure ALOHA හි එය 1/(2e) ≈ 18% කි.'],
+ ['එක දිගට සිදුවූ 3 වන ගැටුමෙන් පසුව, Ethernet විසින් K අගය තෝරා ගන්නේ කුමන පරාසයෙන්ද?',['{0,1}','{0,1,2,3}','{0,…,7}','{0,…,1023}'],2,'m = 3 වන විට {0, …, 2^3 − 1} එනම් {0, …, 7} අතරින් තෝරා ගනී.'],
+ ['ස්විචයක වගුවේ නොමැති MAC ලිපිනයකට රාමුවක් ලැබුණු විට එය කුමක් කරයිද?',['රාමුව ඉවත දමයි','ආපසු හරවා යවයි','පැමිණි පෝට් එක හැර අනෙක් සියලුම පෝට්වලට යවයි (Floods)','රවුටරයෙන් විමසයි'],2,'නොදන්නා ගමනාන්තයක් සඳහා ස්විචය අනෙක් සියලුම පෝට්වලට රාමුව යවයි (Flood).'],
+ ['A → රවුටරය R → B වෙත යන විට, R හිදී වෙනස් වන්නේ කුමක්ද?',['IP මූලාශ්‍ර සහ ගමනාන්ත ලිපින','MAC මූලාශ්‍ර සහ ගමනාන්ත ලිපින','IP සහ MAC දෙකම','කිසිවක් වෙනස් නොවේ'],1,'R විසින් නව MAC ලිපින සහිත නව රාමුවක් තනන අතර ඇතුළත ඇති IP ලිපින නොවෙනස්ව පවතී.'],
+ ['VLAN එකක ප්‍රධාන ප්‍රයෝජනය කුමක්ද?',['වේගවත් CRC ගණනය','එක් භෞතික ස්විචයක් වෙනම විකාශන වසම් (broadcast domains) වලට බෙදීම','රැහැන් රහිත සංචලතාවය','IP ලිපින ලබා දීම'],1,'VLAN මඟින් එක් ස්විචයක් තාර්කිකව වෙන් වූ LAN ජාල කිහිපයකට බෙදයි.'],
+ ['MPLS රවුටර පැකට් යොමු කරන්නේ කුමක් මත පදනම්වද?',['දිගම IP උපසර්ග ගැළපීම මත','ස්ථාවර දිගකින් යුත් ලේබලයක් (Fixed-length label) මත','මූලාශ්‍ර MAC ලිපිනය මත','TCP පෝට් අංකය මත'],1,'MPLS රවුටර IP ලිපිනය පරීක්ෂා නොකර ලේබලය දෙස පමණක් බලා වේගයෙන් යොමු කරයි.'],
+ ['Ethernet යනු…',['සම්බන්ධතා-මූලික සහ විශ්වාසදායක සේවාවකි','සම්බන්ධතා-රහිත සහ අවිශ්වාසදායක (Connectionless & unreliable) සේවාවකි','ACK ලදුපත් යවන සේවාවකි','රැහැන් රහිත ජාල සඳහා පමණක් භාවිතා වන්නකි'],1,'Ethernet හිදී පූර්ව සම්බන්ධතා හෝ ACK ලදුපත් නොමැත.']
+];
 let qAns={};
 function drawQ(){
   $('#qs').innerHTML=Q.map((q,i)=>`<div class="q"><p class="qt">${i+1}. ${q[0]}</p><div class="opts">${q[1].map((o,j)=>`<button class="opt" data-q="${i}" data-o="${j}">${o}</button>`).join('')}</div><div class="why" id="why${i}" hidden></div></div>`).join('');
-  document.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+  $$('.opt').forEach(b=>b.addEventListener('click',()=>{
     const i=+b.dataset.q,j=+b.dataset.o;if(i in qAns)return;qAns[i]=j;
     const q=Q[i];b.parentElement.querySelectorAll('.opt').forEach((x,k)=>{x.disabled=true;if(k===q[2])x.classList.add('right');else if(k===j)x.classList.add('wrong')});
-    const w=$('#why'+i);w.hidden=false;w.textContent=(j===q[2]?'Correct! ':'Not quite. ')+q[3];
-    const sc=Object.entries(qAns).filter(([k,v])=>Q[k][2]===v).length;$('#qScore').textContent=`Score ${sc} / ${Q.length}`;
-    if(Object.keys(qAns).length===Q.length)award('quiz',`Quiz done: ${sc}/${Q.length}! ${sc>=10?'Postmaster level!':'Review the stops and try again for a perfect score.'}`);
+    const w=$('#why'+i);w.hidden=false;w.textContent=(j===q[2]?'නිවැරදියි! ':'වැරදියි. ')+q[3];
+    const sc=Object.entries(qAns).filter(([k,v])=>Q[k][2]===v).length;$('#qScore').textContent=`ලකුණු ${sc} / ${Q.length}`;
+    if(Object.keys(qAns).length===Q.length)award('quiz',`ප්‍රශ්නාවලිය අවසන්: ${sc}/${Q.length}!`);
   }));
 }
-$('#qReset').addEventListener('click',()=>{qAns={};$('#qScore').textContent=`Score 0 / ${Q.length}`;drawQ()});
+$('#qReset').addEventListener('click',()=>{qAns={};$('#qScore').textContent=`ලකුණු 0 / ${Q.length}`;drawQ()});
 drawQ();
+
+showScene(curIdx,false);
 })();
 </script>
-
-
-</body></html>
+</body>
+</html>
