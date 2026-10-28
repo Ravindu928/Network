@@ -1,19 +1,18 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Application Post Office</title>
+<!doctype html><html lang="si"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>යෙදුම් තැපැල් කාර්යාලය (Application Post Office)</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Courier+Prime:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Noto+Sans+Sinhala:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: a storybook. One scene on the stage at a time: story, then a question, then the discovery (a letter travelling), then the takeaway. Route of 8 stamps on top, Penny bottom-right. */
 :root{
   --paper:#EEF3F9;--card:#FFFFFF;--ink:#1D2944;--muted:#58668A;--line:#CDD7E6;
   --red:#D93A3A;--blue:#2356C4;--gold:#E9A92B;--green:#23946A;
   --soft-red:#FCE3E1;--soft-blue:#E0EAF8;--soft-gold:#FDF0D3;--soft-green:#DCF2E8;--code-bg:#F7F4EC;
   --shadow:0 2px 0 rgba(29,41,68,.08),0 10px 28px rgba(29,41,68,.10);
-  --f-display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
-  --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
-  --f-type:"Courier Prime","Courier New",ui-monospace,monospace;
+  --f-display:"Familjen Grotesk","Noto Sans Sinhala",system-ui,sans-serif;
+  --f-body:"Noto Sans Sinhala","Familjen Grotesk",system-ui,-apple-system,sans-serif;
+  --f-type:"JetBrains Mono","Noto Sans Sinhala",ui-monospace,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#111827;--card:#1A2336;--ink:#E9EEF8;--muted:#A3B1C9;--line:#2F3D58;
@@ -28,8 +27,8 @@
 
 *{box-sizing:border-box}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
-body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden}
-h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;overflow-x:hidden}
+h1,h2,h3{font-family:var(--f-display);line-height:1.25;text-wrap:balance;margin:0}
 p{margin:0}
 a{color:var(--blue)}
 button{font-family:var(--f-display);font-size:1rem;cursor:pointer}
@@ -40,14 +39,14 @@ code,.mono{font-family:var(--f-type)}
 .wrap{max-width:820px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 
 header{padding-block:22px 6px}
-.backlink{display:inline-block;font-family:var(--f-display);font-weight:600;text-decoration:none;color:var(--blue);background:var(--card);border:2px solid var(--line);border-radius:999px;padding:5px 14px;box-shadow:var(--shadow);font-size:.95rem}
+.backlink{display:inline-block;font-family:var(--f-display);font-weight:700;text-decoration:none;color:var(--blue);background:var(--card);border:2px solid var(--line);border-radius:999px;padding:5px 14px;box-shadow:var(--shadow);font-size:.95rem}
 .backlink:hover{border-color:var(--blue)}
-.eyebrow{font-family:var(--f-type);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-size:.8rem;margin-top:16px}
-header h1{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:700;margin-top:4px}
+.eyebrow{font-family:var(--f-type);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-size:.82rem;margin-top:16px}
+header h1{font-size:clamp(1.8rem,4.8vw,2.6rem);font-weight:700;margin-top:4px}
 header h1 span{color:var(--blue)}
 
 .route{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:16px}
-.stop-btn{background:var(--card);border:2px dashed var(--line);border-radius:6px;padding:6px 2px;color:var(--ink);font-size:.72rem;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.stop-btn{background:var(--card);border:2px dashed var(--line);border-radius:6px;padding:6px 4px;color:var(--ink);font-size:.72rem;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
 .stop-btn b{font-size:1.05rem;color:var(--muted)}
 .stop-btn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .stop-btn.here{border-style:solid;border-color:var(--blue);background:var(--soft-blue)}
@@ -60,12 +59,12 @@ header h1 span{color:var(--blue)}
 main{padding-block:18px 150px}
 .scene{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:clamp(18px,4vw,30px);animation:enter .35s ease}
 @keyframes enter{from{opacity:.4;transform:translateY(10px)}to{opacity:1;transform:none}}
-.kicker{font-family:var(--f-type);font-size:.8rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
-.scene h2{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:600;margin-top:4px}
-.story{margin-top:12px;font-size:1.08rem;max-width:62ch}
+.kicker{font-family:var(--f-type);font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+.scene h2{font-size:clamp(1.45rem,3.8vw,2rem);font-weight:700;margin-top:4px}
+.story{margin-top:12px;font-size:1.06rem;max-width:65ch}
 .story b{color:var(--blue)}
 .ask{margin-top:18px;background:var(--soft-gold);border-radius:16px;padding:16px 18px}
-.ask .q{font-family:var(--f-display);font-weight:500;font-size:1.2rem;display:flex;gap:10px;align-items:flex-start}
+.ask .q{font-family:var(--f-display);font-weight:700;font-size:1.15rem;display:flex;gap:10px;align-items:flex-start}
 .ask .q::before{content:"?";flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:#1D2944;display:grid;place-items:center;font-weight:700}
 .opts{display:grid;gap:8px;margin-top:12px}
 .opt{text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--ink);font-family:var(--f-body);font-weight:700;font-size:1rem}
@@ -74,16 +73,16 @@ main{padding-block:18px 150px}
 .opt.wrong{background:var(--soft-red);border-color:var(--red)}
 .opt:disabled{cursor:default}
 .verdict{margin-top:10px;font-size:.98rem}
-.verdict b{font-family:var(--f-display);font-weight:600}
+.verdict b{font-family:var(--f-display);font-weight:700}
 .reveal{margin-top:20px;display:flex;flex-direction:column;gap:16px;animation:enter .45s ease}
 .takeaway{border:2px dashed var(--green);border-radius:14px;padding:12px 16px;background:var(--soft-green)}
-.takeaway b{font-family:var(--f-display);font-weight:600;color:var(--green)}
-.note{background:var(--soft-blue);border-radius:12px;padding:12px 14px;font-size:.98rem}
-.note b{font-family:var(--f-display);font-weight:600}
+.takeaway b{font-family:var(--f-display);font-weight:700;color:var(--green)}
+.note{background:var(--soft-blue);border-radius:12px;padding:12px 14px;font-size:.96rem}
+.note b{font-family:var(--f-display);font-weight:700}
 
 .nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
 .nav .count{font-family:var(--f-type);font-size:.85rem;color:var(--muted)}
-.btn{background:var(--red);color:#fff;border:none;padding:10px 18px;border-radius:12px;font-weight:600;box-shadow:0 3px 0 rgba(0,0,0,.18);transition:transform .1s}
+.btn{background:var(--red);color:#fff;border:none;padding:10px 18px;border-radius:12px;font-weight:700;box-shadow:0 3px 0 rgba(0,0,0,.18);transition:transform .1s}
 .btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
 .btn.alt{background:var(--blue)}
 .btn.ghost{background:var(--card);color:var(--ink);border:2px solid var(--line);box-shadow:none}
@@ -91,39 +90,39 @@ main{padding-block:18px 150px}
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .seg{display:inline-flex;align-self:flex-start;background:var(--soft-blue);border-radius:12px;padding:4px;gap:4px;flex-wrap:wrap}
 .seg button{border:none;background:transparent;color:var(--ink);padding:7px 14px;border-radius:9px;font-weight:500}
-.seg button[aria-pressed="true"]{background:var(--card);box-shadow:var(--shadow);color:var(--blue)}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:var(--shadow);color:var(--blue);font-weight:700}
 
 .trip{border:2px solid var(--line);border-radius:16px;padding:12px;background:var(--paper)}
 .trip .sv{overflow-x:auto}
 .trip svg{width:100%;min-width:560px;height:auto;display:block}
 .trip text{font-family:var(--f-display);fill:var(--ink)}
 .trip .cap{min-height:3.3em;background:var(--card);border-radius:12px;padding:10px 14px;margin-top:8px;font-size:1rem}
-.trip .cap b{font-family:var(--f-display);font-weight:600;color:var(--red)}
+.trip .cap b{font-family:var(--f-display);font-weight:700;color:var(--red)}
 .trip .ctl{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
 .dots{display:flex;gap:5px;flex-wrap:wrap;max-width:100%}
 .dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
 .dots i.on{background:var(--red)}
-.counter{font-family:var(--f-type);font-weight:700;font-size:.9rem;background:var(--soft-gold);border-radius:8px;padding:2px 10px}
+.counter{font-family:var(--f-type);font-weight:600;font-size:.9rem;background:var(--soft-gold);border-radius:8px;padding:2px 10px}
 .pulse{animation:pulse .6s ease}
 @keyframes pulse{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
 
-.letter{background:var(--code-bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--f-type);font-size:.92rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
-.letter .k{color:var(--blue);font-weight:700}
-.letter .r{color:var(--red);font-weight:700}
-.letter .g{color:var(--green);font-weight:700}
+.letter{background:var(--code-bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--f-type);font-size:.9rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+.letter .k{color:var(--blue);font-weight:600}
+.letter .r{color:var(--red);font-weight:600}
+.letter .g{color:var(--green);font-weight:600}
 select,input[type=text]{font:inherit;font-size:.95rem;padding:8px 10px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);max-width:100%}
 input[type=range]{width:100%;accent-color:var(--red)}
 label{font-weight:700;font-size:.95rem}
 
 .meter{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .meter>div{background:var(--soft-blue);border-radius:12px;padding:12px;min-width:0}
-.meter .big{font-family:var(--f-display);font-size:1.6rem;font-weight:700;font-variant-numeric:tabular-nums}
+.meter .big{font-family:var(--f-display);font-size:1.55rem;font-weight:700;font-variant-numeric:tabular-nums}
 .meter .lbl{font-size:.82rem;color:var(--muted)}
 .gauge{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:6px}
 .gauge i{display:block;height:100%;transition:width .3s,background .3s}
 
 .frames{display:flex;gap:4px;flex-wrap:wrap}
-.frames i{width:26px;height:26px;border-radius:5px;opacity:.22;transition:opacity .2s,transform .2s;display:grid;place-items:center;font-style:normal;font-size:.62rem;color:#fff;font-family:var(--f-type);font-weight:700}
+.frames i{width:26px;height:26px;border-radius:5px;opacity:.22;transition:opacity .2s,transform .2s;display:grid;place-items:center;font-style:normal;font-size:.62rem;color:#fff;font-family:var(--f-type);font-weight:600}
 .frames i.sent{opacity:1;transform:scale(1.06)}
 .o1{background:var(--blue)}.o2{background:var(--red)}.o3{background:var(--green)}.o4{background:#B07A12}
 
@@ -133,13 +132,13 @@ label{font-weight:700;font-size:.95rem}
 .smtp .C{background:var(--soft-red);align-self:flex-end}
 
 .cards{display:flex;flex-wrap:wrap;gap:8px}
-.cards button{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px 16px;color:var(--ink);font-weight:700;font-size:1.1rem}
+.cards button{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px 16px;color:var(--ink);font-weight:700;font-size:1.05rem}
 .cards button[aria-pressed="true"]{border-color:var(--blue);background:var(--soft-blue)}
 
 .peers{display:flex;flex-direction:column;gap:8px}
-.peer{background:var(--soft-blue);border-radius:10px;padding:8px 10px;display:grid;grid-template-columns:90px 1fr;gap:10px;align-items:center}
+.peer{background:var(--soft-blue);border-radius:10px;padding:8px 10px;display:grid;grid-template-columns:115px 1fr;gap:10px;align-items:center}
 .peer>div{min-width:0}
-.peer .nm{font-family:var(--f-display);font-weight:600;font-size:.9rem}
+.peer .nm{font-family:var(--f-display);font-weight:700;font-size:.9rem}
 .peer.me{background:var(--soft-gold)}
 .chunks{display:grid;grid-template-columns:repeat(8,1fr);gap:3px}
 .chunks i{height:26px;border-radius:4px;background:var(--line);display:grid;place-items:center;font-style:normal;font-size:.68rem;font-family:var(--f-type);color:var(--muted)}
@@ -152,9 +151,9 @@ label{font-weight:700;font-size:.95rem}
 .quality div.pick{background:var(--red);color:#fff}
 .quality div.ok{background:var(--soft-green);color:var(--ink)}
 
-pre.code{background:var(--code-bg);border:1px solid var(--line);border-radius:12px;padding:14px;overflow-x:auto;font-family:var(--f-type);font-size:.86rem;line-height:1.5;margin:0}
+pre.code{background:var(--code-bg);border:1px solid var(--line);border-radius:12px;padding:14px;overflow-x:auto;font-family:var(--f-type);font-size:.85rem;line-height:1.5;margin:0}
 pre.code .c{color:var(--muted);font-style:italic}
-pre.code .k{color:var(--red);font-weight:700}
+pre.code .k{color:var(--red);font-weight:600}
 pre.code .s{color:var(--green)}
 
 .chart svg{width:100%;height:auto;display:block}
@@ -163,15 +162,15 @@ pre.code .s{color:var(--green)}
 .scoreline{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
 .scoreline i{width:22px;height:14px;border-radius:3px;background:var(--line)}
 .scoreline i.r{background:var(--green)}.scoreline i.w{background:var(--red)}
-.qtext{font-family:var(--f-display);font-size:1.3rem;font-weight:500;margin-block:6px 12px}
+.qtext{font-family:var(--f-display);font-size:1.25rem;font-weight:700;margin-block:6px 12px}
 
 footer{padding-block:0 40px;color:var(--muted);font-size:.85rem}
 
 .carrier{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;align-items:flex-end;gap:8px;pointer-events:none}
 .carrier>*{pointer-events:auto}
-.bubble{background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:16px 16px 4px 16px;padding:10px 14px;max-width:290px;font-size:.92rem;line-height:1.45;box-shadow:var(--shadow);transition:opacity .2s,transform .2s}
+.bubble{background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:16px 16px 4px 16px;padding:10px 14px;max-width:290px;font-size:.9rem;line-height:1.45;box-shadow:var(--shadow);transition:opacity .2s,transform .2s}
 .bubble.hide{opacity:0;transform:translateY(8px);pointer-events:none}
-.bubble .who{font-family:var(--f-display);font-weight:600;color:var(--red);font-size:.8rem;display:flex;justify-content:space-between;gap:10px}
+.bubble .who{font-family:var(--f-display);font-weight:700;color:var(--red);font-size:.8rem;display:flex;justify-content:space-between;gap:10px}
 .bubble .x{background:none;border:none;color:var(--muted);font-size:1rem;padding:0 2px;line-height:1}
 .carrier-btn{background:var(--card);border:3px solid var(--ink);border-radius:50%;width:80px;height:80px;padding:0;display:grid;place-items:center;box-shadow:var(--shadow);overflow:hidden}
 .carrier-btn svg{width:78px;height:78px;animation:bob 3s ease-in-out infinite}
@@ -191,27 +190,27 @@ footer{padding-block:0 40px;color:var(--muted);font-size:.85rem}
 
 <div class="airmail" aria-hidden="true"></div>
 <header class="wrap">
-  <a class="backlink" href="../index.html">← Back to all chapters</a>
-  <p class="eyebrow">Chapter 2 · Application Layer</p>
-  <h1>Alice's night at the <span>Application Post Office</span></h1>
-  <nav class="route" id="route" aria-label="Chapter stops"></nav>
+  <a class="backlink" href="../index.html">← සියලුම පරිච්ඡේද වෙත ආපසු</a>
+  <p class="eyebrow">2 වන පරිච්ඡේදය · යෙදුම් ස්ථරය (Application Layer)</p>
+  <h1>අනුරගේ <span>යෙදුම් තැපැල් කාර්යාලයේ</span> රාත්‍රිය</h1>
+  <nav class="route" id="route" aria-label="පරිච්ඡේද නැවතුම්"></nav>
   <div class="trail" aria-hidden="true"><i id="trail"></i></div>
 </header>
 
 <main class="wrap">
   <div id="stage" aria-live="polite"></div>
   <div class="nav">
-    <button class="btn ghost" id="prev">← Back</button>
+    <button class="btn ghost" id="prev">← ආපසු</button>
     <span class="count" id="count"></span>
-    <button class="btn alt" id="next">Next scene →</button>
+    <button class="btn alt" id="next">ඊළඟ දසුන →</button>
   </div>
 </main>
 
-<footer class="wrap">Based on the Chapter 2 slides of <i>Computer Networking: A Top-Down Approach</i>, 8th edition, J.F. Kurose and K.W. Ross (© 1996–2023). <a href="../index.html">Back to all chapters</a></footer>
+<footer class="wrap">J.F. Kurose සහ K.W. Ross විසින් රචිත <i>Computer Networking: A Top-Down Approach</i> (8 වන සංස්කරණය, © 1996–2023) හි 2 වන පරිච්ඡේදයේ සටහන් ඇසුරිනි. <a href="../index.html">සියලුම පරිච්ඡේද වෙත ආපසු</a></footer>
 
 <div class="carrier">
-  <div class="bubble" id="bubble"><div class="who"><span>Penny the mail carrier</span><button class="x" id="bubbleX" aria-label="Hide tip">×</button></div><div id="bubbleText"></div></div>
-  <button class="carrier-btn" id="carrierBtn" aria-label="Ask Penny for a hint">
+  <div class="bubble" id="bubble"><div class="who"><span>තැපැල්කරු වළගම්බා</span><button class="x" id="bubbleX" aria-label="ඉඟිය සඟවන්න">×</button></div><div id="bubbleText"></div></div>
+  <button class="carrier-btn" id="carrierBtn" aria-label="වළගම්බාගෙන් ඉඟියක් අසන්න">
     <svg viewBox="0 0 100 100" aria-hidden="true">
       <circle cx="50" cy="50" r="50" fill="var(--soft-blue)"/>
       <path d="M18 100 C20 78 34 70 50 70 C66 70 80 78 82 100 Z" fill="#2356C4"/>
@@ -238,14 +237,14 @@ function svgEl(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(co
 function h(html){const d=document.createElement("div");d.innerHTML=html.trim();return d.firstElementChild}
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
-/* ---------- Penny ---------- */
+/* ---------- වළගම්බා (Penny replacement) ---------- */
 const bubble=$("#bubble"),bt=$("#bubbleText"),cbtn=$("#carrierBtn");
 let hintLine="";
 function say(t){bt.textContent=t;bubble.classList.remove("hide");cbtn.classList.remove("talk");void cbtn.offsetWidth;cbtn.classList.add("talk")}
-cbtn.onclick=()=>say(hintLine||"Read the story, make a guess, then watch the letter travel.");
+cbtn.onclick=()=>say(hintLine||"කතාව කියවන්න, අනුමානයක් කරන්න, ඉන්පසු ලිපිය ගමන් කරන ආකාරය බලන්න.");
 $("#bubbleX").onclick=()=>bubble.classList.add("hide");
 
-/* ---------- Trip engine: a letter travelling step by step ---------- */
+/* ---------- Trip engine ---------- */
 function drawNode(svg,n){
   const g=svgEl("g",{transform:`translate(${n.x},${n.y})`},svg);
   const inner=svgEl("g",{},g);
@@ -267,14 +266,14 @@ function drawNode(svg,n){
     svgEl("rect",{x:-40,y:-20,width:80,height:40,rx:10,fill:n.color||"var(--soft-blue)",stroke:"var(--ink)","stroke-width":2},inner);
   }
   const ly=k==="box"?36:k==="office"?44:40;
-  const t=svgEl("text",{x:0,y:ly,"text-anchor":"middle","font-size":13,"font-weight":600},g);t.textContent=n.label||"";
+  const t=svgEl("text",{x:0,y:ly,"text-anchor":"middle","font-size":13,"font-weight":700},g);t.textContent=n.label||"";
   if(n.sub){const t2=svgEl("text",{x:0,y:ly+15,"text-anchor":"middle","font-size":11,style:"fill:var(--muted);font-family:var(--f-type)"},g);t2.textContent=n.sub}
-  if(n.inside){const t3=svgEl("text",{x:0,y:4,"text-anchor":"middle","font-size":11,"font-weight":600},g);t3.textContent=n.inside}
+  if(n.inside){const t3=svgEl("text",{x:0,y:4,"text-anchor":"middle","font-size":11,"font-weight":700},g);t3.textContent=n.inside}
   return inner;
 }
 function trip(cfg){
   const W=cfg.w||640,H=cfg.h||250;
-  const root=h(`<div class="trip"><div class="sv"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.label||"A letter travelling between places")}"></svg></div><div class="cap"></div><div class="ctl"><div class="row"><div class="dots"></div>${cfg.counter?'<span class="counter"></span>':""}</div><div class="row"><button class="btn ghost" data-b="back">Back</button><button class="btn ghost" data-b="play">Play all</button><button class="btn" data-b="next">Send the letter</button></div></div></div>`);
+  const root=h(`<div class="trip"><div class="sv"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.label||"ස්ථාන අතර ගමන් කරන ලිපියක්")}"></svg></div><div class="cap"></div><div class="ctl"><div class="row"><div class="dots"></div>${cfg.counter?'<span class="counter"></span>':""}</div><div class="row"><button class="btn ghost" data-b="back">ආපසු</button><button class="btn ghost" data-b="play">සියල්ල ක්‍රියාත්මක කරන්න</button><button class="btn" data-b="next">ලිපිය යවන්න</button></div></div></div>`);
   const svg=root.querySelector("svg"),cap=root.querySelector(".cap"),dots=root.querySelector(".dots"),cnt=root.querySelector(".counter");
   const N=cfg.nodes,nodeEls={};
   const seen=new Set();
@@ -286,7 +285,7 @@ function trip(cfg){
   const envFlap=svgEl("path",{d:"M-16 -11 L0 2 L16 -11",fill:"none",stroke:"var(--red)","stroke-width":2.5},envBody);
   const tagBg=svgEl("rect",{x:-40,y:-36,width:80,height:18,rx:9,fill:"var(--ink)"},env);
   const tag=svgEl("text",{x:0,y:-23,"text-anchor":"middle","font-size":11,"font-weight":700,style:"fill:var(--card);font-family:var(--f-type)"},env);
-  const lostTxt=svgEl("text",{x:0,y:28,"text-anchor":"middle","font-size":13,"font-weight":700,style:"fill:var(--red)",opacity:0},env);lostTxt.textContent="lost!";
+  const lostTxt=svgEl("text",{x:0,y:28,"text-anchor":"middle","font-size":13,"font-weight":700,style:"fill:var(--red)",opacity:0},env);lostTxt.textContent="නැති වුණා!";
   let i=-1,playing=null,busy=false;
   function setTag(s){tag.textContent=s||"";const w=Math.max(40,(s||"").length*6.8+16);tagBg.setAttribute("x",-w/2);tagBg.setAttribute("width",w);tagBg.setAttribute("opacity",s?1:0)}
   function place(p){env.setAttribute("transform",`translate(${p[0]},${p[1]})`)}
@@ -295,11 +294,11 @@ function trip(cfg){
   function pulse(id){const e=nodeEls[id];if(!e)return;e.classList.remove("pulse");e.style.transformBox="fill-box";e.style.transformOrigin="center";void e.getBBox();e.classList.add("pulse")}
   function ui(){
     const s=cfg.steps[i];
-    cap.innerHTML=i<0?(cfg.intro||"Press <b>Send the letter</b> and follow Penny."):`<b>${i+1}.</b> ${s.cap}`;
+    cap.innerHTML=i<0?(cfg.intro||"<b>ලිපිය යවන්න</b> ඔබා වළගම්බා සමඟ ගමන් කරන්න."):`<b>${i+1}.</b> ${s.cap}`;
     dots.innerHTML=cfg.steps.map((_,k)=>`<i class="${k<=i?"on":""}"></i>`).join("");
     if(cnt)cnt.textContent=cfg.counter(i);
     root.querySelector('[data-b="back"]').disabled=i<0;
-    root.querySelector('[data-b="next"]').textContent=i<0?"Send the letter":i>=cfg.steps.length-1?"Start over":"Next step";
+    root.querySelector('[data-b="next"]').textContent=i<0?"ලිපිය යවන්න":i>=cfg.steps.length-1?"මුල සිට අරඹන්න":"ඊළඟ පියවර";
   }
   function show(k,anim,done){
     i=k;ui();
@@ -313,10 +312,10 @@ function trip(cfg){
     (function f(t){const p=Math.min(1,(t-t0)/D),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;place([from[0]+(to[0]-from[0])*e,from[1]+(to[1]-from[1])*e-Math.sin(Math.PI*p)*22]);if(p<1)requestAnimationFrame(f);else finish()})(performance.now());
   }
   const playBtn=root.querySelector('[data-b="play"]');
-  function stop(){if(playing!==null){clearTimeout(playing);playing=null;playBtn.textContent="Play all"}}
+  function stop(){if(playing!==null){clearTimeout(playing);playing=null;playBtn.textContent="සියල්ල ක්‍රියාත්මක කරන්න"}}
   root.querySelector('[data-b="next"]').onclick=()=>{if(busy)return;stop();show(i>=cfg.steps.length-1?-1:i+1,true)};
   root.querySelector('[data-b="back"]').onclick=()=>{if(busy)return;stop();show(i-1,false)};
-  playBtn.onclick=()=>{if(playing!==null){stop();return}if(busy)return;playBtn.textContent="Pause";playing=0;if(i>=cfg.steps.length-1)show(-1,false);
+  playBtn.onclick=()=>{if(playing!==null){stop();return}if(busy)return;playBtn.textContent="නවත්වන්න";playing=0;if(i>=cfg.steps.length-1)show(-1,false);
     const go=()=>{if(playing===null)return;if(i>=cfg.steps.length-1){stop();return}show(i+1,true,()=>{if(playing!==null)playing=setTimeout(go,650)})};go()};
   show(-1,false);
   return root;
@@ -326,273 +325,276 @@ function seg(labels,onPick,start=0){const s=h(`<div class="seg" role="group">${l
 function slot(){return document.createElement("div")}
 
 /* ---------- SCENES ---------- */
-const STOPS=["Meet the post office","The Web","Email","DNS","Sharing","Video","Sockets","Quiz"];
+const STOPS=["තැපැල් කාර්යාලය","වෙබ් ජාලය","විද්‍යුත් තැපෑල","DNS නාමාවලිය","ගොනු හුවමාරුව","වීඩියෝ ප්‍රවාහය","සොකට් (Sockets)","ප්‍රශ්නාවලිය"];
 const S=[];
 
-S.push({stop:0,title:"A letter needs someone to answer it",
- story:"It's 8 pm. <b>Alice</b> sits in her dorm room and opens her browser. Without knowing it, she is about to write a letter, and Penny is waiting at the door to carry it. Every Internet app works like this: a <b>process</b> on one computer sends messages to a process on another.",
- ask:{q:"Alice's browser and a web server want to talk. Who writes the first letter?",opts:["The server, to say hello","Alice's browser, the client","Whoever is faster"],ans:1,why:"The client always starts. The server is always on, at a permanent address, waiting for letters."},
- body(el){el.append(trip({nodes:{a:{x:90,y:150,label:"Alice",sub:"client"},s:{x:540,y:140,kind:"office",label:"Web server",sub:"always on"},b:{x:300,y:200,label:"Bob",sub:"client",color:"var(--blue)"}},
-  steps:[{from:"a",to:"s",tag:"request",cap:"Alice's browser (the <b>client</b>) sends a request letter to the server."},{from:"s",to:"a",tag:"response",cap:"The server answers. It never writes first."},{from:"b",to:"s",tag:"request",cap:"Bob, another client, writes to the same server. Clients never write to each other."},{from:"s",to:"b",tag:"response",cap:"One server, many clients. This is the <b>client–server</b> design. HTTP and IMAP work this way."}]}))},
- take:"Client–server: an always-on server with a fixed IP address, often in a data center. Clients connect when they want, may change address, and don't talk to each other directly.",
- penny:"Welcome! I'm Penny. Tonight we follow every letter Alice sends. Make a guess first, then watch what happens."});
+S.push({stop:0,title:"ලිපියකට පිළිතුරු දීමට කෙනෙකු අවශ්‍යයි",
+ story:"දැන් රාත්‍රී 8 යි. <b>අනුර</b> තම නේවාසිකාගාර කාමරයේ වාඩි වී බ්‍රව්සරය විවෘත කරයි. ඔහු නොදැනුවත්වම ලිපියක් ලිවීමට සූදානම් වන අතර, එය රැගෙන යාමට තැපැල්කරු වළගම්බා දොර අසල බලා සිටියි. සෑම අන්තර්ජාල යෙදුමක්ම ක්‍රියා කරන්නේ මේ ආකාරයටයි: එක් පරිගණකයක ඇති <b>ක්‍රියාවලියක් (process)</b> තවත් පරිගණකයක ඇති ක්‍රියාවලියකට පණිවිඩ යවයි.",
+ ask:{q:"අනුරගේ බ්‍රව්සරයට සහ වෙබ් සේවාදායකයකට (Web server) කතා කිරීමට අවශ්‍යයි. මුලින්ම ලිපිය ලියන්නේ කවුද?",opts:["සේවාදායකය (Server), ආයුබෝවන් කීමට","අනුරගේ බ්‍රව්සරය, එනම් සේවාලාභියා (Client)","වඩා වේගවත් කෙනා"],ans:1,why:"සෑම විටම ආරම්භ කරන්නේ සේවාලාභියා (Client) විසිනි. සේවාදායකය (Server) ස්ථිර ලිපිනයක සැමවිටම ක්‍රියාත්මක වෙමින් ලිපි එනතුරු බලා සිටියි."},
+ body(el){el.append(trip({nodes:{a:{x:90,y:150,label:"අනුර",sub:"සේවාලාභියා (client)"},s:{x:540,y:140,kind:"office",label:"වෙබ් සේවාදායකය",sub:"සැමවිටම සක්‍රීයයි"},b:{x:300,y:200,label:"රනිල්",sub:"සේවාලාභියා (client)",color:"var(--blue)"}},
+  steps:[{from:"a",to:"s",tag:"ඉල්ලීම (request)",cap:"අනුරගේ බ්‍රව්සරය (<b>සේවාලාභියා / client</b>) සේවාදායකය වෙත ඉල්ලීම් ලිපියක් යවයි."},{from:"s",to:"a",tag:"ප්‍රතිචාරය (response)",cap:"සේවාදායකය පිළිතුරු දෙයි. එය කිසිවිටෙක මුලින් ලිපි ලියන්නේ නැත."},{from:"b",to:"s",tag:"ඉල්ලීම (request)",cap:"තවත් සේවාලාභියෙකු වන රනිල් ද එම සේවාදායකයටම ලියයි. සේවාලාභීන් එකිනෙකාට කෙලින්ම ලිපි ලියන්නේ නැත."},{from:"s",to:"b",tag:"ප්‍රතිචාරය (response)",cap:"එක් සේවාදායකයක්, සේවාලාභීන් රැසක්. මෙය <b>සේවාලාභී–සේවාදායක (client–server)</b> ආකෘතියයි. HTTP සහ IMAP මේ ආකාරයෙන් ක්‍රියා කරයි."}]}))},
+ take:"Client–server: ස්ථාවර IP ලිපිනයක් සහිත සැමවිටම ක්‍රියාත්මක සේවාදායකයකි (බොහෝවිට දත්ත මධ්‍යස්ථානයක පිහිටයි). සේවාලාභීන් අවශ්‍ය විටෙක සම්බන්ධ වන අතර, ඔවුන්ගේ ලිපින වෙනස් විය හැකිය. ඔවුන් එකිනෙකා සමඟ කෙලින්ම කතා නොකරයි.",
+ penny:"ආයුබෝවන්! මම වළගම්බා. අද රාත්‍රියේ අනුර යවන සෑම ලිපියක් පසුපසම අපි යමු. පළමුව අනුමානයක් කර, පසුව සිදුවන දේ බලන්න."});
 
-S.push({stop:0,title:"What if there's no post office at all?",
- story:"Alice's friends want to share a huge file. Nobody has a server. Can they still send letters?",
- ask:{q:"With no server, how can the file move around?",opts:["It can't. You always need a server","Friends pass pieces straight to each other","Penny keeps a copy in her bag"],ans:1,why:"In peer-to-peer (P2P), peers ask each other for service and give service back."},
- body(el){el.append(trip({h:260,nodes:{a:{x:110,y:70,label:"Alice"},b:{x:530,y:70,label:"Bob",color:"var(--blue)"},c:{x:530,y:200,label:"Carol"},d:{x:110,y:200,label:"Dave",color:"var(--blue)"}},
-  steps:[{from:"a",to:"b",tag:"piece 1",cap:"Alice sends piece 1 straight to Bob. No middleman."},{from:"b",to:"c",tag:"piece 1",cap:"Bob passes piece 1 on to Carol. Bob is downloading <b>and</b> uploading."},{from:"c",to:"d",tag:"piece 2",cap:"Carol sends Dave a piece she has."},{from:"d",to:"a",tag:"piece 3",cap:"Dave sends something back to Alice. Every new friend brings new upload capacity. That's <b>self-scalability</b>."}]}))},
- take:"P2P: no always-on server; end systems talk directly. It scales by itself, but it's harder to manage because peers come and go and change IP addresses.",
- penny:"Neighbors handing letters over the fence. That's P2P!"});
+S.push({stop:0,title:"තැපැල් කාර්යාලයක් කොහෙත්ම නැත්නම් කුමක් සිදුවේද?",
+ story:"අනුරගේ මිතුරන්ට විශාල ගොනුවක් (file) බෙදා ගැනීමට අවශ්‍යයි. කිසිවෙකු සතුව සේවාදායකයක් (server) නොමැත. ඔවුන්ට තවමත් ලිපි යැවිය හැකිද?",
+ ask:{q:"සේවාදායකයක් නොමැතිව, ගොනුව හුවමාරු වන්නේ කෙසේද?",opts:["එය කළ නොහැක. සැමවිටම සේවාදායකයක් අවශ්‍ය වේ","මිතුරන් ගොනුවේ කොටස් එකිනෙකා අතර කෙලින්ම හුවමාරු කර ගනී","වළගම්බා තම බෑගයේ පිටපතක් තබා ගනී"],ans:1,why:"සම-සම ජාල (Peer-to-peer / P2P) තුළ, සාමාජිකයින් එකිනෙකාගෙන් සේවා ඉල්ලා සිටින අතර පෙරළා සේවා සපයයි."},
+ body(el){el.append(trip({h:260,nodes:{a:{x:110,y:70,label:"අනුර"},b:{x:530,y:70,label:"රනිල්",color:"var(--blue)"},c:{x:530,y:200,label:"දනුජ"},d:{x:110,y:200,label:"සමන්තභද්‍ර",color:"var(--blue)"}},
+  steps:[{from:"a",to:"b",tag:"1 වන කොටස",cap:"අනුර 1 වන කොටස කෙලින්ම රනිල්ට යවයි. අතරමැදියෙකු නැත."},{from:"b",to:"c",tag:"1 වන කොටස",cap:"රනිල් 1 වන කොටස දනුජට යවයි. රනිල් භාගත කරන අතරම (download) උඩුගත කිරීමද (upload) සිදු කරයි."},{from:"c",to:"d",tag:"2 වන කොටස",cap:"දනුජ තමා සතුව ඇති කොටසක් සමන්තභද්‍රට යවයි."},{from:"d",to:"a",tag:"3 වන කොටස",cap:"සමන්තභද්‍ර නැවත අනුරට කොටසක් යවයි. එක්වන සෑම නව මිතුරෙකුම නව උඩුගත කිරීමේ (upload) ධාරිතාවක් ගෙන එයි. එය <b>ස්වයං-පරිමාණනය (self-scalability)</b> ලෙස හැඳින්වේ."}]}))},
+ take:"P2P: සැමවිටම ක්‍රියාත්මක සේවාදායකයක් නැත; පරිගණක කෙලින්ම එකිනෙකා සමඟ කතා කරයි. එය ඉබේම පුළුල් වුවද, සාමාජිකයින් වරින් වර සම්බන්ධ වී ඉවත් වන නිසාත් IP ලිපින වෙනස් වන නිසාත් කළමනාකරණය අපහසුය.",
+ penny:"අසල්වැසියන් වැටට උඩින් ලිපි හුවමාරු කර ගන්නවා වගේ. ඒ තමයි P2P!"});
 
-S.push({stop:0,title:"A building with 65,535 doors",
- story:"Alice's letter is addressed to <b>gaia.cs.umass.edu</b>. Penny arrives at the building and stops. Inside are thousands of doors: a web server, a mail server, a name server, all living on the same computer.",
- ask:{q:"What tells Penny which door to knock on?",opts:["The IP address","The port number","The sender's name"],ans:1,why:"The IP address finds the building (host). The port number finds the door (process). You need both."},
+S.push({stop:0,title:"දොරවල් 65,535 ක් ඇති ගොඩනැගිල්ලක්",
+ story:"අනුරගේ ලිපිය <b>gaia.cs.umass.edu</b> වෙත යොමු කර ඇත. වළගම්බා ගොඩනැගිල්ල අසලට පැමිණ නතර වෙයි. එහි ඇතුළත දහස් ගණනක් දොරවල් ඇත: වෙබ් සේවාදායකයක්, තැපැල් සේවාදායකයක්, නාම සේවාදායකයක් යන සියල්ලම එකම පරිගණකය තුළ ක්‍රියාත්මක වේ.",
+ ask:{q:"කුමන දොරට තට්ටු කළ යුතුදැයි වළගම්බාට කියන්නේ කුමක්ද?",opts:["IP ලිපිනය (IP address)","පෝට් අංකය (Port number)","යවන්නාගේ නම"],ans:1,why:"IP ලිපිනය මඟින් ගොඩනැගිල්ල (host) සොයා ගනී. පෝට් අංකය (port number) මඟින් නිවැරදි දොර (process) සොයා ගනී. ඔබට මේ දෙකම අවශ්‍ය වේ."},
  body(el){
-  const sel=h(`<div class="row"><label for="appSel">Alice wants to reach the</label><select id="appSel"><option value="80">web server (HTTP)</option><option value="25">mail server (SMTP)</option><option value="53">name server (DNS)</option></select></div>`);
+  const sel=h(`<div class="row"><label for="appSel">අනුරට සම්බන්ධ වීමට අවශ්‍ය වන්නේ:</label><select id="appSel"><option value="80">වෙබ් සේවාදායකයට (HTTP)</option><option value="25">තැපැල් සේවාදායකයට (SMTP)</option><option value="53">නාම සේවාදායකයට (DNS)</option></select></div>`);
   const holder=slot();el.append(sel,holder);
-  const draw=()=>{const p=sel.querySelector("select").value;const name={80:"web server",25:"mail server",53:"name server"}[p];holder.innerHTML="";holder.append(trip({h:270,nodes:{a:{x:80,y:140,label:"Alice"},bld:{x:300,y:140,kind:"office",label:"128.119.245.12",sub:"the host"},d80:{x:540,y:50,kind:"door",num:"80",color:p==="80"?"var(--soft-gold)":"var(--soft-blue)"},d25:{x:540,y:140,kind:"door",num:"25",color:p==="25"?"var(--soft-gold)":"var(--soft-blue)"},d53:{x:540,y:230,kind:"door",num:"53",color:p==="53"?"var(--soft-gold)":"var(--soft-blue)"}},
-   steps:[{from:"a",to:"bld",tag:`128.119.245.12 : ${p}`,cap:"The <b>IP address</b> gets the letter to the right building."},{from:"bld",to:"d"+p,tag:`port ${p}`,cap:`Inside, <b>port ${p}</b> picks the door of the ${name}.`}]}))};
-  sel.querySelector("select").onchange=()=>{draw();say("New port, new door. Same building!")};draw()},
- take:"A process is identified by IP address + port number. Port 80 is HTTP, 25 is SMTP, 53 is DNS. The door slot itself, where letters go in and out, is called a socket.",
- penny:"Street address gets you to the building. Apartment number gets you to the person."});
+  const draw=()=>{const p=sel.querySelector("select").value;const name={80:"වෙබ් සේවාදායකයේ (HTTP)",25:"තැපැල් සේවාදායකයේ (SMTP)",53:"නාම සේවාදායකයේ (DNS)"}[p];holder.innerHTML="";holder.append(trip({h:270,nodes:{a:{x:80,y:140,label:"අනුර"},bld:{x:300,y:140,kind:"office",label:"128.119.245.12",sub:"ධාරක පරිගණකය (host)"},d80:{x:540,y:50,kind:"door",num:"80",color:p==="80"?"var(--soft-gold)":"var(--soft-blue)"},d25:{x:540,y:140,kind:"door",num:"25",color:p==="25"?"var(--soft-gold)":"var(--soft-blue)"},d53:{x:540,y:230,kind:"door",num:"53",color:p==="53"?"var(--soft-gold)":"var(--soft-blue)"}},
+   steps:[{from:"a",to:"bld",tag:`128.119.245.12 : ${p}`,cap:"<b>IP ලිපිනය</b> මඟින් ලිපිය නිවැරදි ගොඩනැගිල්ල වෙත ගෙන යයි."},{from:"bld",to:"d"+p,tag:`port ${p}`,cap:`ගොඩනැගිල්ල ඇතුළත, <b>පෝට් ${p} (port ${p})</b> මඟින් ${name} දොර තෝරා ගනී.`}]}))};
+  sel.querySelector("select").onchange=()=>{draw();say("අලුත් පෝට් අංකයක්, අලුත් දොරක්. නමුත් එකම ගොඩනැගිල්ල!")};draw()},
+ take:"ක්‍රියාවලියක් (process) හඳුනා ගන්නේ IP ලිපිනය + පෝට් අංකය මඟිනි. පෝට් 80 යනු HTTP වේ, 25 යනු SMTP වේ, 53 යනු DNS වේ. ලිපි ඇතුළු කරන සහ පිටතට ගන්නා දොර කවුළුව 'සොකට්ටුවක්' (socket) ලෙස හැඳින්වේ.",
+ penny:"වීදි ලිපිනය ඔබව ගොඩනැගිල්ල වෙත ගෙන යයි. කාමර අංකය ඔබව නිවැරදි පුද්ගලයා වෙත ගෙන යයි."});
 
 let tcpMode=0;
-S.push({stop:0,title:"Registered mail or postcard?",
- story:"Before Alice sends anything, she picks a delivery service from the layer below. The Internet offers two: <b>TCP</b> and <b>UDP</b>. One of her letters is going to get lost on the way. Let's see what each service does about it.",
- ask:{q:"Letter 2 gets lost. Which service notices and sends it again?",opts:["TCP","UDP","Both","Neither"],ans:0,why:"TCP is reliable: receipts come back and lost letters are resent, in order. UDP drops the card in the box and hopes."},
+S.push({stop:0,title:"ලියාපදිංචි තැපෑලද නැතිනම් තැපැල් පතක්ද?",
+ story:"අනුර කිසිවක් යැවීමට පෙර, පහළ ස්ථරයෙන් (transport layer) බෙදාහැරීමේ සේවාවක් තෝරා ගනී. අන්තර්ජාලය සේවා දෙකක් පිරිනමයි: <b>TCP</b> සහ <b>UDP</b>. ඔහුගේ එක් ලිපියක් අතරමගදී නැතිවීමට නියමිතය. එක් එක් සේවාව ඒ සම්බන්ධයෙන් කරන්නේ කුමක්දැයි බලමු.",
+ ask:{q:"2 වන ලිපිය අතරමගදී නැති වේ. එය හඳුනාගෙන නැවත යවන්නේ කුමන සේවාවද?",opts:["TCP","UDP","දෙකම","දෙකෙන් එකක්වත් නැත"],ans:0,why:"TCP විශ්වාසදායකය (reliable): ලදුපත් (receipts) ආපසු ලැබෙන අතර නැතිවූ ලිපි නිසි පිළිවෙලට නැවත යවනු ලැබේ. UDP තැපැල් පත පෙට්ටියට දමා එය යනු ඇතැයි බලාපොරොත්තු වේ."},
  body(el){
   const holder=slot();
-  const steps=[[{from:"a",to:"b",tag:"letter 1",cap:"TCP: Alice sends letter 1 by registered mail."},{from:"b",to:"a",tag:"receipt 1",cap:"Bob sends back a receipt (an ACK)."},{from:"a",to:"b",tag:"letter 2",lost:true,cap:"Letter 2 gets lost on the road!"},{from:"a",to:"a",tag:"no receipt…",cap:"No receipt arrives. Alice's TCP waits, then decides it was lost."},{from:"a",to:"b",tag:"letter 2 again",cap:"TCP resends letter 2 for her."},{from:"b",to:"a",tag:"receipt 2",cap:"Delivered, in order, nothing missing. That's <b>reliable transport</b>."}],
-   [{from:"a",to:"b",tag:"postcard 1",card:true,cap:"UDP: Alice drops postcard 1 in the box. No handshake first."},{from:"a",to:"b",tag:"postcard 2",card:true,lost:true,cap:"Postcard 2 is lost."},{from:"a",to:"b",tag:"postcard 3",card:true,cap:"Postcard 3 arrives. Nobody resends 2. Bob may never know it existed."}]];
-  const draw=()=>{holder.innerHTML="";holder.append(trip({h:200,nodes:{a:{x:110,y:110,label:"Alice"},b:{x:530,y:110,label:"Bob",color:"var(--blue)"}},steps:steps[tcpMode]}))};
-  el.append(seg(["TCP: registered mail","UDP: postcard"],k=>{tcpMode=k;draw()},tcpMode),holder);draw();
-  el.append(h(`<div class="note"><b>So why would anyone use UDP?</b> No handshake and no waiting means less delay. Video calls and games can lose a little data but hate waiting. Email, web pages and downloads can't lose a single byte, so they use TCP. Neither service promises timing or throughput, and plain TCP isn't secret: <b>TLS</b> adds a sealed, tamper-proof envelope on top.</div>`))},
- take:"TCP: connection setup, reliable, in order, flow and congestion control. UDP: no setup, no guarantees, but fast and simple.",
- penny:"Watch letter 2 closely."});
+  const steps=[[{from:"a",to:"b",tag:"1 වන ලිපිය",cap:"TCP: අනුර 1 වන ලිපිය ලියාපදිංචි තැපෑලෙන් යවයි."},{from:"b",to:"a",tag:"1 වන ලදුපත (ACK)",cap:"රනිල් ලදුපතක් (ACK) ආපසු එවයි."},{from:"a",to:"b",tag:"2 වන ලිපිය",lost:true,cap:"2 වන ලිපිය අතරමගදී නැති වෙයි!"},{from:"a",to:"a",tag:"ලදුපතක් නැත…",cap:"ලදුපතක් ලැබෙන්නේ නැත. අනුරගේ TCP මදක් බලා සිට, ලිපිය නැති වී ඇති බව තීරණය කරයි."},{from:"a",to:"b",tag:"2 වන ලිපිය නැවතත්",cap:"TCP ඇය/ඔහු වෙනුවෙන් 2 වන ලිපිය නැවත යවයි."},{from:"b",to:"a",tag:"2 වන ලදුපත (ACK)",cap:"නිසි පිළිවෙලට, කිසිවක් අඩු නොවී ලැබුණි. මෙය <b>විශ්වාසදායක ප්‍රවාහනය (reliable transport)</b> ලෙස හැඳින්වේ."}],
+   [{from:"a",to:"b",tag:"1 වන තැපැල් පත",card:true,cap:"UDP: අනුර 1 වන තැපැල් පත පෙට්ටියට දමයි. පූර්ව හඳුන්වාදීමක් (handshake) නොමැත."},{from:"a",to:"b",tag:"2 වන තැපැල් පත",card:true,lost:true,cap:"2 වන තැපැල් පත නැති වෙයි."},{from:"a",to:"b",tag:"3 වන තැපැල් පත",card:true,cap:"3 වන තැපැල් පත ලැබෙයි. කිසිවෙකු 2 වන පත නැවත යවන්නේ නැත. එවැන්නක් තිබූ බවවත් රනිල් කිසිදා නොදැන සිටිය හැක."}]];
+  const draw=()=>{holder.innerHTML="";holder.append(trip({h:200,nodes:{a:{x:110,y:110,label:"අනුර"},b:{x:530,y:110,label:"රනිල්",color:"var(--blue)"}},steps:steps[tcpMode]}))};
+  el.append(seg(["TCP: ලියාපදිංචි තැපෑල","UDP: තැපැල් පත"],k=>{tcpMode=k;draw()},tcpMode),holder);draw();
+  el.append(h(`<div class="note"><b>එසේනම් කිසිවෙකු UDP භාවිතා කරන්නේ ඇයි?</b> පූර්ව සම්බන්ධතා සහ බලා සිටීම් නොමැති වීමෙන් ප්‍රමාදය (delay) අඩු වේ. වීඩියෝ ඇමතුම් සහ පරිගණක ක්‍රීඩා වලට සුළු දත්ත ප්‍රමාණයක් අහිමි වීම දරාගත හැකි නමුත් ප්‍රමාද වීම දරාගත නොහැක. විද්‍යුත් තැපෑල, වෙබ් පිටු සහ ගොනු භාගත කිරීම් වලට එකම බයිටයක් හෝ අහිමි කරගත නොහැකි නිසා ඒවා TCP භාවිතා කරයි. මේ සේවා දෙකම නිශ්චිත කාලයක් හෝ වේගයක් (throughput) පොරොන්දු නොවන අතර, සාමාන්‍ය TCP රහසිගත නොවේ: <b>TLS</b> මඟින් ඒ මත ආරක්ෂිත, මුද්‍රා තැබූ ලියුම් කවරයක් එක් කරයි.</div>`))},
+ take:"TCP: සම්බන්ධතා පිහිටුවීම, විශ්වාසදායක බව, අනුපිළිවෙල, ප්‍රවාහ සහ තදබද පාලනය (flow & congestion control). UDP: පෙර සූදානමක් නැත, සහතික කිරීම් නැත, නමුත් වේගවත් හා සරලය.",
+ penny:"2 වන ලිපිය දෙස හොඳින් බලන්න."});
 
-S.push({stop:1,title:"Alice writes her first HTTP letter",
- story:"Alice types <b>www-net.cs.umass.edu/kurose_ross/index.html</b>. Her browser writes a request in plain text, line by line, and Penny carries it to the web server on port 80. The server is <b>stateless</b>: it reads the letter, replies, and forgets Alice.",
- ask:{q:"Alice asks for a page that doesn't exist. What will the reply start with?",opts:["200 OK","404 Not Found","301 Moved Permanently"],ans:1,why:"Every response begins with a status line. 404 means the document isn't on this server."},
+S.push({stop:1,title:"අනුර තම පළමු HTTP ලිපිය ලියයි",
+ story:"අනුර <b>www-net.cs.umass.edu/kurose_ross/index.html</b> ලෙස ටයිප් කරයි. ඔහුගේ බ්‍රව්සරය පෙළින් පෙළට සාමාන්‍ය අකුරින් (plain text) ඉල්ලීමක් ලියන අතර, වළගම්බා එය පෝට් 80 හි ඇති වෙබ් සේවාදායකය වෙත රැගෙන යයි. සේවාදායකය <b>තත්ත්ව-රහිත (stateless)</b> වේ: එය ලිපිය කියවා, පිළිතුරු දී, අනුරව අමතක කර දමයි.",
+ ask:{q:"අනුර නොපවතින වෙබ් පිටුවක් ඉල්ලා සිටියි. ලැබෙන පිළිතුර ආරම්භ වන්නේ කුමකින්ද?",opts:["200 OK","404 Not Found","301 Moved Permanently"],ans:1,why:"සෑම ප්‍රතිචාරයක්ම ආරම්භ වන්නේ තත්ත්ව පේළියකිනි (status line). 404 යන්නෙන් අදහස් වන්නේ ඉල්ලූ ලේඛනය මෙම සේවාදායකයේ නොමැති බවයි."},
  body(el){
-  const pick=h(`<div class="row"><select aria-label="Method"><option>GET</option><option>POST</option><option>HEAD</option></select><select aria-label="Page"><option value="/kurose_ross/index.html">/kurose_ross/index.html</option><option value="/old-page.html">/old-page.html</option><option value="/no-such-file.html">/no-such-file.html</option><option value="garbled">(a scribbled, unreadable letter)</option></select></div>`);
+  const pick=h(`<div class="row"><select aria-label="ක්‍රමය"><option>GET</option><option>POST</option><option>HEAD</option></select><select aria-label="පිටුව"><option value="/kurose_ross/index.html">/kurose_ross/index.html</option><option value="/old-page.html">/old-page.html</option><option value="/no-such-file.html">/no-such-file.html</option><option value="garbled">(කියවිය නොහැකි ලෙස කුරුටු ගෑ ලිපියක්)</option></select></div>`);
   const [mSel,pSel]=$$("select",pick);
   const req=h(`<div class="letter"></div>`),holder=slot(),res=h(`<div class="letter" hidden></div>`),why=h(`<div class="note" hidden></div>`);
-  el.append(h(`<p>Choose what Alice asks for, then send the letter:</p>`),pick,req,holder,res,why);
+  el.append(h(`<p>අනුර ඉල්ලන දේ තෝරා, ලිපිය යවන්න:</p>`),pick,req,holder,res,why);
   const render=()=>{const m=mSel.value,p=pSel.value;res.hidden=true;why.hidden=true;
-   req.innerHTML=p==="garbled"?`<span class="r">GRT</span> /kurose_ross/ HTTP/1.1  ??\nHost<span class="r">;;</span> www-net.cs.umass.edu`:`<span class="k">${m}</span> ${p} HTTP/1.1\\r\\n\n<span class="k">Host:</span> www-net.cs.umass.edu\\r\\n\n<span class="k">User-Agent:</span> Firefox/3.6.10\\r\\n\n<span class="k">Accept-Language:</span> en-us,en;q=0.5\\r\\n\n<span class="k">Connection:</span> keep-alive\\r\\n\n\\r\\n`+(m==="POST"?"name=alice&amp;course=networks":"");
+   req.innerHTML=p==="garbled"?`<span class="r">GRT</span> /kurose_ross/ HTTP/1.1  ??\nHost<span class="r">;;</span> www-net.cs.umass.edu`:`<span class="k">${m}</span> ${p} HTTP/1.1\\r\\n\n<span class="k">Host:</span> www-net.cs.umass.edu\\r\\n\n<span class="k">User-Agent:</span> Firefox/3.6.10\\r\\n\n<span class="k">Accept-Language:</span> si-lk,en;q=0.5\\r\\n\n<span class="k">Connection:</span> keep-alive\\r\\n\n\\r\\n`+(m==="POST"?"name=anura&amp;course=networks":"");
    let code,extra="",c="g",txt;
-   if(p==="garbled"){code="400 Bad Request";c="r";txt="The server couldn't understand the request message."}
-   else if(p==="/old-page.html"){code="301 Moved Permanently";c="k";extra=`<span class="k">Location:</span> /kurose_ross/index.html\\r\\n\n`;txt="The page moved. The <b>Location:</b> header is the forwarding address, and the browser follows it."}
-   else if(p==="/no-such-file.html"){code="404 Not Found";c="r";txt="The requested document isn't on this server."}
-   else{code="200 OK";txt=m==="HEAD"?"HEAD asks for the headers only, without the page itself.":m==="POST"?"POST carries form input in the body of the request.":"Success. The page is inside this response. (GET can also carry form input in the URL, after a <b>?</b>.)"}
-   holder.innerHTML="";holder.append(trip({h:190,nodes:{a:{x:100,y:100,label:"Alice's browser"},s:{x:530,y:100,kind:"office",label:"Web server",sub:"port 80"}},steps:[{from:"a",to:"s",tag:p==="garbled"?"???":`${m} ${p.split("/").pop()}`,cap:"Penny carries the request over a TCP connection to port 80."},{from:"s",to:"a",tag:code,cap:`The server replies: <b>${code}</b>.`}],
-    onDone(){res.hidden=false;why.hidden=false;res.innerHTML=`HTTP/1.1 <span class="${c}">${code}</span>\\r\\n\n<span class="k">Date:</span> Wed, 28 Oct 2026 20:00:00 GMT\\r\\n\n<span class="k">Server:</span> Apache/2.0.52 (CentOS)\\r\\n\n${extra}<span class="k">Content-Type:</span> text/html; charset=ISO-8859-1\\r\\n\n\\r\\n${code==="200 OK"&&m!=="HEAD"?"&lt;html&gt; ...the page... &lt;/html&gt;":""}`;why.innerHTML=`<b>${code}.</b> ${txt}`;say(code==="200 OK"?"Delivered!":"Try another page to see a different reply.")}}))};
+   if(p==="garbled"){code="400 Bad Request";c="r";txt="සේවාදායකයට ඉල්ලීම් පණිවිඩය තේරුම් ගැනීමට නොහැකි විය."}
+   else if(p==="/old-page.html"){code="301 Moved Permanently";c="k";extra=`<span class="k">Location:</span> /kurose_ross/index.html\\r\\n\n`;txt="පිටුව වෙනත් තැනකට ගෙන ගොස් ඇත. <b>Location:</b> ශීර්ෂකය (header) මඟින් නව ලිපිනය පෙන්වන අතර බ්‍රව්සරය ස්වයංක්‍රීයව එය වෙත යයි."}
+   else if(p==="/no-such-file.html"){code="404 Not Found";c="r";txt="ඉල්ලූ ලේඛනය මෙම සේවාදායකයේ නොමැත."}
+   else{code="200 OK";txt=m==="HEAD"?"HEAD මඟින් පිටුවේ අන්තර්ගතය නොමැතිව ශීර්ෂක (headers) පමණක් ඉල්ලා සිටියි.":m==="POST"?"POST මඟින් පෝරම දත්ත (form input) ඉල්ලීමේ බඳ කොටසේ (body) රැගෙන යයි.":"සාර්ථකයි! වෙබ් පිටුව මෙම ප්‍රතිචාරය තුළ අඩංගු වේ. (GET මඟින්ද URL හි <b>?</b> ලකුණකට පසුව දත්ත රැගෙන යා හැක.)"}
+   holder.innerHTML="";holder.append(trip({h:190,nodes:{a:{x:100,y:100,label:"අනුරගේ බ්‍රව්සරය"},s:{x:530,y:100,kind:"office",label:"වෙබ් සේවාදායකය",sub:"port 80"}},steps:[{from:"a",to:"s",tag:p==="garbled"?"???":`${m} ${p.split("/").pop()}`,cap:"වළගම්බා TCP සම්බන්ධතාවයක් හරහා පෝට් 80 වෙත ඉල්ලීම රැගෙන යයි."},{from:"s",to:"a",tag:code,cap:`සේවාදායකය පිළිතුරු දෙයි: <b>${code}</b>.`}],
+    onDone(){res.hidden=false;why.hidden=false;res.innerHTML=`HTTP/1.1 <span class="${c}">${code}</span>\\r\\n\n<span class="k">Date:</span> Wed, 28 Oct 2026 20:00:00 GMT\\r\\n\n<span class="k">Server:</span> Apache/2.0.52 (CentOS)\\r\\n\n${extra}<span class="k">Content-Type:</span> text/html; charset=UTF-8\\r\\n\n\\r\\n${code==="200 OK"&&m!=="HEAD"?"&lt;html&gt; ...වෙබ් පිටුව... &lt;/html&gt;":""}`;why.innerHTML=`<b>${code}.</b> ${txt}`;say(code==="200 OK"?"බෙදා හැරීම සාර්ථකයි!":"වෙනස් පිළිතුරක් බැලීමට වෙනත් පිටුවක් තෝරා බලන්න.")}}))};
   mSel.onchange=render;pSel.onchange=render;render()},
- take:"HTTP request = request line (method, URL, version) + header lines + blank line + optional body. Response = status line + headers + the object. Other codes: 304 Not Modified, 505 HTTP Version Not Supported.",
- penny:"Pick a page, then send the letter. Try the missing one!"});
+ take:"HTTP ඉල්ලීම = ඉල්ලීම් පේළිය (ක්‍රමය, URL, අනුවාදය) + ශීර්ෂක පේළි (header lines) + හිස් පේළිය + අමතර බඳ කොටස (body). ප්‍රතිචාරය = තත්ත්ව පේළිය + ශීර්ෂක + අදාළ ගොනුව. වෙනත් කේත: 304 Not Modified, 505 HTTP Version Not Supported.",
+ penny:"පිටුවක් තෝරා ලිපිය යවන්න. නැති ගොනුවත් උත්සාහ කර බලන්න!"});
 
 let hMode=0;
-S.push({stop:1,title:"One page, four deliveries",
- story:"The page Alice opened has <b>3 images</b>. A web page is a base HTML file plus every object it references, so the browser needs 4 objects. Before each request, TCP knocks on the door and waits for an answer: that's one <b>round trip (RTT)</b>.",
- ask:{q:"With non-persistent HTTP (a new TCP connection for every object), how many round trips does it take?",opts:["4","8","12"],ans:1,why:"Each object costs 2 RTT: one to open the connection, one for the request and reply. 4 objects × 2 = 8 RTT."},
+S.push({stop:1,title:"එක් පිටුවක්, බෙදාහැරීම් හතරක්",
+ story:"අනුර විවෘත කළ පිටුවේ <b>පින්තූර 3 ක්</b> ඇත. වෙබ් පිටුවක් යනු මූලික HTML ගොනුවක් සහ එය සඳහන් කරන සෑම වස්තුවකම (objects) එකතුවකි, එබැවින් බ්‍රව්සරයට වස්තු 4 ක් අවශ්‍ය වේ. සෑම ඉල්ලීමකටම පෙර, TCP දොරට තට්ටු කර පිළිතුරක් ලැබෙන තෙක් බලා සිටියි: එය එක් <b>වට ගමනකි (Round-Trip Time / RTT)</b>.",
+ ask:{q:"අස්ථාවර HTTP (non-persistent HTTP - එනම් සෑම වස්තුවකටම නව TCP සම්බන්ධතාවයක්) භාවිතා කරන විට, මේ සඳහා වට ගමන් (RTT) කීයක් ගතවේද?",opts:["4","8","12"],ans:1,why:"සෑම වස්තුවකටම 2 RTT බැගින් වැය වේ: සම්බන්ධතාවය විවෘත කිරීමට එකක් සහ ඉල්ලීම/පිළිතුර සඳහා තවත් එකක්. වස්තු 4 × 2 = 8 RTT."},
  body(el){
   const holder=slot();
   const mk=k=>{const st=[];const objs=["page.html","img1","img2","img3"];
-   if(k===0){objs.forEach((o,j)=>{st.push({from:"a",to:"s",tag:"knock (TCP)",cap:`Object ${j+1}: open a new TCP connection.`},{from:"s",to:"a",tag:"come in",cap:"The server accepts. One RTT gone already."},{from:"a",to:"s",tag:`GET ${o}`,cap:`Now ask for ${o}.`},{from:"s",to:"a",tag:o,cap:`${o} arrives, and the connection is <b>closed</b>.`+(j===3?" Total: <b>8 RTT</b>.":"")})})}
-   else st.push({from:"a",to:"s",tag:"knock (TCP)",cap:"Open one TCP connection."},{from:"s",to:"a",tag:"come in",cap:"Accepted. 1 RTT."},{from:"a",to:"s",tag:"GET page.html",cap:"Ask for the base page."},{from:"s",to:"a",tag:"page.html",cap:"The page arrives. The connection <b>stays open</b>."},{from:"a",to:"s",tag:"GET img1 img2 img3",cap:"Ask for all three images at once (pipelining) on the same connection."},{from:"s",to:"a",tag:"3 images",cap:"All three arrive. Total: <b>3 RTT</b> instead of 8."});
+   if(k===0){objs.forEach((o,j)=>{st.push({from:"a",to:"s",tag:"තට්ටු කිරීම (TCP)",cap:`වස්තුව ${j+1}: නව TCP සම්බන්ධතාවයක් විවෘත කරයි.`},{from:"s",to:"a",tag:"ඇතුළට එන්න",cap:"සේවාදායකය පිළිගනී. දැනටමත් 1 RTT ක් ගතවී අවසන්."},{from:"a",to:"s",tag:`GET ${o}`,cap:`දැන් ${o} ඉල්ලා සිටියි.`},{from:"s",to:"a",tag:o,cap:`${o} පැමිණෙන අතර, සම්බන්ධතාවය <b>වසා දමනු ලැබේ</b>.`+(j===3?" මුළු එකතුව: <b>8 RTT</b>.":"")})})}
+   else st.push({from:"a",to:"s",tag:"තට්ටු කිරීම (TCP)",cap:"එක් TCP සම්බන්ධතාවයක් විවෘත කරයි."},{from:"s",to:"a",tag:"ඇතුළට එන්න",cap:"පිළිගත්තා. 1 RTT."},{from:"a",to:"s",tag:"GET page.html",cap:"මූලික පිටුව ඉල්ලා සිටියි."},{from:"s",to:"a",tag:"page.html",cap:"පිටුව ලැබෙයි. සම්බන්ධතාවය <b>විවෘතව පවතී</b>."},{from:"a",to:"s",tag:"GET img1 img2 img3",cap:"එකම සම්බන්ධතාවය මත පින්තූර තුනම එකවර ඉල්ලා සිටියි (pipelining)."},{from:"s",to:"a",tag:"පින්තූර 3",cap:"තුනම එකවර පැමිණේ. මුළු එකතුව: 8 වෙනුවට <b>3 RTT</b> කි."});
    return st};
-  const draw=()=>{holder.innerHTML="";holder.append(trip({h:190,counter:i=>`Round trips: ${Math.floor((i+1)/2)}`,nodes:{a:{x:100,y:100,label:"Alice's browser"},s:{x:530,y:100,kind:"office",label:"Web server"}},steps:mk(hMode),onDone(){say(hMode?"Persistent HTTP (HTTP/1.1) keeps the door open. Much faster!":"So many knocks! Now try persistent.")}}))};
-  el.append(seg(["Non-persistent","Persistent (HTTP/1.1)"],k=>{hMode=k;draw()},hMode),holder);draw()},
- take:"Non-persistent: 2 RTT + transmit time per object, plus OS overhead for every connection. Persistent (HTTP/1.1): the server leaves the connection open, so all referenced objects can arrive in as little as one more RTT.",
- penny:"Count the round trips in the yellow box. Try Play all!"});
+  const draw=()=>{holder.innerHTML="";holder.append(trip({h:190,counter:i=>`වට ගමන් (RTT): ${Math.floor((i+1)/2)}`,nodes:{a:{x:100,y:100,label:"අනුරගේ බ්‍රව්සරය"},s:{x:530,y:100,kind:"office",label:"වෙබ් සේවාදායකය"}},steps:mk(hMode),onDone(){say(hMode?"ස්ථාවර HTTP (Persistent HTTP/1.1) දොර විවෘතව තබයි. ඉතා වේගවත්!":"කොයිතරම් දොරට තට්ටු කිරීම්ද! දැන් ස්ථාවර (Persistent) ක්‍රමය බලන්න.")}}))};
+  el.append(seg(["අස්ථාවර (Non-persistent)","ස්ථාවර (Persistent HTTP/1.1)"],k=>{hMode=k;draw()},hMode),holder);draw()},
+ take:"Non-persistent: එක් වස්තුවකට 2 RTT + සම්ප්‍රේෂණ කාලය සහ සෑම සම්බන්ධතාවයකටම මෙහෙයුම් පද්ධති වැය (OS overhead) ඇති වේ. Persistent (HTTP/1.1): සේවාදායකය සම්බන්ධතාවය විවෘතව තබන බැවින් අනෙකුත් සියලුම වස්තූන් තවත් එක් RTT එකකින් පමණ ලබා ගත හැක.",
+ penny:"කහ පැහැති කොටුවේ ඇති වට ගමන් (RTT) ගණන බලන්න!"});
 
-S.push({stop:1,title:"How does Amazon remember Alice?",
- story:"Alice adds a book to her cart, closes the tab, and comes back a week later. The cart is still there. But HTTP is stateless: the server forgets everyone the moment it replies.",
- ask:{q:"So how does the site know it's her?",opts:["It recognises her IP address","It gives her a numbered card to show on every visit","Penny tells the server"],ans:1,why:"A cookie works like a loyalty card number. The browser shows it with every request."},
- body(el){el.append(trip({h:250,nodes:{a:{x:90,y:140,label:"Alice",sub:"cookie file"},s:{x:340,y:140,kind:"office",label:"amazon.com"},db:{x:555,y:140,kind:"box",label:"back-end database",inside:"ID 1678"}},
-  steps:[{from:"a",to:"s",tag:"GET (no card)",cap:"First visit. Alice's request carries no cookie."},{from:"s",to:"db",tag:"new ID 1678",cap:"The server creates ID <b>1678</b> and a database entry for it."},{from:"s",to:"a",tag:"Set-cookie: 1678",card:true,cap:"The reply includes <b>Set-cookie: 1678</b>. Alice's browser files the card in its cookie file."},{from:"a",to:"s",tag:"cookie: 1678",card:true,cap:"One week later, every request shows the card: <b>cookie: 1678</b>."},{from:"s",to:"db",tag:"look up 1678",cap:"The server looks up 1678 and finds Alice's cart."},{from:"s",to:"a",tag:"your cart",cap:"A cookie-specific action: her cart is back."}]}));
-  el.append(h(`<div class="note"><b>The catch.</b> A third-party cookie (say, from an ad network embedded on many sites) can follow Alice from site to site and build a profile. That's why the EU's GDPR treats cookies that can identify a person as personal data.</div>`))},
- take:"Four parts: a Set-cookie header in a response, a cookie header in later requests, a cookie file in the browser, and a database at the site. Used for carts, logins, recommendations, and tracking.",
- penny:"Watch the blue card. That's the cookie."});
+S.push({stop:1,title:"ඇමසන් (Amazon) වෙබ් අඩවියට අනුරව මතක තිබෙන්නේ කෙසේද?",
+ story:"අනුර පොතක් තම භාණ්ඩ කරත්තයට (cart) දමා, ටැබ් එක වසා දමා, සතියකට පසුව නැවත පැමිණේ. කරත්තයේ පොත තවමත් එලෙසම ඇත. නමුත් HTTP තත්ත්ව-රහිත (stateless) වේ: සේවාදායකය පිළිතුරු දුන් සැණින් සියලු දෙනාවම අමතක කරයි.",
+ ask:{q:"එසේනම් එය අනුරම බව වෙබ් අඩවිය දැන ගන්නේ කෙසේද?",opts:["ඔහුගේ IP ලිපිනය හඳුනා ගැනීමෙන්","සෑම පැමිණීමකදීම පෙන්වීමට ඔහුට අංකිත කාඩ්පතක් ලබා දීමෙන්","වළගම්බා විසින් සේවාදායකයට පැවසීමෙන්"],ans:1,why:"කුකියක් (Cookie) සාමාජික කාඩ්පත් අංකයක් මෙන් ක්‍රියා කරයි. බ්‍රව්සරය සෑම ඉල්ලීමක් සමඟම එය ඉදිරිපත් කරයි."},
+ body(el){el.append(trip({h:250,nodes:{a:{x:90,y:140,label:"අනුර",sub:"කුකී ගොනුව"},s:{x:340,y:140,kind:"office",label:"amazon.com"},db:{x:555,y:140,kind:"box",label:"දත්ත ගබඩාව (DB)",inside:"ID 1678"}},
+  steps:[{from:"a",to:"s",tag:"GET (කාඩ්පතක් නැත)",cap:"පළමු පැමිණීම. අනුරගේ ඉල්ලීමේ කුකියක් නොමැත."},{from:"s",to:"db",tag:"නව ID 1678",cap:"සේවාදායකය <b>1678</b> ලෙස හැඳුනුම් අංකයක් නිර්මාණය කර දත්ත ගබඩාවේ තැන්පත් කරයි."},{from:"s",to:"a",tag:"Set-cookie: 1678",card:true,cap:"පිළිතුරට <b>Set-cookie: 1678</b> ඇතුළත් වේ. අනුරගේ බ්‍රව්සරය එම කාඩ්පත තම කුකී ගොනුවේ සුරකියි."},{from:"a",to:"s",tag:"cookie: 1678",card:true,cap:"සතියකට පසු, යවන සෑම ඉල්ලීමකම කාඩ්පත පෙන්වයි: <b>cookie: 1678</b>."},{from:"s",to:"db",tag:"1678 පරීක්ෂාව",cap:"සේවාදායකය 1678 පරීක්ෂා කර අනුරගේ භාණ්ඩ කරත්තය සොයා ගනී."},{from:"s",to:"a",tag:"ඔබේ කරත්තය",cap:"කුකියට අදාළ ක්‍රියාව: ඔහුගේ භාණ්ඩ කරත්තය නැවත ලැබී ඇත."}]}));
+  el.append(h(`<div class="note"><b>අවදානම.</b> තෙවන පාර්ශවීය කුකියකට (නිදසුනක් ලෙස බොහෝ වෙබ් අඩවිවල ඇතුළත් කර ඇති වෙළඳ දැන්වීම් ජාලයකට) වෙබ් අඩවියෙන් අඩවියට අනුර පසුපස හඹා ගොස් ඔහුගේ පැතිකඩක් ගොඩනැගිය හැකිය. යුරෝපා සංගමයේ GDPR නීතිය මඟින් පුද්ගලයෙකු හඳුනාගත හැකි කුකීස් පුද්ගලික දත්ත ලෙස සලකන්නේ එබැවිනි.</div>`))},
+ take:"කොටස් හතරකි: ප්‍රතිචාරයේ එන Set-cookie ශීර්ෂකය, පසු ඉල්ලීම්වල යන cookie ශීර්ෂකය, බ්‍රව්සරයේ ඇති කුකී ගොනුව සහ වෙබ් අඩවියේ ඇති දත්ත ගබඩාව. භාණ්ඩ කරත්ත, පිවිසුම් (logins), නිර්දේශ සහ ලුහුබැඳීම් සඳහා භාවිතා වේ.",
+ penny:"නිල් පැහැති කාඩ්පත දෙස බලන්න. ඒ තමයි කුකිය (Cookie)."});
 
-S.push({stop:1,title:"A branch post office down the hall",
- story:"Alice's whole school shares one narrow road to the Internet: a <b>1.54 Mbps</b> access link. Students send 15 requests a second for 100 Kbit objects, which is 1.50 Mbps. The road is 97% full, and letters wait <b>minutes</b> in line.",
- ask:{q:"What's the cheapest fix?",opts:["Buy a 100× faster road (154 Mbps)","Put a small branch post office inside the school","Ask students to browse less"],ans:1,why:"A web cache (proxy server) keeps copies of popular objects. Hits never use the road."},
+S.push({stop:1,title:"ශාලාව කෙළවරේ ඇති ශාඛා තැපැල් කාර්යාලය",
+ story:"අනුරගේ මුළු විශ්වවිද්‍යාලයම අන්තර්ජාලයට යාමට භාවිතා කරන්නේ එක් පටු මාර්ගයකි: එනම් <b>1.54 Mbps</b> ප්‍රවේශ සබැඳියකි (access link). සිසුන් තත්පරයට 100 Kbit වස්තු සඳහා ඉල්ලීම් 15 ක් යවන අතර එය 1.50 Mbps වේ. මාර්ගය 97% ක් පිරී ඇති අතර ලිපි පෝලිමේ <b>මිනිත්තු ගණනක්</b> බලා සිටියි.",
+ ask:{q:"මේ සඳහා වඩාත්ම ලාභදායී විසඳුම කුමක්ද?",opts:["100 ගුණයකින් වේගවත් මාර්ගයක් (154 Mbps) මිලදී ගැනීම","විශ්වවිද්‍යාලය ඇතුළත කුඩා ශාඛා තැපැල් කාර්යාලයක් (Web cache) පිහිටුවීම","අන්තර්ජාලය අඩුවෙන් භාවිතා කරන ලෙස සිසුන්ගෙන් ඉල්ලා සිටීම"],ans:1,why:"වෙබ් නිහිතයක් (Web cache / proxy server) ජනප්‍රිය වස්තූන්ගේ පිටපත් ළඟ තබා ගනී. එහි ඇති දේවල් (hits) ලබා ගැනීමට පටු බාහිර මාර්ගය භාවිතා කිරීමට සිදු නොවේ."},
  body(el){
-  el.append(trip({h:240,nodes:{a:{x:70,y:70,label:"Alice"},b:{x:70,y:195,label:"Bob",color:"var(--blue)"},c:{x:285,y:130,kind:"office",label:"school cache",color:"var(--green)"},o:{x:560,y:130,kind:"office",label:"origin server",sub:"2 s away"}},
-   steps:[{from:"a",to:"c",tag:"GET logo.png",cap:"Alice's browser sends the request to the school's cache, not the origin."},{from:"c",to:"o",tag:"GET logo.png",cap:"The cache doesn't have it (a <b>miss</b>), so it asks the origin, acting as a client."},{from:"o",to:"c",tag:"logo.png",cap:"The origin sends it. The cache keeps a copy."},{from:"c",to:"a",tag:"logo.png",cap:"Alice gets her image."},{from:"b",to:"c",tag:"GET logo.png",cap:"Five minutes later Bob asks for the same image…"},{from:"c",to:"b",tag:"logo.png (hit!)",cap:"…and the cache answers straight away. A <b>hit</b>: milliseconds, and the narrow road isn't used."}]}));
-  const sl=h(`<div><label for="hitRate">Now you run the cache. Hit rate: <span>0.40</span></label><input type="range" id="hitRate" min="0" max="0.9" step="0.05" value="0.4"></div>`);
-  const mt=h(`<div class="meter"><div><div class="lbl">How full the road is</div><div class="big"></div><div class="gauge"><i></i></div></div><div><div class="lbl">Average wait for a page</div><div class="big"></div><div class="lbl"></div></div></div>`);
+  el.append(trip({h:240,nodes:{a:{x:70,y:70,label:"අනුර"},b:{x:70,y:195,label:"රනිල්",color:"var(--blue)"},c:{x:285,y:130,kind:"office",label:"පාසල් නිහිතය (Cache)",color:"var(--green)"},o:{x:560,y:130,kind:"office",label:"මුල් සේවාදායකය (Origin)",sub:"තත්පර 2 ක් දුරින්"}},
+   steps:[{from:"a",to:"c",tag:"GET logo.png",cap:"අනුරගේ බ්‍රව්සරය ඉල්ලීම මුල් සේවාදායකයට නොව පාසලේ නිහිතයට (cache) යවයි."},{from:"c",to:"o",tag:"GET logo.png",cap:"නිහිතය සතුව එය නොමැත (<b>miss</b>), එබැවින් එය සේවාලාභියෙකු ලෙස ක්‍රියා කරමින් මුල් සේවාදායකයෙන් ඉල්ලා සිටියි."},{from:"o",to:"c",tag:"logo.png",cap:"මුල් සේවාදායකය එය එවයි. නිහිතය එහි පිටපතක් තබා ගනී."},{from:"c",to:"a",tag:"logo.png",cap:"අනුරට ඔහුගේ පින්තූරය ලැබේ."},{from:"b",to:"c",tag:"GET logo.png",cap:"මිනිත්තු පහකට පසු රනිල් ද එම පින්තූරයම ඉල්ලා සිටියි…"},{from:"c",to:"b",tag:"logo.png (hit!)",cap:"…නිහිතය වහාම පිළිතුරු දෙයි. එය <b>හමුවීමකි (hit)</b>: මිලි තත්පර ගණනකින් ලැබෙන අතර පටු මාර්ගය භාවිතා නොවේ."}]}));
+  const sl=h(`<div><label for="hitRate">දැන් ඔබ නිහිතය ක්‍රියාත්මක කරන්න. හමුවීම් අනුපාතය (Hit rate): <span>0.40</span></label><input type="range" id="hitRate" min="0" max="0.9" step="0.05" value="0.4"></div>`);
+  const mt=h(`<div class="meter"><div><div class="lbl">මාර්ගය කොපමණ පිරී ඇත්ද (Utilization)</div><div class="big"></div><div class="gauge"><i></i></div></div><div><div class="lbl">පිටුවක් සඳහා සාමාන්‍ය රැඳී සිටීමේ කාලය</div><div class="big"></div><div class="lbl"></div></div></div>`);
   el.append(sl,mt);
   const [uV,dV]=$$(".big",mt),g=mt.querySelector(".gauge i"),dn=$$(".lbl",mt)[2],inp=sl.querySelector("input");
   const calc=()=>{const hr=+inp.value;sl.querySelector("span").textContent=hr.toFixed(2);const u=(1-hr)*1.5/1.54;uV.textContent=u.toFixed(2);g.style.width=Math.min(100,u*100)+"%";g.style.background=u>.9?"var(--red)":u>.7?"var(--gold)":"var(--green)";
-   if(u>.9){dV.textContent="minutes";dn.textContent="The queue on the road explodes"}else{dV.textContent=((1-hr)*2.01+hr*.005).toFixed(2)+" s";dn.textContent=`${Math.round((1-hr)*100)}% from origin (2.01 s), ${Math.round(hr*100)}% from cache`}};
-  inp.oninput=()=>{calc();const v=+inp.value;if(v===0)say("No cache: 97% full. Letters wait minutes!");else if(Math.abs(v-.4)<.01)say("At 0.4: road 58% full, about 1.2 s per page. Better than the 154 Mbps road, and cheaper!")};calc();
-  el.append(h(`<div class="note"><b>Is the copy still fresh?</b> The cache can ask the origin with <span class="mono">If-modified-since: &lt;date&gt;</span>. If nothing changed, the reply is <span class="mono">304 Not Modified</span> with no object inside. This is a <b>conditional GET</b>.</div>`))},
- take:"Caches cut response time and traffic on the access link, and let small content providers deliver content well. Hit rate 0.4 → link utilization 0.58 and ≈1.2 s delay.",
- penny:"Drag the hit rate to 0 and watch the road jam."});
+   if(u>.9){dV.textContent="මිනිත්තු ගණනක්";dn.textContent="මාර්ගයේ පෝලිම අධික ලෙස පිරී යයි"}else{dV.textContent=((1-hr)*2.01+hr*.005).toFixed(2)+" s";dn.textContent=`${Math.round((1-hr)*100)}% මුල් සේවාදායකයෙන් (2.01 s), ${Math.round(hr*100)}% නිහිතයෙන්`}};
+  inp.oninput=()=>{calc();const v=+inp.value;if(v===0)say("නිහිතයක් නැති විට: 97% ක් පිරී ඇත. ලිපි මිනිත්තු ගණනක් බලා සිටියි!");else if(Math.abs(v-.4)<.01)say("0.4 දී: මාර්ගය 58% ක් පිරී ඇත, පිටුවකට තත්පර 1.2 ක් පමණ ගත වේ. 154 Mbps මාර්ගයකටත් වඩා ලාභදායී සහ වේගවත්!")};calc();
+  el.append(h(`<div class="note"><b>පිටපත තවමත් අලුත්ද?</b> නිහිතයට <span class="mono">If-modified-since: &lt;date&gt;</span> භාවිතා කර මුල් සේවාදායකයෙන් විමසිය හැක. කිසිවක් වෙනස් වී නොමැති නම්, පිළිතුර වස්තුවක් රහිතව <span class="mono">304 Not Modified</span> ලෙස ලැබේ. මෙය <b>කොන්දේසි සහිත GET (conditional GET)</b> ලෙස හැඳින්වේ.</div>`))},
+ take:"වෙබ් නිහිතයන් (Caches) ප්‍රතිචාර කාලය සහ ප්‍රවේශ සබැඳියේ තදබදය අඩු කරයි. Hit rate 0.4 → සබැඳි භාවිතය 0.58 සහ ප්‍රමාදය තත්පර ≈1.2 කි.",
+ penny:"Hit rate එක 0 දක්වා ඇද මාර්ගය අවහිර වන ආකාරය බලන්න."});
 
 let h2=0;
-S.push({stop:1,title:"Stuck behind a giant parcel",
- story:"Alice asks for a page with one <b>huge video file</b> (O1) and three tiny icons. With HTTP/1.1, the server answers in the order it was asked: first come, first served.",
- ask:{q:"What happens to the three tiny icons?",opts:["They arrive first because they're small","They wait until the whole video is sent","They get lost"],ans:1,why:"That's head-of-line (HOL) blocking. Small objects wait behind a big one."},
+S.push({stop:1,title:"දැවැන්ත පාර්සලයක් පිටුපස සිරවීම",
+ story:"අනුර එක් <b>විශාල වීඩියෝ ගොනුවක්</b> (O1) සහ කුඩා අයිකන තුනක් ඇති පිටුවක් ඉල්ලා සිටියි. HTTP/1.1 සමඟින්, සේවාදායකය පිළිතුරු දෙන්නේ ඉල්ලූ අනුපිළිවෙලටය: පළමුව පැමිණි අයට පළමුව සේවය සැලසේ.",
+ ask:{q:"කුඩා අයිකන තුනට කුමක් සිදුවේද?",opts:["ඒවා කුඩා නිසා මුලින්ම පැමිණේ","සම්පූර්ණ වීඩියෝව යවා අවසන් වන තුරු ඒවාට බලා සිටීමට සිදුවේ","ඒවා නැති වී යයි"],ans:1,why:"මෙය පෝලිමේ මුල අවහිර වීම (Head-of-Line / HOL blocking) ලෙස හැඳින්වේ. විශාල වස්තුවක් පිටුපස කුඩා වස්තූන්ට බලා සිටීමට සිදුවේ."},
  body(el){
-  const fr=h(`<div class="frames"></div>`),out=h(`<div class="note">Press "Send frames".</div>`),ctl=h(`<div class="row"><button class="btn">Send frames</button></div>`),btn=ctl.firstElementChild;
+  const fr=h(`<div class="frames"></div>`),out=h(`<div class="note">"රාමු යවන්න" (Send frames) ඔබන්න.</div>`),ctl=h(`<div class="row"><button class="btn">රාමු යවන්න</button></div>`),btn=ctl.firstElementChild;
   const order=()=>{const q={1:8,2:1,3:1,4:1},o=[];if(h2===0)[1,2,3,4].forEach(k=>{for(let i=0;i<q[k];i++)o.push(k)});else{const l={...q};while(Object.values(l).some(v=>v))[1,2,3,4].forEach(k=>{if(l[k]){o.push(k);l[k]--}})}return o};
   let t=null;
-  const paint=()=>{clearInterval(t);fr.innerHTML=order().map(o=>`<i class="o${o}">O${o}</i>`).join("");out.textContent='Press "Send frames".'};
+  const paint=()=>{clearInterval(t);fr.innerHTML=order().map(o=>`<i class="o${o}">O${o}</i>`).join("");out.textContent='"රාමු යවන්න" ඔබන්න.'};
   btn.onclick=()=>{clearInterval(t);const fs=$$("i",fr),ord=order(),fin={};let i=0;fs.forEach(f=>f.classList.remove("sent"));
-   const step=()=>{if(i>=fs.length){clearInterval(t);out.innerHTML=`Icons done after frames <b>${fin[2]}, ${fin[3]}, ${fin[4]}</b>. Video done after frame <b>${fin[1]}</b>. `+(h2===0?"The icons waited for the whole video.":"The icons arrive right away, and the video is barely delayed.");say(h2===0?"Now switch to HTTP/2 and send again.":"HTTP/2 cuts objects into frames and interleaves them.");return}fs[i].classList.add("sent");fin[ord[i]]=i+1;i++};
+   const step=()=>{if(i>=fs.length){clearInterval(t);out.innerHTML=`අයිකන අවසන් වූයේ <b>${fin[2]}, ${fin[3]}, ${fin[4]}</b> වන රාමු වලින් පසුවය. වීඩියෝව අවසන් වූයේ <b>${fin[1]}</b> වන රාමුවෙන් පසුවය. `+(h2===0?"මුළු වීඩියෝවම යන තුරු අයිකන වලට බලා සිටීමට සිදු විය.":"අයිකන වහාම ලැබෙන අතර වීඩියෝවට සිදුවන්නේ ඉතා සුළු ප්‍රමාදයක් පමණි.");say(h2===0?"දැන් HTTP/2 වෙත මාරු වී නැවත යවන්න.":"HTTP/2 වස්තූන් කුඩා රාමු (frames) වලට කඩා ඒවා මාරුවෙන් මාරුවට යවයි.");return}fs[i].classList.add("sent");fin[ord[i]]=i+1;i++};
    if(reduce){while(i<=fs.length)step()}else t=setInterval(step,230)};
   el.append(seg(["HTTP/1.1","HTTP/2"],k=>{h2=k;paint()},h2),fr,ctl,out);paint();
-  el.append(h(`<div class="note"><b>And HTTP/3?</b> HTTP/2 still uses one TCP connection, so one lost packet stalls every object. HTTP/3 runs over <b>QUIC on UDP</b>, adding security and per-object error and congestion control.</div>`))},
- take:"HTTP/2 splits objects into frames and schedules them to reduce HOL blocking. The server can also push objects before the client asks.",
- penny:"Blue is the giant video. Watch where the small icons end up."});
+  el.append(h(`<div class="note"><b>එතකොට HTTP/3?</b> HTTP/2 තවමත් එක් TCP සම්බන්ධතාවයක් භාවිතා කරන බැවින්, එක් පැකට්ටුවක් නැති වූ විට සෑම වස්තුවක්ම නතර වේ. HTTP/3 ක්‍රියාත්මක වන්නේ <b>UDP මත ඇති QUIC</b> හරහා වන අතර, එය ආරක්ෂාව සහ එක් එක් වස්තුව සඳහා වෙන වෙනම දෝෂ සහ තදබද පාලනය ලබා දෙයි.</div>`))},
+ take:"HTTP/2 මඟින් HOL අවහිරතාවය අවම කිරීම සඳහා වස්තූන් රාමු (frames) වලට බෙදා මාරුවෙන් මාරුවට යවයි. සේවාලාභියා ඉල්ලීමට පෙර සේවාදායකයට වස්තූන් තල්ලු කිරීමටද (server push) හැකිය.",
+ penny:"නිල් පැහැයෙන් දැක්වෙන්නේ විශාල වීඩියෝවයි. කුඩා අයිකන කොතැනට යනවාදැයි බලන්න."});
 
-S.push({stop:2,title:"Alice writes to Bob",
- story:"With the page loaded, Alice remembers she owes Bob an email. Email has three parts: <b>user agents</b> (mail apps), <b>mail servers</b> (a mailbox per user plus a queue of outgoing mail), and <b>SMTP</b>, which servers use to push mail to each other over TCP port 25.",
- ask:{q:"Does Alice's laptop send the email straight to Bob's laptop?",opts:["Yes, directly","No, it goes through two mail servers","No, it goes through Bob's server only"],ans:1,why:"Alice's server queues it and delivers it to Bob's server, where it waits in his mailbox. Bob's laptop doesn't need to be on."},
- body(el){el.append(trip({h:240,nodes:{a:{x:70,y:120,label:"Alice's",sub:"mail app"},as:{x:240,y:120,kind:"office",label:"Alice's server",sub:"queue"},bs:{x:410,y:120,kind:"office",label:"Bob's server",sub:"mailboxes"},b:{x:575,y:120,label:"Bob's",sub:"mail app",color:"var(--blue)"}},
-  steps:[{from:"a",to:"a",tag:"to: bob@someschool.edu",cap:"Alice writes the message in her mail app (user agent)."},{from:"a",to:"as",tag:"SMTP",cap:"Her app sends it to her mail server with SMTP. It waits in the <b>message queue</b>."},{from:"as",to:"bs",tag:"TCP connect :25",cap:"Alice's server, acting as an SMTP client, opens a TCP connection to Bob's server."},{from:"as",to:"bs",tag:"SMTP: message",cap:"The message travels over that connection."},{from:"bs",to:"bs",tag:"into Bob's mailbox",cap:"Bob's server puts it in <b>Bob's mailbox</b>. Bob's laptop can be asleep."},{from:"bs",to:"b",tag:"IMAP",cap:"Later, Bob's app fetches it with <b>IMAP</b> (or HTTP, for webmail like Gmail)."}],
-  onDone(){say("Delivered! SMTP pushed it, IMAP let Bob pull it.")}}))},
- take:"SMTP pushes mail to the receiver's server. Retrieval is separate: IMAP keeps messages on the server in folders; webmail uses HTTP.",
- penny:"This is my favourite route!"});
+S.push({stop:2,title:"අනුර රනිල්ට විද්‍යුත් තැපෑලක් (Email) ලියයි",
+ story:"වෙබ් පිටුව විවෘත වූ පසු, තමා රනිල්ට විද්‍යුත් තැපෑලක් යැවිය යුතු බව අනුරට මතක් වේ. විද්‍යුත් තැපෑලෙහි ප්‍රධාන කොටස් තුනක් ඇත: <b>පරිශීලක නියෝජිතයන් (user agents)</b> එනම් තැපැල් යෙදුම්, <b>තැපැල් සේවාදායකයන් (mail servers)</b> එනම් එක් එක් පරිශීලකයාගේ තැපැල් පෙට්ටිය සහ පිටතට යන ලිපි පෝලිම, සහ TCP පෝට් 25 හරහා සේවාදායකයන් අතර තැපැල් තල්ලු කිරීමට භාවිතා කරන <b>SMTP</b> ප්‍රොටෝකෝලයයි.",
+ ask:{q:"අනුරගේ ලැප්ටොප් පරිගණකය විද්‍යුත් තැපෑල කෙලින්ම රනිල්ගේ ලැප්ටොප් පරිගණකයට යවනවාද?",opts:["ඔව්, කෙලින්ම යවයි","නැත, එය තැපැල් සේවාදායකයන් දෙකක් හරහා ගමන් කරයි","නැත, එය රනිල්ගේ සේවාදායකය හරහා පමණක් ගමන් කරයි"],ans:1,why:"අනුරගේ සේවාදායකය එය පෝලිමට ගෙන රනිල්ගේ සේවාදායකය වෙත බෙදා හරින අතර, එහිදී එය රනිල්ගේ තැපැල් පෙට්ටියේ රැඳී සිටියි. ඒ මොහොතේ රනිල්ගේ ලැප්ටොප් පරිගණකය ක්‍රියාත්මකව තිබීම අවශ්‍ය නොවේ."},
+ body(el){el.append(trip({h:240,nodes:{a:{x:70,y:120,label:"අනුරගේ",sub:"තැපැල් යෙදුම"},as:{x:240,y:120,kind:"office",label:"අනුරගේ සේවාදායකය",sub:"පෝලිම (queue)"},bs:{x:410,y:120,kind:"office",label:"රනිල්ගේ සේවාදායකය",sub:"තැපැල් පෙට්ටි"},b:{x:575,y:120,label:"රනිල්ගේ",sub:"තැපැල් යෙදුම",color:"var(--blue)"}},
+  steps:[{from:"a",to:"a",tag:"to: ranil@someschool.edu",cap:"අනුර තම තැපැල් යෙදුමේ (user agent) පණිවිඩය ලියයි."},{from:"a",to:"as",tag:"SMTP",cap:"ඔහුගේ යෙදුම SMTP මඟින් එය ඔහුගේ තැපැල් සේවාදායකයට යවයි. එය <b>පණිවිඩ පෝලිමේ (message queue)</b> රැඳී සිටියි."},{from:"as",to:"bs",tag:"TCP connect :25",cap:"අනුරගේ සේවාදායකය, SMTP සේවාලාභියෙකු ලෙස ක්‍රියා කරමින්, රනිල්ගේ සේවාදායකය වෙත TCP සම්බන්ධතාවයක් විවෘත කරයි."},{from:"as",to:"bs",tag:"SMTP: පණිවිඩය",cap:"පණිවිඩය එම සම්බන්ධතාවය හරහා ගමන් කරයි."},{from:"bs",to:"bs",tag:"රනිල්ගේ තැපැල් පෙට්ටියට",cap:"රනිල්ගේ සේවාදායකය එය <b>රනිල්ගේ තැපැල් පෙට්ටියට</b> දමයි. රනිල්ගේ ලැප්ටොප් එක ක්‍රියා විරහිතව තිබිය හැක."},{from:"bs",to:"b",tag:"IMAP",cap:"පසුව, රනිල්ගේ යෙදුම <b>IMAP</b> (හෝ Gmail වැනි වෙබ් තැපැල් සඳහා HTTP) මඟින් එය ලබා ගනී."}],
+  onDone(){say("බෙදා හැරියා! SMTP එය තල්ලු කළ අතර, IMAP මඟින් රනිල් එය ඇද ගත්තා.")}}))},
+ take:"SMTP මඟින් ලබන්නාගේ සේවාදායකය වෙත තැපැල් තල්ලු කරයි (push). ලබා ගැනීම (retrieval) වෙනම සිදුවේ: IMAP මඟින් සේවාදායකයේ ෆෝල්ඩර තුළ පණිවිඩ තබා ගනී; වෙබ් තැපෑල HTTP භාවිතා කරයි.",
+ penny:"මේක තමයි මගේ ප්‍රියතම ගමන් මාර්ගය!"});
 
-S.push({stop:2,title:"Eavesdropping on two post offices",
- story:"What do the two mail servers actually say to each other? Let's sit in the room. Alice's server is <b>crepes.fr</b>, Bob's is <b>hamburger.edu</b>. C is the client, S is the server.",
- ask:{q:"The message body can be many lines long. How does the server know it has ended?",opts:["A line containing only a dot","The word END","The connection closes"],ans:0,why:"A line with just \".\" (CRLF.CRLF) marks the end of the message."},
+S.push({stop:2,title:"තැපැල් කාර්යාල දෙකක සංවාදයකට සවන් දීම",
+ story:"තැපැල් සේවාදායකයන් දෙක ඇත්තටම එකිනෙකාට කියන්නේ කුමක්ද? අපි කාමරයට වී අසා සිටිමු. අනුරගේ සේවාදායකය <b>crepes.fr</b> වන අතර රනිල්ගේ සේවාදායකය <b>hamburger.edu</b> වේ. C යනු සේවාලාභියා (Client) වන අතර S යනු සේවාදායකය (Server) වේ.",
+ ask:{q:"පණිවිඩයේ බඳ කොටස (body) පේළි ගණනාවක් දිග විය හැක. එය අවසන් වූ බව සේවාදායකය දැන ගන්නේ කෙසේද?",opts:["තනි තිතක් (.) පමණක් අඩංගු පේළියකින්","END යන වචනයෙන්","සම්බන්ධතාවය විසන්ධි වීමෙන්"],ans:0,why:"තනි පේළියක ඇති \".\" ලකුණ (CRLF.CRLF) මඟින් පණිවිඩයේ අවසානය සලකුණු කරයි."},
  body(el){
-  const L=[["S","220 hamburger.edu"],["C","HELO crepes.fr"],["S","250 Hello crepes.fr, pleased to meet you"],["C","MAIL FROM: <alice@crepes.fr>"],["S","250 alice@crepes.fr... Sender ok"],["C","RCPT TO: <bob@hamburger.edu>"],["S","250 bob@hamburger.edu ... Recipient ok"],["C","DATA"],["S","354 Enter mail, end with \".\" on a line by itself"],["C","Do you like ketchup?"],["C","How about pickles?"],["C","."],["S","250 Message accepted for delivery"],["C","QUIT"],["S","221 hamburger.edu closing connection"]];
-  const N={1:"Phase 1, handshake: the client says hello.",3:"Phase 2, transfer. First the envelope: who it's from…",5:"…and who it's for.",7:"Now the letter itself.",11:"A dot alone on a line ends the message.",13:"Phase 3, closure."};
-  const box=h(`<div class="smtp"></div>`),ctl=h(`<div class="row"><button class="btn alt">Next line</button><button class="btn ghost">Restart</button></div>`);let k=0;
+  const L=[["S","220 hamburger.edu"],["C","HELO crepes.fr"],["S","250 Hello crepes.fr, pleased to meet you"],["C","MAIL FROM: <anura@crepes.fr>"],["S","250 anura@crepes.fr... Sender ok"],["C","RCPT TO: <ranil@hamburger.edu>"],["S","250 ranil@hamburger.edu ... Recipient ok"],["C","DATA"],["S","354 Enter mail, end with \".\" on a line by itself"],["C","ඔබ කිරිබත් වලට කැමතිද?"],["C","ලුණුමිරිස් එක්ක කොහොමද?"],["C","."],["S","250 Message accepted for delivery"],["C","QUIT"],["S","221 hamburger.edu closing connection"]];
+  const N={1:"1 වන අදියර, අතට අත දීම (handshake): සේවාලාභියා ආයුබෝවන් කියයි.",3:"2 වන අදියර, හුවමාරුව. පළමුව ලියුම් කවරය: එය කාගෙන්ද…",5:"…සහ කා වෙනුවෙන්ද යන්න.",7:"දැන් ලිපියේ අන්තර්ගතය.",11:"තනි පේළියක ඇති තිතක් මඟින් පණිවිඩය අවසන් වේ.",13:"3 වන අදියර, සම්බන්ධතාවය වසා දැමීම."};
+  const box=h(`<div class="smtp"></div>`),ctl=h(`<div class="row"><button class="btn alt">ඊළඟ පේළිය</button><button class="btn ghost">මුල සිට</button></div>`);let k=0;
   const add=()=>{if(k>=L.length)return;const d=document.createElement("div");d.className=L[k][0];d.textContent=L[k][0]+": "+L[k][1];box.append(d);box.scrollTop=1e6;if(N[k])say(N[k]);k++;ctl.children[0].disabled=k>=L.length};
   ctl.children[0].onclick=add;ctl.children[1].onclick=()=>{k=0;box.innerHTML="";ctl.children[0].disabled=false;add()};
   el.append(ctl,box);add();
-  el.append(h(`<div class="note"><b>SMTP vs HTTP.</b> HTTP is <b>pull</b> (the client fetches); SMTP is <b>push</b> (the sender delivers). HTTP puts each object in its own response; SMTP sends many objects in one multipart message. SMTP uses persistent connections and needs 7-bit ASCII. The <span class="mono">To:</span>, <span class="mono">From:</span> and <span class="mono">Subject:</span> lines inside the message (RFC 2822) are different from SMTP's MAIL FROM and RCPT TO, which are like writing on the outside of the envelope.</div>`))},
- take:"SMTP: command/response in ASCII, status codes, three phases (handshake, transfer, closure).",
- penny:"Click Next line and listen in."});
+  el.append(h(`<div class="note"><b>SMTP සහ HTTP සංසන්දනය.</b> HTTP යනු <b>ඇද ගැනීමේ (pull)</b> ක්‍රමයකි (සේවාලාභියා දත්ත ඉල්ලා ගනී); SMTP යනු <b>තල්ලු කිරීමේ (push)</b> ක්‍රමයකි (යවන්නා දත්ත බෙදා හරියි). HTTP සෑම වස්තුවක්ම වෙනම ප්‍රතිචාරයක තබන අතර, SMTP බහු-කොටස් (multipart) පණිවිඩයක් තුළ වස්තු ගණනාවක් යවයි. පණිවිඩය ඇතුළත ඇති <span class="mono">To:</span>, <span class="mono">From:</span> සහ <span class="mono">Subject:</span> පේළි (RFC 2822), ලියුම් කවරයේ පිටත ලියන SMTP හි MAIL FROM සහ RCPT TO විධාන වලට වඩා වෙනස් වේ.</div>`))},
+ take:"SMTP: ASCII අකුරින් විධාන/ප්‍රතිචාර, තත්ත්ව කේත සහ අදියර තුනකින් (හඳුන්වාදීම, හුවමාරුව, වසා දැමීම) සමන්විත වේ.",
+ penny:"'ඊළඟ පේළිය' ඔබා සංවාදයට සවන් දෙන්න."});
 
 let dq=0;
-S.push({stop:3,title:"Penny can't read names",
- story:"Alice clicks a link to <b>gaia.cs.umass.edu</b>. But Penny's roads only understand numbers: IP addresses. Somebody has to translate the name. That's the job of <b>DNS</b>, a huge address book split across many servers worldwide.",
- ask:{q:"Alice's local DNS server doesn't know the answer. Who does it ask first?",opts:["The umass.edu server","A root server","Google"],ans:1,why:"Root servers know where every top-level domain (.com, .edu, .uk…) lives. From there it's pointed down the tree."},
+S.push({stop:3,title:"වළගම්බාට නම් කියවන්න බැහැ",
+ story:"අනුර <b>gaia.cs.umass.edu</b> වෙත ඇති සබැඳියක් මත ක්ලික් කරයි. නමුත් වළගම්බාගේ මාර්ග හඳුනා ගන්නේ අංක පමණි: එනම් IP ලිපින පමණි. කවුරුන් හෝ මෙම නම අංකයකට පරිවර්තනය කළ යුතුය. ලොව පුරා සේවාදායකයන් රැසක් අතර බෙදී ගිය දැවැන්ත ලිපින පොතක් වන <b>DNS</b> හි රාජකාරිය එයයි.",
+ ask:{q:"අනුරගේ දේශීය DNS සේවාදායකය (Local DNS server) පිළිතුර දන්නේ නැත. එය මුලින්ම විමසන්නේ කාගෙන්ද?",opts:["umass.edu සේවාදායකයෙන්","මූල සේවාදායකයකින් (Root server)","ගූගල් (Google) වෙතින්"],ans:1,why:"සෑම ඉහළ මට්ටමේ වසමක්ම (.com, .edu, .lk…) පිහිටා ඇත්තේ කොතැනදැයි මූල සේවාදායකයන් (Root servers) දනී. එතැන් සිට පහළට මඟ පෙන්වනු ලැබේ."},
  body(el){
   const holder=slot();
-  const nodes={h:{x:85,y:225,label:"Alice",sub:"engineering.nyu.edu"},l:{x:85,y:85,kind:"office",label:"local DNS",sub:"dns.nyu.edu",color:"var(--green)"},r:{x:330,y:60,kind:"office",label:"root",color:"var(--red)"},t:{x:560,y:85,kind:"office",label:".edu TLD"},a:{x:560,y:225,kind:"office",label:"authoritative",sub:"dns.cs.umass.edu"}};
-  const it=[{from:"h",to:"l",tag:"gaia.cs.umass.edu?",cap:"Alice's computer asks its local DNS server."},{from:"l",to:"r",tag:"gaia…?",cap:"The local server asks a root server."},{from:"r",to:"l",tag:"ask .edu",cap:"Root: \"Not me, but here's the .edu TLD server.\""},{from:"l",to:"t",tag:"gaia…?",cap:"Local asks the .edu TLD server."},{from:"t",to:"l",tag:"ask dns.cs.umass.edu",cap:"TLD: \"Try umass's authoritative server.\""},{from:"l",to:"a",tag:"gaia…?",cap:"Local asks the authoritative server."},{from:"a",to:"l",tag:"128.119.245.12",cap:"The authoritative server knows: <b>128.119.245.12</b>."},{from:"l",to:"h",tag:"128.119.245.12",cap:"Local hands the answer to Alice, and keeps a copy in its cache."}];
-  const rec=[{from:"h",to:"l",tag:"gaia.cs.umass.edu?",cap:"Alice's computer asks its local DNS server."},{from:"l",to:"r",tag:"you find it",cap:"Local asks root, and hands over the whole job."},{from:"r",to:"t",tag:"you find it",cap:"Root asks the .edu TLD server."},{from:"t",to:"a",tag:"you find it",cap:"TLD asks the authoritative server."},{from:"a",to:"t",tag:"128.119.245.12",cap:"The answer starts its way back…"},{from:"t",to:"r",tag:"128.119.245.12",cap:"…up through TLD…"},{from:"r",to:"l",tag:"128.119.245.12",cap:"…through root (busy root!)…"},{from:"l",to:"h",tag:"128.119.245.12",cap:"…and to Alice. This puts a heavy load on the upper levels."}];
-  const draw=()=>{holder.innerHTML="";holder.append(trip({h:290,nodes,steps:dq?rec:it,onDone(){say(dq?"Recursive: each server passes the job down. Heavy for root!":"Iterated: \"I don't know, ask them.\" The local server does the legwork.")}}))};
-  el.append(seg(["Iterated query","Recursive query"],k=>{dq=k;draw()},dq),holder);draw();
-  el.append(h(`<div class="note"><b>Why not one giant server?</b> It would be a single point of failure, drown in traffic (Comcast's servers alone handle 600 billion queries a day), be far from most people, and be impossible to maintain. So DNS is <b>distributed and hierarchical</b>: 13 logical root servers (each copied many times), TLD servers, and each organization's authoritative servers.</div>`))},
- take:"Root → TLD → authoritative. The local DNS server isn't part of the hierarchy; it asks on your behalf. DNS also handles host aliasing, mail server aliasing, and load distribution.",
- penny:"Try both query types and count who does the walking."});
+  const nodes={h:{x:85,y:225,label:"අනුර",sub:"engineering.nyu.edu"},l:{x:85,y:85,kind:"office",label:"දේශීය DNS",sub:"dns.nyu.edu",color:"var(--green)"},r:{x:330,y:60,kind:"office",label:"මූල (Root)",color:"var(--red)"},t:{x:560,y:85,kind:"office",label:".edu TLD"},a:{x:560,y:225,kind:"office",label:"බලයලත් (Authoritative)",sub:"dns.cs.umass.edu"}};
+  const it=[{from:"h",to:"l",tag:"gaia.cs.umass.edu?",cap:"අනුරගේ පරිගණකය තම දේශීය DNS සේවාදායකයෙන් විමසයි."},{from:"l",to:"r",tag:"gaia…?",cap:"දේශීය සේවාදායකය මූල සේවාදායකයකින් (Root server) විමසයි."},{from:"r",to:"l",tag:".edu ගෙන් අසන්න",cap:"Root: \"මම දන්නේ නැහැ, නමුත් මෙන්න .edu TLD සේවාදායකයේ ලිපිනය.\""},{from:"l",to:"t",tag:"gaia…?",cap:"දේශීය සේවාදායකය .edu TLD සේවාදායකයෙන් විමසයි."},{from:"t",to:"l",tag:"dns.cs.umass.edu ගෙන් අසන්න",cap:"TLD: \"umass හි බලයලත් (authoritative) සේවාදායකයෙන් උත්සාහ කරන්න.\""},{from:"l",to:"a",tag:"gaia…?",cap:"දේශීය සේවාදායකය බලයලත් සේවාදායකයෙන් විමසයි."},{from:"a",to:"l",tag:"128.119.245.12",cap:"බලයලත් සේවාදායකය නිවැරදි ලිපිනය දනී: <b>128.119.245.12</b>."},{from:"l",to:"h",tag:"128.119.245.12",cap:"දේශීය සේවාදායකය පිළිතුර අනුරට ලබා දෙන අතර, එහි පිටපතක් තම නිහිතයේ (cache) තබා ගනී."}];
+  const rec=[{from:"h",to:"l",tag:"gaia.cs.umass.edu?",cap:"අනුරගේ පරිගණකය තම දේශීය DNS සේවාදායකයෙන් විමසයි."},{from:"l",to:"r",tag:"ඔබ එය සොයා දෙන්න",cap:"දේශීය සේවාදායකය Root ගෙන් විමසා, සම්පූර්ණ වගකීම එයට පවරයි."},{from:"r",to:"t",tag:"ඔබ එය සොයා දෙන්න",cap:"Root සේවාදායකය .edu TLD සේවාදායකයෙන් විමසයි."},{from:"t",to:"a",tag:"ඔබ එය සොයා දෙන්න",cap:"TLD සේවාදායකය බලයලත් සේවාදායකයෙන් විමසයි."},{from:"a",to:"t",tag:"128.119.245.12",cap:"පිළිතුර ආපසු පැමිණීමට පටන් ගනී…"},{from:"t",to:"r",tag:"128.119.245.12",cap:"…TLD හරහා ඉහළට…"},{from:"r",to:"l",tag:"128.119.245.12",cap:"…Root හරහා (Root ට වැඩ වැඩියි!)…"},{from:"l",to:"h",tag:"128.119.245.12",cap:"…අවසානයේ අනුර වෙතට. මෙම ක්‍රමය ඉහළ මට්ටමේ සේවාදායකයන් මත විශාල බරක් පටවයි."}];
+  const draw=()=>{holder.innerHTML="";holder.append(trip({h:290,nodes,steps:dq?rec:it,onDone(){say(dq?"පුනරාවර්තන (Recursive): සෑම සේවාදායකයක්ම වැඩේ පහළට පවරයි. Root ට බර වැඩියි!":"නැවත නැවත විමසන (Iterated): \"මම දන්නේ නැහැ, ඔවුන්ගෙන් අසන්න.\" දේශීය සේවාදායකය සියලු ගමන් බිමන් සිදු කරයි.")}}))};
+  el.append(seg(["නැවත නැවත විමසුම (Iterated)","පුනරාවර්තන විමසුම (Recursive)"],k=>{dq=k;draw()},dq),holder);draw();
+  el.append(h(`<div class="note"><b>එක් දැවැන්ත සේවාදායකයක් පමණක් භාවිතා නොකරන්නේ ඇයි?</b> එය බිඳ වැටුණහොත් මුළු ලෝකයම අකර්මණ්‍ය වේ (single point of failure), අධික තදබදයකට ලක් වේ, බොහෝ දෙනෙකුට දුරස්ථ වේ, සහ යාවත්කාලීන කිරීමට නොහැකි වේ. එබැවින් DNS යනු <b>බෙදා හරින ලද සහ ධූරාවලිගත (distributed and hierarchical)</b> පද්ධතියකි: තාර්කික මූල සේවාදායක (Root servers) 13 ක්, TLD සේවාදායක සහ එක් එක් ආයතනයේ බලයලත් (Authoritative) සේවාදායක මීට ඇතුළත් වේ.</div>`))},
+ take:"Root → TLD → Authoritative. දේශීය DNS සේවාදායකය මෙම ධූරාවලියේ කොටසක් නොවේ; එය ඔබ වෙනුවෙන් විමසීම් සිදු කරයි. DNS මඟින් අන්වර්ථ නාම (aliasing) සහ භාරය බෙදා හැරීම (load distribution) ද සිදු කරයි.",
+ penny:"විමසුම් වර්ග දෙකම උත්සාහ කර වැඩිපුර ඇවිදින්නේ කවුදැයි බලන්න."});
 
-S.push({stop:3,title:"Five minutes later…",
- story:"Alice clicks another link on the same site. Her computer needs the address of <b>gaia.cs.umass.edu</b> again.",
- ask:{q:"How many servers have to be asked this time?",opts:["All four again","Just the local DNS server","None, Penny remembers"],ans:1,why:"The local server cached the answer. It replies at once, until the record's TTL (time to live) runs out."},
- body(el){el.append(trip({h:200,nodes:{h:{x:90,y:110,label:"Alice"},l:{x:320,y:100,kind:"office",label:"local DNS",sub:"cache: gaia → 128.119.245.12",color:"var(--green)"},r:{x:560,y:100,kind:"office",label:"root & friends",color:"var(--muted)"}},
-  steps:[{from:"h",to:"l",tag:"gaia.cs.umass.edu?",cap:"Alice asks the local server again."},{from:"l",to:"h",tag:"128.119.245.12 (cached)",cap:"Answered from the cache. Root, TLD, and authoritative servers aren't bothered at all."}],onDone(){say("Caching is why root servers aren't overwhelmed.")}}));
-  el.append(h(`<div class="note"><b>The trade-off.</b> If a host changes its IP address, cached copies may be out of date until their TTL expires. TLD server addresses are usually cached in local servers, so root servers are rarely visited.</div>`));
-  const out=h(`<div class="letter"></div>`),RR={A:["relay1.bar.foo.com","145.37.93.126","Hostname → IP address. The everyday lookup."],NS:["foo.com","dns.foo.com","Domain → the hostname of its authoritative name server."],CNAME:["www.ibm.com","servereast.backup2.ibm.com","Nickname (alias) → the real, canonical name."],MX:["foo.com","mail.bar.foo.com","Domain → its SMTP mail server. That's how mail to bob@foo.com finds its way."]};
+S.push({stop:3,title:"මිනිත්තු පහකට පසු…",
+ story:"අනුර එම වෙබ් අඩවියේම තවත් සබැඳියක් මත ක්ලික් කරයි. ඔහුගේ පරිගණකයට නැවතත් <b>gaia.cs.umass.edu</b> හි ලිපිනය අවශ්‍ය වේ.",
+ ask:{q:"මෙවර සේවාදායකයන් කීයකින් විමසීමට සිදුවේද?",opts:["නැවතත් හතරෙන්ම","දේශීය DNS සේවාදායකයෙන් පමණි","කිසිවෙකුගෙන් නැත, වළගම්බාට මතකයි"],ans:1,why:"දේශීය සේවාදායකය පිළිතුර තම නිහිතයේ (cache) තබා ගත්තේය. එහි ජීව කාලය (TTL - Time To Live) අවසන් වන තුරු එයට වහාම පිළිතුරු දිය හැක."},
+ body(el){el.append(trip({h:200,nodes:{h:{x:90,y:110,label:"අනුර"},l:{x:320,y:100,kind:"office",label:"දේශීය DNS",sub:"cache: gaia → 128.119.245.12",color:"var(--green)"},r:{x:560,y:100,kind:"office",label:"Root සහ අනෙකුත්",color:"var(--muted)"}},
+  steps:[{from:"h",to:"l",tag:"gaia.cs.umass.edu?",cap:"අනුර නැවතත් දේශීය සේවාදායකයෙන් විමසයි."},{from:"l",to:"h",tag:"128.119.245.12 (නිහිතයෙන්)",cap:"නිහිතයෙන් (cache) වහාම පිළිතුරු ලැබේ. Root, TLD, සහ බලයලත් සේවාදායකයන්ට කිසිදු කරදරයක් නැත."}],onDone(){say("මූල සේවාදායකයන් (Root servers) අධික තදබදයෙන් බේරෙන්නේ මෙම නිහිතකරණය (caching) නිසාය.")}}));
+  el.append(h(`<div class="note"><b>අවාසිය.</b> යම් ධාරක පරිගණකයක් තම IP ලිපිනය වෙනස් කළහොත්, TTL කාලය අවසන් වන තුරු නිහිතයේ ඇති පිටපත් පැරණි ඒවා විය හැක. TLD සේවාදායක ලිපින සාමාන්‍යයෙන් දේශීය සේවාදායකවල නිහිතගත කර ඇති බැවින්, Root සේවාදායක වෙත යාමට සිදුවන්නේ ඉතා කලාතුරකිනි.</div>`));
+  const out=h(`<div class="letter"></div>`),RR={A:["relay1.bar.foo.com","145.37.93.126","ධාරක නාමය (Hostname) → IP ලිපිනය. එදිනෙදා සිදුවන සාමාන්‍ය සෙවුමයි."],NS:["foo.com","dns.foo.com","වසම (Domain) → එහි බලයලත් නාම සේවාදායකයේ නාමය."],CNAME:["www.ibm.com","servereast.backup2.ibm.com","අන්වර්ථ නාමය (Alias) → සැබෑ, මූලික නාමය (canonical name)."],MX:["foo.com","mail.bar.foo.com","වසම → එහි SMTP තැපැල් සේවාදායකය. ranil@foo.com වෙත යවන තැපැල් නිවැරදි තැන සොයා ගන්නේ මේ ආකාරයටයි."]};
   const cards=h(`<div class="cards">${Object.keys(RR).map(k=>`<button aria-pressed="false">${k}</button>`).join("")}</div>`);
   $$("button",cards).forEach(b=>b.onclick=()=>{$$("button",cards).forEach(x=>x.setAttribute("aria-pressed",x===b));const r=RR[b.textContent];out.innerHTML=`(<span class="k">${r[0]}</span>, <span class="g">${r[1]}</span>, <span class="r">${b.textContent}</span>, ttl)\n\n${r[2]}`});
-  el.append(h(`<p><b>What's inside the cache?</b> Resource records, each one <span class="mono">(name, value, type, ttl)</span>. Tap a type:</p>`),cards,out);$$("button",cards)[0].click()},
- take:"DNS queries and replies share one message format with a 16-bit ID. To add a domain, register it with a registrar, which puts NS and A records into the TLD server. DNSSEC protects against spoofed answers.",
- penny:"Second time's quick!"});
+  el.append(h(`<p><b>නිහිතය ඇතුළත ඇත්තේ මොනවාද?</b> සම්පත් වාර්තා (Resource Records - RR), ඒ සෑම එකක්ම <span class="mono">(name, value, type, ttl)</span> ලෙස පවතී. වර්ගයක් තෝරන්න:</p>`),cards,out);$$("button",cards)[0].click()},
+ take:"DNS විමසුම් සහ පිළිතුරු බිටු 16 ක හැඳුනුම් අංකයක් (16-bit ID) සහිත එකම පණිවිඩ ආකෘතියක් භාවිතා කරයි. DNSSEC මඟින් ව්‍යාජ DNS පිළිතුරු වලින් ආරක්ෂාව සපයයි.",
+ penny:"දෙවන වතාව ඉතා වේගවත්!"});
 
-S.push({stop:4,title:"One file, many friends",
- story:"Alice wants to share a big file with her classmates. Option one: send it from a single server. Option two: P2P, where every classmate who has some of it uploads too. Each classmate uploads at rate <b>u</b>, sending the whole file takes <b>1 hour</b> at that rate, and the server is 10× faster.",
- ask:{q:"As the class grows from 1 to 35 people, what happens to the P2P time?",opts:["Grows in a straight line","Levels off below 1 hour","Drops to zero"],ans:1,why:"Every new peer adds upload capacity, so P2P time levels off. The server alone has to send N copies, so its time keeps growing."},
+/* ---------- STOP 4 (CHAPTER PART 5: P2P & BITTORRENT - COMPLETE) ---------- */
+S.push({stop:4,title:"එක් ගොනුවක්, මිතුරන් රැසක්",
+ story:"අනුරට තම පන්තියේ මිතුරන් සමඟ විශාල ගොනුවක් (ප්‍රමාණය <b>F</b>) බෙදා ගැනීමට අවශ්‍යයි. පළමු ක්‍රමය: තනි සේවාදායකයකින් එය යැවීම. දෙවන ක්‍රමය: P2P, එනම් ගොනුවේ කොටසක් හෝ ලැබුණු සෑම මිතුරෙකුම එය අනෙක් අයට උඩුගත (upload) කිරීමයි. සෑම මිතුරෙකුම <b>u</b> වේගයකින් උඩුගත කරන අතර, එම වේගයෙන් මුළු ගොනුවම යැවීමට <b>පැය 1 ක්</b> ගතවේ. සේවාදායකය ඊට වඩා 10 ගුණයකින් වේගවත්ය.",
+ ask:{q:"පන්තියේ සිසුන් ගණන 1 සිට 35 දක්වා වැඩි වන විට, P2P බෙදාහැරීමේ කාලයට කුමක් සිදුවේද?",opts:["සරල රේඛාවක් ලෙස දිගටම ඉහළ යයි","පැය 1 ට අඩු මට්ටමක ස්ථාවර වේ","බිංදුව දක්වා පහත වැටේ"],ans:1,why:"එක්වන සෑම නව සාමාජිකයෙකුම උඩුගත කිරීමේ (upload) ධාරිතාවක් එක් කරන බැවින් P2P කාලය සීමාවකට යටත්ව ස්ථාවර වේ. තනි සේවාදායකයට පිටපත් N ගණනක් තනිවම යැවීමට සිදුවන නිසා එහි කාලය දිගටම ඉහළ යයි."},
  body(el){
-  const sl=h(`<div><label for="nPeers">Number of classmates N: <span>10</span></label><input type="range" id="nPeers" min="1" max="35" value="10"></div>`);
-  const mt=h(`<div class="meter"><div><div class="lbl">Server alone</div><div class="big"></div></div><div><div class="lbl">P2P</div><div class="big"></div></div></div>`);
-  const ch=h(`<div class="chart"><svg viewBox="0 0 400 230" role="img" aria-label="Distribution time versus N"></svg></div>`);el.append(sl,mt,ch);
+  const sl=h(`<div><label for="nPeers">පන්තියේ මිතුරන් ගණන N: <span>10</span></label><input type="range" id="nPeers" min="1" max="35" value="10"></div>`);
+  const mt=h(`<div class="meter"><div><div class="lbl">සේවාදායකය පමණක් (Client-Server)</div><div class="big"></div></div><div><div class="lbl">සම-සම ජාලය (P2P)</div><div class="big"></div></div></div>`);
+  const ch=h(`<div class="chart"><svg viewBox="0 0 400 230" role="img" aria-label="N ට එරෙහිව බෙදාහැරීමේ කාලය"></svg></div>`);el.append(sl,mt,ch);
   const PC=ch.querySelector("svg"),W=400,H=230,ml=38,mr=12,mt0=14,mb=32,sx=n=>ml+n/35*(W-ml-mr),sy=v=>H-mb-v/3.5*(H-mt0-mb);
   for(let v=0;v<=3.5;v+=.5){svgEl("line",{x1:ml,x2:W-mr,y1:sy(v),y2:sy(v),stroke:"var(--line)"},PC);svgEl("text",{x:ml-6,y:sy(v)+4,"text-anchor":"end","font-size":10,style:"fill:var(--muted)"},PC).textContent=v}
   for(let n=0;n<=35;n+=5)svgEl("text",{x:sx(n),y:H-mb+16,"text-anchor":"middle","font-size":10,style:"fill:var(--muted)"},PC).textContent=n;
-  svgEl("text",{x:(W+ml)/2,y:H-2,"text-anchor":"middle","font-size":11,style:"fill:var(--ink)"},PC).textContent="N (people)";
-  svgEl("text",{x:ml+4,y:10,"font-size":10,style:"fill:var(--muted)"},PC).textContent="hours";
+  svgEl("text",{x:(W+ml)/2,y:H-2,"text-anchor":"middle","font-size":11,style:"fill:var(--ink)"},PC).textContent="N (සාමාජිකයින් ගණන)";
+  svgEl("text",{x:ml+4,y:10,"font-size":10,style:"fill:var(--muted)"},PC).textContent="පැය";
   const cs=n=>n/10,pp=n=>Math.max(.1,n/(10+n));let a="",b="";for(let n=0;n<=35;n+=.5){a+=`${sx(n)},${sy(cs(n))} `;b+=`${sx(n)},${sy(pp(n))} `}
   svgEl("polyline",{points:a,fill:"none",stroke:"var(--red)","stroke-width":3},PC);svgEl("polyline",{points:b,fill:"none",stroke:"var(--blue)","stroke-width":3},PC);
-  svgEl("text",{x:sx(21),y:sy(2.8),"font-size":12,"font-weight":600,style:"fill:var(--red)"},PC).textContent="server alone";
-  svgEl("text",{x:sx(28),y:sy(1.05),"font-size":12,"font-weight":600,style:"fill:var(--blue)"},PC).textContent="P2P";
+  svgEl("text",{x:sx(18),y:sy(2.9),"font-size":12,"font-weight":700,style:"fill:var(--red)"},PC).textContent="සේවාදායකය පමණක්";
+  svgEl("text",{x:sx(28),y:sy(1.05),"font-size":12,"font-weight":700,style:"fill:var(--blue)"},PC).textContent="P2P";
   const vl=svgEl("line",{y1:mt0,y2:H-mb,stroke:"var(--muted)","stroke-dasharray":"3 3"},PC),d1=svgEl("circle",{r:5,fill:"var(--red)",stroke:"var(--card)","stroke-width":2},PC),d2=svgEl("circle",{r:5,fill:"var(--blue)",stroke:"var(--card)","stroke-width":2},PC);
   const inp=sl.querySelector("input"),[c1,c2]=$$(".big",mt);
-  const up=()=>{const n=+inp.value;sl.querySelector("span").textContent=n;c1.textContent=cs(n).toFixed(2)+" h";c2.textContent=pp(n).toFixed(2)+" h";vl.setAttribute("x1",sx(n));vl.setAttribute("x2",sx(n));d1.setAttribute("cx",sx(n));d1.setAttribute("cy",sy(cs(n)));d2.setAttribute("cx",sx(n));d2.setAttribute("cy",sy(pp(n)))};
-  inp.oninput=()=>{up();if(+inp.value===35)say("35 people: 3.5 hours from one server, under 0.8 hours with P2P!")};up();
-  el.append(h(`<div class="letter" style="font-size:.85rem">server alone:  D ≥ max{ N·F/u<sub>s</sub> , F/d<sub>min</sub> }
-P2P:           D ≥ max{ F/u<sub>s</sub> , F/d<sub>min</sub> , N·F/(u<sub>s</sub> + Σu<sub>i</sub>) }</div>`))},
- take:"Client–server time grows linearly with N. P2P time is bounded because total upload capacity grows with N too.",
- penny:"Drag N all the way to 35."});
+  const up=()=>{const n=+inp.value;sl.querySelector("span").textContent=n;c1.textContent="පැය "+cs(n).toFixed(2);c2.textContent="පැය "+pp(n).toFixed(2);vl.setAttribute("x1",sx(n));vl.setAttribute("x2",sx(n));d1.setAttribute("cx",sx(n));d1.setAttribute("cy",sy(cs(n)));d2.setAttribute("cx",sx(n));d2.setAttribute("cy",sy(pp(n)))};
+  inp.oninput=()=>{up();if(+inp.value===35)say("35 දෙනෙකුට: තනි සේවාදායකයකින් පැය 3.5 යි, P2P මඟින් පැය 0.8 කටත් අඩුයි!")};up();
+  el.append(h(`<div class="letter" style="font-size:.85rem">සේවාදායකය පමණක් (Client-Server):  D<sub>cs</sub> ≥ max{ N·F/u<sub>s</sub> , F/d<sub>min</sub> }
+සම-සම ජාලය (P2P):                 D<sub>P2P</sub> ≥ max{ F/u<sub>s</sub> , F/d<sub>min</sub> , N·F/(u<sub>s</sub> + Σu<sub>i</sub>) }</div>`))},
+ take:"Client–server බෙදාහැරීමේ කාලය N සමඟ රේඛීයව වැඩි වේ. P2P හිදී මුළු උඩුගත කිරීමේ ධාරිතාවද N සමඟ වැඩි වන බැවින් ගතවන කාලය සීමිත මට්ටමක පවතී.",
+ penny:"N අගය 35 දක්වාම ඇද බලන්න."});
 
-S.push({stop:4,title:"Which piece should Alice ask for?",
- story:"Alice joins a <b>BitTorrent</b> swarm. The file is cut into 256 KB chunks. A <b>tracker</b> told her which peers are in the torrent, and her neighbors send lists of the chunks they hold. She already has chunks 0 and 5.",
- ask:{q:"Which missing chunk should she request first?",opts:["The lowest-numbered one","The one fewest neighbors have","A random one"],ans:1,why:"Rarest first. If the only peer with a rare chunk leaves, nobody can finish."},
+S.push({stop:4,title:"අනුර මුලින්ම ඉල්ලිය යුත්තේ කුමන කොටසද?",
+ story:"අනුර <b>BitTorrent</b> ජාලයකට (swarm) එකතු වෙයි. ගොනුව 256 KB ප්‍රමාණයේ කුඩා කොටස් (chunks) වලට බෙදා ඇත. <b>ට්‍රැකර් (tracker)</b> සේවාදායකයක් මඟින් ටොරන්ට් එකේ සිටින අනෙකුත් සාමාජිකයින් කවුදැයි ඔහුට දන්වා ඇති අතර, අසල්වැසි මිතුරන් ඔවුන් සතුව ඇති කොටස් ලැයිස්තු එවයි. අනුර සතුව දැනටමත් 0 සහ 5 කොටස් ඇත.",
+ ask:{q:"ඔහු මුලින්ම ඉල්ලා සිටිය යුත්තේ තමා සතුව නැති කුමන කොටසද?",opts:["අඩුම අංකය සහිත කොටස","අසල්වැසියන් අඩුම පිරිසක් සතුව ඇති දුර්ලභම කොටස","අහඹු ලෙස තෝරාගත් කොටසක්"],ans:1,why:"දුර්ලභම කොටස පළමුව (Rarest first). දුර්ලභ කොටසක් තිබෙන එකම සාමාජිකයා ජාලයෙන් ඉවත් වුවහොත් කිසිවෙකුටත් සම්පූර්ණ ගොනුව ලබාගත නොහැකි වේ."},
  body(el){
-  const BT=[{n:"Bob",c:[1,2,3,5,7]},{n:"Carol",c:[0,1,3,4,7]},{n:"Dave",c:[1,3,5,6,7]},{n:"Eve",c:[1,2,3,4,7]}];
+  const BT=[{n:"රනිල්",c:[1,2,3,5,7]},{n:"දනුජ",c:[0,1,3,4,7]},{n:"සමන්තභද්‍ර",c:[1,3,5,6,7]},{n:"මහින්ද",c:[1,2,3,4,7]}];
   let al=new Set([0,5]),fresh=-1;
-  const box=h(`<div class="peers"></div>`),cap=h(`<div class="note">Alice has chunks 0 and 5. The numbers under her row count how many neighbors have each chunk.</div>`),ctl=h(`<div class="row"><button class="btn">Request next chunk</button><button class="btn ghost">Start over</button></div>`);
+  const box=h(`<div class="peers"></div>`),cap=h(`<div class="note">අනුර සතුව 0 සහ 5 කොටස් ඇත. ඔහුගේ පේළියට යටින් ඇති ඉලක්කම් මඟින් එක් එක් කොටස අසල්වැසියන් කී දෙනෙකු සතුව ඇත්දැයි පෙන්වයි.</div>`),ctl=h(`<div class="row"><button class="btn">ඊළඟ කොටස ඉල්ලන්න</button><button class="btn ghost">මුල සිට</button></div>`);
   const cnt=()=>[...Array(8)].map((_,i)=>BT.filter(p=>p.c.includes(i)).length);
   const row=(nm,set,me)=>`<div class="peer${me?" me":""}"><div class="nm">${nm}</div><div><div class="chunks">${[...Array(8)].map((_,i)=>`<i class="${set.has(i)?(me&&i===fresh?"new":"have"):""}">${i}</i>`).join("")}</div>${me?`<div class="counts" style="margin-top:4px">${cnt().map(c=>`<span>${c}</span>`).join("")}</div>`:""}</div></div>`;
-  const paint=()=>{box.innerHTML=row("Alice",al,true)+BT.map(p=>row(p.n,new Set(p.c))).join("");ctl.children[0].disabled=al.size===8};
-  ctl.children[0].onclick=()=>{const c=cnt();let b=-1;for(let i=0;i<8;i++)if(!al.has(i)&&(b<0||c[i]<c[b]))b=i;al.add(b);fresh=b;cap.innerHTML=`Alice asks for chunk <b>${b}</b>: only ${c[b]} neighbor${c[b]>1?"s have":" has"} it (${BT.filter(p=>p.c.includes(b)).map(p=>p.n).join(", ")}).`+(al.size===8?" She has the whole file! She can leave, or stay and keep seeding for others.":"");paint();if(al.size===8)say("Done! Kind peers stay to seed.")};
-  ctl.children[1].onclick=()=>{al=new Set([0,5]);fresh=-1;cap.textContent="Alice has chunks 0 and 5.";paint()};
+  const paint=()=>{box.innerHTML=row("අනුර",al,true)+BT.map(p=>row(p.n,new Set(p.c))).join("");ctl.children[0].disabled=al.size===8};
+  ctl.children[0].onclick=()=>{const c=cnt();let b=-1;for(let i=0;i<8;i++)if(!al.has(i)&&(b<0||c[i]<c[b]))b=i;al.add(b);fresh=b;cap.innerHTML=`අනුර <b>${b}</b> වන කොටස ඉල්ලා සිටියි: එය ඇත්තේ අසල්වැසියන් ${c[b]} දෙනෙකු සතුව පමණි (${BT.filter(p=>p.c.includes(b)).map(p=>p.n).join(", ")}).`+(al.size===8?" දැන් ඔහු සතුව සම්පූර්ණ ගොනුවම ඇත! ඔහුට ඉවත් විය හැක, නැතහොත් රැඳී සිට අනෙක් අයට උඩුගත කළ (seed) හැක.":"");paint();if(al.size===8)say("සම්පූර්ණයි! හොඳ සාමාජිකයින් අනෙක් අයටත් උදව් කිරීමට රැඳී සිටියි (seeding).")};
+  ctl.children[1].onclick=()=>{al=new Set([0,5]);fresh=-1;cap.textContent="අනුර සතුව 0 සහ 5 කොටස් ඇත.";paint()};
   el.append(box,ctl,cap);paint();
-  el.append(h(`<div class="note"><b>Who does Alice send to?</b> Tit-for-tat. She uploads to the <b>4 peers sending to her fastest</b>, re-evaluated every 10 s. Every 30 s she <b>optimistically unchokes</b> one random peer, giving newcomers a chance to join her top 4. Peers that upload more find better partners and finish sooner.</div>`))},
- take:"BitTorrent: tracker + torrent of peers, 256 KB chunks, rarest first, tit-for-tat. Peers may come and go (churn).",
- penny:"Click until Alice has all eight."});
+  el.append(h(`<div class="note"><b>අනුර කොටස් යවන්නේ කාටද?</b> එකට එක කිරීම (Tit-for-tat) මඟිනි. ඔහු තමාට <b>වේගයෙන්ම දත්ත එවන සාමාජිකයින් 4 දෙනාට (top 4)</b> කොටස් උඩුගත කරන අතර, සෑම තත්පර 10 කට වරක්ම මෙය නැවත පරීක්ෂා කරයි. එමෙන්ම සෑම තත්පර 30 කට වරක්ම ඔහු අහඹු ලෙස එක් සාමාජිකයෙකු තෝරා දත්ත යවයි (<b>optimistic unchoking</b>), එමඟින් නව සාමාජිකයින්ටද ඔහුගේ හොඳම 4 දෙනා අතරට පැමිණීමට අවස්ථාව ලැබේ.</div>`))},
+ take:"BitTorrent: tracker + සාමාජිකයින් පිරිස (torrent), 256 KB කොටස්, දුර්ලභම දේ පළමුව (rarest first) සහ tit-for-tat ක්‍රමවේදය. සාමාජිකයින් ඕනෑම මොහොතක එකතු වීම හෝ ඉවත් වීම (churn) සිදුවිය හැක.",
+ penny:"අනුරට කොටස් අටම ලැබෙන තුරු ක්ලික් කරන්න."});
 
-S.push({stop:5,title:"Movie night",
- story:"Homework done. Alice opens Netflix. Streaming video is the biggest user of Internet bandwidth, and her Wi-Fi speed keeps changing as roommates come and go. Video is just 24–30 images a second, squeezed using repetition <b>inside</b> a frame (spatial) and <b>between</b> frames (temporal).",
- ask:{q:"Bandwidth drops halfway through the movie. Who decides to switch to lower quality?",opts:["The Netflix server","Alice's player, the client","Her Internet provider"],ans:1,why:"With DASH, the client is in charge: it measures bandwidth and picks each chunk's quality from a list called the manifest."},
+/* ---------- STOP 5 (CHAPTER PART 6: VIDEO STREAMING & CDN - COMPLETE) ---------- */
+S.push({stop:5,title:"චිත්‍රපට රාත්‍රිය (DASH Video Streaming)",
+ story:"ගෙදර වැඩ අවසන්. අනුර Netflix විවෘත කරයි. අන්තර්ජාල කලාප පළල (bandwidth) වැඩිපුරම භාවිතා කරන්නේ වීඩියෝ ප්‍රවාහයන් වන අතර, නේවාසිකාගාරයේ මිතුරන් ජාලයට සම්බන්ධ වන විට ඔහුගේ Wi-Fi වේගය නිතර වෙනස් වේ. වීඩියෝවක් යනු තත්පරයට පින්තූර 24–30 ක් වන අතර, රාමුවක් <b>ඇතුළත</b> (spatial) සහ රාමු <b>අතර</b> (temporal) ඇති සමානකම් භාවිතා කර ඒවා සම්පීඩනය (compress) කර ඇත.",
+ ask:{q:"චිත්‍රපටය අතරතුර අන්තර්ජාල වේගය අඩු වේ. අඩු ගුණාත්මකභාවයකට (lower quality) මාරු වීමට තීරණය කරන්නේ කවුද?",opts:["Netflix සේවාදායකය","අනුරගේ වීඩියෝ ධාවකය (Client player)","ඔහුගේ අන්තර්ජාල සේවා සපයන්නා (ISP)"],ans:1,why:"DASH (Dynamic Adaptive Streaming over HTTP) තාක්ෂණයේදී තීරණ ගන්නේ සේවාලාභියා (Client) විසිනි: එය කලාප පළල මැන, manifest නම් ලැයිස්තුවෙන් ඊළඟ කොටසේ ගුණාත්මකභාවය තෝරා ගනී."},
  body(el){
-  el.append(trip({h:200,nodes:{a:{x:90,y:110,label:"Alice's player"},s:{x:540,y:100,kind:"office",label:"video server",sub:"chunks at 5 rates"}},
-   steps:[{from:"a",to:"s",tag:"GET manifest",cap:"The player first asks for the <b>manifest file</b>."},{from:"s",to:"a",tag:"manifest: rates + URLs",card:true,cap:"The manifest lists every version of every chunk: 240p, 360p, 720p, 1080p, 4K."},{from:"a",to:"s",tag:"chunk 1 @ 1080p",cap:"Bandwidth is good. The player asks for chunk 1 in 1080p."},{from:"s",to:"a",tag:"chunk 1 (1080p)",cap:"It goes into the <b>playout buffer</b>, which smooths out network delay jitter."},{from:"a",to:"s",tag:"chunk 2 @ 360p",cap:"A roommate starts a download and bandwidth drops. The player asks for chunk 2 in 360p."},{from:"s",to:"a",tag:"chunk 2 (360p)",cap:"Lower quality, but no freezing. The client chose when, which rate, and from where."}]}));
-  const sl=h(`<div><label for="bw">Try it yourself. Alice's bandwidth: <span>3.0</span> Mbps</label><input type="range" id="bw" min="0.3" max="10" step="0.1" value="3"></div>`);
+  el.append(trip({h:200,nodes:{a:{x:90,y:110,label:"අනුරගේ ධාවකය"},s:{x:540,y:100,kind:"office",label:"වීඩියෝ සේවාදායකය",sub:"වේග 5 කින් යුත් කොටස්"}},
+   steps:[{from:"a",to:"s",tag:"GET manifest",cap:"වීඩියෝ ධාවකය පළමුව <b>manifest ගොනුව</b> ඉල්ලා සිටියි."},{from:"s",to:"a",tag:"manifest: වේග + URLs",card:true,cap:"Manifest ගොනුවේ සෑම කොටසකම සියලුම අනුවාදයන් (240p, 360p, 720p, 1080p, 4K) සහ ඒවායේ URL ලැයිස්තුගත කර ඇත."},{from:"a",to:"s",tag:"1 කොටස @ 1080p",cap:"කලාප පළල හොඳ මට්ටමක පවතී. ධාවකය 1 වන කොටස 1080p ගුණාත්මකභාවයෙන් ඉල්ලා සිටියි."},{from:"s",to:"a",tag:"1 කොටස (1080p)",cap:"එය ජාල ප්‍රමාද විචලනයන් (jitter) පාලනය කරන <b>ධාවන ස්වාරක්ෂකය (playout buffer)</b> තුළට යයි."},{from:"a",to:"s",tag:"2 කොටස @ 360p",cap:"කාමරයේ මිතුරෙකු විශාල භාගත කිරීමක් අරඹන අතර වේගය අඩු වේ. ධාවකය 2 වන කොටස 360p ලෙස ඉල්ලා සිටියි."},{from:"s",to:"a",tag:"2 කොටස (360p)",cap:"ගුණාත්මකභාවය මදක් අඩු වුවද වීඩියෝව නතර නොවී ධාවනය වේ. කොටස ඉල්ලන්නේ කවදාද, කුමන වේගයෙන්ද සහ කොතැනින්ද යන්න තීරණය කළේ සේවාලාභියාය."}]}));
+  const sl=h(`<div><label for="bw">ඔබම උත්සාහ කර බලන්න. අනුරගේ කලාප පළල (Bandwidth): <span>3.0</span> Mbps</label><input type="range" id="bw" min="0.3" max="10" step="0.1" value="3"></div>`);
   const q=h(`<div class="quality"></div>`),o=h(`<div class="note"></div>`);el.append(sl,q,o);
   const R=[[.4,"240p"],[1,"360p"],[2.5,"720p"],[5,"1080p"],[8,"4K"]],inp=sl.querySelector("input");
-  const up=()=>{const bw=+inp.value;sl.querySelector("span").textContent=bw.toFixed(1);let p=-1;R.forEach((r,i)=>{if(r[0]<=bw)p=i});q.innerHTML=R.map((r,i)=>`<div class="${i===p?"pick":i<p?"ok":""}" style="height:${22+i*19}%">${r[1]}<br>${r[0]} Mbps</div>`).join("");o.innerHTML=p<0?"<b>Too slow!</b> Even 240p can't keep up. The buffer drains and the spinner appears.":`<b>Next chunk: ${R[p][1]}</b>, the highest rate that fits.`};
+  const up=()=>{const bw=+inp.value;sl.querySelector("span").textContent=bw.toFixed(1);let p=-1;R.forEach((r,i)=>{if(r[0]<=bw)p=i});q.innerHTML=R.map((r,i)=>`<div class="${i===p?"pick":i<p?"ok":""}" style="height:${22+i*19}%">${r[1]}<br>${r[0]} Mbps</div>`).join("");o.innerHTML=p<0?"<b>වේගය ඉතා අඩුයි!</b> 240p පවා ධාවනය කළ නොහැක. Buffer එක හිස් වී වීඩියෝව නතර වේ.":`<b>ඊළඟ කොටස: ${R[p][1]}</b>, පවතින වේගයට ගැළපෙන ඉහළම ගුණාත්මකභාවයයි.`};
   inp.oninput=up;up()},
- take:"DASH = Dynamic, Adaptive Streaming over HTTP. Video can be CBR (constant bit rate) or VBR (rate changes with the scene). The client buffers, then adapts the rate chunk by chunk.",
- penny:"Slide the bandwidth up and down."});
+ take:"DASH = Dynamic, Adaptive Streaming over HTTP. වීඩියෝ CBR (ස්ථාවර බිටු අනුපාතය) හෝ VBR (දර්ශනය අනුව වෙනස් වන අනුපාතය) විය හැක. සේවාලාභියා දත්ත buffer කර ගනිමින් කොටසින් කොටසට ගුණාත්මකභාවය සකසා ගනී.",
+ penny:"කලාප පළල (Bandwidth) ඉහළට සහ පහළට ඇද බලන්න."});
 
 let cdn=0;
-S.push({stop:5,title:"Why the movie doesn't come from California",
- story:"Alice is in Colombo. Netflix's main servers are thousands of kilometres away, and millions of people are watching at the same time.",
- ask:{q:"Where does Alice's movie actually come from?",opts:["One mega-server in California","A copy stored on a server near her","Her neighbor's laptop"],ans:1,why:"Content distribution networks (CDNs) store copies of popular videos on many servers worldwide, close to viewers."},
+S.push({stop:5,title:"චිත්‍රපටය ඇමරිකාවේ සිටම නොඑන්නේ ඇයි? (CDNs)",
+ story:"අනුර සිටින්නේ කොළඹය. Netflix හි ප්‍රධාන සේවාදායකයන් කිලෝමීටර් දහස් ගණනක් ඈතින් පිහිටා ඇති අතර, මිලියන ගණනක් ජනතාව එකම වේලාවක චිත්‍රපට නරඹති.",
+ ask:{q:"අනුර නරඹන චිත්‍රපටයේ වීඩියෝ කොටස් ඇත්තටම පැමිණෙන්නේ කොතැනින්ද?",opts:["කැලිෆෝනියාවේ ඇති එක් දැවැන්ත සේවාදායකයකින්","ඔහුට ආසන්නව පිහිටි සේවාදායකයක ගබඩා කර ඇති පිටපතකින්","ඔහුගේ අසල්වැසියාගේ ලැප්ටොප් පරිගණකයෙන්"],ans:1,why:"අන්තර්ගත බෙදාහැරීමේ ජාල (Content Distribution Networks - CDNs) ලොව පුරා පිහිටි සේවාදායකයන් රැසක ජනප්‍රිය වීඩියෝවල පිටපත් ගබඩා කර තබා ගනී."},
  body(el){
   const holder=slot();
-  const nodes={a:{x:80,y:200,label:"Alice",sub:"Colombo"},n:{x:320,y:60,kind:"office",label:"netflix.com",sub:"accounts + manifests",color:"var(--red)"},far:{x:560,y:70,kind:"office",label:"one big server",sub:"California",color:"var(--muted)"},near:{x:330,y:205,kind:"office",label:"CDN node",sub:"inside her ISP",color:"var(--green)"}};
-  const st=[[{from:"a",to:"far",tag:"play",cap:"Without a CDN, every request crosses the world to one server."},{from:"far",to:"a",tag:"chunk 1",cap:"Long path, many congested links, and the same video sent millions of times. If that server fails, everyone's movie stops."}],
-   [{from:"a",to:"n",tag:"play 'Stranger Things'",cap:"Alice picks a show on netflix.com."},{from:"n",to:"a",tag:"manifest: CDN servers",card:true,cap:"Netflix replies with a manifest naming copies on several CDN servers. (DNS can also redirect her to a nearby one.)"},{from:"a",to:"near",tag:"chunk 1",cap:"Her player picks the closest, least busy copy."},{from:"near",to:"a",tag:"chunk 1",cap:"Short trip, fast start. If this path gets congested, the player switches server or rate."}]];
+  const nodes={a:{x:80,y:200,label:"අනුර",sub:"කොළඹ"},n:{x:320,y:60,kind:"office",label:"netflix.com",sub:"ගිණුම් + manifests",color:"var(--red)"},far:{x:560,y:70,kind:"office",label:"එක් විශාල සේවාදායකයක්",sub:"කැලිෆෝනියාව",color:"var(--muted)"},near:{x:330,y:205,kind:"office",label:"CDN නෝඩය",sub:"ISP ජාලය ඇතුළත",color:"var(--green)"}};
+  const st=[[{from:"a",to:"far",tag:"play",cap:"CDN එකක් නොමැතිව, සෑම ඉල්ලීමක්ම ලෝකය හරහා එක් සේවාදායකයක් වෙත ගමන් කරයි."},{from:"far",to:"a",tag:"1 වන කොටස",cap:"දිගු ගමන් මාර්ගයක්, තදබදය සහිත සබැඳි රැසක් සහ එකම වීඩියෝව මිලියන වාරයක් නැවත නැවත යැවීමක් සිදුවේ. එම සේවාදායකය බිඳ වැටුණහොත් සියලු දෙනාගේම චිත්‍රපට නතර වේ."}],
+   [{from:"a",to:"n",tag:"play 'කාවන්තිස්ස පුවත'",cap:"අනුර netflix.com හි වැඩසටහනක් තෝරා ගනී."},{from:"n",to:"a",tag:"manifest: CDN සේවාදායක",card:true,cap:"Netflix විසින් CDN සේවාදායක කිහිපයක ඇති පිටපත් සඳහන් කරමින් manifest ගොනුව එවයි. (DNS මඟින්ද ඔහුව ළඟම ඇති සේවාදායකයකට යොමු කළ හැක.)"},{from:"a",to:"near",tag:"1 වන කොටස",cap:"ඔහුගේ වීඩියෝ ධාවකය ළඟම ඇති, තදබදය අඩුම පිටපත තෝරා ගනී."},{from:"near",to:"a",tag:"1 වන කොටස",cap:"කෙටි ගමනක්, වේගවත් ආරම්භයක්! මෙම මාර්ගයේ තදබදයක් ඇති වුවහොත්, ධාවකය වෙනත් සේවාදායකයකට හෝ වේගයකට මාරු වේ."}]];
   const draw=()=>{holder.innerHTML="";holder.append(trip({h:270,nodes,steps:st[cdn]}))};
-  el.append(seg(["One big server","With a CDN"],k=>{cdn=k;draw();say(k?"Copies in a warehouse near you!":"Watch how far that letter goes.")},cdn),holder);draw();
-  el.append(h(`<div class="note"><b>Two strategies.</b> <b>Enter deep</b>: put small servers inside many access networks, close to users (Akamai: 240,000+ servers in 120+ countries). <b>Bring home</b>: fewer, larger clusters near access networks (Limelight). Delivering well over a congested Internet like this is the over-the-top (OTT) challenge.</div>`))},
- take:"A CDN stores copies of content at nodes spread across the world. The client is sent to a nearby copy and can switch if the path gets congested.",
- penny:"Compare the two routes."});
+  el.append(seg(["එක් විශාල සේවාදායකයක්","CDN ජාලයක් සමඟ"],k=>{cdn=k;draw();say(k?"ඔබ අසලම ඇති ගබඩාවක පිටපත් තබා ඇත!":"ඒ ලිපිය කොපමණ දුරක් යනවාදැයි බලන්න.")},cdn),holder);draw();
+  el.append(h(`<div class="note"><b>CDN උපායමාර්ග දෙකකි.</b> <b>Enter deep</b>: පරිශීලකයින්ට ඉතා සමීපව, ප්‍රවේශ ජාල (access networks) රැසක් ඇතුළත කුඩා සේවාදායක පිහිටුවීම (උදා: Akamai - රටවල් 120+ ක සේවාදායක 240,000+). <b>Bring home</b>: ප්‍රවේශ ජාල අසල ප්‍රධාන ස්ථාන කිහිපයක විශාල සේවාදායක පොකුරු (clusters) පිහිටුවීම (උදා: Limelight). තදබදය සහිත අන්තර්ජාලයක් හරහා මේ ආකාරයෙන් උසස් සේවාවක් ලබා දීම <b>Over-The-Top (OTT)</b> අභියෝගය ලෙස හැඳින්වේ.</div>`))},
+ take:"CDN ජාලයක් ලොව පුරා විසිරුණු ස්ථානවල අන්තර්ගතයන්හි පිටපත් ගබඩා කරයි. සේවාලාභියා ළඟම ඇති පිටපත වෙත යොමු කෙරෙන අතර මාර්ගයේ තදබදයක් ඇති වුවහොත් වෙනත් මාර්ගයකට මාරු විය හැක.",
+ penny:"ගමන් මාර්ග දෙක සංසන්දනය කර බලන්න."});
 
+/* ---------- STOP 6 (CHAPTER PART 7: SOCKET PROGRAMMING UDP & TCP - COMPLETE) ---------- */
 let sk=0;
-S.push({stop:6,title:"Alice builds her own post office",
- story:"For her assignment, Alice writes a tiny app: the client sends a sentence, and the server shouts it back in CAPITALS. The program talks to the network through a <b>socket</b>, the door slot between the app and the transport layer. She can build it with UDP or TCP.",
- ask:{q:"With UDP, where does the server's address go?",opts:["On every single packet","Set once when connecting","Nowhere, the network figures it out"],ans:0,why:"UDP has no connection, so the sender attaches the destination IP and port to each packet. TCP connects once, then just sends."},
+S.push({stop:6,title:"අනුර තමන්ගේම තැපැල් කාර්යාලයක් ගොඩනඟයි (Sockets)",
+ story:"තම පැවරුම සඳහා අනුර කුඩා ජාල යෙදුමක් ලියයි: සේවාලාභියා (client) ඉංග්‍රීසි කුඩා අකුරින් (lowercase) වාක්‍යයක් යවන අතර, සේවාදායකය (server) එය ලොකු අකුරට (CAPITALS) හරවා ආපසු එවයි. යෙදුම සහ ප්‍රවාහන ස්ථරය (transport layer) අතර ඇති දොර කවුළුව වන <b>සොකට්ටුව (socket)</b> හරහා වැඩසටහන ජාලය සමඟ කතා කරයි. ඔහුට මෙය UDP හෝ TCP භාවිතයෙන් ගොඩනැගිය හැක.",
+ ask:{q:"UDP භාවිතා කරන විට, සේවාදායකයේ ලිපිනය (IP සහ Port) ඇතුළත් කරන්නේ කොතැනටද?",opts:["යවන සෑම පැකට්ටුවකටම වෙන වෙනම අමුණනු ලැබේ","සම්බන්ධ වන විට එක් වරක් පමණක් ලබා දෙයි","කොතැනකවත් නැත, ජාලය විසින්ම එය සොයා ගනී"],ans:0,why:"UDP හි පූර්ව සම්බන්ධතාවයක් නොමැති බැවින්, යවන්නා සෑම පැකට්ටුවකටම ගමනාන්ත IP ලිපිනය සහ පෝට් අංකය ඇමිණිය යුතුය. TCP එක් වරක් සම්බන්ධ වී දිගටම දත්ත යවයි."},
  body(el){
   const holder=slot();
-  const st=[[{from:"c",to:"s",tag:"'hi' → (server, 12000)",card:true,cap:"<span class='mono'>sendto()</span>: the client attaches the server's IP and port to the packet. No handshake."},{from:"s",to:"c",tag:"'HI' → (client IP, port)",card:true,cap:"<span class='mono'>recvfrom()</span> told the server who sent it, so it can reply with <span class='mono'>sendto()</span>."}],
-   [{from:"c",to:"w",tag:"connect()",cap:"The client knocks on the server's <b>welcoming socket</b> (port 12000)."},{from:"w",to:"n",tag:"accept()",cap:"<span class='mono'>accept()</span> opens a <b>brand-new socket</b> just for this client. The welcoming door stays open for others."},{from:"c",to:"n",tag:"'hi'",cap:"Now the client just calls <span class='mono'>send()</span>. No address needed."},{from:"n",to:"c",tag:"'HI'",cap:"The server replies on the new socket, then closes it, but not the welcoming one."}]];
-  const nodes=[{c:{x:100,y:120,label:"client"},s:{x:540,y:120,kind:"door",num:"12000",label:"UDP socket",color:"var(--soft-gold)"}},{c:{x:100,y:120,label:"client"},w:{x:540,y:55,kind:"door",num:"12000",label:"welcoming socket",color:"var(--soft-gold)"},n:{x:540,y:185,kind:"door",num:"new",label:"connection socket",color:"var(--soft-green)"}}];
+  const st=[[{from:"c",to:"s",tag:"'ayubowan' → (server, 12000)",card:true,cap:"<span class='mono'>sendto()</span>: සේවාලාභියා සේවාදායකයේ IP ලිපිනය සහ පෝට් අංකය පැකට්ටුවට අමුණයි. පූර්ව හඳුන්වාදීමක් (handshake) නැත."},{from:"s",to:"c",tag:"'AYUBOWAN' → (client IP, port)",card:true,cap:"<span class='mono'>recvfrom()</span> මඟින් එය එව්වේ කවුදැයි සේවාදායකය දැනගත් බැවින්, <span class='mono'>sendto()</span> මඟින් පිළිතුර ආපසු යැවිය හැක."}],
+   [{from:"c",to:"w",tag:"connect()",cap:"සේවාලාභියා සේවාදායකයේ <b>පිළිගැනීමේ සොකට්ටුවට (welcoming socket - port 12000)</b> තට්ටු කරයි."},{from:"w",to:"n",tag:"accept()",cap:"<span class='mono'>accept()</span> මඟින් මෙම සේවාලාභියා වෙනුවෙන්ම <b>නව සම්බන්ධතා සොකට්ටුවක් (connection socket)</b> විවෘත කරයි. පිළිගැනීමේ දොර අනෙක් අය සඳහා විවෘතව පවතී."},{from:"c",to:"n",tag:"'ayubowan'",cap:"දැන් සේවාලාභියා <span class='mono'>send()</span> අමතයි. නැවත ලිපිනය සඳහන් කිරීම අවශ්‍ය නොවේ."},{from:"n",to:"c",tag:"'AYUBOWAN'",cap:"සේවාදායකය නව සොකට්ටුව හරහා පිළිතුරු දී එය වසා දමයි, නමුත් පිළිගැනීමේ සොකට්ටුව විවෘතව තබයි."}]];
+  const nodes=[{c:{x:100,y:120,label:"සේවාලාභියා (Client)"},s:{x:540,y:120,kind:"door",num:"12000",label:"UDP සොකට්ටුව",color:"var(--soft-gold)"}},{c:{x:100,y:120,label:"සේවාලාභියා (Client)"},w:{x:540,y:55,kind:"door",num:"12000",label:"පිළිගැනීමේ සොකට්ටුව",color:"var(--soft-gold)"},n:{x:540,y:185,kind:"door",num:"නව",label:"සම්බන්ධතා සොකට්ටුව",color:"var(--soft-green)"}}];
   const CODE=[`from socket import *
 serverName = 'hostname'
 serverPort = 12000
-clientSocket = socket(AF_INET, SOCK_DGRAM)    # UDP socket
-message = input('Input lowercase sentence:')
-# attach server name and port to EVERY message
+clientSocket = socket(AF_INET, SOCK_DGRAM)    # UDP සොකට්ටුවක් නිර්මාණය කිරීම
+message = input('කුඩා අකුරින් වාක්‍යයක් ඇතුළත් කරන්න:')
+# සෑම පණිවිඩයකටම සේවාදායකයේ නම සහ පෝට් අංකය අමුණන්න
 clientSocket.sendto(message.encode(), (serverName, serverPort))
 modifiedMessage, serverAddress = clientSocket.recvfrom(2048)
 print(modifiedMessage.decode())
 clientSocket.close()
 
-# --- UDP server ---
+# --- UDP සේවාදායකය (Server) ---
 serverSocket = socket(AF_INET, SOCK_DGRAM)
 serverSocket.bind(('', serverPort))
 while True:
@@ -601,79 +603,80 @@ while True:
 `from socket import *
 serverName = 'servername'
 serverPort = 12000
-clientSocket = socket(AF_INET, SOCK_STREAM)   # TCP socket
+clientSocket = socket(AF_INET, SOCK_STREAM)   # TCP සොකට්ටුවක් නිර්මාණය කිරීම
 clientSocket.connect((serverName, serverPort))
-sentence = input('Input lowercase sentence:')
-clientSocket.send(sentence.encode())          # no address needed
+sentence = input('කුඩා අකුරින් වාක්‍යයක් ඇතුළත් කරන්න:')
+clientSocket.send(sentence.encode())          # ලිපිනය නැවත ඇමිණීම අවශ්‍ය නැත
 modifiedSentence = clientSocket.recv(1024)
-print('From Server:', modifiedSentence.decode())
+print('සේවාදායකයෙන්:', modifiedSentence.decode())
 clientSocket.close()
 
-# --- TCP server ---
+# --- TCP සේවාදායකය (Server) ---
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.bind(('', serverPort))
-serverSocket.listen(1)                        # welcoming socket
+serverSocket.listen(1)                        # පිළිගැනීමේ සොකට්ටුව (welcoming socket)
 while True:
-    connectionSocket, addr = serverSocket.accept()   # NEW socket
+    connectionSocket, addr = serverSocket.accept()   # මෙම සේවාලාභියාට නව සොකට්ටුවක්
     sentence = connectionSocket.recv(1024).decode()
     connectionSocket.send(sentence.upper().encode())
     connectionSocket.close()`];
   const pre=h(`<pre class="code"></pre>`);
   const hl=s=>esc(s).replace(/('[^']*')/g,'<span class="s">$1</span>').replace(/(#.*)$/gm,'<span class="c">$1</span>').replace(/\b(from|import|while|True)\b/g,'<span class="k">$1</span>');
   const draw=()=>{holder.innerHTML="";holder.append(trip({h:250,nodes:nodes[sk],steps:st[sk]}));pre.innerHTML=hl(CODE[sk])};
-  el.append(seg(["UDP","TCP"],k=>{sk=k;draw()},sk),holder,h(`<p><b>The real code</b> (Python 3, from the slides):</p>`),pre);draw();
-  const tryit=h(`<div><label for="sockIn">Try Alice's server. Type a lowercase sentence:</label><div class="row" style="margin-top:6px"><input type="text" id="sockIn" value="hello penny" style="flex:1;min-width:0"><button class="btn">Send</button></div><div class="letter" style="margin-top:10px">The server is ready to receive</div></div>`);
+  el.append(seg(["UDP සොකට්","TCP සොකට්"],k=>{sk=k;draw()},sk),holder,h(`<p><b>සැබෑ Python 3 කේතය:</b></p>`),pre);draw();
+  const tryit=h(`<div><label for="sockIn">අනුරගේ සේවාදායකය අත්හදා බලන්න. ඉංග්‍රීසි කුඩා අකුරින් වාක්‍යයක් ටයිප් කරන්න:</label><div class="row" style="margin-top:6px"><input type="text" id="sockIn" value="hello dutugamunu and kawanthissa" style="flex:1;min-width:0"><button class="btn">යවන්න</button></div><div class="letter" style="margin-top:10px">සේවාදායකය පණිවිඩ ලබා ගැනීමට සූදානම්</div></div>`);
   const inp=tryit.querySelector("input");
-  const go=()=>{const v=inp.value||"(empty)";tryit.querySelector(".letter").innerHTML=`<span class="k">client →</span> ${esc(v)}\n<span class="g">server →</span> ${esc(v.toUpperCase())}`;say("Shouted back in capitals. That's the whole app!")};
+  const go=()=>{const v=inp.value||"(හිස්)";tryit.querySelector(".letter").innerHTML=`<span class="k">සේවාලාභියා (අනුර) →</span> ${esc(v)}\n<span class="g">සේවාදායකය (දුටුගැමුණු) →</span> ${esc(v.toUpperCase())}`;say("ලොකු අකුරින් ආපසු එව්වා! ඒක තමයි සම්පූර්ණ යෙදුම.")};
   tryit.querySelector("button").onclick=go;inp.addEventListener("keydown",e=>{if(e.key==="Enter")go()});el.append(tryit)},
- take:"UDP: SOCK_DGRAM, no connection, address on every packet, may be lost or out of order. TCP: SOCK_STREAM, connect/accept handshake, a new server socket per client, reliable in-order byte stream.",
- penny:"Watch for the new door that TCP opens."});
+ take:"UDP: SOCK_DGRAM, සම්බන්ධතාවයක් නැත, සෑම පැකට්ටුවකම ලිපිනය ඇත. TCP: SOCK_STREAM, connect/accept හඳුන්වාදීම, සෑම සේවාලාභියෙකුටම වෙනම සේවාදායක සොකට්ටුවක්, විශ්වාසදායක බයිට් ප්‍රවාහයක් (reliable byte stream).",
+ penny:"TCP විසින් විවෘත කරන නව දොර දෙස බලන්න."});
 
+/* ---------- STOP 7 (CHAPTER PART 8: COMPLETE 12-QUESTION QUIZ) ---------- */
 const Q=[
- ["A web browser fetching a page hires which transport service?",["UDP","TCP","IMAP"],1,"HTTP runs over TCP: every byte of the page must arrive."],
- ["HTTP is \"stateless\". What does that mean?",["It never uses TCP","The server keeps no memory of past requests","Responses have no status line"],1,"The server forgets you after each reply. Cookies are the workaround."],
- ["Which status code means \"document not found on this server\"?",["200","301","404","505"],2,"404 Not Found."],
- ["How many RTTs does each object cost with non-persistent HTTP (ignoring transmit time)?",["1","2","3"],1,"One RTT to open TCP, one for the request and reply."],
- ["With the school's cache at a 0.4 hit rate, how full is the access link?",["0.97","0.58","0.40"],1,"0.6 × 1.50 Mbps = 0.9 Mbps, and 0.9 / 1.54 ≈ 0.58."],
- ["SMTP is ___, HTTP is ___.",["pull, push","push, pull","push, push"],1,"The sender's server pushes mail; a browser pulls pages."],
- ["Bob reads mail stored on his server using…",["SMTP","IMAP (or HTTP webmail)","DNS"],1,"SMTP only delivers to Bob's server. IMAP or HTTP retrieves it."],
- ["In an iterated DNS query, who does the local server ask first (nothing cached)?",["Authoritative server","A root server","A TLD server"],1,"Root first, then TLD, then authoritative."],
- ["Which DNS record type names a domain's mail server?",["A","NS","CNAME","MX"],3,"MX = mail exchange."],
- ["In BitTorrent, which missing chunk does Alice request first?",["Lowest-numbered","The rarest among her neighbors","A random one"],1,"Rarest first."],
- ["In DASH, who decides which encoding rate to request next?",["The CDN","The video server","The client"],2,"The client, using the manifest."],
- ["What does a TCP server's accept() return?",["The client's message","A new socket for that client","Its own port number"],1,"The welcoming socket keeps listening; accept() returns a new connection socket."]];
+ ["වෙබ් පිටුවක් ලබා ගන්නා වෙබ් බ්‍රව්සරයක් භාවිතා කරන්නේ කුමන ප්‍රවාහන සේවාවද (Transport service)?",["UDP","TCP","IMAP"],1,"HTTP ක්‍රියාත්මක වන්නේ TCP මතය: වෙබ් පිටුවේ සෑම බයිටයක්ම අඩු නොවී පැමිණිය යුතුය."],
+ ["HTTP යනු \"තත්ත්ව-රහිත\" (stateless) ප්‍රොටෝකෝලයකි. එයින් අදහස් කරන්නේ කුමක්ද?",["එය කිසිවිටෙක TCP භාවිතා නොකරයි","සේවාදායකය පෙර ඉල්ලීම් පිළිබඳ මතකයක් තබා නොගනී","ප්‍රතිචාරවල තත්ත්ව පේළියක් (status line) නොමැත"],1,"සෑම පිළිතුරකින්ම පසුව සේවාදායකය ඔබව අමතක කරයි. කුකීස් (Cookies) මඟින් මෙයට පිළියමක් යොදයි."],
+ ["\"ඉල්ලූ ලේඛනය මෙම සේවාදායකයේ හමු නොවීය\" යන්න දක්වන තත්ත්ව කේතය (status code) කුමක්ද?",["200","301","404","505"],2,"404 Not Found."],
+ ["අස්ථාවර HTTP (non-persistent HTTP) භාවිතා කරන විට එක් වස්තුවක් සඳහා වට ගමන් (RTT) කීයක් වැය වේද (සම්ප්‍රේෂණ කාලය නොසලකා)?",["1","2","3"],1,"TCP සම්බන්ධතාවය විවෘත කිරීමට 1 RTT ක් සහ ඉල්ලීම හා පිළිතුර සඳහා තවත් 1 RTT කි."],
+ ["විශ්වවිද්‍යාල නිහිතයේ (Web cache) හමුවීම් අනුපාතය (hit rate) 0.4 ක් වන විට, ප්‍රවේශ සබැඳිය කොපමණ ප්‍රමාණයක් පිරී පවතීද?",["0.97","0.58","0.40"],1,"0.6 × 1.50 Mbps = 0.9 Mbps, එබැවින් 0.9 / 1.54 ≈ 0.58 කි."],
+ ["SMTP යනු ___ ප්‍රොටෝකෝලයක් වන අතර, HTTP යනු ___ ප්‍රොටෝකෝලයකි.",["ඇද ගැනීමේ (pull), තල්ලු කිරීමේ (push)","තල්ලු කිරීමේ (push), ඇද ගැනීමේ (pull)","තල්ලු කිරීමේ (push), තල්ලු කිරීමේ (push)"],1,"යවන්නාගේ සේවාදායකය විද්‍යුත් තැපෑල තල්ලු කරයි (push); බ්‍රව්සරයක් වෙබ් පිටු ඇද ගනී (pull)."],
+ ["රනිල් තම සේවාදායකයේ තැන්පත්ව ඇති විද්‍යුත් තැපැල් කියවීමට භාවිතා කරන්නේ…",["SMTP","IMAP (හෝ HTTP වෙබ් තැපෑල)","DNS"],1,"SMTP මඟින් රනිල්ගේ සේවාදායකය වෙත ලිපිය බෙදා හැරීම පමණක් සිදු කරයි. IMAP හෝ HTTP මඟින් එය කියවීමට ලබා ගනී."],
+ ["නැවත නැවත විමසන (iterated) DNS විමසුමකදී, නිහිතයේ කිසිවක් නොමැති විට දේශීය සේවාදායකය මුලින්ම විමසන්නේ කාගෙන්ද?",["බලයලත් සේවාදායකයෙන් (Authoritative server)","මූල සේවාදායකයකින් (Root server)","TLD සේවාදායකයකින්"],1,"පළමුව Root, ඉන්පසු TLD, අවසානයේ Authoritative සේවාදායකයෙන් විමසයි."],
+ ["වසමක (domain) තැපැල් සේවාදායකය නම් කරන DNS වාර්තා වර්ගය කුමක්ද?",["A","NS","CNAME","MX"],3,"MX = Mail Exchange."],
+ ["BitTorrent හිදී, අනුර මුලින්ම ඉල්ලා සිටින්නේ තමා සතුව නැති කුමන කොටසද?",["අඩුම අංකය සහිත කොටස","තම අසල්වැසියන් අතර දුර්ලභම කොටස (Rarest first)","අහඹු කොටසක්"],1,"දුර්ලභම කොටස පළමුව (Rarest first)."],
+ ["DASH වීඩියෝ ප්‍රවාහයේදී, ඊළඟට ඉල්ලිය යුත්තේ කුමන ගුණාත්මකභාවයේ (encoding rate) කොටසදැයි තීරණය කරන්නේ කවුද?",["CDN ජාලය","වීඩියෝ සේවාදායකය","සේවාලාභියා (Client)"],2,"Manifest ගොනුව භාවිතා කරමින් සේවාලාභියා (Client) විසින් තීරණය කරයි."],
+ ["TCP සේවාදායකයක accept() මඟින් ආපසු ලබා දෙන්නේ කුමක්ද?",["සේවාලාභියාගේ පණිවිඩය","එම සේවාලාභියා වෙනුවෙන්ම වෙන්වූ නව සොකට්ටුවක්","එහිම පෝට් අංකය"],1,"පිළිගැනීමේ සොකට්ටුව දිගටම සවන් දෙමින් සිටින අතර accept() මඟින් නව සම්බන්ධතා සොකට්ටුවක් ලබා දෙයි."]];
 let qi=0,res=[];
-S.push({stop:7,title:"Penny's sorting test",
- story:"Midnight. Alice has sent a web request, emailed Bob, looked up an address, shared a file, watched a movie, and built a server. Now it's your turn: sort these twelve letters into the right pigeonholes.",
+S.push({stop:7,title:"වළගම්බාගේ ලිපි තේරීමේ පරීක්ෂණය",
+ story:"දැන් මධ්‍යම රාත්‍රියයි. අනුර වෙබ් ඉල්ලීමක් යැව්වා, රනිල්ට විද්‍යුත් තැපෑලක් යැව්වා, DNS ලිපිනයක් සෙව්වා, දනුජ, සමන්තභද්‍ර සහ මහින්ද සමඟ ගොනුවක් බෙදා ගත්තා, කාවන්තිස්ස පුවත චිත්‍රපටය නැරඹුවා, සහ දුටුගැමුණු සමඟ සේවාදායකයක් ගොඩනැගුවා. දැන් ඔබේ වාරයයි: මෙම ලිපි දොළහ නිවැරදි කොටු වලට තෝරා දමන්න.",
  noAsk:true,
  body(el){
   const c=h(`<div></div>`);el.append(c);
   const render=()=>{
-   if(qi>=Q.length){const sc=res.filter(Boolean).length;c.innerHTML=`<div class="scoreline">${res.map(r=>`<i class="${r?"r":"w"}"></i>`).join("")}</div><div class="qtext">You sorted ${sc} of ${Q.length} letters correctly!</div><p>${sc===Q.length?"Perfect delivery. You know the application layer.":sc>=9?"Great work. Go back to the scenes behind any red ones.":"Good start. Revisit the scenes for the red ones and try again."}</p><div class="row" style="margin-top:14px"><button class="btn">Sort again</button></div>`;c.querySelector("button").onclick=()=>{qi=0;res=[];render()};say(sc===Q.length?"Perfect! You've earned every stamp.":`${sc} of ${Q.length}! Every delivery teaches something.`);markDone(7);return}
+   if(qi>=Q.length){const sc=res.filter(Boolean).length;c.innerHTML=`<div class="scoreline">${res.map(r=>`<i class="${r?"r":"w"}"></i>`).join("")}</div><div class="qtext">ඔබ ලිපි ${Q.length} න් ${sc} ක් නිවැරදිව තේරුවා!</div><p>${sc===Q.length?"විශිෂ්ටයි! ඔබ යෙදුම් ස්ථරය (Application Layer) මැනවින් ප්‍රගුණ කර ඇත.":sc>=9?"ඉතා හොඳයි! රතු පැහැති ලකුණු වලට අදාළ දසුන් නැවත පරීක්ෂා කර බලන්න.":"හොඳ ආරම්භයක්! රතු පැහැති ප්‍රශ්නවලට අදාළ කොටස් නැවත කියවා උත්සාහ කරන්න."}</p><div class="row" style="margin-top:14px"><button class="btn">නැවත තෝරන්න</button></div>`;c.querySelector("button").onclick=()=>{qi=0;res=[];render()};say(sc===Q.length?"විශිෂ්ටයි! ඔබ සෑම මුද්දරයක්ම දිනා ගත්තා.":`${Q.length} න් ${sc} යි! සෑම ලිපියකින්ම අලුත් දෙයක් ඉගෙන ගන්න පුළුවන්.`);markDone(7);return}
    const [q,o,a,w]=Q[qi];
-   c.innerHTML=`<div class="scoreline">${Q.map((_,i)=>`<i class="${i<res.length?(res[i]?"r":"w"):""}"></i>`).join("")}</div><div class="kicker">Letter ${qi+1} of ${Q.length}</div><div class="qtext">${esc(q)}</div><div class="opts">${o.map((x,i)=>`<button class="opt" data-i="${i}">${esc(x)}</button>`).join("")}</div><div class="verdict"></div>`;
+   c.innerHTML=`<div class="scoreline">${Q.map((_,i)=>`<i class="${i<res.length?(res[i]?"r":"w"):""}"></i>`).join("")}</div><div class="kicker">ලිපිය ${qi+1} / ${Q.length}</div><div class="qtext">${esc(q)}</div><div class="opts">${o.map((x,i)=>`<button class="opt" data-i="${i}">${esc(x)}</button>`).join("")}</div><div class="verdict"></div>`;
    $$(".opt",c).forEach(b=>b.onclick=()=>{const ok=+b.dataset.i===a;res.push(ok);$$(".opt",c).forEach(x=>{x.disabled=true;if(+x.dataset.i===a)x.classList.add("right")});if(!ok)b.classList.add("wrong");
-    c.querySelector(".verdict").innerHTML=`<p class="note"><b>${ok?"Right address!":"Return to sender."}</b> ${esc(w)}</p><div class="row" style="margin-top:12px"><button class="btn alt">${qi===Q.length-1?"See results":"Next letter"}</button></div>`;
-    c.querySelector(".verdict button").onclick=()=>{qi++;render()};say(ok?"Nice sorting!":"Close! Read the note and keep going.")})};
+    c.querySelector(".verdict").innerHTML=`<p class="note"><b>${ok?"නිවැරදි ලිපිනය!":"ආපසු යවන්නා වෙත."}</b> ${esc(w)}</p><div class="row" style="margin-top:12px"><button class="btn alt">${qi===Q.length-1?"ප්‍රතිඵල බලන්න":"ඊළඟ ලිපිය"}</button></div>`;
+    c.querySelector(".verdict button").onclick=()=>{qi++;render()};say(ok?"නිවැරදි තේරීමක්!":"සටහන කියවා ඊළඟ ලිපියට යමු.")})};
   render()},
- penny:"Take your time. Every answer comes with a note."});
+ penny:"කලබල නොවී පිළිතුරු දෙන්න. සෑම පිළිතුරක් සමඟම පැහැදිලි කිරීමක් ලැබේ."});
 
 /* ---------- storybook controller ---------- */
 let cur=Math.min(S.length-1,Math.max(0,+store.get("ch2-scene",0)||0));
 const answered=store.get("ch2-answered",{});
 const doneStops=new Set(store.get("ch2-stops",[]));
 const route=$("#route");
-STOPS.forEach((n,i)=>{const b=document.createElement("button");b.className="stop-btn";b.innerHTML=`<b>${i+1}</b><span>${n}</span>`;b.setAttribute("aria-label",`Stop ${i+1}: ${n}`);b.onclick=()=>go(S.findIndex(s=>s.stop===i));route.append(b)});
+STOPS.forEach((n,i)=>{const b=document.createElement("button");b.className="stop-btn";b.innerHTML=`<b>${i+1}</b><span>${n}</span>`;b.setAttribute("aria-label",`නැවතුම ${i+1}: ${n}`);b.onclick=()=>go(S.findIndex(s=>s.stop===i));route.append(b)});
 function markDone(stop){if(doneStops.has(stop))return;doneStops.add(stop);store.set("ch2-stops",[...doneStops]);paintRoute()}
 function paintRoute(){$$(".stop-btn").forEach((b,i)=>{b.classList.toggle("here",S[cur].stop===i);b.classList.toggle("done",doneStops.has(i))});$("#trail").style.width=((cur+1)/S.length*100)+"%"}
 function go(k){cur=Math.max(0,Math.min(S.length-1,k));store.set("ch2-scene",cur);render();const top=$("#stage").getBoundingClientRect().top+scrollY-12;if(scrollY>top)scrollTo({top,behavior:reduce?"auto":"smooth"})}
 function render(){
   const s=S[cur],stage=$("#stage");
   const same=S.filter(x=>x.stop===s.stop),idx=same.indexOf(s)+1;
-  const el=h(`<article class="scene"><p class="kicker">Stop ${s.stop+1} · ${STOPS[s.stop]}${same.length>1?` · scene ${idx} of ${same.length}`:""}</p><h2>${s.title}</h2><p class="story">${s.story}</p></article>`);
+  const el=h(`<article class="scene"><p class="kicker">නැවතුම ${s.stop+1} · ${STOPS[s.stop]}${same.length>1?` · දසුන ${idx} / ${same.length}`:""}</p><h2>${s.title}</h2><p class="story">${s.story}</p></article>`);
   const reveal=h(`<div class="reveal"></div>`);
   let built=false;
-  const finish=()=>{reveal.hidden=false;if(!built){built=true;s.body(reveal);if(s.take)reveal.append(h(`<div class="takeaway"><b>Postcard to remember:</b> ${s.take}</div>`))}
+  const finish=()=>{reveal.hidden=false;if(!built){built=true;s.body(reveal);if(s.take)reveal.append(h(`<div class="takeaway"><b>මතක තබා ගත යුතු කරුණ:</b> ${s.take}</div>`))}
     if(s.stop!==7&&(cur===S.length-1||S[cur+1].stop!==s.stop))markDone(s.stop)};
   stage.innerHTML="";
   if(s.noAsk){el.append(reveal);stage.append(el);finish()}
@@ -681,15 +684,15 @@ function render(){
     const ask=h(`<div class="ask"><div class="q">${s.ask.q}</div><div class="opts">${s.ask.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("")}</div><div class="verdict"></div></div>`);
     reveal.hidden=true;el.append(ask,reveal);stage.append(el);
     const settle=(pick,quiet)=>{const ok=pick===s.ask.ans;$$(".opt",ask).forEach(x=>{x.disabled=true;if(+x.dataset.i===s.ask.ans)x.classList.add("right")});if(!ok)$$(".opt",ask)[pick].classList.add("wrong");
-      ask.querySelector(".verdict").innerHTML=`<b>${ok?"You got it!":"Good guess, but no."}</b> ${s.ask.why} <b>Let's watch it happen ↓</b>`;
-      finish();if(!quiet)say(ok?"Spot on! Now watch the letter travel.":"Surprise! Let's watch and find out why.")};
+      ask.querySelector(".verdict").innerHTML=`<b>${ok?"ඔබ නිවැරදියි!":"හොඳ උත්සාහයක්, නමුත් පිළිතුර එය නොවේ."}</b> ${s.ask.why} <b>දැන් එය සිදුවන ආකාරය බලමු ↓</b>`;
+      finish();if(!quiet)say(ok?"හරියටම හරි! දැන් ලිපිය ගමන් කරන ආකාරය බලන්න.":"පුදුමයි නේද? එය සිදුවන්නේ ඇයිදැයි අපි බලමු.")};
     $$(".opt",ask).forEach(b=>b.onclick=()=>{answered[cur]=+b.dataset.i;store.set("ch2-answered",answered);settle(+b.dataset.i)});
     if(answered[cur]!=null&&answered[cur]<s.ask.opts.length)settle(answered[cur],true);
   }
-  hintLine=s.penny||"";say(s.penny||"Make a guess!");
-  $("#count").textContent=`Scene ${cur+1} of ${S.length}`;
+  hintLine=s.penny||"";say(s.penny||"අනුමානයක් කරන්න!");
+  $("#count").textContent=`දසුන ${cur+1} / ${S.length}`;
   $("#prev").disabled=cur===0;$("#next").disabled=cur===S.length-1;
-  $("#next").textContent=S[cur+1]&&S[cur+1].stop!==s.stop?`On to ${STOPS[S[cur+1].stop]} →`:"Next scene →";
+  $("#next").textContent=S[cur+1]&&S[cur+1].stop!==s.stop?`ඊළඟට: ${STOPS[S[cur+1].stop]} →`:"ඊළඟ දසුන →";
   paintRoute();
 }
 $("#prev").onclick=()=>go(cur-1);$("#next").onclick=()=>go(cur+1);
