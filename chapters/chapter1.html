@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+<html data-theme="light" lang="si"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style id="modern-unified">
+:root,:root[data-theme="light"]{color-scheme:light!important;--bg:#f5f7fb;--paper:#fff;--card:#fff;--surface:#fff;--surface-2:#f1f5fa;--paper2:#f8fafc;--sky:#f5f7fb;--ink:#142238;--muted:#607087;--line:#dce4ee;--red:#db5266;--stamp:#db5266;--post-red:#db5266;--blue:#3466d9;--air:#3466d9;--post-blue:#3466d9;--yellow:#e2a344;--sun:#e2a344;--gold:#e2a344;--green:#168767;--good:#168767;--leaf:#168767;--blue-soft:#ebf1ff;--air-soft:#ebf1ff;--soft-blue:#ebf1ff;--stamp-soft:#fff0f2;--red-soft:#fff0f2;--green-soft:#e7f5f0;--leaf-soft:#e7f5f0;--gold-soft:#fff6e8;--sun-soft:#fff6e8;--shadow:0 10px 36px rgba(22,43,82,.045)!important;--f-display:"Inter","Noto Sans Sinhala",system-ui,sans-serif;--display:var(--f-display);--f-body:"Noto Sans Sinhala","Inter",system-ui,sans-serif;--body:var(--f-body);--f-mono:"JetBrains Mono",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark!important;--bg:#0b1220;--paper:#121e30;--card:#121e30;--surface:#121e30;--surface-2:#18263a;--paper2:#18263a;--sky:#0b1220;--ink:#e9eff8;--muted:#a0aec3;--line:#2c3c52;--red:#fa8492;--stamp:#fa8492;--post-red:#fa8492;--blue:#8eb0ff;--air:#8eb0ff;--post-blue:#8eb0ff;--green:#61d5ab;--good:#61d5ab;--blue-soft:#223659;--air-soft:#223659;--soft-blue:#223659;--red-soft:#392631;--stamp-soft:#392631;--green-soft:#173c35;--gold-soft:#453725;--shadow:0 12px 36px rgba(0,0,0,.18)!important}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0!important;background:var(--bg)!important;background-image:none!important;color:var(--ink)!important;font-family:var(--f-body)!important;line-height:1.8!important;font-size:16.5px!important;overflow-x:hidden}body::before{display:none!important} h1,h2,h3,h4{font-family:var(--f-display)!important;letter-spacing:-.025em!important;line-height:1.4!important}p{line-height:1.85!important}button{cursor:pointer;transition:background-color .2s,border-color .2s,color .2s,transform .2s!important}button:hover:not(:disabled){transform:translateY(-1px)}a{transition:color .2s} :focus-visible{outline:2px solid var(--blue)!important;outline-offset:3px!important}
+.wrap{max-width:980px!important;padding-left:clamp(18px,3vw,38px)!important;padding-right:clamp(18px,3vw,38px)!important}
+.airmail,.airmail-top,.stripe,.topbar::after,.route .rail,.route .rail b,.postmark{display:none!important}
+.scene,.beat,.panel,.card,.hero-grid,.hero-art,.paper,.letter,.content-card{border-radius:15px!important;box-shadow:var(--shadow)!important;border-color:var(--line)!important}
+.topbar,.bar,.top,.route,.passport{background:var(--paper)!important;box-shadow:none!important;border-color:var(--line)!important}
+.back,.backlink,.brand,.allch,.chip,.stop-btn,.act{border-radius:9px!important;box-shadow:none!important}
+.hero-letter,.hero-art,.hero-illustration,.hero-drawing,.postmark,.carrier,.guide,.buddy,.penny,.stampbook,.cast-chip,.mascot,.character-art{display:none!important}
+.hero,.cover{padding-top:22px!important} .hero h1,.cover h1{font-size:clamp(1.8rem,4.5vw,2.7rem)!important}
+button,optgroup,select,input,textarea{font-family:var(--f-body)!important}
+button:disabled{opacity:.52;cursor:not-allowed}
+.opt,.option,.choice{border-radius:10px!important} .right{border-color:#168767!important}.wrong{border-color:#db5266!important}
+[data-goto],.chip,.stop-btn,.act{transition:all .24s ease!important}
+main{animation:modernFade .42s ease both}@keyframes modernFade{from{opacity:.4;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:650px){.wrap{padding-inline:16px!important}.hero-grid{grid-template-columns:1fr!important}.route-bar{overflow-x:auto!important}.hero h1{font-size:1.9rem!important}}
+</style><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+Sinhala:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><style>
+/* Modern professional visual language. Individual lesson logic remains intact. */
+:root,:root[data-theme="dark"]{color-scheme:dark!important;--bg:#050505;--paper:#0e0e10;--card:#121214;--surface:#121214;--surface-2:#19191c;--paper2:#151518;--paper-2:#151518;--sky:#050505;--ink:#f1f1f2;--text:#f1f1f2;--muted:#a2a2aa;--line:#29292e;--blue:#a8b9ff;--air:#a8b9ff;--post-blue:#a8b9ff;--stamp:#eb8e89;--red:#eb8e89;--post-red:#eb8e89;--gold:#d3bd83;--sun:#d3bd83;--green:#83c9ac;--leaf:#83c9ac;--good:#83c9ac;--blue-soft:#1b2030;--air-soft:#1b2030;--soft-blue:#1b2030;--red-soft:#2b1c20;--stamp-soft:#2b1c20;--soft-red:#2b1c20;--gold-soft:#292417;--sun-soft:#292417;--green-soft:#16251f;--leaf-soft:#16251f;--kraft:#272322;--kraft-ink:#ddd0c1;--shadow:0 16px 44px rgba(0,0,0,.24);--f-display:Inter,"Noto Sans Sinhala",sans-serif;--display:Inter,"Noto Sans Sinhala",sans-serif;--f-body:"Noto Sans Sinhala",Inter,system-ui,sans-serif;--body:"Noto Sans Sinhala",Inter,system-ui,sans-serif}
+html{background:#050505!important;scroll-behavior:smooth}body{background:#050505!important;background-image:none!important;color:#f1f1f2!important;font-family:"Noto Sans Sinhala",Inter,system-ui,sans-serif!important;line-height:1.78!important}body::before{display:none!important}h1,h2,h3,h4{letter-spacing:-.025em}a{color:#b5c3ff}button,a{transition:background-color .22s ease,color .22s ease,border-color .22s ease,transform .22s ease,box-shadow .22s ease}button:hover{filter:brightness(1.08)}button:active{transform:scale(.985)}
+.airmail,.airmail-top,.stripe,.topbar::after{background:none!important;height:1px!important;background-color:#29292e!important}
+.scene,.beat,.hero-art,.card,.panel,.slide,.letter,.hero-grid,.cover-card{box-shadow:0 14px 38px rgba(0,0,0,.18)!important;border-color:#2d2d31!important} .scene,.beat,.card,.panel{border-radius:18px!important}
+.postmark,.postmark-stamp,.stampbook,.stampcount{filter:grayscale(1);opacity:.55} .hero-letter,.hero-art{filter:saturate(.55)}
+:focus-visible{outline:2px solid #c1ccff!important;outline-offset:3px!important}
+.academy-nav{position:sticky;top:0;z-index:9999;min-height:58px;background:rgba(5,5,5,.92);border-bottom:1px solid #242428;backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px max(18px,calc((100vw - 1120px)/2));font:500 12px Inter,"Noto Sans Sinhala",sans-serif;letter-spacing:.03em}
+.academy-nav a{text-decoration:none;color:#bcbcc4;white-space:nowrap}.academy-nav a:hover{color:#fff}.academy-nav .academy-home{color:#fff;font-weight:800;letter-spacing:.13em;font-size:11px}.academy-nav .academy-index{color:#73737d;font-size:11px}.academy-controls{display:flex;gap:16px;align-items:center}.academy-controls a{padding:6px 0} .academy-controls a[aria-disabled="true"]{opacity:.3;pointer-events:none}
+@media(max-width:600px){.academy-nav{padding:11px 16px}.academy-nav .academy-index{display:none}.academy-controls{gap:12px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600&amp;family=Noto+Sans+Sinhala:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="../fable.css" rel="stylesheet"/><link rel="stylesheet" href="../assets/chapter-ambient.css"><link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" href="../favicon.png"></head><body><section class="fable-chapter-banner"><div class="fable-info"><div class="fable-kicker">THE NETWORK ATLAS / STUDY 01</div><h1>The Internet</h1><p>අන්තර්ජාලය සහ පරිගණක ජාල · Networks connect devices, people, and ideas.</p></div><div class="art-shell"><svg aria-label="Hand drawn network illustration" class="network-drawing" role="img" viewbox="0 0 640 520" xmlns="http://www.w3.org/2000/svg"><defs><filter id="rough"><feturbulence basefrequency=".014" numoctaves="2" result="noise" seed="7" type="fractalNoise"></feturbulence><fedisplacementmap in="SourceGraphic" in2="noise" scale="2"></fedisplacementmap></filter></defs><g class="sketch-lines" fill="none" filter="url(#rough)" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M210 180q110-105 220 0 M244 219q76-73 152 0 M279 254q41-38 82 0"></path><circle cx="320" cy="280" fill="currentColor" r="7"></circle><rect height="70" rx="13" width="192" x="225" y="310"></rect><path d="M260 309L246 263 M384 310L397 257"></path><path d="M255 261q-22-22-43-1 M404 257q21-22 41-1"></path><circle cx="259" cy="347" r="5"></circle><circle cx="284" cy="347" r="5"></circle><path d="M330 349h60"></path><rect height="166" rx="15" width="88" x="445" y="177"></rect><rect height="110" rx="3" width="62" x="458" y="198"></rect><path d="M478 326h18"></path><circle cx="488" cy="250" r="12"></circle><path d="M468 275q20-19 40 0"></path><rect height="87" rx="5" width="130" x="88" y="201"></rect><path d="M73 291h160l-12 13H85z M107 222h91 M107 237h57"></path><path d="M217 246L276 288 M418 321L444 296" stroke-dasharray="3 8"></path><circle cx="85" cy="150" fill="currentColor" opacity=".32" r="2"></circle><circle cx="160" cy="92" fill="currentColor" opacity=".32" r="3"></circle><circle cx="487" cy="92" fill="currentColor" opacity=".32" r="4"></circle><circle cx="551" cy="401" fill="currentColor" opacity=".32" r="2"></circle><circle cx="117" cy="391" fill="currentColor" opacity=".32" r="3"></circle><circle cx="511" cy="445" fill="currentColor" opacity=".32" r="4"></circle><circle cx="320" cy="67" fill="currentColor" opacity=".32" r="2"></circle><circle cx="86" cy="342" fill="currentColor" opacity=".32" r="3"></circle><circle cx="557" cy="187" fill="currentColor" opacity=".32" r="4"></circle></g><g class="sketch-labels" fill="currentColor"><text x="56" y="56">FIG. 01 / NETWORK STUDIES</text><text x="425" y="480">SIGNAL · CONNECTION · SYSTEM</text></g></svg></div></section><nav aria-label="Chapter navigation" class="academy-nav"><a class="academy-home" href="../index.html">NETWORK / ACADEMY</a><span class="academy-index">CHAPTER 01 / 08</span><div class="academy-controls"><a href="../index.html">සියලු පාඩම්</a><a href="chapter2.html">ඊළඟ →</a></div></nav>
+<title>පරිගණක ජාල හැඳින්වීම | Network Academy</title>
+<meta content="cover" name="claude:viewport-fit-sides"/>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&amp;family=Noto+Sans+Sinhala:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+/* Layout: a story told one scene at a time. A single centred "envelope" stage holds the current scene:
+   Penny narrates, asks a question, the reader guesses, and the scene unfolds. */
+:root{
+  --bg:#EEF3F9;--surface:#FFFFFF;--surface-2:#F6F9FD;--ink:#1D2944;--muted:#58668A;--line:#D5DEEB;
+  --red:#D93A3A;--blue:#2356C4;--gold:#E9A92B;--green:#23946A;
+  --red-soft:#FBE4E4;--blue-soft:#E2EAFB;--gold-soft:#FCF0D5;--green-soft:#DDF3EA;
+  --shadow:0 2px 0 rgba(29,41,68,.08),0 14px 30px -14px rgba(29,41,68,.3);
+  --f-display:"Familjen Grotesk","Noto Sans Sinhala",system-ui,sans-serif;
+  --f-body:"Noto Sans Sinhala","Familjen Grotesk",system-ui,sans-serif;
+  --f-stamp:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111827;--surface:#1A2336;--surface-2:#1F2A40;--ink:#E9EEF8;--muted:#9DAACA;--line:#2D3A55;
+    --red:#FF6E6E;--blue:#79A2FF;--gold:#F4C35E;--green:#4CCB97;
+    --red-soft:#3A1F27;--blue-soft:#1E2B4D;--gold-soft:#3A3020;--green-soft:#18352C;
+    --shadow:0 2px 0 rgba(0,0,0,.3),0 14px 30px -14px rgba(0,0,0,.7);color-scheme:dark}
+}
+:root[data-theme="dark"]{
+  --bg:#111827;--surface:#1A2336;--surface-2:#1F2A40;--ink:#E9EEF8;--muted:#9DAACA;--line:#2D3A55;
+  --red:#FF6E6E;--blue:#79A2FF;--gold:#F4C35E;--green:#4CCB97;
+  --red-soft:#3A1F27;--blue-soft:#1E2B4D;--gold-soft:#3A3020;--green-soft:#18352C;
+  --shadow:0 2px 0 rgba(0,0,0,.3),0 14px 30px -14px rgba(0,0,0,.7);color-scheme:dark}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0;font-weight:600}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.wrap{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.airmail{height:10px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,transparent 14px 22px,var(--blue) 22px 36px,transparent 36px 44px)}
+.mono{font-family:var(--f-stamp)}
+.num{font-variant-numeric:tabular-nums}
+.term{font-weight:800;color:var(--blue)}
+.formula{font-family:var(--f-stamp);font-weight:700;background:var(--blue-soft);color:var(--ink);padding:1px 7px;border-radius:6px}
+
+/* route bar */
+.route{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.route .bar{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:12px;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.back{flex:none;text-decoration:none;font-weight:800;font-size:14px;color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.back:hover{background:var(--blue-soft)}
+.stops{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.stops::-webkit-scrollbar{display:none}
+.stops a{flex:none;text-decoration:none;color:var(--muted);font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;border:1.5px solid transparent;display:flex;align-items:center;gap:6px}
+.stops a .dot{width:9px;height:9px;border-radius:50%;border:2px solid currentColor}
+.stops a.done .dot{background:var(--green);border-color:var(--green)}
+.stops a.here{color:var(--blue);border-color:var(--blue);background:var(--blue-soft)}
+.progress{height:4px;background:var(--line)}
+.progress i{display:block;height:100%;background:var(--red);transition:width .4s}
+
+/* stage */
+main{padding-block:26px 40px}
+.scene{animation:enter .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.act{font-family:var(--f-stamp);text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--red);font-weight:700}
+.scene h2{font-size:clamp(28px,4.4vw,40px);margin-top:4px}
+.narr{display:grid;grid-template-columns:78px 1fr;gap:12px;align-items:end;margin-top:18px}
+.narr .pip{width:78px}
+.bubble{background:var(--gold-soft);border:2px solid var(--gold);border-radius:18px 18px 18px 4px;padding:12px 16px;font-weight:600;line-height:1.5}
+.bubble b{font-weight:800}
+.ask{margin-top:18px;background:var(--surface);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.ask .q{padding:16px 18px 6px;font-family:var(--f-display);font-size:21px;font-weight:600}
+.ask .opts{display:flex;flex-wrap:wrap;gap:8px;padding:8px 18px 16px}
+.opt{cursor:pointer;border:2px solid var(--line);background:var(--surface-2);border-radius:12px;padding:8px 14px;font-weight:800;font-size:15.5px;text-align:left}
+.opt:hover:not([disabled]){border-color:var(--blue)}
+.opt[disabled]{cursor:default}
+.opt.right{border-color:var(--green);background:var(--green-soft)}
+.opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.opt.picked{border-color:var(--blue);background:var(--blue-soft)}
+.ask .fb{padding:0 18px 16px;font-weight:700}
+.ask .skip{cursor:pointer;background:none;border:0;color:var(--muted);text-decoration:underline;font-size:14px;font-weight:700;padding:0 18px 14px}
+.reveal{margin-top:18px;display:flex;flex-direction:column;gap:16px;animation:unfold .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes unfold{from{opacity:0;transform:translateY(-10px) scaleY(.96);transform-origin:top}to{opacity:1;transform:none}}
+.card{background:var(--surface);border-radius:18px;padding:20px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:21px;margin-bottom:8px}
+.card .sub{color:var(--muted);font-size:15px;margin-bottom:10px}
+.card p+p{margin-top:10px}
+.card ul{margin:8px 0 0;padding-left:20px}
+.card li+li{margin-top:4px}
+.analogy{display:flex;gap:10px;align-items:flex-start;background:var(--gold-soft);border-radius:12px;padding:10px 12px;font-size:15.5px;line-height:1.45}
+.analogy::before{content:"";flex:none;width:26px;height:18px;margin-top:2px;border-radius:3px;background:linear-gradient(155deg,transparent 48%,var(--gold) 49% 55%,transparent 56%),linear-gradient(25deg,transparent 48%,var(--gold) 49% 55%,transparent 56%),var(--surface);border:2px solid var(--gold)}
+.keyidea{border-left:5px solid var(--blue);background:var(--blue-soft);border-radius:0 14px 14px 0;padding:12px 16px;font-weight:700}
+.scene-nav{margin-top:26px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:2px dashed var(--line);padding-top:16px}
+.scene-nav .count{font-family:var(--f-stamp);font-weight:700;color:var(--muted)}
+.btn{cursor:pointer;border:2px solid var(--ink);background:var(--surface);border-radius:12px;padding:8px 16px;font-weight:800;font-size:15.5px;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s;text-decoration:none;color:var(--ink);display:inline-block}
+.btn:hover{background:var(--surface-2)}
+.btn:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 3px 0 color-mix(in srgb,var(--red) 55%,#000)}
+.btn.blue{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 3px 0 color-mix(in srgb,var(--blue) 55%,#000)}
+.btn.small{padding:6px 12px;font-size:14px;border-radius:10px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.pulse{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 3px 0 color-mix(in srgb,var(--red) 55%,#000),0 0 0 6px color-mix(in srgb,var(--red) 25%,transparent)}}
+
+/* penny */
+.pip{width:100%;height:auto;display:block;cursor:pointer}
+.pip .arm{transform-origin:86px 92px;animation:wave 2.6s ease-in-out infinite}
+.pip .bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-22deg)}80%{transform:rotate(6deg)}90%{transform:rotate(-16deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.pip.cheer .bob{animation:jump .5s ease 2}
+@keyframes jump{50%{transform:translateY(-12px)}}
+
+/* cover */
+.cover{display:grid;grid-template-columns:1fr 220px;gap:24px;align-items:center;background:var(--surface);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.cover .txt{padding:28px 0 28px 28px}
+.cover h1{font-size:clamp(34px,5.4vw,54px);font-weight:700;margin-top:6px}
+.cover h1 em{font-style:normal;color:var(--blue)}
+.cover .lede{margin-top:12px;color:var(--muted);font-size:18.5px;max-width:52ch}
+.cover .go{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.cover .art{padding:20px 24px 20px 0}
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+.cast div{background:var(--surface);border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.35}
+.cast b{display:block;font-family:var(--f-display);font-size:16px;font-weight:600}
+.cast span{color:var(--muted)}
+
+/* journey scenes */
+.journey{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:16px 16px 14px}
+.journey h3{font-size:20px;margin:2px 4px 6px}
+.jv{overflow-x:auto;border-radius:12px;background:var(--surface-2)}
+.jv svg{display:block;width:100%;min-width:560px;height:auto}
+.jv text{font-family:var(--f-body);font-weight:700;fill:var(--ink)}
+.jv .lbl{font-family:var(--f-display);font-weight:600;font-size:15px}
+.jv .sublbl{font-size:12.5px;fill:var(--muted);font-weight:600}
+.jv .lnk{stroke:var(--muted);stroke-width:3;stroke-dasharray:7 7;fill:none;opacity:.7}
+.jv .lnk.hot{stroke:var(--red);opacity:1;animation:march .6s linear infinite}
+@keyframes march{to{stroke-dashoffset:-14}}
+.jv .lnklbl{font-size:12.5px;fill:var(--muted);font-weight:700}
+.jv .shape{fill:var(--surface);stroke:var(--ink);stroke-width:2.5}
+.jv .shape.soft{fill:var(--blue-soft);stroke:var(--blue)}
+.jv .shape.danger{fill:var(--red-soft);stroke:var(--red)}
+.jv .roofbar{fill:var(--blue)}
+.jv .envbox{fill:var(--surface);stroke:var(--red);stroke-width:2.5}
+.jv .envflap{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linejoin:round}
+.jv .envlbl{font-family:var(--f-stamp);font-size:13px;font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface-2);stroke-width:5px;stroke-linejoin:round}
+.jv .fxt{font-size:13px;font-weight:700}
+.jv .pop{animation:popin .35s ease}
+@keyframes popin{from{opacity:0}to{opacity:1}}
+.jcap{margin-top:12px;background:var(--blue-soft);border-radius:12px;padding:12px 14px;min-height:76px;line-height:1.5}
+.jcap b.n{color:var(--blue)}
+.jnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--red)}
+.jbtns{display:flex;gap:8px}
+
+/* widgets */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{cursor:pointer;border:2px solid var(--line);background:var(--surface-2);border-radius:999px;padding:6px 14px;font-weight:800;font-size:14.5px}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{border-color:var(--blue);background:var(--blue);color:#fff}
+.detail{margin-top:12px;border-left:4px solid var(--red);background:var(--surface-2);border-radius:0 12px 12px 0;padding:12px 14px;min-height:90px;animation:popin .3s}
+.detail h4{font-size:18px;margin-bottom:4px}
+.dict{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.dict div{background:var(--surface-2);border-radius:10px;padding:8px 12px;font-size:14.5px;line-height:1.35}
+.dict b{display:block;font-family:var(--f-display);font-weight:600;font-size:16px}
+.dict span{color:var(--muted)}
+.ctrl{display:grid;grid-template-columns:170px 1fr 100px;gap:10px;align-items:center;margin-top:8px;font-size:15px}
+.ctrl label{font-weight:700}
+.ctrl output{font-family:var(--f-stamp);font-weight:700;text-align:right}
+input[type=range]{width:100%;accent-color:var(--blue)}
+input[type=text]{width:100%;font:inherit;font-weight:700;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface-2);color:var(--ink)}
+.envs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.env{position:relative;width:98px;height:64px;background:var(--surface-2);border:2px solid var(--ink);border-radius:6px;padding:20px 6px 4px;font-family:var(--f-stamp);font-size:12.5px;line-height:1.25;overflow:hidden;animation:popin .3s ease}
+.env::before{content:"";position:absolute;left:-2px;right:-2px;top:-2px;height:24px;background:linear-gradient(160deg,transparent 49%,var(--ink) 50% 54%,transparent 55%) left/50% 100% no-repeat,linear-gradient(20deg,transparent 49%,var(--ink) 50% 54%,transparent 55%) right/50% 100% no-repeat}
+.env .n{position:absolute;top:2px;right:4px;background:var(--red);color:#fff;font-weight:700;border-radius:4px;padding:0 4px;font-size:11px}
+.env .body{white-space:pre;overflow:hidden}
+.road{position:relative;height:58px;margin-top:12px;border-radius:12px;background:var(--surface-2);border:2px dashed var(--line);overflow:hidden}
+.road .tag{position:absolute;font-size:12px;font-weight:800;color:var(--muted);top:4px}
+.road .m{position:absolute;top:22px;left:6px;width:30px;height:21px;background:var(--surface);border:2px solid var(--red);border-radius:3px}
+.road .m::after{content:"";position:absolute;inset:0;background:linear-gradient(150deg,transparent 47%,var(--red) 48% 56%,transparent 57%) left/50% 60% no-repeat,linear-gradient(30deg,transparent 47%,var(--red) 48% 56%,transparent 57%) right/50% 60% no-repeat}
+.road.go .m{animation:drive var(--d,1.6s) linear forwards}
+.road.go .m.wob{animation:drive var(--d,1.6s) linear forwards,wob .25s ease-in-out infinite}
+@keyframes drive{from{left:6px}to{left:calc(100% - 40px)}}
+@keyframes wob{50%{margin-top:-5px}}
+.lane{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center}
+.lane .road{margin-top:6px;height:40px}
+.lane .road .m{top:8px}
+.lane b{font-size:14.5px}
+.bin{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:8px;border:2px solid var(--ink);border-radius:12px;background:var(--surface-2);margin-top:10px}
+.bin span{aspect-ratio:1;border-radius:5px;border:1.5px dashed var(--line)}
+.bin span.full{background:var(--gold);border:1.5px solid var(--ink)}
+.bin.overflow{border-color:var(--red);animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.stat{background:var(--surface-2);border-radius:10px;padding:8px 10px}
+.stat b{display:block;font-family:var(--f-stamp);font-size:22px}
+.stat small{color:var(--muted);font-size:12.5px;font-weight:700}
+.stat.bad b{color:var(--red)} .stat.good b{color:var(--green)}
+.svgbox{overflow-x:auto;background:var(--surface-2);border-radius:12px;margin-top:10px}
+.svgbox svg{display:block;width:100%;max-width:720px;margin:0 auto;height:auto}
+.svgbox text{font-family:var(--f-body);font-weight:700;fill:var(--ink)}
+.dbars{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.dbar{display:grid;grid-template-columns:118px 1fr 96px;gap:8px;align-items:center;font-size:14px;font-weight:700}
+.dbar .track{height:16px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.dbar .fill{height:100%;border-radius:99px;transition:width .25s}
+.dbar output{font-family:var(--f-stamp);text-align:right}
+.total{margin-top:12px;font-weight:800;font-size:18px;display:flex;justify-content:space-between;border-top:2px dashed var(--line);padding-top:10px}
+.layers{display:flex;flex-direction:column;gap:6px}
+.layer{cursor:pointer;text-align:left;border:2px solid var(--line);background:var(--surface-2);border-radius:12px;padding:10px 14px;display:grid;grid-template-columns:130px 1fr;gap:10px;align-items:center}
+.layer b{font-family:var(--f-display);font-size:17px;font-weight:600}
+.layer small{color:var(--muted);font-size:14px;line-height:1.35}
+.layer[aria-expanded="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.layer .more{grid-column:1/-1;font-size:15px;line-height:1.45}
+.encap{margin-top:12px;min-height:120px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border-radius:12px;padding:12px;overflow-x:auto}
+.box{border:2.5px solid;border-radius:10px;padding:6px 8px 8px;display:flex;gap:6px;align-items:stretch;animation:popin .3s}
+.box>.h{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--f-stamp);font-weight:700;font-size:12px;padding:4px 2px;border-radius:5px;color:#fff;text-align:center}
+.box.m{border-color:var(--gold);background:var(--gold-soft);font-weight:800;padding:12px 16px;align-items:center}
+.box.t{border-color:var(--green)} .box.t>.h{background:var(--green)}
+.box.n{border-color:var(--blue)} .box.n>.h{background:var(--blue)}
+.box.lk{border-color:var(--red)} .box.lk>.h{background:var(--red)}
+.bits{font-family:var(--f-stamp);font-weight:700;font-size:15px;letter-spacing:.08em;word-break:break-all;color:var(--muted)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:700;font-size:14.5px}
+.flow span{background:var(--surface-2);border:1.5px solid var(--line);border-radius:8px;padding:3px 9px}
+.flow i{font-style:normal;color:var(--muted)}
+table.trace{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+table.trace th{text-align:left;color:var(--muted);padding:6px}
+table.trace td{padding:6px;border-top:1px dashed var(--line)}
+table.trace tr[data-i]{cursor:pointer}
+table.trace tr[data-i]:hover{background:var(--surface-2)}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.era{cursor:pointer;background:var(--surface);border:2px solid var(--line);border-radius:6px;padding:12px 8px;text-align:center;position:relative}
+.era::after{content:"";position:absolute;inset:4px;border:1.5px dashed var(--line);border-radius:3px;pointer-events:none}
+.era b{display:block;font-family:var(--f-display);font-size:17px;color:var(--red)}
+.era small{display:block;font-size:12.5px;color:var(--muted);line-height:1.3;margin-top:4px}
+.era[aria-pressed="true"]{border-color:var(--red);transform:rotate(-2deg);background:var(--red-soft)}
+.stampgrid{display:flex;gap:8px;flex-wrap:wrap}
+.pstamp{width:44px;height:44px;border-radius:50%;border:2px dashed var(--line);display:grid;place-items:center;font-family:var(--f-stamp);font-weight:700;font-size:12px;color:var(--muted);text-align:center;line-height:1}
+.pstamp.on{border:2px solid var(--green);color:var(--green);background:var(--green-soft);transform:rotate(-8deg)}
+footer{padding-block:10px 40px;color:var(--muted);font-size:14px}
+
+@media (max-width:700px){
+  .cover{grid-template-columns:1fr}
+  .cover .txt{padding:22px 20px 0}
+  .cover .art{padding:0 20px 20px;max-width:200px}
+  .ctrl{grid-template-columns:1fr 90px}
+  .ctrl input{grid-column:1/-1;grid-row:2}
+  .layer{grid-template-columns:1fr}
+  .timeline{grid-template-columns:repeat(2,1fr)}
+  .narr{grid-template-columns:60px 1fr}
+  .narr .pip{width:60px}
+  .dbar{grid-template-columns:90px 1fr 80px}
+  .lane{grid-template-columns:90px 1fr}
+}
+</style>
+<svg aria-hidden="true" height="0" style="position:absolute" width="0">
+<defs>
+<g id="pip-art">
+<g class="bob">
+<rect fill="#1D2944" height="30" rx="4" width="13" x="44" y="120"></rect>
+<rect fill="#1D2944" height="30" rx="4" width="13" x="63" y="120"></rect>
+<ellipse cx="49" cy="151" fill="#111" rx="11" ry="5"></ellipse>
+<ellipse cx="71" cy="151" fill="#111" rx="11" ry="5"></ellipse>
+<rect fill="#2356C4" height="54" rx="14" stroke="#1D2944" stroke-width="2.5" width="48" x="36" y="74"></rect>
+<rect fill="#1A3F93" height="50" width="4" x="58" y="76"></rect>
+<circle cx="54" cy="92" fill="#F4C35E" r="2"></circle><circle cx="54" cy="104" fill="#F4C35E" r="2"></circle>
+<path d="M40 78 L80 120" stroke="#8A5A1E" stroke-linecap="round" stroke-width="5"></path>
+<rect fill="#E9A92B" height="28" rx="6" stroke="#1D2944" stroke-width="2.5" width="34" x="66" y="106"></rect>
+<rect fill="#fff" height="14" rx="1.5" stroke="#1D2944" stroke-width="2" transform="rotate(-8 83 105)" width="22" x="72" y="98"></rect>
+<path d="M73 100 L83 107 L93 99" fill="none" stroke="#D93A3A" stroke-width="1.8" transform="rotate(-8 83 105)"></path>
+<rect fill="#C98A16" height="9" rx="4" stroke="#1D2944" stroke-width="2.5" width="34" x="66" y="106"></rect>
+<rect fill="#2356C4" height="36" rx="6" stroke="#1D2944" stroke-width="2.5" width="13" x="26" y="80"></rect>
+<circle cx="32" cy="118" fill="#F3C9A2" r="6" stroke="#1D2944" stroke-width="2"></circle>
+<g class="arm">
+<rect fill="#2356C4" height="36" rx="6" stroke="#1D2944" stroke-width="2.5" transform="rotate(-28 87 92)" width="13" x="81" y="58"></rect>
+<circle cx="104" cy="62" fill="#F3C9A2" r="6.5" stroke="#1D2944" stroke-width="2"></circle>
+</g>
+<path d="M37 44 Q34 70 44 72 L46 50 Z" fill="#8A5A1E" stroke="#1D2944" stroke-width="2"></path>
+<path d="M83 44 Q86 70 76 72 L74 50 Z" fill="#8A5A1E" stroke="#1D2944" stroke-width="2"></path>
+<circle cx="60" cy="50" fill="#F3C9A2" r="24" stroke="#1D2944" stroke-width="2.5"></circle>
+<circle cx="51" cy="50" fill="#1D2944" r="2.8"></circle><circle cx="69" cy="50" fill="#1D2944" r="2.8"></circle>
+<circle cx="45" cy="58" fill="#F09B8A" opacity=".7" r="4"></circle><circle cx="75" cy="58" fill="#F09B8A" opacity=".7" r="4"></circle>
+<path d="M52 62 Q60 69 68 62" fill="none" stroke="#1D2944" stroke-linecap="round" stroke-width="2.2"></path>
+<path d="M34 40 Q36 18 60 18 Q84 18 86 40 Z" fill="#2356C4" stroke="#1D2944" stroke-width="2.5"></path>
+<rect fill="#D93A3A" height="8" stroke="#1D2944" stroke-width="2" width="50" x="35" y="34"></rect>
+<path d="M30 42 Q60 50 92 42 L90 46 Q60 54 30 46 Z" fill="#1D2944"></path>
+<circle cx="60" cy="27" fill="#F4C35E" r="4.5" stroke="#1D2944" stroke-width="1.5"></circle>
+</g>
+</g>
+</defs>
+</svg>
+<nav aria-label="Chapter parts" class="route">
+<div class="bar">
+<a class="back" href="#home">← සියලු පරිච්ඡේද</a>
+<div class="stops" id="stops"></div>
+</div>
+<div class="progress"><i id="prog" style="width:0"></i></div>
+</nav>
+<div class="airmail"></div>
+<main><div class="wrap" id="stage"></div></main>
+<footer><div class="wrap"><i>Computer Networking: A Top-Down Approach</i> (8th ed.), Kurose &amp; Ross, Chapter 1 slides මත පදනම්ව. ඉඟිය: scenes අතර යන්න වම් සහ දකුණු arrow keys භාවිතා කරන්න.</div></footer>
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,txt,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(txt!=null)e.textContent=txt;if(parent)parent.appendChild(e);return e}
+const PIP='<svg class="pip" viewBox="0 0 120 160" role="img" aria-label="Penny the mail carrier. Tap for a fact."><use href="#pip-art"/></svg>';
+function cheer(svg){if(!svg)return;svg.classList.remove('cheer');void svg.getBoundingClientRect();svg.classList.add('cheer')}
+
+/* =================== JOURNEY ENGINE: a letter travelling step by step =================== */
+function envelope(g,x,y,cls){const e=el('g',{transform:`translate(${x-17},${y-12})`,class:cls||''},null,g);el('rect',{width:34,height:24,rx:3,class:'envbox'},null,e);el('path',{d:'M1 2 L17 14 L33 2',class:'envflap'},null,e);return e}
+function drawNode(g,n){
+  const k=n.kind,x=n.x,y=n.y;let ly=y+46;
+  if(k==='home'){el('rect',{x:x-28,y:y-14,width:56,height:38,rx:3,class:'shape'},null,g);el('path',{d:`M${x-36} ${y-12} L${x} ${y-42} L${x+36} ${y-12} Z`,class:'shape danger'},null,g);el('rect',{x:x-7,y:y+6,width:14,height:18,class:'shape soft'},null,g);ly=y+44}
+  else if(k==='office'){el('rect',{x:x-42,y:y-30,width:84,height:62,rx:6,class:'shape'},null,g);el('rect',{x:x-48,y:y-40,width:96,height:12,rx:2,class:'roofbar'},null,g);ly=y+52}
+  else if(k==='pc'){el('rect',{x:x-32,y:y-26,width:64,height:44,rx:7,class:'shape'},null,g);el('rect',{x:x-5,y:y+18,width:10,height:10,fill:'var(--ink)'},null,g);el('rect',{x:x-20,y:y+27,width:40,height:6,rx:3,fill:'var(--ink)'},null,g);ly=y+52}
+  else if(k==='isp'){el('ellipse',{cx:x,cy:y,rx:62,ry:28,class:'shape soft'},null,g);ly=y+46}
+  else if(k==='person'){el('circle',{cx:x,cy:y-16,r:12,class:'shape danger'},null,g);el('path',{d:`M${x-20} ${y+20} Q${x} ${y-14} ${x+20} ${y+20} Z`,class:'shape danger'},null,g);ly=y+38}
+  else if(k==='small'){el('rect',{x:x-18,y:y-13,width:36,height:24,rx:5,class:'shape danger'},null,g);ly=y+28}
+  if(n.inside)el('text',{x,y:y+(k==='isp'?5:4),'text-anchor':'middle',class:'lbl'},n.inside,g);
+  if(n.label)el('text',{x,y:n.ly||ly,'text-anchor':'middle',class:'lbl'},n.label,g);
+  if(n.sub)el('text',{x,y:(n.ly||ly)+17,'text-anchor':'middle',class:'sublbl'},n.sub,g);
+}
+function journey(host,cfg){
+  const W=cfg.w||720,H=cfg.h||260;
+  host.className='journey';
+  host.innerHTML=(cfg.title?`<h3>${cfg.title}</h3>`:'')+`<div class="jv"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${cfg.title||'Animated diagram'}"></svg></div><p class="jcap" aria-live="polite"></p><div class="jnav"><div class="dots"></div><div class="jbtns"><button class="btn small jb" type="button">Back</button><button class="btn small primary jf" type="button">Next step</button></div></div>`;
+  const svg=$('svg',host),gl=el('g',{},null,svg),gn=el('g',{},null,svg),gfx=el('g',{},null,svg),genv=el('g',{},null,svg);
+  const nodes={};cfg.nodes.forEach(n=>nodes[n.id]=n);
+  const pt=s=>{if(s==null)return null;if(typeof s==='string'){const n=nodes[s];return{x:n.x,y:n.y+(n.ey||0)}}if(Array.isArray(s)){const a=pt(s[0]),b=pt(s[1]);return{x:a.x+(b.x-a.x)*s[2],y:a.y+(b.y-a.y)*s[2]}}return s};
+  const lines=(cfg.links||[]).map(l=>{const a=pt(l[0]),b=pt(l[1]);const ln=el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:'lnk'},null,gl);if(l[2])el('text',{x:(a.x+b.x)/2,y:(a.y+b.y)/2-(l[3]||12),'text-anchor':'middle',class:'lnklbl'},l[2],gl);return ln});
+  if(cfg.decor)cfg.decor({add:(t,a,x)=>el(t,a,x,gn)});
+  cfg.nodes.forEach(n=>drawNode(gn,n));
+  const env=envelope(genv,0,0);const envLbl=el('text',{x:17,y:-8,'text-anchor':'middle',class:'envlbl'},'',env);
+  let cur=pt(cfg.start||null),i=-1,raf;
+  const place=p=>{env.setAttribute('transform',`translate(${p.x-17},${p.y-12})`)};
+  const api={add:(t,a,x)=>{const e=el(t,a,x,gfx);return e},env:(x,y,c)=>{const e=envelope(gfx,x,y,'pop');if(c)e.querySelectorAll('.envbox,.envflap').forEach(z=>z.style.stroke=c);return e},pt,svg:gfx};
+  const cap=$('.jcap',host),dots=$('.dots',host),bB=$('.jb',host),bF=$('.jf',host);
+  dots.innerHTML=cfg.steps.map(()=>'<i></i>').join('');
+  function animate(path){cancelAnimationFrame(raf);const pts=path.filter(Boolean);if(!pts.length)return;
+    if(reduce||!cur||pts.length===1&&pts[0].x===cur.x&&pts[0].y===cur.y){cur=pts[pts.length-1];place(cur);return}
+    const seq=[cur,...pts];const lens=[];let tot=0;for(let k=1;k<seq.length;k++){const d=Math.hypot(seq[k].x-seq[k-1].x,seq[k].y-seq[k-1].y);lens.push(d);tot+=d}
+    const dur=Math.min(1700,380+tot*1.7);const t0=performance.now();
+    const tick=now=>{let f=Math.min(1,(now-t0)/dur);f=f<.5?2*f*f:1-Math.pow(-2*f+2,2)/2;let d=f*tot,k=0;while(k<lens.length-1&&d>lens[k]){d-=lens[k];k++}
+      const a=seq[k],b=seq[k+1],r=lens[k]?d/lens[k]:1;cur={x:a.x+(b.x-a.x)*r,y:a.y+(b.y-a.y)*r};place(cur);if(f<1)raf=requestAnimationFrame(tick)};
+    raf=requestAnimationFrame(tick)}
+  function go(k,jump){const back=k<i;i=k;const st=cfg.steps[i];
+    cap.innerHTML=`<b class="n">${i+1}.</b> `+st.text;
+    lines.forEach(l=>l.classList.remove('hot'));(st.hl||[]).forEach(j=>lines[j]&&lines[j].classList.add('hot'));
+    gfx.innerHTML='';
+    envLbl.textContent=st.label!=null?st.label:(cfg.label||'');
+    if(st.pos===null){env.style.display='none'}else{env.style.display='';
+      if(st.from!=null&&!back){cur=pt(st.from);place(cur)}
+      const target=pt(st.pos);
+      if(back||jump||!cur){cancelAnimationFrame(raf);cur=target;place(cur)}else animate([...(st.via||[]).map(pt),target])}
+    if(st.fx)st.fx(api);
+    if(cfg.onStep)cfg.onStep(i,st);
+    $$('i',dots).forEach((d,j)=>d.classList.toggle('on',j<=i));
+    bB.disabled=i===0;bF.textContent=i===cfg.steps.length-1?'Replay':'Next step';bF.classList.toggle('pulse',i===0)}
+  bF.addEventListener('click',()=>{if(i===cfg.steps.length-1){cur=pt(cfg.start||null);go(0,!cfg.start);if(cfg.start){const s=cfg.steps[0];cur=pt(cfg.start);place(cur);animate([pt(s.pos)])}}else go(i+1)});
+  bB.addEventListener('click',()=>go(i-1));
+  if(cur)place(cur);
+  go(0,!cfg.start);
+  if(cfg.start&&cfg.steps[0].pos){cur=pt(cfg.start);place(cur);animate([pt(cfg.steps[0].pos)])}
+  return {go};
+}
+
+/* =================== SCENES =================== */
+const ACTS=[['intro','ආරම්භය'],['internet','Internet එක'],['protocols','Protocols'],['edge','Edge එක'],['core','Core එක'],['performance','Delays'],['security','Security'],['layers','Layers'],['history','ඉතිහාසය'],['quiz','Quiz']];
+const facts=["Packet එකක් කියන්නේ ලියුමක්. දිග message එකක් ලියුම් ගොඩකට කඩලා යවනවා.","Routers කියන්නේ sorting offices: හැම එකක්ම තීරණය කරන්නේ ඊළඟ hop එක විතරයි.","Store-and-forward: router එක ලියුම සම්පූර්ණයෙන්ම ලැබෙනකම් ඉඳලා තමයි ඉස්සරහට යවන්නේ.","Transmission delay = L/R: වෑන් එකට පටවන කාලය. Propagation delay = d/s: පාරේ ධාවනය කරන කාලය.","Throughput තීරණය වෙන්නේ path එකේ ඉතාම හෙමින් යන පාර අනුවයි.","Encapsulation කියන්නේ envelope එකක් ඇතුළේ envelope එකක්, layer එකකට එක බැගින්.","1972 දී ARPAnet එකේ තිබුණේ nodes 15ක් විතරයි, ඒකේ පළමු email program එකත් තිබුණා."];
+let fi=0;
+
+const S=[];
+/* ---------- cover ---------- */
+S.push({act:'intro',cover:true,html:`
+<div class="cover">
+  <div class="txt">
+    <div class="act">Computer Networking · පරිච්ඡේදය 1 · Introduction</div>
+    <h1>Internet එක ලොකු <em>තැපැල් කන්තෝරුවක්</em>.</h1>
+    <p class="lede">Alice ට ලෝකයේ අනිත් පැත්තේ ඉන්න යාළුවා Bob ට ලියුමක් යවන්න ඕනේ. තැපැල්කාරි Penny ගේ උදව්වෙන් ඒ ලියුම පස්සෙන් ගිහින්, Internet එක වැඩ කරන හැටි නැවතුමෙන් නැවතුමට ඉගෙන ගමු.</p>
+    <div class="go"><button class="btn primary pulse" data-next type="button">කතාව පටන් ගමු</button></div>
+  </div>
+  <div class="art">${PIP}</div>
+</div>
+<div class="cast">
+  <div><b>ලියුම</b><span>data packet එකක්</span></div>
+  <div><b>Sorting office</b><span>router එකක්</span></div>
+  <div><b>ගෙදර</b><span>host එකක් (end system)</span></div>
+  <div><b>පාර</b><span>link එකක්</span></div>
+  <div><b>තැපැල් සමාගම</b><span>ISP එකක්</span></div>
+  <div><b>තැපැල් නීති</b><span>protocols</span></div>
+</div>`});
+
+/* ---------- ACT: Internet ---------- */
+S.push({act:'internet',title:'Bob ට ලියුමක්',
+ say:"Alice ඉන්නේ එක රටක. Bob ඉන්නේ තව රටක. Alice message එකක් type කරලා send ඔබනවා. ඒක පස්සෙන් යන්න කලින්, අපි අනුමානයක් කරමු.",
+ ask:{q:"Alice ගේ ලියුම අතට ගන්නේ වෙනස් සංවිධාන කීයක් වෙයි කියලද ඔයා හිතන්නේ?",opts:["Internet සමාගමක් එකයි","උපරිම දෙකයි","ගණනාවක්, ඔක්කොම එකතු වෙලා වැඩ කරනවා"],correct:2,why:"ලියුම පස්සෙන් ගිහින් ගණන් කරමු."},
+ init(r){const d=document.createElement('div');r.appendChild(d);journey(d,{title:"Alice ගේ ලියුම ලෝකය හරහා යනවා",start:'a',h:250,
+  nodes:[{id:'a',x:70,y:150,kind:'home',label:"Alice ගේ ගෙදර",sub:'home network'},{id:'l',x:220,y:150,kind:'office',label:'Local ISP',sub:'access network'},{id:'g',x:360,y:66,kind:'isp',inside:'Global ISP',label:'',sub:''},{id:'r',x:500,y:150,kind:'office',label:"Bob ගේ ISP",sub:'access network'},{id:'b',x:650,y:150,kind:'home',label:"Bob ගේ ගෙදර",sub:'home network'}],
+  links:[['a','l','link'],['l','g',''],['g','r',''],['r','b','link']],
+  steps:[
+   {pos:'a',text:"Alice ඇගේ laptop එකෙන් ලියුම ලියනවා. Laptop එක <span class='term'>host</span> එකක් (end system කියලත් කියනවා), ඇගේ home network එක ඇතුළේ Internet එකේ <b>edge</b> එකේ තියෙනවා."},
+   {pos:['a','l',.5],hl:[0],text:"Penny ඒක <span class='term'>link</span> එකක් දිගේ අරන් යනවා: copper, fiber හෝ radio වලින් හදපු පාරක්, Alice ගේ <b>access ISP</b> එකට, එනම් ඇගේ ප්‍රාදේශීය තැපැල් සමාගමට."},
+   {pos:'l',text:"ප්‍රාදේශීය කන්තෝරුවේදී <span class='term'>router</span> එකක් (sorting office එකක්) ලිපිනය කියවනවා. Bob ප්‍රාදේශීය කෙනෙක් නෙවෙයි, ඒ නිසා ලියුම ඊළඟ මට්ටමට යවනවා."},
+   {pos:'g',hl:[1],text:"Local ISPs දුර ගෙනියන්න ලොකු ISPs ලට ගෙවනවා. <b>Global, tier-1 ISP</b> එකක් ලියුම සාගරය හරහා ගෙනියනවා."},
+   {pos:'r',hl:[2],text:"Global ISP එක ඒක <b>Bob ගේ</b> access ISP එකට දෙනවා. ඒක ආයෙත් වෙනස් සමාගමක්!"},
+   {pos:'b',hl:[3],text:"බාර දුන්නා! වෙනස් සමාගම් වල අයිති අඩුම තරමේ networks හතරක් එකතු වෙලා වැඩ කළා. ඒකයි Internet එකට <b>network of networks</b> කියන්නේ."}]})}
+});
+S.push({act:'internet',title:'Alice never saw a road',
+ say:"Here's something odd. Alice didn't pick a single road or sorting office. She didn't even know they existed.",
+ ask:{q:"So what did Alice's app actually need from the Internet?",opts:["A map of every router","A way to hand over the letter and trust it gets there","Her own cable to Bob"],correct:1,why:"Exactly like dropping a card in a post box."},
+ html:`<div class="card"><h3>Two ways to see the Internet</h3>
+  <p><b>The nuts-and-bolts view:</b> billions of connected computing devices (hosts running network apps), <b>packet switches</b> that forward packets (routers and switches), <b>communication links</b> (fiber, copper, radio, satellite; their transmission rate is the <b>bandwidth</b>), and <b>networks</b>: collections of devices, routers and links managed by one organisation.</p>
+  <p><b>The services view:</b> the Internet is <b>infrastructure that provides services to applications</b>: the web, streaming video, video calls, email, games, e-commerce, social media. It gives apps a <b>programming interface</b>, "hooks" that let a sending app and a receiving app connect and use the Internet's transport service.</p></div>
+  <div class="analogy">You don't build roads to send a birthday card. You drop it in a post box and choose a delivery service. Apps do the same with the Internet.</div>
+  <div class="card"><h3>Penny's postal dictionary</h3>
+  <div class="dict"><div><b>Host / end system</b><span>a house: laptops, phones, servers, even a web-enabled toaster</span></div><div><b>Router / switch</b><span>a sorting office</span></div><div><b>Link</b><span>a road</span></div><div><b>Bandwidth</b><span>how many letters a road takes per second</span></div><div><b>ISP</b><span>a postal company</span></div><div><b>RFC / IETF</b><span>the rule books, and the committee that writes them</span></div></div></div>`});
+
+/* ---------- ACT: Protocols ---------- */
+S.push({act:'protocols',title:'Hi... හලෝ?',
+ say:"Alice Bob ට \"Hi\" කියනවා, Bob කිසිම දෙයක් නොකියා ඇය දිහා බලාගෙන ඉන්නවා කියලා හිතන්න.",
+ ask:{q:"ඔයා Alice නම් මොකද කරන්නේ?",opts:["කොහොමත් කතා කරගෙන යනවා","ආයෙත් උත්සාහ කරනවා, නැත්නම් අත්හරිනවා","හැමදාටම බලාගෙන ඉන්නවා"],why:"ඔයා මොනවා තෝරගත්තත්, පිළිතුරක් නොලැබුනාම කරන්න ඕන දේ ගැන ලියලා නැති නීතියක් ඔයා අනුගමනය කළා. Computers වලට ඒ නීති ලියලා දෙන්න ඕනේ."},
+ init(r){const d=document.createElement('div');r.appendChild(d);journey(d,{title:'ලියුම් එහාට මෙහාට යනවා',start:'a',h:200,
+  nodes:[{id:'a',x:110,y:110,kind:'pc',label:'Alice'},{id:'b',x:610,y:110,kind:'pc',label:'Bob'}],links:[['a','b','']],
+  steps:[
+   {pos:'b',label:'Hi',hl:[0],text:"මුලින්ම <b>human</b> protocol එකක්. Alice ආරම්භ කරන්නේ ආචාරයකින්."},
+   {pos:'a',label:'Hi',hl:[0],text:"Bob බලාපොරොත්තු වෙන ආචාරයෙන්ම පිළිතුරු දෙනවා. මෙතෙක් හොඳයි."},
+   {pos:'b',label:'වෙලාව කීයද?',hl:[0],text:"Alice request එකක් යවනවා."},
+   {pos:'a',label:'2:00',hl:[0],text:"Bob පිළිතුරු දෙනවා. හැම message එකකටම Alice බලාපොරොත්තු වුණු reply එකයි action එකයි ලැබුණා."},
+   {pos:'b',label:'TCP connection request',hl:[0],text:"දැන් <b>network</b> version එක. Alice ගේ laptop එක Bob ගේ web server එකෙන් TCP connection එකක් open කරන්න ඉල්ලනවා."},
+   {pos:'a',label:'TCP connection response',hl:[0],text:"Server එක එකඟ වෙනවා. Computers දෙක දැන් 'hi කිව්වා'."},
+   {pos:'b',label:'GET /kurose_ross',hl:[0],text:"Alice ගේ browser එක request එකක් යවනවා: <span class='formula'>GET http://gaia.cs.umass.edu/kurose_ross</span>"},
+   {pos:'a',label:'<file>',hl:[0],text:"Server එක page එක ආපහු යවනවා. මිනිසුන්ගේ pattern එකමයි: නිශ්චිත messages, ඒවා ලැබුණාම නිශ්චිත actions."}]});
+  const k=document.createElement('div');k.className='keyidea';k.innerHTML="<b>Protocol</b> එකක් කියන්නේ network entities අතර යවන සහ ලබන <b>messages වල format එකයි පිළිවෙළයි</b>, message එකක් යවද්දී/ලබද්දී ගන්න <b>actions</b> වලත් නිර්වචනයයි. Internet එකේ හැම communication එකක්ම පාලනය වෙන්නේ protocols වලින්: HTTP, TCP, IP, WiFi, 4G/5G, Ethernet සහ තව ගොඩක්.";r.appendChild(k)}
+});
+
+/* ---------- ACT: Edge ---------- */
+const ACCESS=[
+ ['Cable (HFC)',"Hybrid fiber-coax over the TV cable. Uses <b>frequency division multiplexing</b>: different channels in different frequency bands. Asymmetric: 40 Mbps to 1.2 Gbps down, 30 to 100 Mbps up. Homes <b>share</b> the access network to the cable headend.","A shared street mailbag: every house on the street shares the van to the depot."],
+ ['DSL',"Uses the existing <b>telephone line</b> to the central office DSLAM. Data goes to the Internet, voice goes to the phone network. 24 to 52 Mbps down, 3.5 to 16 Mbps up, and the line is <b>dedicated</b> to you.","Your own private lane to the post office, reusing the road the phone company built."],
+ ['Home network',"Wired and wireless devices connect to a WiFi access point and router, which connects through a cable or DSL modem to the headend or central office.","The family's hallway mail tray, emptied into the street post box."],
+ ['Wireless',"A <b>shared</b> wireless network connects end systems to a router via a <b>base station</b>, also called an access point. WiFi covers a building (11 to 450 Mbps); 4G/5G cellular covers 10s of km.","A mail carrier on a bicycle who finds you wherever you are."],
+ ['Enterprise',"Companies and universities: a mix of wired and wireless links connecting switches and routers. Ethernet at 100 Mbps, 1 Gbps, 10 Gbps; WiFi access points. One institutional router links to the ISP.","A big office building with its own internal mailroom."],
+ ['Data center',"High-bandwidth links (10s to 100s of Gbps) connect hundreds to thousands of servers together, and to the Internet.","A giant parcel warehouse shipping most of the country's packages."]];
+S.push({act:'edge',title:'Getting out of the house',
+ say:"Rewind. Before the letter reaches any sorting office, it has to leave Alice's house. Her house has a TV cable, a phone line, and WiFi.",
+ ask:{q:"Which one can carry her letter to the local ISP?",opts:["Only the TV cable","Only the phone line","Any of them"],correct:2,why:"Each is a different kind of access network. Tap them to see how they differ."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML='<h3>Access networks</h3><p class="sub">How end systems connect to the first router, the <b>edge router</b>. Tap one at a time.</p><div class="chips"></div><div class="detail"></div>';r.appendChild(c);
+  const ch=$('.chips',c),dt=$('.detail',c);
+  ACCESS.forEach((a,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=a[0];b.setAttribute('aria-pressed','false');b.onclick=()=>{$$('.chip',ch).forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');dt.innerHTML=`<h4>${a[0]}</h4><p>${a[1]}</p><div class="analogy" style="margin-top:10px">${a[2]}</div>`};ch.appendChild(b)});
+  ch.firstChild.click()}
+});
+S.push({act:'edge',title:'Too long for one envelope',
+ say:"Alice's message is long, but every envelope on this network holds only a few characters.",
+ ask:{q:"What should Alice do?",opts:["Buy a bigger envelope","Split it across several envelopes","Cut the message short"],correct:1,why:"That's exactly what hosts do. Try it."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>Make packets, then send them</h3>
+  <p class="sub">The host takes the app's message, breaks it into chunks called <b>packets</b> of length <b>L</b> bits, and transmits them into the access network at rate <b>R</b>, the link's bandwidth.</p>
+  <label for="msgIn" style="font-weight:800;font-size:14px">Alice's message</label><input id="msgIn" type="text" maxlength="80" value="Hello Bob! Meet me at the post office at noon.">
+  <div class="ctrl"><label for="chunk">Envelope size (chars)</label><input id="chunk" type="range" min="4" max="16" value="8"><output id="chunkOut">8</output></div>
+  <div class="envs" id="envs"></div><p style="margin-top:10px;font-size:15px" id="chopInfo"></p>
+  <div style="margin-top:12px"><button class="btn blue small" id="sendPk" type="button">Send them down the road</button></div>
+  <div class="road" id="pkRoad"><span class="tag" style="left:8px">Alice's host</span><span class="tag" style="right:8px">edge router</span></div>
+  <p style="margin-top:8px;font-size:15px" id="pkNote">Each envelope takes <span class="formula">L/R</span> seconds to push onto the link, so they leave one after another.</p>`;r.appendChild(c);
+  const chop=()=>{const m=$('#msgIn').value||' ',n=+$('#chunk').value;$('#chunkOut').textContent=n;const e=$('#envs');e.innerHTML='';const p=[];for(let i=0;i<m.length;i+=n)p.push(m.slice(i,i+n));
+   p.forEach((s,i)=>{const d=document.createElement('div');d.className='env';d.innerHTML=`<span class="n">#${i+1}</span><div class="body"></div>`;$('.body',d).textContent=s;e.appendChild(d)});
+   $('#chopInfo').innerHTML=`<b>${p.length} packets</b>, each up to L = ${n*8} bits. At R = 1 Mbps, each takes L/R = <span class="formula">${n*8} µs</span> to transmit.`;return p.length};
+  $('#msgIn').oninput=chop;$('#chunk').oninput=chop;chop();
+  $('#sendPk').onclick=()=>{const n=chop(),rd=$('#pkRoad');$$('.m',rd).forEach(x=>x.remove());rd.classList.remove('go');void rd.offsetWidth;
+   for(let i=0;i<n;i++){const m=document.createElement('span');m.className='m';m.style.animationDelay=(i*0.35)+'s';rd.appendChild(m)}rd.classList.add('go');
+   $('#pkNote').innerHTML=`${n} envelopes leave one by one, each <span class="formula">L/R</span> apart. Bigger envelopes mean fewer of them, but each takes longer to load.`}}
+});
+S.push({act:'edge',title:'Which road is fastest?',
+ say:"The envelopes now travel over a physical road. Some roads are copper, some are glass, and some are just air.",
+ ask:{q:"Which road can carry the most letters per second?",opts:["Copper wire","Glass fiber","Radio through the air"],correct:1,why:"Fiber carries light pulses at 10s to 100s of Gbps. Watch a big sack of letters race."},
+ init(r){const lanes=[['Fiber',0.9,''],['Coaxial cable',1.8,''],['Twisted pair',2.4,''],['Radio (WiFi)',3,'wob']];
+  const c=document.createElement('div');c.className='card';c.innerHTML='<h3>The great road race</h3><p class="sub">How long each road takes to deliver the same big sack of letters. This is about <b>bandwidth</b> (letters per second); illustrative, not to scale.</p>'+lanes.map(l=>`<div class="lane"><b>${l[0]}</b><div class="road" style="--d:${l[1]}s"><span class="m ${l[2]}"></span></div></div>`).join('')+'<div style="margin-top:12px"><button class="btn blue small" id="race" type="button">Start the race</button></div>';r.appendChild(c);
+  $('#race').onclick=()=>$$('.road',c).forEach(x=>{x.classList.remove('go');void x.offsetWidth;x.classList.add('go')});
+  const d=document.createElement('div');d.className='card';d.innerHTML=`<h3>Physical media</h3><p>A <b>bit</b> travels between a transmitter and a receiver. The <b>physical link</b> is whatever lies between them.</p>
+  <p><span class="term">Guided media</span>: signals travel in a solid medium.</p><ul><li><b>Twisted pair:</b> two insulated copper wires. Ethernet at 100 Mbps, 1 Gbps, 10 Gbps.</li><li><b>Coaxial cable:</b> two concentric copper conductors, bidirectional, broadband: many frequency channels, 100s of Mbps each.</li><li><b>Fiber optic:</b> glass carrying light pulses. 10s to 100s of Gbps, low error rate, immune to electromagnetic noise.</li></ul>
+  <p><span class="term">Unguided media</span>: signals travel freely as radio. Broadcast, "half-duplex", and affected by reflection, obstruction by objects, and interference.</p><ul><li><b>WiFi:</b> 10 to 100s of Mbps over 10s of metres</li><li><b>4G/5G cellular:</b> 10s of Mbps over about 10 km</li><li><b>Bluetooth:</b> cable replacement over short distances</li><li><b>Terrestrial microwave</b> and <b>satellite</b> (up to 45 Mbps per channel; 270 ms end-to-end delay for geostationary)</li></ul>`;r.appendChild(d)}
+});
+
+/* ---------- ACT: Core ---------- */
+S.push({act:'core',title:'Road trip without a map',
+ say:"Imagine you're driving to a town you've never been to. No map, no GPS. You reach a junction with three roads.",
+ ask:{q:"How do you know which road to take?",opts:["Phone someone for the whole route","Read the road sign at the junction","Pick one at random"],correct:1,why:"You don't need the whole route. Each junction's sign just says which road leads toward your destination. Now watch a letter arrive at a sorting office, which is a junction for packets."},
+ init(r){const d=document.createElement('div');r.appendChild(d);
+  const table=(api,hi)=>{const rows=[['0100','3'],['0101','2'],['0111','2'],['1001','1']];api.add('rect',{x:40,y:16,width:150,height:112,rx:8,fill:'var(--green-soft)',stroke:'var(--green)','stroke-width':3});api.add('rect',{x:108,y:128,width:14,height:40,fill:'var(--muted)'});api.add('text',{x:115,y:36,'text-anchor':'middle',class:'fxt'},'road sign');
+   rows.forEach((rw,i)=>{if(i===hi)api.add('rect',{x:46,y:44+i*20,width:138,height:19,rx:4,fill:'var(--gold-soft)',stroke:'var(--gold)'});api.add('text',{x:70,y:58+i*20,class:'fxt'},rw[0]);api.add('text',{x:150,y:58+i*20,class:'fxt'},'→ '+rw[1])})};
+  journey(d,{title:'Forwarding and routing',start:{x:20,y:150},h:270,
+  nodes:[{id:'in',x:20,y:150},{id:'R',x:340,y:150,kind:'office',label:'Sorting office',sub:'router'},{id:'p1',x:650,y:60,label:'link 1',ly:40},{id:'p2',x:650,y:150,label:'link 2',ly:130},{id:'p3',x:650,y:240,label:'link 3',ly:225}],
+  links:[['in','R',''],['R','p1',''],['R','p2',''],['R','p3','']],
+  steps:[
+   {pos:['in','R',.55],label:'0111',hl:[0],text:"A letter arrives at the junction. Its <b>header</b> carries the destination: 0111. The router doesn't know the whole route to Bob, just like you on your road trip.",fx:a=>table(a,-1)},
+   {pos:'R',label:'0111',text:"The router reads its road sign, the <span class='term'>forwarding table</span>: destination 0111 → output link 2. This is <b>forwarding</b> (also called switching): a <b>local</b> action at one junction.",fx:a=>table(a,2)},
+   {pos:'p2',label:'0111',hl:[2],text:"Out it goes on link 2. At the next router there's another sign, and another, until the letter reaches Bob.",fx:a=>table(a,2)},
+   {pos:null,text:"But who put up the signs? That's <b>routing</b>, a <b>global</b> action. Like the road authority planning the whole road network, <b>routing algorithms</b> work out source-to-destination paths and write every router's table.",fx:a=>{table(a,-1);a.add('ellipse',{cx:520,cy:250,rx:96,ry:18,fill:'var(--green-soft)',stroke:'var(--green)','stroke-width':2.5,class:'pop'});a.add('text',{x:520,y:255,'text-anchor':'middle',class:'fxt'},'routing algorithm');a.add('path',{d:'M450 240 Q380 230 360 186',fill:'none',stroke:'var(--green)','stroke-width':2.5,'stroke-dasharray':'5 5'})}}]});
+  const k=document.createElement('div');k.className='analogy';k.textContent="Forwarding = reading the road sign at one junction. Routing = the road authority deciding what every sign in the country should say.";r.appendChild(k)}
+});
+S.push({act:'core',title:'Three letters, two roads',
+ say:"Alice now sends three letters. Each has to cross two roads, with a sorting office in between. Pushing one letter onto a road takes one tick, which is L/R seconds.",
+ ask:{q:"How many ticks until all three letters reach Bob?",opts:["3 ticks","4 ticks","6 ticks"],correct:1,why:"The sorting office can work on one letter while the next is still arriving. Step through it."},
+ init(r){const d=document.createElement('div');r.appendChild(d);
+  const notes=["Three letters wait at the source. One tick = L/R seconds.","Tick 1: letter 1 is being pushed onto the first road. The router can't forward any of it until the <b>whole</b> letter arrives. That's <span class='term'>store-and-forward</span>.","Tick 2: letter 1 has fully arrived, so the router sends it on the second road while letter 2 crosses the first. Both roads are busy at once.","Tick 3: letter 1 arrives after <span class='formula'>2L/R</span>, one L/R per road. Letter 3 is on the first road.","Tick 4: letter 3 is crossing the last road.","All three delivered after <b>4L/R</b>, not 6. One letter over two roads takes 2L/R; each extra letter adds only one more L/R because the roads work in parallel."];
+  const fx=t=>a=>{a.add('text',{x:360,y:30,'text-anchor':'middle',class:'lbl'},'t = '+t+' × L/R');
+   for(let i=0;i<3;i++){let p;if(t<i+1)p={x:52+i*28,y:200};else if(t===i+1)p=a.pt(['s','R',.55]);else if(t===i+2)p=a.pt(['R','d',.55]);else p={x:612+(i)*28,y:200};
+    const e=a.env(p.x,p.y,(t===i+1||t===i+2)?'var(--red)':'var(--muted)');a.add('text',{x:p.x,y:p.y-16,'text-anchor':'middle',class:'envlbl'},String(i+1))}};
+  journey(d,{title:'Store-and-forward',h:240,
+   nodes:[{id:'s',x:80,y:110,kind:'pc',label:'Alice'},{id:'R',x:360,y:110,kind:'office',label:'Router'},{id:'d',x:640,y:110,kind:'pc',label:'Bob'}],
+   links:[['s','R','R bps',34],['R','d','R bps',34]],
+   steps:[0,1,2,3,4,5].map(t=>({pos:null,text:notes[t],hl:t===1?[0]:t===2||t===3?[0,1]:t===4?[1]:[],fx:fx(t)}))})}
+});
+S.push({act:'core',title:'Rush hour',
+ say:"Busy day. Letters pour into the sorting office from a fast 100 Mb/s road, but the road out is a slow 1.5 Mb/s lane.",
+ ask:{q:"Letters arrive faster than the road out can carry them. What happens?",opts:["They wait in a bag","They get thrown away","First they wait, then some get thrown away"],correct:2,why:"Drag the arrival rate up and watch the mailbag."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>The overflowing mailbag</h3><p class="sub">Waiting letters sit in the router's <b>buffer</b> (queue). The buffer has finite space: when it's full, new letters are <b>dropped</b> (lost).</p>
+  <div class="ctrl"><label for="arr">Traffic intensity La/R</label><input id="arr" type="range" min="0.1" max="1.4" step="0.05" value="0.5"><output id="arrOut" class="num">0.50</output></div>
+  <div class="bin" id="bin"></div>
+  <div class="stats"><div class="stat good"><b id="qSent" class="num">0</b><small>sent onward</small></div><div class="stat"><b id="qLen" class="num">0</b><small>waiting in bag</small></div><div class="stat bad"><b id="qDrop" class="num">0</b><small>dropped</small></div></div>
+  <div class="svgbox"><svg id="tiSvg" viewBox="0 0 320 170" role="img" aria-label="Average queueing delay rising sharply as traffic intensity approaches 1"></svg></div>
+  <p id="tiNote" style="margin-top:8px;font-weight:700"></p>
+  <p style="margin-top:8px;font-size:15px;color:var(--muted)">a = average packet arrival rate, L = packet length (bits), R = link rate (bps). La/R is the <b>traffic intensity</b>.</p>`;r.appendChild(c);
+  const CAP=10,bin=$('#bin');let q=0,sent=0,drop=0,tick=0;for(let i=0;i<CAP;i++)bin.appendChild(document.createElement('span'));
+  const paint=()=>{[...bin.children].forEach((s,i)=>s.classList.toggle('full',i<q));$('#qSent').textContent=sent;$('#qLen').textContent=q;$('#qDrop').textContent=drop};
+  const timer=setInterval(()=>{if(!document.body.contains(bin)){clearInterval(timer);return}if(document.hidden)return;tick++;const a=+$('#arr').value;
+   if(Math.random()<a/5){if(q<CAP)q++;else{drop++;bin.classList.remove('overflow');void bin.offsetWidth;bin.classList.add('overflow')}}
+   if(tick%5===0&&q>0){q--;sent++}paint()},reduce?400:120);
+  const curve=()=>{const v=+$('#arr').value;$('#arrOut').textContent=v.toFixed(2);const s=$('#tiSvg');s.innerHTML='';const X=x=>30+x*270/1.2*1.0,Y=y=>150-Math.min(y,10)/10*130;
+   for(let g=0;g<=10;g+=5)el('line',{x1:30,x2:300,y1:Y(g),y2:Y(g),stroke:'var(--line)'},null,s);
+   el('line',{x1:X(1),x2:X(1),y1:15,y2:150,stroke:'var(--red)','stroke-width':1.5,'stroke-dasharray':'4 4'},null,s);
+   let d='';for(let x=0;x<=0.91;x+=0.01)d+=(d?'L':'M')+X(x).toFixed(1)+' '+Y(x/(1-x)).toFixed(1);el('path',{d,fill:'none',stroke:'var(--blue)','stroke-width':3},null,s);
+   el('text',{x:30,y:166,'font-size':11},'0',s);el('text',{x:X(1)-3,y:166,'font-size':11},'1',s);el('text',{x:160,y:166,'font-size':11,'text-anchor':'middle'},'La/R',s);el('text',{x:4,y:12,'font-size':11},'avg queueing delay',s);
+   el('circle',{cx:X(Math.min(v,1.15)),cy:v>=0.91?20:Y(v/(1-v)),r:7,fill:'var(--gold)',stroke:'var(--ink)','stroke-width':2},null,s);
+   const n=$('#tiNote');n.textContent=v<0.4?'La/R near 0: queueing delay is small. The bag stays almost empty.':v<0.9?'Getting busy: delay grows faster and faster as La/R approaches 1.':v<=1?'La/R near 1: average queueing delay is large.':'La/R > 1: more work arrives than can be served. Average delay is infinite and letters get dropped.';n.style.color=v>1?'var(--red)':'var(--ink)'};
+  $('#arr').oninput=curve;curve();paint()}
+});
+S.push({act:'core',title:'Rent a private van, or share?',
+ say:"The old telephone network had a different idea: reserve a whole private lane for each conversation, from end to end.",
+ ask:{q:"A 1 Gb/s road. Each user needs 100 Mb/s, but only talks 10% of the time. How many users can share it comfortably?",opts:["10","About 35","1000"],correct:1,why:"Reserved lanes fit 10. Sharing fits many more, because most people are quiet most of the time."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>Circuit switching: a private van</h3>
+  <p>End-to-end resources are <b>reserved</b> for a "call" between source and destination. You get guaranteed, circuit-like performance, but your reserved lane sits <b>idle</b> when you aren't using it. No sharing.</p>
+  <p>A link is divided into circuits by <b>FDM</b> (each call gets its own narrow frequency band) or <b>TDM</b> (each call gets periodic time slots and uses the full band during its slot).</p>
+  <div class="analogy" style="margin-top:12px">Circuit switching is booking a van for the whole day. Packet switching is putting your letters in shared vans with everyone else.</div>`;r.appendChild(c);
+  const p=document.createElement('div');p.className='card';p.innerHTML=`<h3>Packet switching: shared vans</h3><p class="sub">Slide to add more users. When more than 10 are active at the same moment, the road is overloaded.</p>
+  <div class="ctrl"><label for="users">Users sharing</label><input id="users" type="range" min="10" max="70" value="35"><output id="usersOut" class="num">35</output></div>
+  <p style="margin-top:10px;font-size:18px">Chance that more than 10 are active at once: <b id="uP" class="num"></b></p>
+  <p style="margin-top:10px">Packet switching is great for <b>bursty</b> data: resource sharing, and no call setup. The catch is that excessive congestion can cause delay and loss, so protocols for reliable transfer and congestion control are needed.</p>`;r.appendChild(p);
+  const tail=(N,pp,k)=>{let s=0,c=1;for(let i=0;i<=N;i++){if(i>0)c=c*(N-i+1)/i;if(i>k)s+=c*Math.pow(pp,i)*Math.pow(1-pp,N-i)}return s};
+  const u=()=>{const N=+$('#users').value;$('#usersOut').textContent=N;const P=tail(N,.1,10);$('#uP').textContent=N<=10?'0 (never)':P<0.0001?P.toExponential(1):P.toFixed(4);$('#uP').style.color=P>0.01?'var(--red)':'var(--green)'};$('#users').oninput=u;u()}
+});
+S.push({act:'core',title:'Millions of postal companies',
+ say:"There are millions of local postal companies. Every one of them must be able to reach every other, or Alice's letter can't get to Bob.",
+ ask:{q:"How would you connect them all?",opts:["Wire each one to every other","One giant company in the middle","Something messier"],correct:2,why:"The real answer grew step by step, driven by money and policy. Build it yourself."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>Building the network of networks</h3><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn small" id="stPrev" type="button">Back</button><button class="btn small primary pulse" id="stNext" type="button">Next step</button><div class="dots" id="stDots"></div></div>
+  <p style="margin-top:10px;font-weight:700;min-height:3.2em" id="stText"></p><div class="svgbox"><svg id="stSvg" viewBox="0 0 640 300" style="min-width:520px" role="img" aria-label="Internet structure diagram"></svg></div>`;r.appendChild(c);
+  const acc=[40,110,180,250,320,390,460,530,600].map(x=>[x,270]);
+  const T=["Millions of access ISPs (bottom) each serve some homes and businesses.","Connecting every access ISP to every other directly doesn't scale: that's O(N²) connections.","Option: connect each access ISP to one global transit ISP. Customer and provider ISPs have an economic agreement.","But if one global ISP is a good business, competitors appear: ISP A, B and C. They need to connect to each other too, through peering links and IXPs (Internet exchange points).","Regional networks may arise to connect access nets to the big ISPs.","Content provider networks (Google, Microsoft, Akamai) run their own networks to bring content close to users. At the centre: a few well-connected tier-1 ISPs (Level 3, Sprint, AT&T, NTT) plus content providers."];
+  let k=0;const s=$('#stSvg');
+  const R=()=>{s.innerHTML='';const L=(x1,y1,x2,y2,c,w,d)=>el('line',{x1,y1,x2,y2,stroke:c,'stroke-width':w||2,'stroke-dasharray':d||'none'},null,s);
+   if(k===1)for(let i=0;i<9;i++)for(let j=i+1;j<9;j++){const a=acc[i],b=acc[j];el('path',{d:`M${a[0]} ${a[1]-12} Q${(a[0]+b[0])/2} ${a[1]-30-(j-i)*24} ${b[0]} ${b[1]-12}`,fill:'none',stroke:'var(--red)','stroke-width':1.2,opacity:.6},null,s)}
+   const isp=k>=3?[[130,120,'ISP A'],[320,120,'ISP B'],[510,120,'ISP C']]:k===2?[[320,120,'Global ISP']]:[];const reg=k>=4?[[120,200],[320,200],[520,200]]:[];
+   if(k>=2)acc.forEach((a,i)=>{const t=reg.length?reg[Math.min(2,Math.floor(i/3))]:isp.length===1?isp[0]:isp[Math.min(2,Math.floor(i/3))];L(a[0],a[1]-12,t[0],t[1]+14,'var(--muted)',1.5)});
+   reg.forEach((g,i)=>L(g[0],g[1]-14,isp[i][0],isp[i][1]+16,'var(--muted)',2));
+   if(k>=3){L(130,120,320,120,'var(--blue)',3);L(320,120,510,120,'var(--blue)',3);[[230,'IXP'],[420,'IXP']].forEach(p=>{el('rect',{x:p[0]-23,y:40,width:46,height:26,rx:6,fill:'var(--gold)',stroke:'var(--ink)','stroke-width':2},null,s);el('text',{x:p[0],y:58,'text-anchor':'middle','font-size':13,fill:'#1D2944'},p[1],s)});L(130,104,212,62,'var(--gold)',2.5);L(320,104,250,62,'var(--gold)',2.5);L(320,104,400,62,'var(--gold)',2.5);L(510,104,440,62,'var(--gold)',2.5)}
+   if(k>=5){el('ellipse',{cx:590,cy:40,rx:46,ry:22,fill:'var(--green-soft)',stroke:'var(--green)','stroke-width':2.5},null,s);el('text',{x:590,y:44,'text-anchor':'middle','font-size':12},'Content net',s);L(560,56,520,104,'var(--green)',2.5);L(548,48,440,56,'var(--green)',2.5);L(600,62,600,256,'var(--green)',2,'5 4');L(580,62,530,256,'var(--green)',2,'5 4')}
+   isp.forEach(p=>{el('ellipse',{cx:p[0],cy:p[1],rx:64,ry:18,fill:'var(--blue-soft)',stroke:'var(--blue)','stroke-width':2.5},null,s);el('text',{x:p[0],y:p[1]+5,'text-anchor':'middle','font-size':14},p[2],s)});
+   reg.forEach(g=>{el('ellipse',{cx:g[0],cy:g[1],rx:48,ry:14,fill:'var(--surface)',stroke:'var(--muted)','stroke-width':2},null,s);el('text',{x:g[0],y:g[1]+4,'text-anchor':'middle','font-size':12},'regional net',s)});
+   acc.forEach(a=>{el('rect',{x:a[0]-24,y:a[1]-12,width:48,height:24,rx:5,fill:'var(--red-soft)',stroke:'var(--red)','stroke-width':2},null,s);el('text',{x:a[0],y:a[1]+4,'text-anchor':'middle','font-size':11},'access',s)});
+   $('#stText').textContent=T[k];$('#stDots').innerHTML=T.map((_,i)=>`<i class="${i<=k?'on':''}"></i>`).join('');$('#stPrev').disabled=k===0;$('#stNext').disabled=k===T.length-1;$('#stNext').classList.toggle('pulse',k===0)};
+  $('#stNext').onclick=()=>{k++;R()};$('#stPrev').onclick=()=>{k--;R()};R()}
+});
+
+/* ---------- ACT: Performance ---------- */
+S.push({act:'performance',title:'Why was the letter late?',
+ say:"Bob complains: \"Your letter took ages!\" Alice is puzzled. Let's zoom in on a single sorting office to find out where the time went.",
+ ask:{q:"Where could the letter have lost time?",opts:["Being sorted","Waiting in line","Being loaded onto the van","Driving down the road","All of these"],correct:4,why:"Each one is a separate kind of delay. Follow the letter through all four."},
+ init(r){const d=document.createElement('div');r.appendChild(d);
+  journey(d,{title:'The four delays at one router',start:{x:0,y:130},h:250,
+   nodes:[{id:'A',x:100,y:130,kind:'office',label:'Router A'},{id:'B',x:620,y:130,kind:'office',label:'Router B'}],
+   links:[['A','B','link: length d, rate R',18]],
+   steps:[
+    {pos:'A',text:"Alice's letter arrives at router A."},
+    {pos:'A',text:"<b>d<sub>proc</sub>, processing:</b> check for bit errors and choose the output link. Usually microseconds.",fx:a=>{a.add('circle',{cx:132,cy:96,r:14,fill:'none',stroke:'var(--gold)','stroke-width':4,class:'pop'});a.add('line',{x1:142,y1:106,x2:154,y2:118,stroke:'var(--gold)','stroke-width':5});a.add('text',{x:100,y:210,'text-anchor':'middle',class:'fxt'},'checking address…')}},
+    {pos:{x:262,y:170},text:"<b>d<sub>queue</sub>, queueing:</b> wait in line for the output link. Depends on how congested the router is.",fx:a=>{[172,202,232].forEach(x=>a.env(x,170,'var(--muted)'));a.add('text',{x:217,y:205,'text-anchor':'middle',class:'fxt'},'waiting in line')}},
+    {pos:['A','B',.14],text:"<b>d<sub>trans</sub>, transmission:</b> push every bit of the letter onto the link. <span class='formula'>d_trans = L/R</span> (L = packet length, R = link rate).",hl:[0],fx:a=>{for(let i=0;i<8;i++)a.add('circle',{cx:180+i*12,cy:130,r:3.5,fill:'var(--red)',class:'pop',style:`animation-delay:${i*.08}s`})}},
+    {pos:['A','B',.84],hl:[0],text:"<b>d<sub>prop</sub>, propagation:</b> the bits travel the length of the link. <span class='formula'>d_prop = d/s</span>, where s ≈ 2×10⁸ m/s."},
+    {pos:'B',text:"Arrived. Total per router: <span class='formula'>d_nodal = d_proc + d_queue + d_trans + d_prop</span>. The letter pays this at <b>every</b> router on its path."}]});
+  const k=document.createElement('div');k.className='analogy';k.textContent="d_trans is loading every letter into the van. d_prop is driving the van down the road. They're very different things!";r.appendChild(k)}
+});
+S.push({act:'performance',title:'Play with the delays',
+ say:"Your turn to be the network engineer. Change the letter size, the road speed and the distance, and see which delay wins.",
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>Delay calculator</h3>
+  <div class="ctrl"><label for="dL">Packet size L</label><input id="dL" type="range" min="1000" max="12000" step="500" value="8000"><output id="dLo" class="num"></output></div>
+  <div class="ctrl"><label for="dR">Link rate R</label><input id="dR" type="range" min="0" max="5" step="1" value="2"><output id="dRo" class="num"></output></div>
+  <div class="ctrl"><label for="dD">Link length d</label><input id="dD" type="range" min="1" max="5000" step="1" value="1000"><output id="dDo" class="num"></output></div>
+  <div class="ctrl"><label for="dQ">Letters ahead in line</label><input id="dQ" type="range" min="0" max="20" step="1" value="3"><output id="dQo" class="num"></output></div>
+  <div class="dbars" id="dbars"></div><div class="total"><span>Total nodal delay</span><span class="mono num" id="dTot"></span></div>
+  <p id="dHint" style="margin-top:10px;font-weight:700"></p>
+  <p style="margin-top:6px;font-size:14.5px;color:var(--muted)">s = 2×10⁸ m/s. Processing assumed 2 µs.</p>`;r.appendChild(c);
+  const rates=[[1e6,'1 Mbps'],[10e6,'10 Mbps'],[100e6,'100 Mbps'],[1e9,'1 Gbps'],[10e9,'10 Gbps'],[100e9,'100 Gbps']];
+  const fmt=s=>s>=1?s.toFixed(2)+' s':s>=1e-3?(s*1e3).toFixed(2)+' ms':(s*1e6).toFixed(1)+' µs';
+  const f=()=>{const L=+$('#dL').value,R=rates[+$('#dR').value][0],dk=+$('#dD').value,nq=+$('#dQ').value;$('#dLo').textContent=L+' bits';$('#dRo').textContent=rates[+$('#dR').value][1];$('#dDo').textContent=dk+' km';$('#dQo').textContent=nq;
+   const it=[['d_proc',2e-6,'var(--muted)'],['d_queue',nq*L/R,'var(--gold)'],['d_trans',L/R,'var(--red)'],['d_prop',dk*1000/2e8,'var(--blue)']];const mx=Math.max(...it.map(i=>i[1]));
+   $('#dbars').innerHTML=it.map(i=>`<div class="dbar"><span>${i[0]}</span><div class="track"><div class="fill" style="width:${Math.max(1,i[1]/mx*100)}%;background:${i[2]}"></div></div><output>${fmt(i[1])}</output></div>`).join('');
+   $('#dTot').textContent=fmt(it.reduce((s,i)=>s+i[1],0));const big=it.reduce((a,b)=>b[1]>a[1]?b:a);$('#dHint').textContent='Biggest delay right now: '+big[0]+'.'};
+  ['dL','dR','dD','dQ'].forEach(id=>$('#'+id).oninput=f);f()}
+});
+S.push({act:'performance',title:"Penny's convoy puzzle",
+ say:"Ten mail vans drive in a convoy. The depot gate takes 12 seconds to wave each van through. The next gate is 100 km away, and vans drive at 100 km/h.",
+ ask:{q:"How long until the whole convoy is lined up at the next gate?",opts:["2 minutes","1 hour","62 minutes"],correct:2,why:"Here's the trick."},
+ html:`<div class="card"><h3>The answer: 62 minutes</h3>
+  <p>Pushing the whole convoy through the gate takes 10 × 12 s = <b>120 s</b>. That's <b>transmission</b>: vans are bits, the convoy is a packet, the gate is the link's transmitter.</p>
+  <p>The last van then drives 100 km at 100 km/h = <b>1 hour</b>. That's <b>propagation</b>.</p>
+  <p>2 minutes + 60 minutes = <b>62 minutes</b>.</p></div>
+  <div class="card"><h3>Plot twist</h3><p>Now vans drive at 1000 km/h, and the gate takes 1 minute per van. Will vans reach the second gate before every van has left the first one?</p>
+  <details style="margin-top:10px"><summary class="btn small" style="list-style:none">Reveal</summary><p style="margin-top:10px"><b>Yes!</b> After 7 minutes, the first van reaches the second gate while 3 vans are still at the first. The first bits of a packet can arrive at the next router before the last bits have even been sent.</p></details></div>`});
+S.push({act:'performance',title:'The narrowest road',
+ say:"Bob sends Alice a big file. Bob's server sits on a 100 Mbps road. Alice ගේ ගෙදර sits on a 10 Mbps road.",
+ ask:{q:"How fast does the file arrive at Alice's house?",opts:["100 Mbps","55 Mbps","10 Mbps"],correct:2,why:"The narrowest road on the path, the bottleneck, sets the pace."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>Throughput</h3><p class="sub"><b>Throughput</b> is the rate (bits per second) at which bits actually reach the receiver: <b>instantaneous</b> at one moment, or <b>average</b> over a longer time.</p>
+  <div class="ctrl"><label for="rs">Server road Rs</label><input id="rs" type="range" min="1" max="100" value="100"><output id="rsO" class="num"></output></div>
+  <div class="ctrl"><label for="rc">Client road Rc</label><input id="rc" type="range" min="1" max="100" value="10"><output id="rcO" class="num"></output></div>
+  <div class="ctrl"><label for="rb">Shared backbone R</label><input id="rb" type="range" min="10" max="1000" step="10" value="500"><output id="rbO" class="num"></output></div>
+  <div class="svgbox"><svg id="tpSvg" viewBox="0 0 330 110" role="img" aria-label="Three pipes of different widths"></svg></div>
+  <p style="margin-top:10px">With 10 downloads sharing the backbone fairly, each gets <span class="formula">min(Rs, Rc, R/10)</span> = <b id="tpOut" class="num"></b>.</p>
+  <p style="margin-top:6px;color:var(--muted);font-size:15px">In practice, Rc or Rs is often the bottleneck.</p>`;r.appendChild(c);
+  const f=()=>{const rs=+$('#rs').value,rc=+$('#rc').value,rb=+$('#rb').value;$('#rsO').textContent=rs+' Mbps';$('#rcO').textContent=rc+' Mbps';$('#rbO').textContent=rb+' Mbps';const sh=rb/10,m=Math.min(rs,rc,sh);$('#tpOut').textContent=(+m.toFixed(1))+' Mbps';
+   const s=$('#tpSvg');s.innerHTML='';[['Rs',rs,10],['R/10',sh,120],['Rc',rc,230]].forEach(p=>{const h=Math.max(4,Math.min(p[1],100)/100*60),b=p[1]===m;el('rect',{x:p[2],y:50-h/2,width:90,height:h,rx:4,fill:b?'var(--red-soft)':'var(--blue-soft)',stroke:b?'var(--red)':'var(--blue)','stroke-width':2.5},null,s);el('text',{x:p[2]+45,y:100,'text-anchor':'middle','font-size':12},p[0]+(b?' (bottleneck)':''),s)})};
+  ['rs','rc','rb'].forEach(id=>$('#'+id).oninput=f);f()}
+});
+S.push({act:'performance',title:'A real tracking slip',
+ say:"Real networks let you track a letter's path. The traceroute program sends three probe letters to each router along the way and times how long each takes to come back. Here's a real trace from Massachusetts to France.",
+ init(r){const hops=[[1,'cs-gw (128.119.240.254)',[1,1,2],'Still inside the UMass CS department.'],[2,'border1-rt-fa5-1-0.gw.umass.edu',[1,1,2],'Leaving campus through the border router.'],[3,'cht-vbns.gw.umass.edu',[6,5,5],'Handing over to a research backbone.'],[4,'jn1-at1-0-0-19.wor.vbns.net',[16,11,13],'On a US backbone network.'],[5,'jn1-so7-0-0-0.wae.vbns.net',[21,18,18],'Still crossing the US.'],[6,'abilene-vbns.abilene.ucaid.edu',[22,18,22],'Abilene, the US research network.'],[7,'nycm-wash.abilene.ucaid.edu',[22,22,22],'New York: the last stop before the ocean.'],[8,'62.40.103.253 (dante.de)',[104,109,106],'This is it! Delay jumps from about 22 ms to about 106 ms: a trans-oceanic link across the Atlantic.'],[9,'de2-1.de1.de.geant.net',[109,102,104],'Now in Europe on GEANT.'],[17,'* * *',null,'"*" means no reply: the probe was lost, or the router doesn\'t answer.'],[19,'fantasia.eurecom.fr',[132,128,136],'Delivered to the destination in France.']];
+  const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>Tap the hop where you think the letter crossed the Atlantic</h3><p class="sub">Each row is one router; the three numbers are round-trip times for the three probes.</p><div style="overflow-x:auto"><table class="trace mono num"><tr><th>hop</th><th>router</th><th>probe 1</th><th>probe 2</th><th>probe 3</th></tr>${hops.map((h,i)=>`<tr data-i="${i}" tabindex="0"><td>${h[0]}</td><td>${h[1]}</td>${h[2]?h[2].map(x=>`<td>${x} ms</td>`).join(''):'<td>*</td><td>*</td><td>*</td>'}</tr>`).join('')}</table></div><p id="trNote" class="keyidea" style="margin-top:12px">Hint: look for a sudden jump in the times.</p>`;r.appendChild(c);
+  $$('tr[data-i]',c).forEach(row=>{const f=()=>{const h=hops[row.dataset.i];$$('tr[data-i]',c).forEach(x=>x.style.background='');row.style.background=h[0]===8?'var(--green-soft)':'var(--gold-soft)';$('#trNote').innerHTML=`<b>Hop ${h[0]}:</b> ${h[3]}`+(h[0]!==8&&h[2]?' Not the ocean yet, keep looking.':'')};row.onclick=f;row.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();f()}}})}
+});
+
+/* ---------- ACT: Security ---------- */
+S.push({act:'security',title:'Trouble on the route',
+ say:"The people who built the Internet were researchers who all trusted each other. The original vision was \"a group of mutually trusting users attached to a transparent network\". Then Trudy showed up.",
+ ask:{q:"What do you think Trudy could do to Alice's letters?",opts:["Read them","Fake them","Flood Bob's mailbox","Maybe all three"],correct:3,why:"Sadly, all three. Follow along."},
+ init(r){const d=document.createElement('div');r.appendChild(d);
+  journey(d,{title:'Three ways to attack the mail',start:'a',h:270,
+   nodes:[{id:'a',x:100,y:100,kind:'pc',label:'Alice'},{id:'b',x:620,y:100,kind:'pc',label:'Bob'},{id:'t',x:360,y:220,kind:'person',label:'Trudy',sub:'',ly:258}],
+   links:[['a','b','shared network (WiFi, Ethernet)'],['t','b','']],
+   steps:[
+    {pos:['a','b',.5],label:'password: 1234',hl:[0],text:"<b>Packet sniffing.</b> On broadcast media like WiFi or shared Ethernet, every letter passes everyone. Trudy's \"promiscuous\" network interface quietly reads and records them all, passwords included.",fx:a=>{a.add('path',{d:'M360 196 L360 120',stroke:'var(--red)','stroke-width':2.5,'stroke-dasharray':'5 4',fill:'none'});a.add('text',{x:372,y:170,class:'fxt',fill:'var(--red)'},'copying…')}},
+    {pos:'b',label:'password: 1234',hl:[0],text:"Bob receives it and never knows it was read. Sniffing leaves no trace."},
+    {from:'t',pos:'b',label:'From: Alice',hl:[1],text:"<b>IP spoofing.</b> Trudy sends a letter with a <b>false source address</b>. Bob thinks it came from Alice."},
+    {pos:null,text:"<b>Denial of service (DoS).</b> 1: Trudy picks a target. 2: She breaks into many hosts around the network, a <b>botnet</b>. 3: They all flood Bob with junk, so real letters can't get through.",fx:a=>{const src=[[180,40],[360,40],[520,40],[220,250],[500,250]];src.forEach(s=>a.add('rect',{x:s[0]-16,y:s[1]-11,width:32,height:22,rx:4,fill:'var(--red-soft)',stroke:'var(--red)','stroke-width':2}));
+      src.forEach((s,i)=>{for(let j=0;j<2;j++){const g=a.env(s[0],s[1],'var(--red)');g.setAttribute('transform','');if(!reduce){const an=el('animateTransform',{attributeName:'transform',type:'translate',from:`${s[0]-17} ${s[1]-12}`,to:`${620-17} ${100-12}`,dur:'1.4s',begin:`${(i*2+j)*0.14}s`,repeatCount:'indefinite'});g.appendChild(an)}else g.setAttribute('transform',`translate(${(s[0]+620)/2-17},${(s[1]+100)/2-12})`)}})}}]})}
+});
+const ATT=[["Trudy reads Alice's letters as they pass","Encryption"],["Trudy changes what a letter says","Integrity checks"],["Trudy pretends to be Alice","Authentication"],["A flood of junk from unknown senders","Firewall"]];
+const DEF={"Authentication":"Proving you are who you say you are. Cellular networks use the SIM card as a hardware identity; the traditional Internet has no such hardware help.","Encryption":"Confidentiality: turn the postcard into a sealed, opaque envelope.","Integrity checks":"Digital signatures prevent or detect tampering, like a wax seal that shows if it was opened.","Firewall":"Specialised \"middleboxes\" in access and core networks. Off by default: they filter incoming packets by sender, receiver and application, and detect and react to DoS attacks.","Password-protected VPN":"Access restrictions: a locked P.O. box only you have the key to."};
+S.push({act:'security',title:'Hire a guard',
+ say:"Good news: there are defences. Match each of Trudy's tricks with the best protection.",
+ init(r){const c=document.createElement('div');c.className='card';r.appendChild(c);let k=0,score=0;
+  const show=()=>{if(k>=ATT.length){c.innerHTML=`<h3>${score} of ${ATT.length} matched first try</h3><p class="sub">The full set of defences:</p>`+Object.entries(DEF).map(([a,b])=>`<p><span class="term">${a}:</span> ${b}</p>`).join('')+`<button class="btn small" type="button" id="again" style="margin-top:12px">Play again</button>`;$('#again',c).onclick=()=>{k=0;score=0;show()};return}
+   const at=ATT[k];let first=true;c.innerHTML=`<div class="act">Threat ${k+1} of ${ATT.length}</div><h3 style="margin-top:4px">${at[0]}</h3><p class="sub">Pick the defence.</p><div class="chips"></div><p class="fb" style="margin-top:12px;font-weight:700;min-height:1.6em"></p>`;
+   Object.keys(DEF).forEach(n=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=n;b.onclick=()=>{if(n===at[1]){b.classList.add('right');if(first)score++;$('.fb',c).innerHTML='Yes! '+DEF[n];$$('.opt',c).forEach(x=>x.disabled=true);setTimeout(()=>{k++;show()},reduce?600:2000)}else{first=false;b.classList.add('wrong');$('.fb',c).textContent='Not quite. That one is for something else; try again.'}};$('.chips',c).appendChild(b)})};
+  show()}
+});
+
+/* ---------- ACT: Layers ---------- */
+S.push({act:'layers',title:'How to organise chaos',
+ say:"Hosts, routers, cables, radio, apps, protocols, hardware, software... The Internet has so many pieces. And yet it works.",
+ ask:{q:"How do you design something this complicated without going mad?",opts:["Write one giant program for everything","Split it into layers, each with one job"],correct:1,why:"Think about how an airline gets you and your bags across the world."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>An airline does it in layers</h3>
+  <div class="flow"><span>ticket (purchase)</span><i>→</i><span>baggage (check)</span><i>→</i><span>gates (load)</span><i>→</i><span>runway takeoff</span><i>→</i><span>airplane routing</span></div>
+  <div class="flow" style="margin-top:6px"><span>ticket (complain)</span><i>←</i><span>baggage (claim)</span><i>←</i><span>gates (unload)</span><i>←</i><span>runway landing</span><i>←</i><span>airplane routing</span></div>
+  <p style="margin-top:12px">Each layer implements a service using its own internal actions, and relies on the services of the layer below. Change how the gates work, and nothing else has to change. That's <b>modularity</b>.</p>`;r.appendChild(c);
+  const L=[['Application','Supports network apps · HTTP, IMAP, SMTP, DNS','The letter itself: what Alice writes. Exchanges <b>messages</b>.'],['Transport','Process-to-process transfer · TCP, UDP','The mailroom clerk who delivers to the right <i>person</i> (process) in the building, and resends lost letters (TCP). Makes <b>segments</b>.'],['Network','Routes datagrams from source to destination · IP, routing protocols','The postal system routing city to city by address. Makes <b>datagrams</b>.'],['Link','Transfer between neighbouring network elements · Ethernet, 802.11 (WiFi), PPP','One van driving between two neighbouring sorting offices. Makes <b>frames</b>.'],['Physical','Bits "on the wire"','The road surface: voltages, light pulses, radio waves.']];
+  const s=document.createElement('div');s.className='card';s.innerHTML='<h3>The Internet protocol stack</h3><p class="sub">Five layers. Tap each to find its postal job.</p><div class="layers"></div><p style="margin-top:12px;font-size:15px;color:var(--muted)">The older ISO/OSI model has seven layers, adding <b>presentation</b> (encryption, compression, meaning of data) and <b>session</b> (synchronisation, checkpointing, recovery). The Internet stack leaves those to the application, if they\'re needed at all.</p>';r.appendChild(s);
+  L.forEach(d=>{const b=document.createElement('button');b.type='button';b.className='layer';b.setAttribute('aria-expanded','false');b.innerHTML=`<b>${d[0]}</b><small>${d[1]}</small><span class="more" hidden>${d[2]}</span>`;b.onclick=()=>{const o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));$('.more',b).hidden=o};$('.layers',s).appendChild(b)})}
+});
+S.push({act:'layers',title:'Envelopes inside envelopes',
+ say:"Here's the secret of layers. Each layer puts what it got from above inside its <b>own</b> envelope, with its <b>own</b> address. Watch Alice's message go down her stack, across a switch and a router, and up Bob's stack.",
+ ask:{q:"When Alice's letter reaches Bob, how many envelopes will Bob's computer have to open?",opts:["One","Three","Ten"],correct:1,why:"Transport, network and link each add one. Watch them go on and come off."},
+ init(r){const d=document.createElement('div');r.appendChild(d);
+  const Y={a:36,t:78,n:120,l:162,p:204},X={s:80,w:280,r:450,d:640};
+  const nodes=[];[['s','aptnl'],['w','lp'],['r','nlp'],['d','aptnl']].forEach(([c,ls])=>{for(const k of 'atnlp'){if(ls.includes(k))nodes.push({id:c+k,x:X[c],y:Y[k]})}});
+  const b=document.createElement('div');b.className='card';b.innerHTML='<h3 id="encName" style="font-size:18px"></h3><div class="encap" id="encBox"></div><div class="analogy" style="margin-top:12px">Like stacking dolls: a message inside a segment inside a datagram inside a frame.</div>';r.appendChild(b);
+  const boxes=lvl=>{if(lvl===4)return '<div class="bits">0110 1000 0110 0101 0110 1100 0110 1100 …</div>';let h='<div class="box m">M</div>';if(lvl>=1)h=`<div class="box t"><span class="h">Ht</span>${h}</div>`;if(lvl>=2)h=`<div class="box n"><span class="h">Hn</span>${h}</div>`;if(lvl>=3)h=`<div class="box lk"><span class="h">Hl</span>${h}</div>`;return h};
+  const names=['message','segment','datagram','frame','bits'];
+  const st=(pos,lvl,text,via)=>({pos,via,lvl,label:['M','Ht|M','Hn|Ht|M','Hl|Hn|Ht|M','0110…'][lvl],text});
+  journey(d,{title:'Encapsulation, end to end',start:'sa',h:260,
+   nodes,links:[['sp','wp',''],['wp','rp',''],['rp','dp','']],
+   decor(api){const col=[['s','Alice',['application','transport','network','link','physical']],['w','switch',['link','physical']],['r','router',['network','link','physical']],['d','Bob',['application','transport','network','link','physical']]];
+    col.forEach(([c,name,ls])=>{ls.forEach(l=>{const k={application:'a',transport:'t',network:'n',link:'l',physical:'p'}[l];api.add('rect',{x:X[c]-62,y:Y[k]-17,width:124,height:34,rx:6,fill:'var(--surface)',stroke:'var(--line)','stroke-width':2});api.add('text',{x:X[c]-56,y:Y[k]+4,class:'sublbl'},l)});
+     api.add('text',{x:X[c],y:240,'text-anchor':'middle',class:'lbl'},name)})},
+   onStep(i,s){$('#encBox').innerHTML=boxes(s.lvl);$('#encName').textContent='Now it is a '+names[s.lvl]+'.'},
+   steps:[
+    st('sa',0,"At Alice's computer, the <b>application</b> layer writes message <b>M</b>."),
+    st('st',1,"<b>Transport</b> wraps M with header <b>Ht</b>, making a <span class='term'>segment</span>. Ht lets transport deliver to the right process, reliably if it's TCP."),
+    st('sn',2,"<b>Network</b> wraps the segment with <b>Hn</b>, making a <span class='term'>datagram</span>. Hn holds the source and destination IP addresses."),
+    st('sl',3,"<b>Link</b> wraps the datagram with <b>Hl</b>, making a <span class='term'>frame</span> for the hop to the next neighbour."),
+    st('sp',4,"<b>Physical</b> sends the frame as bits on the wire."),
+    st('wl',3,"A link-layer <b>switch</b> rebuilds the frame and reads only <b>Hl</b>. It never opens the inner envelopes.",['wp']),
+    st('rn',2,"A <b>router</b> opens one layer deeper: it reads <b>Hn</b>, the IP address, to choose the next link.",['wl','wp','rp','rl']),
+    st('dl',3,"The router wraps the datagram in a fresh link-layer envelope and sends it on toward Bob.",['rl','rp','dp']),
+    st('dn',2,"Bob's link layer opens the frame and passes the datagram up."),
+    st('dt',1,"Bob's network layer checks Hn, sees the datagram is for this host, and passes the segment up."),
+    st('da',0,"Transport reads Ht and hands <b>M</b> to the right app. Delivered! Three envelopes on, three envelopes off, in reverse order.")]});
+}
+});
+
+/* ---------- ACT: History ---------- */
+const ERAS=[['1961–72','Early packet switching',['1961: Kleinrock: queueing theory shows packet switching is effective','1964: Baran: packet switching in military nets','1967: ARPAnet conceived by the Advanced Research Projects Agency','1969: first ARPAnet node operational','1972: ARPAnet public demo; NCP, the first host-host protocol; first email program; ARPAnet has 15 nodes']],
+ ['1972–80','Internetworking',['1970: ALOHAnet satellite network in Hawaii','1974: Cerf and Kahn: architecture for interconnecting networks. Principles: minimalism and autonomy, best-effort service, stateless routers, decentralised control. That defines today\'s Internet architecture.','1976: Ethernet at Xerox PARC','Late 70s: proprietary architectures DECnet, SNA, XNA','1979: ARPAnet has 200 nodes']],
+ ['1980–90','New protocols',['1982: SMTP email protocol defined','1983: deployment of TCP/IP','1983: DNS defined for name-to-IP-address translation','1985: FTP protocol defined','1988: TCP congestion control','New national networks: CSnet, BITnet, NSFnet, Minitel. 100,000 hosts connected']],
+ ['1990s–2000s','The Web',['Early 1990s: ARPAnet decommissioned','1991: NSF lifts restrictions on commercial use of NSFnet (decommissioned 1995)','Early 1990s: the Web. Hypertext (Bush 1945, Nelson 1960s), then HTML and HTTP from Berners-Lee','1994: Mosaic, later Netscape','Late 1990s: commercialisation of the Web','Late 1990s to 2000s: instant messaging, P2P file sharing, security comes to the fore; about 50 million hosts, 100 million+ users; backbone links at Gbps']],
+ ['2005–today','Everywhere',['Aggressive deployment of broadband home access (10 to 100s of Mbps)','2008: software-defined networking (SDN)','High-speed wireless access everywhere: 4G/5G, WiFi','Service providers (Google, Facebook, Microsoft) build their own networks to get close to users','Enterprises run services in the cloud (Amazon Web Services, Microsoft Azure)','Rise of smartphones: more mobile than fixed devices on the Internet']]];
+S.push({act:'history',title:'How the post office was built',
+ say:"Today billions of devices are connected. But it all started small. Really small.",
+ ask:{q:"In 1972, how many nodes did the ARPAnet, the Internet's ancestor, have?",opts:["15","1,500","1.5 million"],correct:0,why:"Just 15. Open each stamp to see how it grew."},
+ init(r){const t=document.createElement('div');t.className='timeline';r.appendChild(t);const c=document.createElement('div');c.className='card';c.setAttribute('aria-live','polite');r.appendChild(c);
+  const nav=document.createElement('div');nav.style.cssText='display:flex;justify-content:flex-end';nav.innerHTML='<button class="btn small blue" type="button">Next era</button>';r.appendChild(nav);let cur=0;
+  const show=i=>{cur=i;$$('.era',t).forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));const e=ERAS[i];c.innerHTML=`<div class="act">${e[0]}</div><h3 style="margin-top:4px">${e[1]}</h3><ul>${e[2].map(x=>`<li>${x}</li>`).join('')}</ul>`;c.style.animation='none';void c.offsetWidth;c.style.animation='popin .35s';$('button',nav).disabled=i===ERAS.length-1};
+  ERAS.forEach((e,i)=>{const b=document.createElement('button');b.type='button';b.className='era';b.setAttribute('aria-pressed','false');b.innerHTML=`<b>${e[0]}</b><small>${e[1]}</small>`;b.onclick=()=>show(i);t.appendChild(b)});
+  $('button',nav).onclick=()=>show(Math.min(cur+1,ERAS.length-1));show(0)}
+});
+
+/* ---------- ACT: Quiz ---------- */
+const QS=[["In Penny's post office, what is a router?",["A house","A sorting office","A letter","A road"],1,"Routers forward packets toward their destination, like sorting offices."],
+ ["Forwarding is a ___ action; routing is a ___ action.",["global, local","local, global","local, local","global, global"],1,"Forwarding happens inside one router; routing works out whole paths."],
+ ["How long does it take to transmit an L-bit packet onto a link of rate R?",["d/s","R/L","L/R","L×R"],2,"Transmission delay is L/R. d/s is propagation delay."],
+ ["A 1 Gb/s link, users need 100 Mb/s when active. How many users does circuit switching support?",["10","35","100","1000"],0,"1 Gb/s ÷ 100 Mb/s = 10 reserved circuits."],
+ ["What happens when traffic intensity La/R is greater than 1?",["Delay is zero","Delay is small","Average delay goes to infinity","Throughput doubles"],2,"More work arrives than can be served, so the queue grows without limit."],
+ ["End-to-end throughput is limited by...",["the fastest link","the bottleneck link","the number of routers","the packet size only"],1,"The narrowest road on the path sets the pace."],
+ ["A packet with a false source address is...",["Sniffing","Spoofing","A botnet","A firewall"],1,"IP spoofing: a fake return address on the envelope."],
+ ["Which layer creates a datagram by adding header Hn?",["Application","Transport","Network","Link"],2,"Network layer: [Hn | [Ht | M]] is a datagram."]];
+S.push({act:'quiz',title:"Penny's sorting test",
+ say:"Final stop! Eight questions, one at a time. Let's see how much you picked up on the round.",
+ init(r){const c=document.createElement('div');c.className='card';r.appendChild(c);let k=0,score=0;
+  const show=()=>{if(k>=QS.length){c.innerHTML=`<h3>You scored ${score} of ${QS.length}</h3><p style="margin-top:8px">${score===QS.length?'Perfect! Every letter sorted correctly.':score>=6?'Great sorting! Revisit any scene you were unsure about.':'Good effort. Go back through the story and try again.'}</p><button class="btn small" type="button" style="margin-top:12px">Retake</button>`;$('button',c).onclick=()=>{k=0;score=0;show()};cheer($('.narr .pip'));return}
+   const q=QS[k];c.innerHTML=`<div class="act">Question ${k+1} of ${QS.length} · score ${score}</div><h3 style="margin-top:6px">${q[0]}</h3><div class="chips" style="margin-top:10px"></div><p class="fb" style="margin-top:12px;font-weight:700;min-height:1.6em"></p><div class="nx" hidden style="display:flex;justify-content:flex-end"><button class="btn small blue" type="button">Next question</button></div>`;
+   q[1].forEach((o,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=o;b.onclick=()=>{$$('.opt',c).forEach((x,i)=>{x.disabled=true;if(i===q[2])x.classList.add('right');else if(i===j)x.classList.add('wrong')});if(j===q[2])score++;$('.fb',c).textContent=(j===q[2]?'Correct! ':'Not quite. ')+q[3];$('.nx',c).hidden=false;$('.nx button',c).focus()};$('.chips',c).appendChild(b)});
+   $('.nx button',c).onclick=()=>{k++;show()}};show()}
+});
+S.push({act:'quiz',title:'Bob opens his letter',final:true,
+ say:"Bob opens the envelope and smiles. Alice's letter crossed several networks, waited in queues, survived Trudy, and was wrapped and unwrapped layer by layer. And now you know how. Thanks for riding along!",
+ html:`<div class="card"><h3>What you now know</h3><ul>
+  <li>The Internet is a <b>network of networks</b>: hosts at the edge, access networks, and a core of routers run by many ISPs.</li>
+  <li><b>Protocols</b> define message format, order, and actions.</li>
+  <li>Hosts split messages into <b>packets</b>; routers <b>store-and-forward</b> them, using <b>forwarding</b> tables built by <b>routing</b>.</li>
+  <li><b>Packet switching</b> shares links and suits bursty data; <b>circuit switching</b> reserves them.</li>
+  <li>Four delays: <b>processing, queueing, transmission (L/R), propagation (d/s)</b>. Loss happens when buffers fill; <b>throughput</b> is set by the bottleneck.</li>
+  <li>Attacks: <b>sniffing, spoofing, DoS</b>. Defences: authentication, encryption, integrity checks, access restrictions, firewalls.</li>
+  <li>Five <b>layers</b> and <b>encapsulation</b>: message, segment, datagram, frame.</li></ul></div>
+  <div class="card"><h3>Your stamps</h3><div class="stampgrid" id="stampgrid"></div></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn primary" href="#home">Back to all chapters</a><button class="btn" type="button" data-goto="0">Start again</button></div>`,
+ init(r){const g=$('#stampgrid',r);ACTS.slice(1).forEach(a=>{const s=document.createElement('span');s.className='pstamp'+(actDone(a[0])?' on':'');s.textContent=a[1].split(' ').pop();g.appendChild(s)})}
+});
+
+/* =================== STORY ENGINE =================== */
+const stage=$('#stage'),stops=$('#stops');
+let seen=store.get('penny-ch1-seen')||{};const answered={};
+const actDone=a=>S.every((s,i)=>s.act!==a||seen[i]);
+ACTS.slice(1).forEach(a=>{const first=S.findIndex(s=>s.act===a[0]);const l=document.createElement('a');l.href='#s'+first;l.dataset.act=a[0];l.innerHTML='<span class="dot"></span>'+a[1];stops.appendChild(l)});
+let cur=0;
+function render(i,fromHash){cur=Math.max(0,Math.min(S.length-1,i));const s=S[cur];seen[cur]=true;store.set('penny-ch1-seen',seen);store.set('penny-ch1-at',cur);
+  stage.innerHTML='';const sc=document.createElement('div');sc.className='scene';stage.appendChild(sc);
+  if(s.cover){sc.innerHTML=s.html}
+  else{
+   const actName=(ACTS.find(a=>a[0]===s.act)||[])[1];const inAct=S.filter(x=>x.act===s.act);const pos=inAct.indexOf(s)+1;
+   sc.innerHTML=`<div class="act">${actName}${inAct.length>1?` · part ${pos} of ${inAct.length}`:''}</div><h2>${s.title}</h2><div class="narr">${PIP}<div class="bubble">${s.say}</div></div>`;
+   const rev=document.createElement('div');rev.className='reveal';
+   const open=()=>{if(s.html)rev.insertAdjacentHTML('beforeend',s.html);sc.appendChild(rev);if(s.init)s.init(rev);bindGoto(rev)};
+   if(s.ask){const a=document.createElement('div');a.className='ask';a.innerHTML=`<div class="airmail"></div><div class="q">${s.ask.q}</div><div class="opts"></div><p class="fb" hidden></p><button class="skip" type="button">Just show me</button>`;sc.appendChild(a);
+    const done=(j)=>{answered[cur]=j;$$('.opt',a).forEach((b,k)=>{b.disabled=true;if(s.ask.correct==null){if(k===j)b.classList.add('picked')}else if(k===s.ask.correct)b.classList.add('right');else if(k===j)b.classList.add('wrong')});
+      const fb=$('.fb',a);fb.hidden=false;fb.innerHTML=(j==null?'':s.ask.correct==null?'Good thinking! ':j===s.ask.correct?'<span style="color:var(--green)">You got it!</span> ':'<span style="color:var(--red)">Surprise!</span> ')+s.ask.why;$('.skip',a).remove();cheer($('.narr .pip',sc));open()};
+    s.ask.opts.forEach((o,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=o;b.onclick=()=>{done(j);rev.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})};$('.opts',a).appendChild(b)});
+    $('.skip',a).onclick=()=>done(null);
+    if(cur in answered)done(answered[cur])}
+   else open();
+   const nav=document.createElement('div');nav.className='scene-nav';nav.innerHTML=`<button class="btn" type="button" data-prev>Back</button><span class="count">Scene ${cur} of ${S.length-1}</span>${cur<S.length-1?'<button class="btn primary" type="button" data-next>Next scene</button>':'<span></span>'}`;stage.appendChild(nav);
+   $('.narr .pip',sc).addEventListener('click',e=>{$('.bubble',sc).textContent=facts[fi++%facts.length];cheer(e.currentTarget)});
+  }
+  $$('[data-next]',stage).forEach(b=>b.onclick=()=>goTo(cur+1));$$('[data-prev]',stage).forEach(b=>b.onclick=()=>goTo(cur-1));bindGoto(stage);
+  $('#prog').style.width=(cur/(S.length-1)*100)+'%';
+  $$('a',stops).forEach(l=>{l.classList.toggle('here',l.dataset.act===s.act);l.classList.toggle('done',actDone(l.dataset.act));if(l.dataset.act===s.act)l.scrollIntoView({block:'nearest',inline:'center'})});
+  if(!fromHash||true)window.scrollTo({top:0,behavior:'auto'});
+}
+function bindGoto(r){$$('[data-goto]',r).forEach(b=>b.onclick=()=>goTo(+b.dataset.goto))}
+function goTo(i){const h='#s'+i;if(location.hash!==h)location.hash=h;else render(i,true)}
+window.addEventListener('hashchange',()=>{const m=/^#s(\d+)$/.exec(location.hash);if(m)render(+m[1],true)});
+document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.key==='ArrowRight'&&cur<S.length-1)goTo(cur+1);else if(e.key==='ArrowLeft'&&cur>0)goTo(cur-1)});
+const m=/^#s(\d+)$/.exec(location.hash);render(m?+m[1]:0,true);
+})();
+</script>
+<style id="modern-unified">
+:root,:root[data-theme="light"]{color-scheme:light!important;--bg:#f5f7fb;--paper:#fff;--card:#fff;--surface:#fff;--surface-2:#f1f5fa;--paper2:#f8fafc;--sky:#f5f7fb;--ink:#142238;--muted:#607087;--line:#dce4ee;--red:#db5266;--stamp:#db5266;--post-red:#db5266;--blue:#3466d9;--air:#3466d9;--post-blue:#3466d9;--yellow:#e2a344;--sun:#e2a344;--gold:#e2a344;--green:#168767;--good:#168767;--leaf:#168767;--blue-soft:#ebf1ff;--air-soft:#ebf1ff;--soft-blue:#ebf1ff;--stamp-soft:#fff0f2;--red-soft:#fff0f2;--green-soft:#e7f5f0;--leaf-soft:#e7f5f0;--gold-soft:#fff6e8;--sun-soft:#fff6e8;--shadow:0 10px 36px rgba(22,43,82,.045)!important;--f-display:"Inter","Noto Sans Sinhala",system-ui,sans-serif;--display:var(--f-display);--f-body:"Noto Sans Sinhala","Inter",system-ui,sans-serif;--body:var(--f-body);--f-mono:"JetBrains Mono",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark!important;--bg:#0b1220;--paper:#121e30;--card:#121e30;--surface:#121e30;--surface-2:#18263a;--paper2:#18263a;--sky:#0b1220;--ink:#e9eff8;--muted:#a0aec3;--line:#2c3c52;--red:#fa8492;--stamp:#fa8492;--post-red:#fa8492;--blue:#8eb0ff;--air:#8eb0ff;--post-blue:#8eb0ff;--green:#61d5ab;--good:#61d5ab;--blue-soft:#223659;--air-soft:#223659;--soft-blue:#223659;--red-soft:#392631;--stamp-soft:#392631;--green-soft:#173c35;--gold-soft:#453725;--shadow:0 12px 36px rgba(0,0,0,.18)!important}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0!important;background:var(--bg)!important;background-image:none!important;color:var(--ink)!important;font-family:var(--f-body)!important;line-height:1.8!important;font-size:16.5px!important;overflow-x:hidden}body::before{display:none!important} h1,h2,h3,h4{font-family:var(--f-display)!important;letter-spacing:-.025em!important;line-height:1.4!important}p{line-height:1.85!important}button{cursor:pointer;transition:background-color .2s,border-color .2s,color .2s,transform .2s!important}button:hover:not(:disabled){transform:translateY(-1px)}a{transition:color .2s} :focus-visible{outline:2px solid var(--blue)!important;outline-offset:3px!important}
+.wrap{max-width:980px!important;padding-left:clamp(18px,3vw,38px)!important;padding-right:clamp(18px,3vw,38px)!important}
+.airmail,.airmail-top,.stripe,.topbar::after,.route .rail,.route .rail b,.postmark{display:none!important}
+.scene,.beat,.panel,.card,.hero-grid,.hero-art,.paper,.letter,.content-card{border-radius:15px!important;box-shadow:var(--shadow)!important;border-color:var(--line)!important}
+.topbar,.bar,.top,.route,.passport{background:var(--paper)!important;box-shadow:none!important;border-color:var(--line)!important}
+.back,.backlink,.brand,.allch,.chip,.stop-btn,.act{border-radius:9px!important;box-shadow:none!important}
+.hero-letter,.hero-art,.hero-illustration,.hero-drawing,.postmark,.carrier,.guide,.buddy,.penny,.stampbook,.cast-chip,.mascot,.character-art{display:none!important}
+.hero,.cover{padding-top:22px!important} .hero h1,.cover h1{font-size:clamp(1.8rem,4.5vw,2.7rem)!important}
+button,optgroup,select,input,textarea{font-family:var(--f-body)!important}
+button:disabled{opacity:.52;cursor:not-allowed}
+.opt,.option,.choice{border-radius:10px!important} .right{border-color:#168767!important}.wrong{border-color:#db5266!important}
+[data-goto],.chip,.stop-btn,.act{transition:all .24s ease!important}
+main{animation:modernFade .42s ease both}@keyframes modernFade{from{opacity:.4;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:650px){.wrap{padding-inline:16px!important}.hero-grid{grid-template-columns:1fr!important}.route-bar{overflow-x:auto!important}.hero h1{font-size:1.9rem!important}}
+</style><link href="../readability.css" rel="stylesheet"/><script defer="" src="../cleanup.js"></script><link href="../critical-fixes.css" rel="stylesheet"/><script defer="" src="../critical-fixes.js"></script></link></link></link><script src="../assets/react.min.js"></script><script src="../assets/react-dom.min.js"></script><script src="../assets/ambient.js"></script><script src="../assets/chapter.js"></script></body></html>

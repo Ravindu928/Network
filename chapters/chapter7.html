@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+
+<html data-theme="light" lang="si">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<title>රැහැන් රහිත හා ජංගම ජාල | Network Academy</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&amp;family=Noto+Sans+Sinhala:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root{
+      color-scheme:light;
+      --paper:#EEF3FA; --card:#FFFFFF; --ink:#1B2742; --muted:#55627F; --line:#D3DCEB;
+      --red:#D63A3F; --blue:#2B5BC8; --yellow:#F2AE12; --green:#1F8F66;
+      --soft-blue:#E2EAFA; --soft-red:#FBE5E5; --soft-yellow:#FDF0CF; --soft-green:#DBF1E7;
+      --skin:#F1C6A0; --shadow:0 2px 0 rgba(27,39,66,.08), 0 10px 28px -12px rgba(27,39,66,.25);
+      --f-display:"Familjen Grotesk","Noto Sans Sinhala",system-ui,sans-serif;
+      --f-body:"Noto Sans Sinhala","Familjen Grotesk",system-ui,-apple-system,sans-serif;
+      --f-mono:"JetBrains Mono","Noto Sans Sinhala",ui-monospace,monospace;
+    }
+    @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+      --paper:#0F1628; --card:#18213A; --ink:#E7ECF7; --muted:#9DAAC6; --line:#2D3A5C;
+      --red:#FF6B70; --blue:#82A6FF; --yellow:#F7C548; --green:#4CCB97;
+      --soft-blue:#1E2B4E; --soft-red:#3A2029; --soft-yellow:#3A311A; --soft-green:#163A2F;
+      --skin:#E5B48D; --shadow:0 2px 0 rgba(0,0,0,.3), 0 10px 28px -12px rgba(0,0,0,.6); color-scheme:dark
+    }}
+    *{box-sizing:border-box}
+    [hidden]{display:none!important}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.68;padding-bottom:140px}
+    h1,h2,h3,h4{font-family:var(--f-display);line-height:1.25;margin:0;font-weight:700}
+    h2{font-size:clamp(1.5rem,3.8vw,2.05rem)}
+    h3{font-size:1.18rem}
+    p{margin:0}
+    button{font:inherit;color:inherit;cursor:pointer}
+    :focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:6px}
+    .wrap{max-width:860px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+    .mono{font-family:var(--f-mono)}
+    .muted{color:var(--muted)}
+    .airmail{height:9px;background:repeating-linear-gradient(-45deg,var(--red) 0 12px,var(--card) 12px 20px,var(--blue) 20px 32px,var(--card) 32px 40px)}
+
+    /* Sticky Top Navigation & Route Stops */
+    .topbar{position:sticky;top:0;z-index:25;background:var(--card);border-bottom:1px solid var(--line);padding-block:10px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .back{font-family:var(--f-display);font-weight:700;color:var(--blue);text-decoration:none;font-size:.9rem;border:2px solid var(--line);background:var(--paper);border-radius:999px;padding:4px 14px}
+    .back:hover{border-color:var(--blue)}
+    .where{font-family:var(--f-mono);font-size:.82rem;color:var(--muted)}
+    .where b{color:var(--ink)}
+    .route-bar{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:10px}
+    .stop-btn{background:var(--paper);border:1.5px dashed var(--line);border-radius:6px;padding:4px 2px;font-family:var(--f-mono);font-size:.72rem;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0}
+    .stop-btn span{font-family:var(--f-body);font-size:.65rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+    .stop-btn.here{border-style:solid;border-color:var(--blue);background:var(--soft-blue);color:var(--blue);font-weight:700}
+    .stop-btn.done{border-style:solid;border-color:var(--green);background:var(--soft-green);color:var(--green)}
+    .progress-line{height:5px;background:var(--line);border-radius:99px;margin-top:8px;overflow:hidden}
+    .progress-line i{display:block;height:100%;background:var(--red);transition:width .35s ease}
+
+    /* Hero Cover */
+    .hero{padding:26px 0 14px;display:grid;grid-template-columns:1.3fr 1fr;gap:22px;align-items:center}
+    .eyebrow{font-family:var(--f-mono);letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;color:var(--red);font-weight:600}
+    .hero h1{font-size:clamp(1.9rem,5vw,2.7rem);margin:6px 0 10px}
+    .hero h1 em{font-style:normal;color:var(--blue)}
+    .hero-art{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:12px}
+    .hero-art svg{display:block;width:100%;height:auto}
+    .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+    .legend span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.82rem}
+    .legend b{color:var(--blue)}
+
+    /* Active Scene Card */
+    .letter{background:var(--card);border-radius:18px;box-shadow:var(--shadow);margin-top:16px;overflow:hidden;animation:enter .35s ease}
+    @keyframes enter{from{opacity:.3;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .letter-body{padding:24px clamp(16px,4vw,32px) 28px;display:grid;gap:18px}
+    .letter-head{display:flex;gap:16px;align-items:flex-start}
+    .postmark{flex:none;width:62px;height:62px;border-radius:50%;border:2.5px solid var(--red);color:var(--red);display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;text-align:center;line-height:1;transform:rotate(-8deg)}
+    .postmark small{display:block;font-size:.55rem}
+    .postmark span{font-size:1.1rem}
+    .sub{color:var(--muted);margin-top:3px;font-size:.95rem}
+    .prose{display:grid;gap:10px}
+
+    /* Interactive Question Hook */
+    .ask{background:var(--soft-yellow);border:2px dashed var(--yellow);border-radius:14px;padding:15px 18px;display:grid;gap:10px}
+    .ask-q{font-family:var(--f-display);font-weight:700;font-size:1.12rem;display:flex;gap:10px;align-items:flex-start}
+    .ask-q::before{content:"?";flex:none;width:28px;height:28px;border-radius:50%;background:var(--yellow);color:#1B2742;display:grid;place-items:center;font-weight:700}
+    .ask-opts{display:grid;gap:7px}
+    .ask-opt{text-align:left;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:9px 14px;font-weight:700;transition:.15s}
+    .ask-opt:hover:not(:disabled){border-color:var(--blue)}
+    .ask-opt.right{border-color:var(--green);background:var(--soft-green)}
+    .ask-opt.wrong{border-color:var(--red);background:var(--soft-red)}
+    .ask-verdict{font-size:.95rem;font-weight:600}
+
+    .analogy{display:flex;gap:12px;align-items:flex-start;background:var(--soft-yellow);border-radius:14px;padding:13px 16px}
+    .analogy .ico{flex:none;font-family:var(--f-display);font-weight:700;background:var(--yellow);color:#1B2742;border-radius:8px;padding:2px 8px;font-size:.78rem;margin-top:2px}
+    .keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+    .key{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:5px;align-content:start;background:var(--paper)}
+    .key b{font-family:var(--f-display);font-weight:700;font-size:1.02rem}
+    .key .tag{font-family:var(--f-mono);font-size:.73rem;color:var(--blue);text-transform:uppercase;font-weight:600}
+
+    /* Labs */
+    .lab{border:2px dashed var(--line);border-radius:16px;padding:16px;display:grid;gap:14px;background:var(--paper)}
+    .lab-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .lab-title .pill{font-family:var(--f-mono);font-size:.72rem;font-weight:600;text-transform:uppercase;background:var(--blue);color:#fff;border-radius:999px;padding:2px 10px}
+    .btns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .btn{border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.9rem;transition:transform .1s}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{background:var(--ink);color:var(--card)}
+    .btn.red{background:var(--red);border-color:var(--red);color:#fff}
+    .btn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .readout{background:var(--soft-blue);border-radius:12px;padding:12px 14px;min-height:3em}
+    .readout.good{background:var(--soft-green)}
+    .readout.bad{background:var(--soft-red)}
+    .svgbox{overflow-x:auto;background:var(--card);border-radius:12px;padding:8px;border:1px solid var(--line)}
+    .svgbox svg{display:block;width:100%;height:auto;min-width:500px}
+    svg text{font-family:var(--f-body)}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label.chk{display:inline-flex;gap:8px;align-items:center;font-weight:700;cursor:pointer}
+    input[type=range]{width:100%;accent-color:var(--blue)}
+    input[type=checkbox]{accent-color:var(--blue);width:18px;height:18px}
+
+    /* Specific Widgets */
+    .tax{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;align-items:stretch}
+    .tax .hd{font-family:var(--f-mono);font-size:.76rem;font-weight:600;color:var(--muted);padding:4px}
+    .tax .rh{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-family:var(--f-mono);font-size:.74rem;font-weight:600;color:var(--muted)}
+    .tax button{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:12px;text-align:left;display:grid;gap:4px}
+    .tax button.on{border-color:var(--blue);background:var(--soft-blue)}
+    .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .rung{border-radius:12px;padding:12px;background:var(--soft-blue);display:grid;gap:4px;align-content:start}
+    .rung .d{font-family:var(--f-mono);font-weight:600;color:var(--blue)}
+    .rung:nth-child(2){background:var(--soft-green)} .rung:nth-child(2) .d{color:var(--green)}
+    .rung:nth-child(3){background:var(--soft-yellow)} .rung:nth-child(3) .d{color:var(--ink)}
+    .rung:nth-child(4){background:var(--soft-red)} .rung:nth-child(4) .d{color:var(--red)}
+    .meter{display:grid;grid-template-columns:8em 1fr 5em;gap:10px;align-items:center;font-size:.9rem}
+    .bar{height:14px;background:var(--card);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+    .bar i{display:block;height:100%;background:var(--blue);border-radius:999px;transition:width .25s}
+    .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .mod{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:10px;text-align:center}
+    .mod.on{border-color:var(--green);background:var(--soft-green)}
+    .mod.off{opacity:.45}
+    .cdma-ctl{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+    .tbl{overflow-x:auto}
+    table{border-collapse:collapse;font-family:var(--f-mono);font-size:.84rem;width:100%;background:var(--card)}
+    th,td{border:1px solid var(--line);padding:5px 7px;text-align:center;white-space:nowrap}
+    th{background:var(--soft-blue);font-weight:600}
+    td.lbl{text-align:left;font-family:var(--f-body);font-weight:700}
+    td.pos{color:var(--blue);font-weight:600} td.neg{color:var(--red);font-weight:600}
+    tr.sum td{background:var(--soft-yellow)}
+    tr.dec td{background:var(--soft-green);font-weight:700}
+    .tl{display:grid;grid-template-columns:8em repeat(14,minmax(26px,1fr));gap:3px;font-size:.76rem;min-width:540px;padding:6px}
+    .tl .who{font-weight:700;align-self:center}
+    .tl .blk{border-radius:6px;padding:4px 2px;text-align:center;font-family:var(--f-mono);font-weight:600;opacity:.12;transform:scale(.92);transition:.25s;white-space:nowrap;overflow:hidden}
+    .tl .blk.show{opacity:1;transform:none}
+    .tl .busy{background:var(--soft-red);color:var(--red)}
+    .tl .wait{background:var(--soft-yellow);color:var(--ink)}
+    .tl .data{background:var(--blue);color:#fff}
+    .tl .ack{background:var(--green);color:#fff}
+    .tl .gap{background:var(--soft-blue);color:var(--blue)}
+    .frame{display:flex;flex-wrap:wrap;gap:4px}
+    .frame button{border:2px solid var(--line);background:var(--card);border-radius:8px;padding:6px 8px;display:grid;font-size:.8rem;text-align:center;flex:1 1 auto}
+    .frame button.addr{border-color:var(--blue)}
+    .frame button.on{background:var(--soft-blue);border-color:var(--blue)}
+    .envs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .env{border-radius:12px;padding:12px;background:var(--card);border:2px solid var(--line)}
+    .env h4{margin:0 0 8px;font-size:.95rem;color:var(--blue)}
+    .env dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.88rem}
+    .env dt{font-family:var(--f-mono);color:var(--muted)}
+    .env dd{margin:0;font-weight:700}
+    .devices{display:flex;flex-wrap:wrap;gap:10px}
+    .dev{border:2px solid var(--line);border-radius:14px;padding:10px 14px;display:grid;gap:2px;min-width:145px;background:var(--card);text-align:left}
+    .dev.awake{border-color:var(--green);background:var(--soft-green)}
+    .dev.mail .m{color:var(--red);font-weight:700}
+    .strip{display:grid;grid-template-columns:repeat(79,1fr);gap:1px;height:64px;align-items:end;background:var(--card);padding:6px;border-radius:8px;border:1px solid var(--line)}
+    .strip i{display:block;height:22%;background:var(--line);border-radius:2px 2px 0 0;transition:height .15s, background .15s}
+    .strip i.jam{background:var(--soft-red);height:48%}
+    .strip i.cur{background:var(--blue);height:100%}
+    .strip i.cur.jam{background:var(--red)}
+    .info{border-left:4px solid var(--blue);padding:10px 14px;background:var(--soft-blue);border-radius:0 12px 12px 0}
+    .node{cursor:pointer}
+    .node.on rect,.node.on circle{stroke:var(--red);stroke-width:3.5}
+    .ln{stroke:var(--muted);stroke-width:2.5;transition:.25s}
+    .ln.ctrl{stroke-dasharray:6 5}
+    .ln.dim{opacity:.18}
+    .ln.hot{stroke:var(--red);stroke-width:4}
+    .grid-wrap{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center}
+    .ofdma{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+    .ofdma button{aspect-ratio:1.4;border:1.5px solid var(--line);border-radius:5px;background:var(--card);padding:0}
+    .ofdma button.u1{background:var(--blue);border-color:var(--blue)}
+    .ofdma button.u2{background:var(--red);border-color:var(--red)}
+    .ofdma button.u3{background:var(--yellow);border-color:var(--yellow)}
+    .users .btn[data-u="1"].on{background:var(--blue)}
+    .users .btn[data-u="2"].on{background:var(--red);border-color:var(--red)}
+    .users .btn[data-u="3"].on{background:var(--yellow);border-color:var(--yellow);color:#1B2742}
+    .nest{display:grid;place-items:center;padding:6px}
+    .layer{border-radius:12px;padding:10px 12px;display:grid;gap:5px;justify-items:center;text-align:center;width:100%}
+    .layer > .lbl{font-family:var(--f-mono);font-size:.8rem;font-weight:700}
+    .l0{background:var(--soft-green);border:2px solid var(--green)}
+    .l1{background:var(--soft-yellow);border:2px dashed var(--yellow)}
+    .l2{background:var(--soft-blue);border:2px dashed var(--blue)}
+    .l3{background:var(--soft-red);border:2px solid var(--red)}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .stat{border-radius:14px;background:var(--soft-blue);padding:14px;text-align:center}
+    .stat b{display:block;font-family:var(--f-display);font-size:1.9rem;color:var(--blue)}
+    .stepper{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .dots{display:flex;gap:5px}
+    .dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+    .dots i.on{background:var(--red)}
+    .cw{display:flex;align-items:flex-end;gap:3px;height:120px;border-bottom:2px solid var(--line);padding:8px 4px 0;background:var(--card);border-radius:8px 8px 0 0}
+    .cw i{flex:1 1 0;min-width:6px;max-width:22px;background:var(--blue);border-radius:3px 3px 0 0;transition:height .25s}
+    .cw i.drop{background:var(--red)}
+    .q{border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:14px;display:grid;gap:10px}
+    .q .opts{display:grid;gap:6px}
+    .q .opts button{text-align:left;border:2px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;font-weight:600}
+    .q .opts button.right{border-color:var(--green);background:var(--soft-green)}
+    .q .opts button.wrong{border-color:var(--red);background:var(--soft-red)}
+
+    /* Scene Bottom Nav */
+    .scene-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;padding:14px 18px;background:var(--card);border-radius:16px;box-shadow:var(--shadow);flex-wrap:wrap}
+    .scene-nav .hint{font-family:var(--f-mono);font-size:.84rem;color:var(--muted)}
+
+    /* Mail Carrier Buddy */
+    .carrier{position:fixed;z-index:30;right:14px;bottom:14px;display:flex;align-items:flex-end;gap:8px;pointer-events:none}
+    .carrier > *{pointer-events:auto}
+    .bubble{max-width:280px;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:16px 16px 4px 16px;padding:10px 12px;font-size:.88rem;box-shadow:var(--shadow);margin-bottom:20px}
+    .bubble .who{font-family:var(--f-display);font-weight:700;color:var(--red);font-size:.82rem}
+    .bubble .row{display:flex;gap:6px;margin-top:6px;justify-content:flex-end}
+    .bubble .row button{border:none;background:var(--soft-blue);border-radius:999px;padding:3px 10px;font-size:.78rem;font-weight:700}
+    .pip{width:84px;height:84px;border:3px solid var(--ink);border-radius:50%;background:var(--card);padding:0;box-shadow:var(--shadow);overflow:hidden}
+    .pip svg{display:block;width:100%;height:100%}
+    .carrier.min .bubble{display:none}
+
+    footer{text-align:center;color:var(--muted);font-size:.86rem;padding:28px 0 10px}
+    @media (max-width:760px){
+      .hero,.two,.envs{grid-template-columns:1fr}
+      .route-bar{grid-template-columns:repeat(6,1fr)}
+      .ladder{grid-template-columns:repeat(2,1fr)}
+      .stats{grid-template-columns:1fr}
+    }
+  </style>
+<style id="modern-unified">
+:root,:root[data-theme="light"]{color-scheme:light!important;--bg:#f5f7fb;--paper:#fff;--card:#fff;--surface:#fff;--surface-2:#f1f5fa;--paper2:#f8fafc;--sky:#f5f7fb;--ink:#142238;--muted:#607087;--line:#dce4ee;--red:#db5266;--stamp:#db5266;--post-red:#db5266;--blue:#3466d9;--air:#3466d9;--post-blue:#3466d9;--yellow:#e2a344;--sun:#e2a344;--gold:#e2a344;--green:#168767;--good:#168767;--leaf:#168767;--blue-soft:#ebf1ff;--air-soft:#ebf1ff;--soft-blue:#ebf1ff;--stamp-soft:#fff0f2;--red-soft:#fff0f2;--green-soft:#e7f5f0;--leaf-soft:#e7f5f0;--gold-soft:#fff6e8;--sun-soft:#fff6e8;--shadow:0 10px 36px rgba(22,43,82,.045)!important;--f-display:"Inter","Noto Sans Sinhala",system-ui,sans-serif;--display:var(--f-display);--f-body:"Noto Sans Sinhala","Inter",system-ui,sans-serif;--body:var(--f-body);--f-mono:"JetBrains Mono",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark!important;--bg:#0b1220;--paper:#121e30;--card:#121e30;--surface:#121e30;--surface-2:#18263a;--paper2:#18263a;--sky:#0b1220;--ink:#e9eff8;--muted:#a0aec3;--line:#2c3c52;--red:#fa8492;--stamp:#fa8492;--post-red:#fa8492;--blue:#8eb0ff;--air:#8eb0ff;--post-blue:#8eb0ff;--green:#61d5ab;--good:#61d5ab;--blue-soft:#223659;--air-soft:#223659;--soft-blue:#223659;--red-soft:#392631;--stamp-soft:#392631;--green-soft:#173c35;--gold-soft:#453725;--shadow:0 12px 36px rgba(0,0,0,.18)!important}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0!important;background:var(--bg)!important;background-image:none!important;color:var(--ink)!important;font-family:var(--f-body)!important;line-height:1.8!important;font-size:16.5px!important;overflow-x:hidden}body::before{display:none!important} h1,h2,h3,h4{font-family:var(--f-display)!important;letter-spacing:-.025em!important;line-height:1.4!important}p{line-height:1.85!important}button{cursor:pointer;transition:background-color .2s,border-color .2s,color .2s,transform .2s!important}button:hover:not(:disabled){transform:translateY(-1px)}a{transition:color .2s} :focus-visible{outline:2px solid var(--blue)!important;outline-offset:3px!important}
+.wrap{max-width:980px!important;padding-left:clamp(18px,3vw,38px)!important;padding-right:clamp(18px,3vw,38px)!important}
+.airmail,.airmail-top,.stripe,.topbar::after,.route .rail,.route .rail b,.postmark{display:none!important}
+.scene,.beat,.panel,.card,.hero-grid,.hero-art,.paper,.letter,.content-card{border-radius:15px!important;box-shadow:var(--shadow)!important;border-color:var(--line)!important}
+.topbar,.bar,.top,.route,.passport{background:var(--paper)!important;box-shadow:none!important;border-color:var(--line)!important}
+.back,.backlink,.brand,.allch,.chip,.stop-btn,.act{border-radius:9px!important;box-shadow:none!important}
+.hero-letter,.hero-art,.hero-illustration,.hero-drawing,.postmark,.carrier,.guide,.buddy,.penny,.stampbook,.cast-chip,.mascot,.character-art{display:none!important}
+.hero,.cover{padding-top:22px!important} .hero h1,.cover h1{font-size:clamp(1.8rem,4.5vw,2.7rem)!important}
+button,optgroup,select,input,textarea{font-family:var(--f-body)!important}
+button:disabled{opacity:.52;cursor:not-allowed}
+.opt,.option,.choice{border-radius:10px!important} .right{border-color:#168767!important}.wrong{border-color:#db5266!important}
+[data-goto],.chip,.stop-btn,.act{transition:all .24s ease!important}
+main{animation:modernFade .42s ease both}@keyframes modernFade{from{opacity:.4;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:650px){.wrap{padding-inline:16px!important}.hero-grid{grid-template-columns:1fr!important}.route-bar{overflow-x:auto!important}.hero h1{font-size:1.9rem!important}}
+</style><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+Sinhala:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><style>
+/* Modern professional visual language. Individual lesson logic remains intact. */
+:root,:root[data-theme="dark"]{color-scheme:dark!important;--bg:#050505;--paper:#0e0e10;--card:#121214;--surface:#121214;--surface-2:#19191c;--paper2:#151518;--paper-2:#151518;--sky:#050505;--ink:#f1f1f2;--text:#f1f1f2;--muted:#a2a2aa;--line:#29292e;--blue:#a8b9ff;--air:#a8b9ff;--post-blue:#a8b9ff;--stamp:#eb8e89;--red:#eb8e89;--post-red:#eb8e89;--gold:#d3bd83;--sun:#d3bd83;--green:#83c9ac;--leaf:#83c9ac;--good:#83c9ac;--blue-soft:#1b2030;--air-soft:#1b2030;--soft-blue:#1b2030;--red-soft:#2b1c20;--stamp-soft:#2b1c20;--soft-red:#2b1c20;--gold-soft:#292417;--sun-soft:#292417;--green-soft:#16251f;--leaf-soft:#16251f;--kraft:#272322;--kraft-ink:#ddd0c1;--shadow:0 16px 44px rgba(0,0,0,.24);--f-display:Inter,"Noto Sans Sinhala",sans-serif;--display:Inter,"Noto Sans Sinhala",sans-serif;--f-body:"Noto Sans Sinhala",Inter,system-ui,sans-serif;--body:"Noto Sans Sinhala",Inter,system-ui,sans-serif}
+html{background:#050505!important;scroll-behavior:smooth}body{background:#050505!important;background-image:none!important;color:#f1f1f2!important;font-family:"Noto Sans Sinhala",Inter,system-ui,sans-serif!important;line-height:1.78!important}body::before{display:none!important}h1,h2,h3,h4{letter-spacing:-.025em}a{color:#b5c3ff}button,a{transition:background-color .22s ease,color .22s ease,border-color .22s ease,transform .22s ease,box-shadow .22s ease}button:hover{filter:brightness(1.08)}button:active{transform:scale(.985)}
+.airmail,.airmail-top,.stripe,.topbar::after{background:none!important;height:1px!important;background-color:#29292e!important}
+.scene,.beat,.hero-art,.card,.panel,.slide,.letter,.hero-grid,.cover-card{box-shadow:0 14px 38px rgba(0,0,0,.18)!important;border-color:#2d2d31!important} .scene,.beat,.card,.panel{border-radius:18px!important}
+.postmark,.postmark-stamp,.stampbook,.stampcount{filter:grayscale(1);opacity:.55} .hero-letter,.hero-art{filter:saturate(.55)}
+:focus-visible{outline:2px solid #c1ccff!important;outline-offset:3px!important}
+.academy-nav{position:sticky;top:0;z-index:9999;min-height:58px;background:rgba(5,5,5,.92);border-bottom:1px solid #242428;backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px max(18px,calc((100vw - 1120px)/2));font:500 12px Inter,"Noto Sans Sinhala",sans-serif;letter-spacing:.03em}
+.academy-nav a{text-decoration:none;color:#bcbcc4;white-space:nowrap}.academy-nav a:hover{color:#fff}.academy-nav .academy-home{color:#fff;font-weight:800;letter-spacing:.13em;font-size:11px}.academy-nav .academy-index{color:#73737d;font-size:11px}.academy-controls{display:flex;gap:16px;align-items:center}.academy-controls a{padding:6px 0} .academy-controls a[aria-disabled="true"]{opacity:.3;pointer-events:none}
+@media(max-width:600px){.academy-nav{padding:11px 16px}.academy-nav .academy-index{display:none}.academy-controls{gap:12px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600&amp;family=Noto+Sans+Sinhala:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="../fable.css" rel="stylesheet"/><link rel="stylesheet" href="../assets/chapter-ambient.css"><link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" href="../favicon.png"></head>
+<body><section class="fable-chapter-banner"><div class="fable-info"><div class="fable-kicker">THE NETWORK ATLAS / STUDY 07</div><h1>Wireless &amp; Mobile</h1><p>රැහැන් රහිත සහ ජංගම ජාල · Invisible signals, moving devices.</p></div><div class="art-shell"><svg aria-label="Hand drawn network illustration" class="network-drawing" role="img" viewbox="0 0 640 520" xmlns="http://www.w3.org/2000/svg"><defs><filter id="rough"><feturbulence basefrequency=".014" numoctaves="2" result="noise" seed="7" type="fractalNoise"></feturbulence><fedisplacementmap in="SourceGraphic" in2="noise" scale="2"></fedisplacementmap></filter></defs><g class="sketch-lines" fill="none" filter="url(#rough)" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M210 180q110-105 220 0 M244 219q76-73 152 0 M279 254q41-38 82 0"></path><circle cx="320" cy="280" fill="currentColor" r="7"></circle><rect height="166" rx="15" width="88" x="445" y="177"></rect><rect height="110" rx="3" width="62" x="458" y="198"></rect><path d="M478 326h18"></path><circle cx="488" cy="250" r="12"></circle><path d="M468 275q20-19 40 0"></path><path d="M320 289v60 M320 350h-100 M320 350h100" stroke-dasharray="5 7"></path><circle cx="219" cy="350" r="10"></circle><circle cx="422" cy="350" r="10"></circle><circle cx="85" cy="150" fill="currentColor" opacity=".32" r="2"></circle><circle cx="160" cy="92" fill="currentColor" opacity=".32" r="3"></circle><circle cx="487" cy="92" fill="currentColor" opacity=".32" r="4"></circle><circle cx="551" cy="401" fill="currentColor" opacity=".32" r="2"></circle><circle cx="117" cy="391" fill="currentColor" opacity=".32" r="3"></circle><circle cx="511" cy="445" fill="currentColor" opacity=".32" r="4"></circle><circle cx="320" cy="67" fill="currentColor" opacity=".32" r="2"></circle><circle cx="86" cy="342" fill="currentColor" opacity=".32" r="3"></circle><circle cx="557" cy="187" fill="currentColor" opacity=".32" r="4"></circle></g><g class="sketch-labels" fill="currentColor"><text x="56" y="56">FIG. 07 / NETWORK STUDIES</text><text x="425" y="480">SIGNAL · CONNECTION · SYSTEM</text></g></svg></div></section><nav aria-label="Chapter navigation" class="academy-nav"><a class="academy-home" href="../index.html">NETWORK / ACADEMY</a><span class="academy-index">CHAPTER 07 / 08</span><div class="academy-controls"><a href="chapter6.html">← පෙර</a><a href="../index.html">සියලු පාඩම්</a><a href="chapter8.html">ඊළඟ →</a></div></nav>
+<div aria-hidden="true" class="airmail"></div>
+<header class="topbar">
+<div class="wrap">
+<div class="top-row">
+<a class="back" href="#home">← සියලුම පරිච්ඡේද</a>
+<div class="where" id="where"></div>
+<span class="mono muted" id="stampcount" style="font-size:.8rem">මුද්දර 0/12</span>
+</div>
+<nav aria-label="පරිච්ඡේද නැවතුම්" class="route-bar" id="routeBar"></nav>
+<div aria-hidden="true" class="progress-line"><i id="progBar"></i></div>
+</div>
+</header>
+<main class="wrap">
+<!-- Cover shown on Stop 1 -->
+<section class="hero" id="heroCover">
+<div>
+<div class="eyebrow">7 වන පරිච්ඡේදය · රැහැන් රහිත සහ ජංගම ජාල</div>
+<h1><em>ගුවනින් යන</em> ලිපි සහ <em>නිවාස මාරු කරන</em> මිනිසුන්</h1>
+<p>රැහැන් රහිත (Wireless) ජාල යනු වීදිය හරහා කෑගසමින් පණිවිඩ බෙදන තැපැල්කරුවෙකු වැනිය. සංචලතාවය (Mobility) යනු ඔබ ලිපි යවන අනුර දිගින් දිගටම නිවාස මාරු කරන විට සිදුවන දෙයයි. තැපැල්කරු වළගම්බා සමඟ සෑම නැවතුමක්ම පසු කරමින් පරීක්ෂණාගාර අත්හදා බලන්න.</p>
+<div class="legend">
+<span><b>Packet</b> = ලිපිය</span>
+<span><b>Base station</b> = ප්‍රාදේශීය තැපැල් කාර්යාලය</span>
+<span><b>Home network</b> = ස්ථිර නිවසේ ලිපිනය</span>
+<span><b>Tunnel</b> = කවරයක් තුළ කවරයක්</span>
+</div>
+</div>
+<div aria-hidden="true" class="hero-art">
+<svg viewbox="0 0 360 220">
+<rect fill="var(--soft-blue)" height="220" rx="10" width="360" x="0" y="0"></rect>
+<rect fill="var(--muted)" height="110" width="12" x="94" y="54"></rect>
+<circle cx="100" cy="54" fill="var(--red)" r="9"></circle>
+<circle cx="100" cy="54" fill="none" r="26" stroke="var(--blue)" stroke-dasharray="4 4" stroke-width="2.5"></circle>
+<circle cx="100" cy="54" fill="none" r="46" stroke="var(--blue)" stroke-dasharray="4 4" stroke-width="2"></circle>
+<rect fill="var(--card)" height="36" rx="6" stroke="var(--ink)" stroke-width="2" width="116" x="42" y="155"></rect>
+<text fill="var(--ink)" font-size="11" font-weight="700" text-anchor="middle" x="100" y="178">තැපැල් කාර්යාලය</text>
+<rect fill="var(--card)" height="48" rx="6" stroke="var(--ink)" stroke-width="2.5" width="76" x="230" y="65"></rect>
+<path d="M230 69 l38 26 l38 -26" fill="none" stroke="var(--ink)" stroke-width="2.5"></path>
+<rect fill="var(--red)" height="16" width="14" x="284" y="73"></rect>
+<path d="M130 60 C175 35 200 55 225 82" fill="none" stroke="var(--yellow)" stroke-dasharray="5 6" stroke-width="3"></path>
+<rect fill="var(--card)" height="52" stroke="var(--ink)" stroke-width="2" width="66" x="242" y="138"></rect>
+<path d="M236 140 l39 -26 l39 26z" fill="var(--red)"></path>
+<text fill="#fff" font-size="10" font-weight="700" text-anchor="middle" x="275" y="134">නිවස</text>
+</svg>
+</div>
+</section>
+<!-- STOP 1 -->
+<section class="letter" data-stamp="1" data-title="හැඳින්වීම" id="s-intro">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>01</span></div></div>
+<div><h2>රැහැන් රහිත (Wireless) සහ ජංගම (Mobile) ජාල ඇයි?</h2><p class="sub">එකම පරිච්ඡේද මාතෘකාවක් තුළ සැඟවී ඇති වෙනස් ගැටලු දෙකක්.</p></div>
+</div>
+<div class="prose">
+<p>ලොව සෑම <b>ස්ථාවර දුරකථන මාර්ග 1 කටම ජංගම දුරකථන ග්‍රාහකයින් 10 ක්</b> පමණ සිටින අතර, <b>සෑම ස්ථාවර බ්‍රෝඩ්බෑන්ඩ් උපාංග 1 කටම ජංගම බ්‍රෝඩ්බෑන්ඩ් උපාංග 5 ක්</b> පමණ ඇත. 4G සහ 5G ජාල දැන් ඔබ දැනටමත් හඳුනන අන්තර්ජාල ප්‍රොටෝකෝල කට්ටලයම (SDN ඇතුළුව) ක්‍රියාත්මක කරයි.</p>
+</div>
+<div class="ask" data-ans="1" data-why="Wi-Fi වලට සම්බන්ධ කර ඇති රනිල්ගේ ස්මාර්ට් රූපවාහිනිය රැහැන් රහිත (wireless) වුවද කිසිවිටෙක තැනින් තැනට ගමන් නොකරයි (not mobile).">
+<div class="ask-q">රැහැන් රහිත (Wireless) සෑම උපාංගයක්ම ජංගම (Mobile) උපාංගයක් වේද?</div>
+<div class="ask-opts">
+<button class="ask-opt">ඔව්, රැහැන් නැති නිසා ඒ දෙකම එකම අදහස ලබා දෙයි</button>
+<button class="ask-opt">නැත, උපාංගයක් එක තැනක තිබියදීම රැහැන් රහිතව සම්බන්ධ විය හැක</button>
+</div>
+<div class="ask-verdict" hidden=""></div>
+</div>
+<div class="keys">
+<div class="key"><span class="tag">අභියෝගය 1</span><b>රැහැන් රහිත සන්නිවේදනය (Wireless)</b><p>වාතය හරහා ලිපි යැවීම. එහිදී සංඥා දුර්වල වේ (fade), බාධකවල වැදී පරාවර්තනය වේ (multipath) සහ බාහිර ඝෝෂාවෙන් (noise) යටපත් වේ.</p></div>
+<div class="key"><span class="tag">අභියෝගය 2</span><b>සංචලතාවය (Mobility)</b><p>දිගින් දිගටම නිවාස මාරු කරන අනුර වැනි, ජාලයට සම්බන්ධ වන ස්ථානය නිතර වෙනස් කරන පරිශීලකයෙකු වෙත ලිපි බෙදා හැරීම.</p></div>
+</div>
+<div class="analogy"><span class="ico">තැපැල්</span><p>රැහැන් රහිත (Wireless) යන්නෙන් සැමවිටම ජංගම (Mobile) බව අදහස් නොවේ. Wi-Fi වලට සම්බන්ධ කර ඇති රනිල්ගේ ස්මාර්ට් රූපවාහිනිය කිසිවිටෙක තැනින් තැනට ගමන් නොකරයි.</p></div>
+</div>
+</section>
+<!-- STOP 2 -->
+<section class="letter" data-stamp="2" data-title="ජාලයේ අංග" hidden="" id="s-elements">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>02</span></div></div>
+<div><h2>මාර්ගයේ සිටින්නේ කවුරුන්ද?</h2><p class="sub">ධාරක (Hosts), මූලික මධ්‍යස්ථාන (Base stations) සහ රැහැන් රහිත සබැඳි (Wireless links).</p></div>
+</div>
+<div class="keys">
+<div class="key"><span class="tag">නිවැසියා</span><b>රැහැන් රහිත ධාරකය (Wireless host)</b><p>යෙදුම් ක්‍රියාත්මක කරන අනුරගේ ලැප්ටොප් පරිගණකය හෝ දුරකථනය. එය නිශ්චල හෝ ජංගම විය හැකිය.</p></div>
+<div class="key"><span class="tag">ප්‍රාදේශීය තැපැල් කාර්යාලය</span><b>මූලික මධ්‍යස්ථානය (Base station)</b><p>රැහැන් මඟින් ප්‍රධාන ජාලයට සම්බන්ධ වී ඇත. රැහැන්ගත ලෝකය සහ තම ප්‍රදේශයේ සිටින ධාරක අතර ලිපි හුවමාරු කරයි (Cell towers, 802.11 AP).</p></div>
+<div class="key"><span class="tag">තැපැල්කරුගේ ගමන</span><b>රැහැන් රහිත සබැඳිය (Wireless link)</b><p>ජංගම උපාංග මූලික මධ්‍යස්ථානයට සම්බන්ධ කරයි. බහු ප්‍රවේශ ප්‍රොටෝකෝලයක් (multiple access protocol) මඟින් ගුවන් තරංග බෙදා ගනී.</p></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 1</span><h3>තැපැල් කාර්යාලයක් හරහාද නැතිනම් අතින් අතටද?</h3></div>
+<div class="btns" role="group">
+<button class="btn on" data-mode="infra">යටිතල පහසුකම් ප්‍රකාරය (Infrastructure mode)</button>
+<button class="btn" data-mode="adhoc">තාවකාලික ප්‍රකාරය (Ad hoc mode)</button>
+</div>
+<div class="svgbox"><svg id="modeSvg" viewbox="0 0 600 220"></svg></div>
+<div class="readout" id="modeText"></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 2</span><h3>2 × 2 වර්ගීකරණ වගුව</h3></div>
+<p class="muted">කොටුවක් මත ක්ලික් කරන්න: තැපැල් කාර්යාලයක් (base station) තිබේද? ලිපිය ගමන් කරන්නේ එක් පියවරකින්ද නැතහොත් පියවර කිහිපයකින්ද?</p>
+<div class="tax" id="tax">
+<div></div><div class="hd">තනි පියවර (Single hop)</div><div class="hd">බහු පියවර (Multiple hops)</div>
+<div class="rh">යටිතල පහසුකම් සහිත</div>
+<button class="on" data-t="0"><b>Wi-Fi, සෙලියුලර් (Cellular)</b><span class="muted">ධාරකය මූලික මධ්‍යස්ථානයට කතා කරන අතර එය අන්තර්ජාලයට සම්බන්ධ වේ.</span></button>
+<button data-t="1"><b>දැල් ජාල (Mesh net)</b><span class="muted">අන්තර්ජාලයට ළඟා වීම සඳහා රැහැන් රහිත නෝඩ් කිහිපයක් හරහා පණිවිඩ හුවමාරු වේ.</span></button>
+<div class="rh">යටිතල පහසුකම් රහිත</div>
+<button data-t="2"><b>Bluetooth, Ad hoc</b><span class="muted">මූලික මධ්‍යස්ථානයක් නැත, විශාල අන්තර්ජාලයට සම්බන්ධතාවයක් නැත.</span></button>
+<button data-t="3"><b>MANET, VANET</b><span class="muted">මූලික මධ්‍යස්ථානයක් නැත, අනෙකුත් උපාංග හරහා පණිවිඩ යවයි.</span></button>
+</div>
+<div class="readout" id="taxText">තැපැල් කාර්යාලයක් ඇති නගරයක් වැනිය: ඔබ ලිපිය කවුළුවට භාර දෙන අතර එය එක් පියවරකින් බාහිර ලෝකයට යයි.</div>
+</div>
+<div>
+<h3 style="margin-bottom:10px">එක් එක් තැපැල් වර්ගයට කොපමණ දුරක් යා හැකිද?</h3>
+<div class="ladder">
+<div class="rung"><span class="d">10–30 m</span><b>ගෘහස්ථ (Indoor)</b><span class="muted">Bluetooth (~2 Mbps), 802.11 Wi-Fi (11 Mbps සිට 14 Gbps දක්වා)</span></div>
+<div class="rung"><span class="d">50–200 m</span><b>එළිමහන් (Outdoor)</b><span class="muted">එළිමහන් Wi-Fi, කුඩා සෙලියුලර් කලාප</span></div>
+<div class="rung"><span class="d">200 m–4 km</span><b>මධ්‍යම පරාස එළිමහන්</b><span class="muted">4G LTE, 5G (~10 Gbps දක්වා)</span></div>
+<div class="rung"><span class="d">4–15 km</span><b>දිගු පරාස එළිමහන්</b><span class="muted">802.11af/ah, විශාල සෙලියුලර් කුළුණු</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- STOP 3 -->
+<section class="letter" data-stamp="3" data-title="සබැඳි ගැටලු" hidden="" id="s-links">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>03</span></div></div>
+<div><h2>රැහැනකට වඩා ගුවන් තැපෑල දුෂ්කර ඇයි?</h2><p class="sub">සංඥා හීන වීම (Fading), බහු-මාර්ග පරාවර්තනය (Multipath), ඝෝෂාව (Noise) සහ සැඟවුණු පර්යන්ත (Hidden terminals).</p></div>
+</div>
+<div class="keys">
+<div class="key"><span class="tag">සංඥා දුර්වල වීම</span><b>මාර්ග හානිය (Path loss)</b><p>සංඥාවක් වාතය හරහා ගමන් කරන විට එහි ශක්තිය අඩු වේ.</p></div>
+<div class="key"><span class="tag">දෝංකාරය</span><b>බහු-මාර්ග ප්‍රචාරණය (Multipath)</b><p>සංඥා පොළොවේ සහ ගොඩනැගිලිවල වැදී පරාවර්තනය වන බැවින් එකම සංඥාවේ පිටපත් වෙනස් වේලාවන්හිදී ලැබේ.</p></div>
+<div class="key"><span class="tag">ඝෝෂාව</span><b>බාධා කිරීම් (Interference)</b><p>ඉහළ <b>SNR</b> (Signal-to-Noise Ratio) අගයක් තිබීමෙන් අඩු බිටු දෝෂ (BER) සහිතව ලිපිය පහසුවෙන් කියවිය හැක.</p></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 1</span><h3>සංඥා පරීක්ෂණාගාරය: තැපැල් කාර්යාලයෙන් ඈතට ඇවිද යන්න</h3></div>
+<div class="two">
+<div style="display:grid;gap:12px">
+<label for="dist"><b>මූලික මධ්‍යස්ථානයේ සිට දුර: <span class="mono" id="distVal">10 m</span></b></label>
+<input id="dist" max="60" min="1" type="range" value="10"/>
+<label class="chk"><input id="noise" type="checkbox"/> මයික්‍රොවේව් උදුන ක්‍රියාත්මක කරන්න (අමතර ඝෝෂාව)</label>
+<div class="meter"><span>SNR අගය</span><div class="bar"><i id="snrBar"></i></div><span class="mono" id="snrVal"></span></div>
+<div class="meter"><span>බිටු දෝෂ (BER)</span><div class="bar"><i id="berBar" style="background:var(--red)"></i></div><span class="mono" id="berVal"></span></div>
+</div>
+<div style="display:grid;gap:10px;align-content:start">
+<p class="muted" style="font-size:.9rem">වේග අනුවර්තනය (Rate adaptation) මඟින් දෝෂ රහිතව කියවිය හැකි වේගවත්ම මූර්ඡන (modulation) ක්‍රමය තෝරා ගනී:</p>
+<div class="mods">
+<div class="mod" id="m256"><b>QAM256</b><span class="mono">8 Mbps</span><br/><small class="muted">~28 dB</small></div>
+<div class="mod" id="m16"><b>QAM16</b><span class="mono">4 Mbps</span><br/><small class="muted">~18 dB</small></div>
+<div class="mod" id="mbp"><b>BPSK</b><span class="mono">1 Mbps</span><br/><small class="muted">~8 dB</small></div>
+</div>
+</div>
+</div>
+<div class="readout" id="sigText"></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 2</span><h3>සැඟවුණු පර්යන්ත ගැටලුව (The Hidden Terminal Problem)</h3></div>
+<p class="muted">අනුර (A) සහ දනුජ (C) යන දෙදෙනාම රනිල්ට (B) ලිපි යවති. දෙදෙනාටම රනිල් වෙත ළඟා විය හැකි නමුත්, බාධකයක් නිසා අනුරට සහ දනුජට එකිනෙකාව ඇසෙන්නේ නැත.</p>
+<div class="btns">
+<button class="btn" data-ht="a">අනුර (A) යවයි</button>
+<button class="btn" data-ht="c">දනුජ (C) යවයි</button>
+<button class="btn primary" data-ht="both">දෙදෙනාම එකවර යවයි</button>
+<label class="chk"><input id="rts" type="checkbox"/> RTS / CTS භාවිතා කරන්න</label>
+</div>
+<div class="svgbox"><svg id="htSvg" viewbox="0 0 600 200"></svg></div>
+<div class="readout" id="htText">ලිපියක් යැවීමට බොත්තමක් ඔබන්න.</div>
+</div>
+</div>
+</section>
+<!-- STOP 4 -->
+<section class="letter" data-stamp="4" data-title="CDMA කේත" hidden="" id="s-cdma">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>04</span></div></div>
+<div><h2>CDMA: සියලු දෙනාම එකවර කතා කරයි, නමුත් තමන්ගේම රහස් කේතයකින්</h2><p class="sub">Code Division Multiple Access (කේත බෙදීමේ බහු ප්‍රවේශය).</p></div>
+</div>
+<div class="prose">
+<p>සියලුම පරිශීලකයින් එකම වේලාවේ එකම සංඛ්‍යාතය බෙදා ගනී. සෑම කෙනෙකුටම අනන්‍ය <b>කේත අනුක්‍රමයක් (chipping sequence)</b> හිමිවේ. මෙම කේත එකිනෙකට <b>ලම්බක (orthogonal)</b> වන විට, මිශ්‍ර වූ සංඥා අතරින් තමාට අවශ්‍ය යවන්නාගේ බිටු පමණක් වෙන් කර ගැනීමට ලබන්නාට හැකිය.</p>
+<p class="mono" style="font-size:.9rem">ආකේතනය (encode): Z<sub>i,m</sub> = d<sub>i</sub> · c<sub>m</sub>    විකේතනය (decode): d<sub>i</sub> = (1/M) Σ Z<sub>i,m</sub> · c<sub>m</sub></p>
+</div>
+<div class="ask" data-ans="0" data-why="ලම්බක (orthogonal) කේත දෙකක් එකිනෙක ගුණ කර එකතු කළ විට අගය 0 වන බැවින් අනෙක් යවන්නාගේ සංඥාව සම්පූර්ණයෙන්ම කැපී යයි.">
+<div class="ask-q">අනුර සහ සමන්තභද්‍ර එකම මොහොතේ දත්ත යවන විට, ලබන්නා අනුරගේ දත්ත පමණක් වෙන් කර ගන්නේ කෙසේද?</div>
+<div class="ask-opts">
+<button class="ask-opt">මිශ්‍ර වූ සංඥාව අනුරගේ කේතයෙන් ගුණ කර සාමාන්‍යය ගැනීමෙන්</button>
+<button class="ask-opt">සමන්තභද්‍ර දත්ත යවා අවසන් වන තුරු බලා සිටීමෙන්</button>
+</div>
+<div class="ask-verdict" hidden=""></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය</span><h3>CDMA විකේතකය (Decoder)</h3></div>
+<div class="cdma-ctl">
+<div><b>1 වන යවන්නාගේ (අනුර) බිටු</b><div class="btns" id="s1bits"></div></div>
+<div><b>2 වන යවන්නාගේ (සමන්තභද්‍ර) බිටු</b><div class="btns" id="s2bits"></div></div>
+<label class="chk"><input checked="" id="s2on" type="checkbox"/> 2 වන යවන්නාද දත්ත යවයි</label>
+<div><b>ලබන්නා භාවිතා කරන්නේ</b><div class="btns"><button class="btn on" data-rx="1">කේතය 1</button><button class="btn" data-rx="2">කේතය 2</button></div></div>
+</div>
+<div class="tbl"><table id="cdmaTbl"></table></div>
+<div class="readout good" id="cdmaText"></div>
+</div>
+</div>
+</section>
+<!-- STOP 5 -->
+<section class="letter" data-stamp="5" data-title="Wi-Fi 802.11" hidden="" id="s-wifi">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>05</span></div></div>
+<div><h2>Wi-Fi: 802.11 තැපැල් කාර්යාලය</h2><p class="sub">ව්‍යුහය, සම්බන්ධ වීම, CSMA/CA, ලිපින හතර සහ බලශක්ති ඉතිරිය.</p></div>
+</div>
+<div class="keys">
+<div class="key"><span class="tag">ශාඛාව</span><b>BSS ("සෛලයක් / cell")</b><p>මූලික සේවා කට්ටලයකට රැහැන් රහිත ධාරක සහ එක් <b>ප්‍රවේශ ස්ථානයක් (Access Point - AP)</b> ඇතුළත් වේ.</p></div>
+<div class="key"><span class="tag">නිෂ්ක්‍රීය සෙවීම</span><b>Passive scanning</b><p>AP විසින් තම SSID නාමය සහ MAC ලිපිනය සහිත <b>beacon රාමු</b> යවන අතර ධාරකය ඒවාට සවන් දී සම්බන්ධ වේ.</p></div>
+<div class="key"><span class="tag">සක්‍රීය සෙවීම</span><b>Active scanning</b><p>ධාරකය විසින් <b>Probe request</b> පණිවිඩයක් විකාශනය කර AP වෙතින් ලැබෙන පිළිතුර අනුව සම්බන්ධ වේ.</p></div>
+</div>
+<div class="prose">
+<h3>CSMA/CA: ගැටුම් හඳුනාගත නොහැකි නිසා ඒවා වළක්වා ගන්න</h3>
+<p>Wi-Fi තුළ <b>ගැටුම් හඳුනාගැනීමක් (collision detection) නොමැත</b>. එබැවින් එය DIFS කාලයක් බලා සිටීම, අහඹු පසුබැසීම (random backoff) සහ SIFS කාලයකට පසු යවන <b>ACK</b> ලදුපත් මඟින් ගැටුම් වළක්වා ගනී (<b>CSMA/CA</b>).</p>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 1</span><h3>CSMA/CA පියවරෙන් පියවර</h3></div>
+<div class="svgbox"><div class="tl" id="tl"></div></div>
+<div class="stepper"><button class="btn" id="csPrev">ආපසු</button><button class="btn primary" id="csNext">ඊළඟ පියවර</button><div class="dots" id="csDots"></div></div>
+<div class="readout" id="csText"></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 2</span><h3>802.11 රාමුවේ ලිපින හතර (MAC Addresses)</h3></div>
+<p class="muted">රාමුවේ කොටසක් මත ක්ලික් කරන්න. ඉන්පසු අනුරගේ ධාරකය (H1), ප්‍රවේශ ස්ථානය (AP) සහ මහින්දගේ රවුටරය (R1) ලියුම් කවරය පුරවන ආකාරය බලන්න.</p>
+<div class="frame" id="frame"></div>
+<div class="readout" id="frameText">රාමුවේ ඕනෑම කොටසක් මත ක්ලික් කරන්න.</div>
+<div class="btns"><button class="btn on" data-dir="down">R1 → H1 (ඇතුළට එන ලිපි)</button><button class="btn" data-dir="up">H1 → R1 (පිටතට යන ලිපි)</button></div>
+<div class="envs" id="envs"></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 3</span><h3>බලශක්ති කළමනාකරණය: "මගේ ලිපි තබා ගන්න"</h3></div>
+<p class="muted">උපාංගයක් මත ක්ලික් කර එයට AP හි ලිපියක් තබා, ඉන්පසු Beacon සංඥාව යවන්න.</p>
+<div class="devices" id="devices"></div>
+<div class="btns"><button class="btn primary" id="beacon">ප්‍රදීප සංඥාව (Beacon) යවන්න</button></div>
+<div class="readout" id="pmText">සියලු දෙනාම නිදි. Zzz.</div>
+</div>
+</div>
+</section>
+<!-- STOP 6 -->
+<section class="letter" data-stamp="6" data-title="Bluetooth" hidden="" id="s-bt">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>06</span></div></div>
+<div><h2>Bluetooth: කුඩා අසල්වැසි ජාලය (PAN)</h2><p class="sub">මීටර් 10 කට අඩු පුද්ගලික ප්‍රදේශ ජාල (Personal Area Networks).</p></div>
+</div>
+<div class="keys">
+<div class="key"><span class="tag">අරමුණ</span><b>රැහැන් වෙනුවට ආදේශකයක්</b><p>Ad hoc ප්‍රකාරයෙන් ක්‍රියා කරයි, 2.4–2.5 GHz ISM කලාපය, 3 Mbps දක්වා වේගය.</p></div>
+<div class="key"><span class="tag">Piconet</span><b>ප්‍රධානියා සහ සේවාලාභීන් (Master &amp; clients)</b><p>ප්‍රධාන උපාංගය (Master) සේවාලාභීන්ට දත්ත යැවීමට අවසර ලබා දෙයි. බැටරි ඉතිරි කර ගැනීමට සේවාලාභීන්ට <b>park</b> (නිෂ්ක්‍රීය) විය හැක.</p></div>
+<div class="key"><span class="tag">සංඛ්‍යාත පැනීම</span><b>TDM + FDM (Frequency Hopping)</b><p>625 µs කාල කවුළු වලදී <b>නාලිකා 79 ක්</b> අතර පනිමින් දත්ත යවන බැවින් බාහිර බාධා කිරීම් බලපාන්නේ කවුළු කිහිපයකට පමණි.</p></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය</span><h3>සංඛ්‍යාත පැනීම (Frequency hopping) සහ මයික්‍රොවේව් උදුන</h3></div>
+<div aria-label="Bluetooth නාලිකා 79" class="strip" id="strip"></div>
+<div class="mono muted" style="display:flex;justify-content:space-between;font-size:.74rem"><span>නාලිකාව 0 (2.402 GHz)</span><span>නාලිකාව 78 (2.480 GHz)</span></div>
+<div class="btns"><button class="btn primary" id="hopBtn">පැනීම අරඹන්න</button><label class="chk"><input checked="" id="jam" type="checkbox"/> මයික්‍රොවේව් උදුන 30–45 නාලිකා අවහිර කරයි</label></div>
+<div class="readout" id="hopText">පැහැදිලිව පෙනීම සඳහා වේගය අඩු කර ඇත: සැබෑ කවුළුවක් පවතින්නේ 625 µs ක් පමණි.</div>
+</div>
+</div>
+</section>
+<!-- STOP 7 -->
+<section class="letter" data-stamp="7" data-title="4G LTE" hidden="" id="s-cell">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>07</span></div></div>
+<div><h2>4G LTE: ජාතික තැපැල් සේවාව</h2><p class="sub">3GPP මඟින් ප්‍රමිතිගත කරන ලද පුළුල් ප්‍රදේශ ජංගම අන්තර්ජාලය.</p></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 1</span><h3>4G තේරීම් පද්ධතියේ සිතියම</h3></div>
+<div class="btns"><button class="btn on" data-plane="all">සියල්ල</button><button class="btn" data-plane="data">දත්ත තලය (Data plane)</button><button class="btn" data-plane="ctrl">පාලන තලය (Control plane)</button></div>
+<div class="svgbox"><svg id="lteSvg" viewbox="0 0 640 260"></svg></div>
+<div class="info" id="lteInfo">සිතියමේ ඇති ඕනෑම ගොඩනැගිල්ලක් මත ක්ලික් කරන්න.</div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 2</span><h3>OFDM භෞතික සම්පත් කොටස් (PRBs) බෙදා දෙන්න</h3></div>
+<p class="muted">සෑම කොටුවක්ම එක් PRB එකකි (උප-වාහක 12 × සංකේත 7 = මූලික ඒකක 84). දුරකථනයක් තෝරා කොටු මත ක්ලික් කරන්න.</p>
+<div class="btns users" id="users"><button class="btn on" data-u="1">අනුරගේ දුරකථනය</button><button class="btn" data-u="2">රනිල්ගේ දුරකථනය</button><button class="btn" data-u="3">දනුජගේ දුරකථනය</button><button class="btn" id="ofReset">හිස් කරන්න</button></div>
+<div class="grid-wrap"><span class="mono muted" style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.75rem">සංඛ්‍යාතය →</span><div class="ofdma" id="ofdma"></div></div>
+<div class="mono muted" style="text-align:center;font-size:.75rem">කාලය (සංකේත) →</div>
+<div class="readout" id="ofText"></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 3</span><h3>GTP උමං මාර්ගගත කිරීම (Tunneling)</h3></div>
+<p class="muted">දුරකථනයේ IP ඩේටාග්‍රෑමය මූලික මධ්‍යස්ථානයේ සිට S-GW වෙත යැවීමේදී GTP, UDP සහ පිටත IP ශීර්ෂක වලින් ඔතනු ලැබේ.</p>
+<div class="btns"><button class="btn primary" id="wrapBtn">එක් ස්ථරයක් ඔතන්න</button><button class="btn" id="unwrapBtn">දිග හරින්න</button></div>
+<div class="nest" id="nest"></div>
+<div class="readout" id="nestText"></div>
+</div>
+</div>
+</section>
+<!-- STOP 8 -->
+<section class="letter" data-stamp="8" data-title="5G ජාලය" hidden="" id="s-5g">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>08</span></div></div>
+<div><h2>5G: වේගවත් වෑන් රථ, වැඩි ධාරිතාවක්, කුඩා ශාඛා</h2><p class="sub">4G වලට සාපේක්ෂව 5G හි ඉලක්ක සහ ව්‍යුහය.</p></div>
+</div>
+<div class="stats">
+<div class="stat"><b>10×</b>උපරිම බිටු වේගය</div>
+<div class="stat"><b>10×</b>අඩු ප්‍රමාදය (Latency)</div>
+<div class="stat"><b>100×</b>ගමනාගමන ධාරිතාව</div>
+</div>
+<div class="keys">
+<div class="key"><span class="tag">eMBB</span><b>Enhanced Mobile Broadband</b><p>විශාල පාර්සල්, ඉතා වේගයෙන්. වීඩියෝ සහ විශාල භාගත කිරීම්.</p></div>
+<div class="key"><span class="tag">URLLC</span><b>Ultra-Reliable Low Latency</b><p>කිසිසේත්ම ප්‍රමාද නොවිය යුතු අධිවේගී සේවා: කර්මාන්තශාලා, ස්වයංක්‍රීය වාහන, දුරස්ථ වෛද්‍ය සේවා.</p></div>
+<div class="key"><span class="tag">mMTC</span><b>Massive Machine-Type</b><p>සංවේදක (sensors) මිලියන ගණනකින් එන කුඩා දත්ත පැකට්.</p></div>
+</div>
+<div class="ask" data-ans="1" data-why="මිලිමීටර් තරංග (FR2: 24–52 GHz) ඉතා ඉහළ දත්ත වේගයක් ලබා දුන්නද ගමන් කළ හැක්කේ කෙටි දුරක් පමණි. එබැවින් මීටර් 10–100 පරාසයක කුඩා pico-cells රැසක් අවශ්‍ය වේ.">
+<div class="ask-q">5G ජාල සඳහා කුඩා මූලික මධ්‍යස්ථාන (pico-cells) විශාල සංඛ්‍යාවක් ළඟින් ළඟ පිහිටුවීමට සිදුවන්නේ ඇයි?</div>
+<div class="ask-opts">
+<button class="ask-opt">5G ඇන්ටෙනා ඉතා ලාභදායී නිසා</button>
+<button class="ask-opt">ඉහළ සංඛ්‍යාත මිලිමීටර් තරංගවලට ගමන් කළ හැක්කේ කෙටි දුරක් පමණක් වන නිසා</button>
+</div>
+<div class="ask-verdict" hidden=""></div>
+</div>
+<div class="prose">
+<p><b>5G NR (New Radio)</b> සංඛ්‍යාත කලාප දෙකක් භාවිතා කරයි: <b>FR1</b> (450 MHz–6 GHz) සහ <b>FR2</b> (24–52 GHz, මිලිමීටර් තරංග) සහ <b>MIMO</b> බහු-ඇන්ටෙනා තාක්ෂණය යොදා ගනී.</p>
+</div>
+</div>
+</section>
+<!-- STOP 9 -->
+<section class="letter" data-stamp="9" data-title="සංචලතාවය" hidden="" id="s-mob">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>09</span></div></div>
+<div><h2>සංචලතාවය (Mobility): අනුර නිවස මාරු කළ විට</h2><p class="sub">ජාලයෙන් ජාලයට ගමන් කරන උපාංගයක් සොයා ගන්නේ කෙසේද?</p></div>
+</div>
+<div class="analogy"><span class="ico">නිවස</span><p>නිතර නිවාස මාරු කරන අනුරව සොයා ගැනීමට රනිල් අමතන්නේ අනුරගේ ස්ථිර නිවසටයි. <b>මව් ජාලය (Home network)</b> යනු ඔබ සිටින තැන සැමවිටම දන්නා එම ස්ථිර ස්ථානයයි.</p></div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය</span><h3>ලිපිය ඉදිරියට යොමු කිරීම (Registration, Indirect &amp; Direct Routing)</h3></div>
+<p class="muted">අනුරගේ මව් ජාලය 128.119/16 වන අතර, ඔහු සංචාරය කරන ජාලය 79.129/16 වේ. අවස්ථා තුන පිළිවෙලින් ක්‍රියාත්මක කර බලන්න.</p>
+<div class="btns">
+<button class="btn" data-mv="reg">1. ලියාපදිංචි වීම (Registration)</button>
+<button class="btn" data-mv="ind">2. වක්‍ර මංගත කිරීම (Indirect routing)</button>
+<button class="btn" data-mv="dir">3. සෘජු මංගත කිරීම (Direct routing)</button>
+</div>
+<div class="svgbox"><svg id="mobSvg" viewbox="0 0 640 300"></svg></div>
+<div class="readout" id="mobText">ලිපිය යැවීමට අවස්ථාවක් තෝරන්න.</div>
+</div>
+<div class="two">
+<div class="key"><span class="tag">වක්‍ර (Indirect)</span><b>මව් ජාලය හරහා ලිපි යොමු කිරීම</b><p>රනිල්ට (Correspondent) මෙය විනිවිද පෙනේ. අවාසිය: <b>ත්‍රිකෝණාකාර මංගත කිරීම (triangle routing)</b>.</p></div>
+<div class="key"><span class="tag">සෘජු (Direct)</span><b>නව ලිපිනය ඉල්ලා කෙලින්ම යැවීම</b><p>ත්‍රිකෝණාකාර වට ගමනක් නැත. නමුත් රනිල් මුලින්ම මව් ජාලයෙන් අනුරගේ <b>care-of address</b> ලබා ගත යුතුය.</p></div>
+</div>
+</div>
+</section>
+<!-- STOP 10 -->
+<section class="letter" data-stamp="10" data-title="4G Handover" hidden="" id="s-prac">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>10</span></div></div>
+<div><h2>ප්‍රායෝගික සංචලතාවය: 4G Handover සහ TCP</h2><p class="sub">කුළුණු අතර මාරු වීම සහ ඉහළ ස්ථරවලට ඇති බලපෑම.</p></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 1</span><h3>Handover (කුළුණු අතර පැවරීම), පියවරෙන් පියවර</h3></div>
+<div class="svgbox"><svg id="hoSvg" viewbox="0 0 600 260"></svg></div>
+<div class="stepper"><button class="btn" id="hoPrev">ආපසු</button><button class="btn primary" id="hoNext">ඊළඟ පියවර</button><div class="dots" id="hoDots"></div></div>
+<div class="readout" id="hoText"></div>
+</div>
+<div class="lab">
+<div class="lab-title"><span class="pill">පරීක්ෂණාගාරය 2</span><h3>TCP වැරදි වැටහීමකට ලක්වීම</h3></div>
+<div class="cw" id="cw"></div>
+<div class="btns"><button class="btn primary" id="cwNext">ඊළඟ වට ගමන (RTT)</button><button class="btn red" id="cwDrop">ගුවන් විදුලි ඝෝෂාව නිසා ලිපියක් නැති වේ</button><button class="btn" id="cwReset">මුල සිට</button></div>
+<div class="readout" id="cwText">සෑම වට ගමනකදීම තදබද කවුළුව (congestion window) එක් ලිපියකින් වර්ධනය වේ.</div>
+</div>
+</div>
+</section>
+<!-- STOP 11 -->
+<section class="letter" data-stamp="11" data-title="ප්‍රශ්නාවලිය" hidden="" id="s-quiz">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>11</span></div></div>
+<div><h2>තේරීම් කාර්යාල ප්‍රශ්නාවලිය</h2><p class="sub">සෑම ප්‍රශ්නයක්ම නිවැරදි කොටුවට තෝරා දමන්න.</p></div>
+</div>
+<div id="quiz" style="display:grid;gap:12px"></div>
+<div class="readout" id="quizScore"><span class="score">0 / 10</span> ක් නිවැරදිව පිළිතුරු දී ඇත</div>
+</div>
+</section>
+<!-- STOP 12 -->
+<section class="letter" data-stamp="12" data-title="සාරාංශය" hidden="" id="s-sum">
+<div class="airmail"></div>
+<div class="letter-body">
+<div class="letter-head">
+<div class="postmark"><div><small>නැවතුම</small><span>12</span></div></div>
+<div><h2>ගමන් මාර්ගයේ අවසානය</h2><p class="sub">7 වන පරිච්ඡේදය එක් තැපැල් පතකින්.</p></div>
+</div>
+<div class="keys">
+<div class="key"><span class="tag">රැහැන් රහිත ජාල (Wireless)</span><p>සංඥා දුර්වල වේ, පරාවර්තනය වේ සහ ඝෝෂාවට ලක් වේ. සැඟවුණු පර්යන්ත නිසා ගැටුම් හඳුනාගත නොහැකි බැවින් Wi-Fi මඟින් CSMA/CA, ACKs සහ RTS/CTS භාවිතා කර ගැටුම් වළක්වා ගනී. CDMA කේත මඟින්ද, Bluetooth නාලිකා 79 ක් අතර පැනීමෙන්ද, 4G OFDM සම්පත් කොටස් (PRBs) මඟින්ද ගුවන් තරංග බෙදා ගනී. 5G මඟින් mmWave, MIMO සහ pico-cells හඳුන්වා දෙයි.</p></div>
+<div class="key"><span class="tag">සංචලතාවය (Mobility)</span><p>මව් ජාලය ඔබ සිටින තැන පිළිබඳ වාර්තා තබා ගනී. වක්‍ර මංගත කිරීම මව් ජාලය හරහා ලිපි යොමු කරයි (ත්‍රිකෝණාකාර මාර්ගයකි). සෘජු මංගත කිරීම තාවකාලික ලිපිනයක් (care-of address) භාවිතා කරයි. 4G හිදී MME + HSS සැකසුම, GTP උමං සහ handover ක්‍රියාත්මක වේ. රැහැන් රහිත දෝෂ නිසා සිදුවන පැකට් හානි TCP විසින් ජාල තදබදයක් ලෙස වරදවා වටහා ගනී.</p></div>
+</div>
+<div class="readout good" id="finalMsg"></div>
+</div>
+</section>
+<!-- Step-by-step Scene Navigation -->
+<nav aria-label="නැවතුම් යාත්‍රණය" class="scene-nav">
+<button class="btn" id="prevStop">← ආපසු</button>
+<span class="hint" id="navHint"></span>
+<button class="btn red" id="nextStop">ඊළඟ නැවතුම →</button>
+</nav>
+<footer>Kurose &amp; Ross, <i>Computer Networking: A Top-Down Approach</i>, 8 වන සංස්කරණය, 7 වන පරිච්ඡේදය ඇසුරිනි.</footer>
+</main>
+<div class="carrier" id="carrier">
+<div aria-live="polite" class="bubble" id="bubble">
+<div class="who">තැපැල්කරු වළගම්බා</div>
+<div id="bubbleText">ආයුබෝවන්! මම වළගම්බා. ඉඟියක් අවශ්‍ය ඕනෑම විටක මා මත ක්ලික් කරන්න.</div>
+<div class="row"><button id="tipBtn">තවත් ඉඟියක්</button><button id="hideBtn">සඟවන්න</button></div>
+</div>
+<button aria-label="තැපැල්කරු වළගම්බා" class="pip" id="pip">
+<svg aria-hidden="true" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="var(--soft-blue)" r="50"></circle>
+<path d="M18 100 C20 78 34 70 50 70 C66 70 80 78 82 100 Z" fill="#2B5BC8"></path>
+<rect fill="#F2AE12" height="12" rx="2" stroke="#1B2742" stroke-width="1.5" width="18" x="58" y="78"></rect>
+<circle cx="50" cy="48" fill="#F1C6A0" r="20"></circle>
+<path d="M27 36 C28 20 72 20 73 36 Z" fill="#2B5BC8"></path>
+<rect fill="#D63A3F" height="7" rx="3" width="52" x="24" y="33"></rect>
+<circle cx="42" cy="48" fill="#1B2742" r="2.6"></circle><circle cx="58" cy="48" fill="#1B2742" r="2.6"></circle>
+<path d="M43 57 Q50 63 57 57" fill="none" stroke="#1B2742" stroke-linecap="round" stroke-width="2.2"></path>
+</svg>
+</button>
+</div>
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const NS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Tips & Carrier ---------- */
+const tips={
+  "s-intro":["රැහැන් රහිත (Wireless) සහ ජංගම (Mobile) යනු වෙනස් ගැටලු දෙකකි.","ලොව සෑම ස්ථාවර දුරකථනයකටම ජංගම දුරකථන 10 ක් පමණ ඇත!"],
+  "s-elements":["මූලික මධ්‍යස්ථානය (Base station) යනු ප්‍රාදේශීය තැපැල් කාර්යාලයයි.","Handoff යනු ඔබ ඇවිද යන විට සේවය සපයන තැපැල් කාර්යාලය මාරු වීමයි."],
+  "s-links":["දුර ස්ලයිඩරය එහා මෙහා කර SNR සහ මූර්ඡන වේගය වෙනස් වන ආකාරය බලන්න.","සැඟවුණු පර්යන්ත: අනුරට (A) සහ දනුජට (C) එකිනෙකාව ඇසෙන්නේ නැත."],
+  "s-cdma":["2 වන යවන්නා (සමන්තභද්‍ර) ක්‍රියාත්මක සහ අක්‍රිය කර බලන්න. 1 වන කේතය මඟින් තවමත් අනුරගේ බිටු නිවැරදිව ලබා ගනී!"],
+  "s-wifi":["Wi-Fi වලට දත්ත යවන අතරතුර ගැටුම් හඳුනාගත නොහැකි නිසා CSMA/CA භාවිතා කරයි.","Address 1 යනු ගුවන හරහා රාමුව ලබාගන්නාගේ ලිපිනයයි. Address 3 යනු රවුටර අතුරුමුහුණතේ MAC ලිපිනයයි."],
+  "s-bt":["නාලිකා 79 ක් අතර පනිමින් දත්ත යවන නිසා මයික්‍රොවේව් බාධා කිරීම්වලට හසුවන්නේ පැනීම් කිහිපයක් පමණි."],
+  "s-cell":["HSS යනු මව් වාර්තා කාර්යාලයයි. එක් PRB එකක් = උප-වාහක 12 × සංකේත 7 = මූලික ඒකක 84 කි."],
+  "s-5g":["මිලිමීටර් තරංග අතිශය වේගවත් වුවද කෙටි දුරකට සීමා වේ. 5G සඳහා කුඩා pico-cells රැසක් අවශ්‍ය වන්නේ එබැවිනි."],
+  "s-mob":["වක්‍ර මංගත කිරීම (Indirect routing) මව් ජාලය හරහා ලිපි යවයි. සෘජු මංගත කිරීම (Direct routing) කෙලින්ම නව ලිපිනයට යවයි."],
+  "s-prac":["TCP නැතිවූ ලිපියක් දුටු විට මාර්ග තදබදයක් ඇතැයි සිතා තම කවුළුව අඩකින් අඩු කරයි."],
+  "s-quiz":["කලබල නොවී පිළිතුරු දෙන්න. සෑම පිළිතුරකටම පැහැදිලි කිරීමක් ලැබේ."],
+  "s-sum":["ඔබ 7 වන පරිච්ඡේදයේ අවසානයටම පැමිණියා!"]
+};
+let tipIdx=0;
+const bt=$('#bubbleText'), carrier=$('#carrier');
+function say(text){bt.textContent=text;carrier.classList.remove('min')}
+window.pipSay=say;
+
+/* ---------- Interactive Question Hooks ---------- */
+$$('.ask').forEach(ask=>{
+  const ans=+ask.dataset.ans, why=ask.dataset.why, opts=$$('.ask-opt',ask), v=$('.ask-verdict',ask);
+  opts.forEach((btn,i)=>btn.onclick=()=>{
+    opts.forEach((b,j)=>{b.disabled=true;if(j===ans)b.classList.add('right')});
+    if(i!==ans)btn.classList.add('wrong');
+    v.hidden=false;
+    v.innerHTML=(i===ans?'<span style="color:var(--green)">නිවැරදියි!</span> ':'<span style="color:var(--red)">හොඳ උත්සාහයක්!</span> ')+why;
+  });
+});
+
+/* ---------- Scene Controller (Step-by-Step Navigation) ---------- */
+const sections=$$('.letter');
+let curIdx=Math.min(sections.length-1,Math.max(0,+store.get('ch7-scene',0)||0));
+let got=new Set(store.get('ch7-stamps',[]));
+const rBar=$('#routeBar');
+
+sections.forEach((s,i)=>{
+  const n=s.dataset.stamp.padStart(2,'0');
+  const b=document.createElement('button');
+  b.className='stop-btn';
+  b.innerHTML=`<b>${n}</b><span>${s.dataset.title}</span>`;
+  b.onclick=()=>showScene(i,true);
+  rBar.appendChild(b);
+});
+
+function showScene(idx,scroll){
+  curIdx=Math.max(0,Math.min(sections.length-1,idx));
+  store.set('ch7-scene',curIdx);
+  const active=sections[curIdx];
+  got.add(active.id);
+  store.set('ch7-stamps',[...got]);
+
+  $('#heroCover').hidden=(curIdx!==0);
+  sections.forEach((s,i)=>s.hidden=(i!==curIdx));
+
+  $$('.stop-btn',rBar).forEach((b,i)=>{
+    b.classList.toggle('here',i===curIdx);
+    b.classList.toggle('done',got.has(sections[i].id)&&i!==curIdx);
+  });
+
+  $('#progBar').style.width=((curIdx+1)/sections.length*100)+'%';
+  $('#where').innerHTML=`නැවතුම <b>${curIdx+1}</b> / ${sections.length} · <b>${active.dataset.title}</b>`;
+  $('#stampcount').textContent=`මුද්දර ${got.size}/${sections.length}`;
+  $('#finalMsg').textContent=got.size===sections.length?"සියලුම මුද්දර එකතු කර ගත්තා! ඔබ 7 වන පරිච්ඡේදය සම්පූර්ණ කළා!":`ඔබ මුද්දර ${sections.length} න් ${got.size} ක් ලබාගෙන ඇත.`;
+
+  $('#prevStop').disabled=(curIdx===0);
+  $('#nextStop').disabled=(curIdx===sections.length-1);
+  $('#navHint').textContent=curIdx<sections.length-1?`ඊළඟට: ${sections[curIdx+1].dataset.title}`:'මාර්ගයේ අවසානය';
+
+  tipIdx=0;
+  const tList=tips[active.id]||["දිගටම යමු!"];
+  say(tList[0]);
+
+  if(scroll)window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+}
+
+$('#prevStop').onclick=()=>showScene(curIdx-1,true);
+$('#nextStop').onclick=()=>showScene(curIdx+1,true);
+$('#tipBtn').onclick=()=>{const tList=tips[sections[curIdx].id];tipIdx=(tipIdx+1)%tList.length;say(tList[tipIdx])};
+$('#hideBtn').onclick=()=>carrier.classList.add('min');
+$('#pip').onclick=()=>{if(carrier.classList.contains('min'))carrier.classList.remove('min');else $('#tipBtn').click()};
+
+/* ---------- Stop 2: Mode Lab ---------- */
+const ms=$('#modeSvg');
+function house(g,x,y,label,color){
+  el('rect',{x:x-18,y:y-10,width:36,height:28,rx:3,fill:'var(--card)',stroke:'var(--ink)','stroke-width':2},g);
+  el('path',{d:`M${x-23} ${y-8} L${x} ${y-28} L${x+23} ${y-8}Z`,fill:color||'var(--red)'},g);
+  el('text',{x,y:y+34,'text-anchor':'middle','font-size':12,'font-weight':700,fill:'var(--ink)'},g,label);
+}
+function drawMode(m){
+  ms.innerHTML='';const g=el('g',{},ms);
+  const names=['අනුර','රනිල්','දනුජ','සමන්තභද්‍ර','මහින්ද'];
+  const hosts=[[90,90],[190,170],[410,170],[520,90],[300,60]];
+  if(m==='infra'){
+    el('rect',{x:210,y:4,width:180,height:24,rx:6,fill:'var(--soft-blue)'},g);
+    el('text',{x:300,y:20,'text-anchor':'middle','font-size':11,'font-weight':700,fill:'var(--blue)'},g,'රැහැන්ගත අන්තර්ජාලය');
+    el('line',{x1:300,y1:28,x2:300,y2:100,stroke:'var(--ink)','stroke-width':3},g);
+    hosts.slice(0,4).forEach(([x,y])=>el('line',{x1:300,y1:115,x2:x,y2:y,stroke:'var(--blue)','stroke-width':2,'stroke-dasharray':'5 5'},g));
+    el('rect',{x:270,y:100,width:60,height:34,rx:6,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':2},g);
+    el('text',{x:300,y:122,'text-anchor':'middle','font-size':12,'font-weight':800,fill:'#1B2742'},g,'AP');
+    hosts.slice(0,4).forEach(([x,y],i)=>house(g,x,y,names[i]));
+    $('#modeText').innerHTML='<b>යටිතල පහසුකම් ප්‍රකාරය (Infrastructure mode):</b> සෑම ලිපියක්ම ජංගම උපාංග රැහැන්ගත ජාලයට සම්බන්ධ කරන මූලික මධ්‍යස්ථානය (AP) හරහා ගමන් කරයි. වෙනත් මූලික මධ්‍යස්ථානයක ප්‍රදේශයට මාරු වීම <b>handoff</b> ලෙස හැඳින්වේ.';
+  }else{
+    [[0,1],[1,2],[2,3],[0,4],[4,3],[1,4]].forEach(([a,b])=>el('line',{x1:hosts[a][0],y1:hosts[a][1],x2:hosts[b][0],y2:hosts[b][1],stroke:'var(--green)','stroke-width':2,'stroke-dasharray':'5 5'},g));
+    hosts.forEach(([x,y],i)=>house(g,x,y,names[i],'var(--green)'));
+    $('#modeText').innerHTML='<b>තාවකාලික ප්‍රකාරය (Ad hoc mode):</b> මූලික මධ්‍යස්ථානයක් නොමැත. උපාංග තමන් විසින්ම ජාලයක් සංවිධානය කරගෙන අතින් අතට ලිපි යවයි.';
+  }
+}
+$$('[data-mode]').forEach(b=>b.onclick=()=>{$$('[data-mode]').forEach(x=>x.classList.toggle('on',x===b));drawMode(b.dataset.mode)});
+drawMode('infra');
+
+const taxInfo=[
+  "තැපැල් කාර්යාලයක් ඇති නගරයක් වැනිය: ඔබ ලිපිය කවුළුවට භාර දෙන අතර එය එක් පියවරකින් බාහිර ලෝකයට යයි.",
+  "තමන්ගේම තැපැල් කාර්යාලයක් නොමැති ගම්මාන වැනිය: තැපැල් කාර්යාලයක් ඇති නගරයකට ළඟා වන තුරු ඔබේ ලිපිය නිවසින් නිවසට අතින් අතට යවනු ලැබේ.",
+  "ඔබ අසලම වාඩි වී සිටින මිතුරාට කෙටි සටහනක් දෙනවා වැනිය. තැපැල් කාර්යාලයක් නැත, බාහිර ලෝකයට සම්බන්ධයක් නැත.",
+  "කිසිදු තැපැල් කාර්යාලයක් නොමැතිව අසල්වැසියන් දාමයක් ලෙස සටහන් අතින් අතට යැවීම වැනිය (MANET, VANET)."
+];
+$$('#tax button').forEach(b=>b.onclick=()=>{$$('#tax button').forEach(x=>x.classList.toggle('on',x===b));$('#taxText').textContent=taxInfo[b.dataset.t]});
+
+/* ---------- Stop 3: Signal & Hidden Terminal Labs ---------- */
+function sig(){
+  const d=+$('#dist').value,n=$('#noise').checked;$('#distVal').textContent=d+' m';
+  const snr=Math.max(0,Math.round(42-d*.6-(n?8:0)));
+  $('#snrBar').style.width=Math.min(100,snr/42*100)+'%';$('#snrVal').textContent=snr+' dB';
+  let pick=snr>=28?'m256':snr>=18?'m16':snr>=8?'mbp':null;
+  const th={m256:28,m16:18,mbp:8};
+  ['m256','m16','mbp'].forEach(id=>{const e=$('#'+id);e.classList.toggle('on',id===pick);e.classList.toggle('off',snr<th[id])});
+  const margin=pick?snr-th[pick]:-1;
+  const ber=pick?Math.max(4,40-margin*4):100;
+  $('#berBar').style.width=ber+'%';$('#berVal').textContent=pick?(margin>6?'අඩුයි':'මධ්‍යමයි'):'ඉතා වැඩියි';
+  const t=$('#sigText');
+  if(!pick){t.className='readout bad';t.innerHTML='<b>සංඥා සීමාවෙන් පිටත!</b> වඩාත්ම මන්දගාමී මූර්ඡන ක්‍රමයේ පවා බිටු දෝෂ ඉතා වැඩිය.'}
+  else{t.className='readout good';t.innerHTML=`මීටර් ${d} ක් දුරින් SNR අගය <b>${snr} dB</b> පමණ වන බැවින් මූලික මධ්‍යස්ථානය <b>${pick==='m256'?'8 Mbps (QAM256)':pick==='m16'?'4 Mbps (QAM16)':'1 Mbps (BPSK)'}</b> භාවිතා කරයි.`}
+}
+$('#dist').oninput=sig;$('#noise').onchange=sig;sig();
+
+const hs=$('#htSvg');
+function drawHT(state){
+  hs.innerHTML='';const g=el('g',{},hs);
+  const P={A:[90,110],B:[300,110],C:[510,110]};
+  const names={A:'අනුර (A)',B:'රනිල් (B)',C:'දනුජ (C)'};
+  el('circle',{cx:90,cy:110,r:230,fill:'var(--blue)',opacity:state.a?.15:.05},g);
+  el('circle',{cx:510,cy:110,r:230,fill:'var(--red)',opacity:state.c?.15:.05},g);
+  el('rect',{x:282,y:20,width:36,height:42,rx:4,fill:'var(--muted)',opacity:.35},g);
+  el('text',{x:300,y:14,'text-anchor':'middle','font-size':11,fill:'var(--muted)'},g,'බාධකය / දුර');
+  if(state.cts){
+    [['A',P.A],['C',P.C]].forEach(([k,p])=>el('line',{x1:300,y1:110,x2:p[0]+(k==='A'?24:-24),y2:110,stroke:'var(--green)','stroke-width':3,'stroke-dasharray':'6 4'},g));
+    el('text',{x:300,y:162,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'var(--green)'},g,'අනුරට CTS (දෙදෙනාටම ඇසේ)');
+  }
+  if(state.a)el('line',{x1:114,y1:104,x2:276,y2:104,stroke:'var(--blue)','stroke-width':4},g);
+  if(state.c)el('line',{x1:486,y1:116,x2:324,y2:116,stroke:'var(--red)','stroke-width':4},g);
+  Object.entries(P).forEach(([k,[x,y]])=>{
+    el('circle',{cx:x,cy:y,r:24,fill:k==='B'?(state.boom?'var(--red)':'var(--yellow)'):'var(--card)',stroke:'var(--ink)','stroke-width':2.5},g);
+    el('text',{x,y:y+6,'text-anchor':'middle','font-size':16,'font-weight':700,fill:k==='B'&&state.boom?'#fff':'var(--ink)'},g,k);
+    el('text',{x,y:y-32,'text-anchor':'middle','font-size':11,'font-weight':700,fill:'var(--ink)'},g,names[k]);
+  });
+  if(state.boom)el('text',{x:300,y:162,'text-anchor':'middle','font-size':14,'font-weight':700,fill:'var(--red)'},g,'රනිල් (B) අසලදී ගැටුමක්!');
+}
+drawHT({});
+$$('[data-ht]').forEach(b=>b.onclick=()=>{
+  const k=b.dataset.ht,r=$('#rts').checked,t=$('#htText');
+  if(k==='a'){drawHT({a:1});t.className='readout good';t.innerHTML='අනුරගේ (A) ලිපිය රනිල් (B) වෙත ලැබේ. දනුජට (C) කිසිවක් ඇසුණේ නැත.'}
+  else if(k==='c'){drawHT({c:1});t.className='readout good';t.innerHTML='දනුජගේ (C) ලිපිය රනිල් (B) වෙත ලැබේ. අනුරට (A) කිසිවක් ඇසුණේ නැත.'}
+  else if(!r){drawHT({a:1,c:1,boom:1});t.className='readout bad';t.innerHTML='<b>අනුරට සහ දනුජට එකිනෙකාව නොඇසෙන නිසා</b> ඔවුන්ගේ සංඥා රනිල් (B) අසලදී එකිනෙක ගැටේ. RTS/CTS ලකුණු කර නැවත උත්සාහ කරන්න.'}
+  else{drawHT({a:1,cts:1});t.className='readout good';t.innerHTML='අනුර කෙටි <b>RTS</b> ඉල්ලීමක් යවයි. රනිල් <b>CTS</b> විකාශනය කරන බැවින් දනුජ නිහඬව සිටියි.'}
+});
+
+/* ---------- Stop 4: CDMA ---------- */
+const c1=[1,1,1,-1,1,-1,-1,-1], c2=[1,-1,1,1,1,-1,1,1];
+let d1=[1,-1], d2=[1,1], rx=1;
+function bitBtns(id,arr){
+  const w=$(id);w.innerHTML='';
+  arr.forEach((v,i)=>{
+    const b=document.createElement('button');b.className='btn'+(v>0?' on':'');
+    b.textContent=`කවුළුව ${i}: ${v>0?'+1':'-1'}`;
+    b.onclick=()=>{arr[i]=-arr[i];bitBtns(id,arr);cdma()};
+    w.appendChild(b);
+  });
+}
+function cdma(){
+  const on=$('#s2on').checked, code=rx===1?c1:c2;
+  const cell=v=>`<td class="${v>0?'pos':v<0?'neg':''}">${v>0?'+'+v:v}</td>`;
+  let h='<tr><th></th><th colspan="8">කවුළුව 0</th><th colspan="8">කවුළුව 1</th><th>විකේතනය</th></tr>';
+  const row=(lbl,f,cls)=>`<tr class="${cls||''}"><td class="lbl">${lbl}</td>${[0,1].map(s=>c1.map((_,m)=>cell(f(s,m))).join('')).join('')}<td></td></tr>`;
+  h+=row('කේතය 1',(s,m)=>c1[m]);
+  h+=row('අනුරගේ (1) ප්‍රතිදානය',(s,m)=>d1[s]*c1[m]);
+  h+=row('කේතය 2',(s,m)=>c2[m]);
+  h+=row('සමන්තභද්‍රගේ (2) ප්‍රතිදානය',(s,m)=>on?d2[s]*c2[m]:0);
+  h+=row('නාලිකාවේ එකතුව',(s,m)=>d1[s]*c1[m]+(on?d2[s]*c2[m]:0),'sum');
+  const dec=[0,1].map(s=>code.reduce((a,c,m)=>a+(d1[s]*c1[m]+(on?d2[s]*c2[m]:0))*c,0)/8);
+  h+=`<tr class="dec"><td class="lbl">Σ(එකතුව × කේතය ${rx}) / 8</td>${dec.map(v=>`<td colspan="8">${v>0?'+'+v:v}</td>`).join('')}<td>${dec.map(v=>v>0?'+1':v<0?'-1':'0').join(', ')}</td></tr>`;
+  $('#cdmaTbl').innerHTML=h;
+  const want=rx===1?d1:(on?d2:[0,0]);
+  $('#cdmaText').innerHTML=rx===2&&!on?'2 වන යවන්නා නිහඬව සිටින බැවින් අගය <b>0</b> කි.':`<b>කේතය ${rx}</b> මඟින් <b>${want.map(v=>v>0?'+1':'-1').join(', ')}</b> ලෙස ${rx===1?'අනුර':'සමන්තභද්‍ර'} එවූ බිටු නිවැරදිවම වෙන් කර ගනී.`;
+}
+bitBtns('#s1bits',d1);bitBtns('#s2bits',d2);
+$('#s2on').onchange=cdma;
+$$('[data-rx]').forEach(b=>b.onclick=()=>{rx=+b.dataset.rx;$$('[data-rx]').forEach(x=>x.classList.toggle('on',x===b));cdma()});
+cdma();
+
+/* ---------- Stop 5: Wi-Fi CSMA/CA, Frame & Power ---------- */
+const blocks=[
+ {r:'o',c:1,s:3,t:'කාර්යබහුලයි',cls:'busy',k:0},
+ {r:'s',c:1,s:3,t:'බලා සිටී',cls:'wait',k:0},
+ {r:'s',c:4,s:1,t:'DIFS',cls:'gap',k:1},
+ {r:'s',c:5,s:1,t:'3',cls:'wait',k:2},{r:'s',c:6,s:1,t:'2',cls:'wait',k:2},{r:'s',c:7,s:1,t:'1',cls:'wait',k:2},
+ {r:'s',c:8,s:4,t:'DATA (දත්ත)',cls:'data',k:3},
+ {r:'r',c:8,s:4,t:'ලබා ගනී',cls:'gap',k:3},
+ {r:'r',c:12,s:1,t:'SIFS',cls:'gap',k:4},
+ {r:'r',c:13,s:2,t:'ACK',cls:'ack',k:4},
+ {r:'o',c:4,s:11,t:'අනෙක් අය බලා සිටී (NAV)',cls:'wait',k:5}
+];
+const csSteps=[
+ "වෙනත් උපාංගයක් නාලිකාව භාවිතා කරමින් සිටියි. අනුර (යවන්නා) බලා සිටිය යුතුය.",
+ "නාලිකාව නිදහස් වේ. යවන්නා එක් <b>DIFS</b> කාලයක් බලා සිටියි.",
+ "නාලිකාව කලින් කාර්යබහුලව තිබූ නිසා <b>අහඹු පසුබැසීමේ අගයක් (random backoff = 3)</b> තෝරා ගණන් කරයි.",
+ "ගණකය බිංදුවට පැමිණේ: <b>සම්පූර්ණ රාමුවම</b> සම්ප්‍රේෂණය කරයි.",
+ "රාමුව නිවැරදිව ලැබුණු බැවින් ලබන්නා කෙටි <b>SIFS</b> කාලයකට පසු <b>ACK</b> ලදුපතක් ආපසු යවයි.",
+ "සම්පූර්ණයි! ACK නොලැබුණේ නම් පසුබැසීමේ පරාසය දෙගුණ කර නැවත උත්සාහ කරයි."
+];
+const tl=$('#tl');let cs=0;
+function buildTL(){
+  tl.innerHTML='';const rows={s:2,r:3,o:1};
+  [['o','වෙනත් උපාංගයක්'],['s','යවන්නා (අනුර)'],['r','ලබන්නා (AP)']].forEach(([k,n])=>{const w=document.createElement('div');w.className='who';w.textContent=n;w.style.gridRow=rows[k];w.style.gridColumn=1;tl.appendChild(w)});
+  blocks.forEach(b=>{const d=document.createElement('div');d.className='blk '+b.cls;d.textContent=b.t;d.style.gridRow=rows[b.r];d.style.gridColumn=`${b.c+1} / span ${b.s}`;d.dataset.k=b.k;tl.appendChild(d)});
+}
+const csd=$('#csDots');csSteps.forEach(()=>csd.appendChild(document.createElement('i')));
+function showCS(){
+  $$('#tl .blk').forEach(d=>d.classList.toggle('show',+d.dataset.k<=cs));
+  $('#csText').innerHTML=`<b>පියවර ${cs+1}.</b> ${csSteps[cs]}`;
+  [...csd.children].forEach((d,i)=>d.classList.toggle('on',i<=cs));
+  $('#csPrev').disabled=(cs===0);$('#csNext').textContent=(cs===csSteps.length-1?'මුල සිට':'ඊළඟ පියවර');
+}
+$('#csNext').onclick=()=>{cs=(cs===csSteps.length-1?0:cs+1);showCS()};
+$('#csPrev').onclick=()=>{cs=Math.max(0,cs-1);showCS()};
+buildTL();showCS();
+
+const fields=[
+ ['Frame control',2,'රාමු වර්ගය (data, RTS, CTS, ACK, beacon...)'],
+ ['Duration',2,'නාලිකාව වෙන් කර ඇති කාලසීමාව (NAV).'],
+ ['Address 1',6,'ගුවන හරහා රාමුව <b>ලබාගන්නා</b> උපාංගයේ හෝ AP හි MAC ලිපිනය.',1],
+ ['Address 2',6,'ගුවන හරහා රාමුව <b>යවන</b> උපාංගයේ හෝ AP හි MAC ලිපිනය.',1],
+ ['Address 3',6,'AP සම්බන්ධ වී ඇති <b>රවුටර අතුරුමුහුණතේ (R1)</b> MAC ලිපිනය.',1],
+ ['Seq control',2,'අනුක්‍රමික අංකය (අනුපිටපත් හඳුනා ගැනීමට).'],
+ ['Address 4',6,'Ad hoc ප්‍රකාරයේදී පමණක් භාවිතා වේ.',1],
+ ['Payload','0–2312','ලිපියේ දත්ත කොටස.'],
+ ['CRC',4,'බිටු දෝෂ පරීක්ෂාව (Cyclic Redundancy Check).']
+];
+const fr=$('#frame');
+fields.forEach(f=>{
+  const b=document.createElement('button');b.className=f[3]?'addr':'';
+  b.innerHTML=`<b>${f[0]}</b><small class="mono muted">${f[1]} B</small>`;
+  b.onclick=()=>{$$('#frame button').forEach(x=>x.classList.toggle('on',x===b));$('#frameText').innerHTML=`<b>${f[0]}</b>: ${f[2]}`};
+  fr.appendChild(b);
+});
+const envData={
+ down:[['802.3 Ethernet රාමුව, R1 → AP (රැහැන්)',[['dest','H1 (අනුර) MAC'],['src','R1 (මහින්ද) MAC']]],['802.11 Wi-Fi රාමුව, AP → H1 (ගුවනින්)',[['Address 1','H1 (අනුර) MAC'],['Address 2','AP MAC'],['Address 3','R1 (මහින්ද) MAC']]]],
+ up:[['802.11 Wi-Fi රාමුව, H1 → AP (ගුවනින්)',[['Address 1','AP MAC'],['Address 2','H1 (අනුර) MAC'],['Address 3','R1 (මහින්ද) MAC']]],['802.3 Ethernet රාමුව, AP → R1 (රැහැන්)',[['dest','R1 (මහින්ද) MAC'],['src','H1 (අනුර) MAC']]]]
+};
+function envs(dir){$('#envs').innerHTML=envData[dir].map(([h,rows])=>`<div class="env"><h4>${h}</h4><dl>${rows.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>`).join('')}
+$$('[data-dir]').forEach(b=>b.onclick=()=>{$$('[data-dir]').forEach(x=>x.classList.toggle('on',x===b));envs(b.dataset.dir)});envs('down');
+
+const devs=[{n:'අනුරගේ ලැප්ටොප් එක',mail:false,awake:false},{n:'රනිල්ගේ දුරකථනය',mail:false,awake:false},{n:'දනුජගේ ඔරලෝසුව',mail:false,awake:false}];
+function paintDevs(){
+  $('#devices').innerHTML='';
+  devs.forEach(d=>{
+    const b=document.createElement('button');b.className='dev'+(d.awake?' awake':'')+(d.mail?' mail':'');
+    b.innerHTML=`<b>${d.n}</b><span class="mono" style="font-size:.78rem">${d.awake?'අවදියෙන්':'නිදි (asleep)'}</span><span class="mono m" style="font-size:.78rem">${d.mail?'ලිපියක් ඇත (ක්ලික් කර ඇත)':'ලිපි නැත (ක්ලික් කර එක් කරන්න)'}</span>`;
+    b.onclick=()=>{d.mail=!d.mail;d.awake=false;paintDevs()};
+    $('#devices').appendChild(b);
+  });
+}
+$('#beacon').onclick=()=>{
+  const list=devs.filter(d=>d.mail).map(d=>d.n);
+  devs.forEach(d=>{d.awake=d.mail;d.mail=false});paintDevs();
+  $('#pmText').innerHTML=list.length?`Beacon සංඥාව: <b>${list.join(', ')} සඳහා ලිපි පැමිණ ඇත</b>. එම උපාංග පමණක් අවදි වී ලිපි ලබා ගනී.`:'Beacon සංඥාව: <b>කිසිවෙකුටත් ලිපි නැත</b>. සියලු දෙනාම දිගටම නිදා ගනී!';
+};
+paintDevs();
+
+/* ---------- Stop 6: Bluetooth ---------- */
+const strip=$('#strip');for(let i=0;i<79;i++)strip.appendChild(document.createElement('i'));
+const bars=[...strip.children];let hopT=null,hops=0,hits=0,seed=7,curCh=-1;
+function paintJam(){const j=$('#jam').checked;bars.forEach((b,i)=>b.classList.toggle('jam',j&&i>=30&&i<=45))}
+function hop(){
+  seed=(seed*37+11)%79;if(curCh>=0)bars[curCh].classList.remove('cur');curCh=seed;bars[curCh].classList.add('cur');hops++;
+  const j=$('#jam').checked&&curCh>=30&&curCh<=45;if(j)hits++;
+  $('#hopText').innerHTML=`කවුළුව ${hops}: නාලිකාව <b>${curCh}</b>${j?' <b style="color:var(--red)">(බාධා විය!)</b>':''}. කවුළු ${hops} න් <b>${hits}</b> කට පමණක් බාධා එල්ල විය (${Math.round(hits/hops*100)}%).`;
+}
+$('#hopBtn').onclick=()=>{if(hopT){clearInterval(hopT);hopT=null;$('#hopBtn').textContent='පැනීම අරඹන්න'}else{hop();hopT=setInterval(hop,450);$('#hopBtn').textContent='නවත්වන්න'}};
+$('#jam').onchange=paintJam;paintJam();
+
+/* ---------- Stop 7: 4G LTE, OFDMA & GTP ---------- */
+const lte=$('#lteSvg');
+const N={
+  UE:[50,180,'UE','ජංගම උපාංගය (UE - අනුර)','SIM කාඩ්පත සහ IMSI අංකය දරන අනුරගේ ජංගම දුරකථනය.'],
+  BS:[175,180,'eNB','මූලික මධ්‍යස්ථානය (eNode-B)','ගුවන් තරංග කළමනාකරණය කරන ප්‍රාදේශීය කුළුණ.'],
+  SGW:[330,190,'S-GW','Serving Gateway','දත්ත තලයේ ප්‍රාදේශීය තේරීම් මධ්‍යස්ථානය සහ සංචලතා නැංගුරම.'],
+  PGW:[480,190,'P-GW','PDN Gateway','බාහිර අන්තර්ජාලයට සම්බන්ධ වන ද්වාරය (IP ලබා දීම සහ NAT).'],
+  NET:[595,190,'Net','අන්තර්ජාලය','බාහිර අන්තර්ජාලය.'],
+  MME:[330,60,'MME','Mobility Management Entity','පාලන තලය: උපාංග සත්‍යාපනය, ස්ථානය සෙවීම සහ උමං පිහිටුවීම.'],
+  HSS:[480,60,'HSS','Home Subscriber Service','මව් ජාලයේ ඇති ප්‍රධාන ග්‍රාහක දත්ත ගබඩාව (දුටුගැමුණු).']
+};
+const L=[['UE','BS','r'],['BS','SGW','d'],['SGW','PGW','d'],['PGW','NET','d'],['BS','MME','c'],['MME','HSS','c'],['MME','SGW','c']];
+function drawLTE(plane){
+  lte.innerHTML='';
+  el('rect',{x:120,y:20,width:400,height:215,rx:14,fill:'var(--soft-blue)',opacity:.55},lte);
+  L.forEach(([a,b,t])=>{
+    const l=el('line',{x1:N[a][0],y1:N[a][1],x2:N[b][0],y2:N[b][1],class:'ln'+(t==='c'?' ctrl':'')},lte);
+    if(plane==='data'&&t==='c')l.classList.add('dim');
+    if(plane==='ctrl'&&t==='d')l.classList.add('dim');
+    if((plane==='data'&&t!=='c')||(plane==='ctrl'&&t==='c'))l.classList.add('hot');
+  });
+  Object.entries(N).forEach(([k,[x,y,s]])=>{
+    const g=el('g',{class:'node'},lte);
+    el('rect',{x:x-32,y:y-22,width:64,height:44,rx:10,fill:k==='UE'?'var(--yellow)':'var(--card)',stroke:'var(--ink)','stroke-width':2},g);
+    el('text',{x,y:y+5,'text-anchor':'middle','font-size':13,'font-weight':700,fill:k==='UE'?'#1B2742':'var(--ink)'},g,s);
+    g.onclick=()=>{$$('#lteSvg .node').forEach(n=>n.classList.remove('on'));g.classList.add('on');$('#lteInfo').innerHTML=`<b>${N[k][3]}</b>: ${N[k][4]}`};
+  });
+}
+$$('[data-plane]').forEach(b=>b.onclick=()=>{$$('[data-plane]').forEach(x=>x.classList.toggle('on',x===b));drawLTE(b.dataset.plane)});
+drawLTE('all');
+
+const of=$('#ofdma');let user=1;const cells=[];
+for(let r=0;r<6;r++)for(let c=0;c<10;c++){
+  const b=document.createElement('button');b.dataset.u=0;
+  b.onclick=()=>{b.dataset.u=(b.dataset.u==user?0:user);b.className=+b.dataset.u?'u'+b.dataset.u:'';ofText()};
+  of.appendChild(b);cells.push(b);
+}
+function ofText(){
+  const cnt=[0,0,0,0];cells.forEach(c=>cnt[+c.dataset.u]++);
+  $('#ofText').innerHTML=`අනුර: <b>${cnt[1]}</b> PRBs (${cnt[1]*84} REs) · රනිල්: <b>${cnt[2]}</b> (${cnt[2]*84} REs) · දනුජ: <b>${cnt[3]}</b> (${cnt[3]*84} REs).`;
+}
+$$('#users [data-u]').forEach(b=>b.onclick=()=>{user=+b.dataset.u;$$('#users [data-u]').forEach(x=>x.classList.toggle('on',x===b))});
+$('#ofReset').onclick=()=>{cells.forEach(c=>{c.dataset.u=0;c.className=''});ofText()};
+[[0,0,1],[0,1,1],[1,0,1],[3,2,2],[3,3,2],[2,6,3]].forEach(([r,c,u])=>{const b=cells[r*10+c];b.dataset.u=u;b.className='u'+u});ofText();
+
+const gtpLayers=[
+  ['l0','දුරකථනයේ මුල් IP ඩේටාග්‍රෑමය','ලබන්නා: වීඩියෝ සේවාදායකය · එවන්නා: අනුරගේ දුරකථනය'],
+  ['l1','GTP ශීර්ෂකය (Header)','උමං හැඳුනුම් අංකය (Tunnel ID)'],
+  ['l2','UDP ශීර්ෂකය','GTP ගමන් කරන්නේ UDP තුළය'],
+  ['l3','පිටත IP ශීර්ෂකය (Outer IP)','එවන්නා: eNode-B · ලබන්නා: S-GW']
+];
+let depth=1;
+function nest(){
+  let inner='';
+  for(let i=0;i<depth;i++){const [cls,t,s]=gtpLayers[i];inner=`<div class="layer ${cls}"><span class="lbl">${t}</span><small>${s}</small>${inner}</div>`}
+  $('#nest').innerHTML=inner;
+  $('#nestText').innerHTML=depth===1?'මුල් IP ඩේටාග්‍රෑමය පමණි.':depth===4?'සම්පූර්ණයෙන්ම ඔතා අවසන්! eNode-B මෙය S-GW වෙත උමග හරහා යවයි.':`අමතර ස්ථර ${depth-1} කින් ඔතා ඇත.`;
+  $('#wrapBtn').disabled=(depth===4);$('#unwrapBtn').disabled=(depth===1);
+}
+$('#wrapBtn').onclick=()=>{depth=Math.min(4,depth+1);nest()};
+$('#unwrapBtn').onclick=()=>{depth=Math.max(1,depth-1);nest()};nest();
+
+/* ---------- Stop 9: Mobility Routing ---------- */
+const mob=$('#mobSvg');
+const MP={C:[85,235],H:[320,70],V:[495,215],M:[580,135]};
+function drawMob(){
+  mob.innerHTML='';
+  el('rect',{x:210,y:20,width:220,height:95,rx:16,fill:'var(--soft-blue)'},mob);
+  el('text',{x:320,y:106,'text-anchor':'middle','font-size':12,fill:'var(--blue)','font-weight':700},mob,'මව් ජාලය (Home) 128.119/16');
+  el('rect',{x:430,y:95,width:200,height:170,rx:16,fill:'var(--soft-green)'},mob);
+  el('text',{x:530,y:255,'text-anchor':'middle','font-size':12,fill:'var(--green)','font-weight':700},mob,'සංචාරක ජාලය (Visited) 79.129/16');
+  const lab={C:'රනිල් (Correspondent)',H:'මව් ජාලය (HSS/P-GW)',V:'සංචාරක ද්වාරය',M:'අනුර (Mobile)'};
+  Object.entries(MP).forEach(([k,[x,y]])=>{
+    el('circle',{cx:x,cy:y,r:20,fill:k==='M'?'var(--yellow)':'var(--card)',stroke:'var(--ink)','stroke-width':2.5},mob);
+    el('text',{x,y:y+5,'text-anchor':'middle','font-size':13,'font-weight':700,fill:k==='M'?'#1B2742':'var(--ink)'},mob,k);
+    el('text',{x,y:k==='H'?y-26:y+34,'text-anchor':'middle','font-size':11,fill:'var(--ink)','font-weight':700},mob,lab[k]);
+  });
+  return el('g',{},mob);
+}
+let mobAnim=0;
+function runMob(legs,caps){
+  const pg=drawMob(), my=++mobAnim;
+  const env=el('g',{},mob);
+  el('rect',{x:-13,y:-9,width:26,height:18,rx:3,fill:'var(--card)',stroke:'var(--red)','stroke-width':2.5},env);
+  let i=0;
+  function leg(){
+    if(my!==mobAnim||i>=legs.length)return;
+    const [a,b,color,dash]=legs[i],[x1,y1]=MP[a],[x2,y2]=MP[b];
+    el('line',{x1,y1,x2,y2,stroke:color,'stroke-width':3.5,'stroke-dasharray':dash?'7 6':'0'},pg);
+    $('#mobText').innerHTML=caps[i];
+    const t0=performance.now(),dur=reduce?20:900;
+    (function fr(t){
+      if(my!==mobAnim)return;
+      const p=Math.min(1,(t-t0)/dur);
+      env.setAttribute('transform',`translate(${x1+(x2-x1)*p},${y1+(y2-y1)*p})`);
+      if(p<1)requestAnimationFrame(fr);else{i++;setTimeout(leg,500)}
+    })(t0);
+  }
+  leg();
+}
+const mv={
+  reg:[[['M','V','var(--green)',1],['V','H','var(--green)',1]],["අනුර (M) සංචාරක ජාලයේ (V) ලියාපදිංචි වේ.","සංචාරක ජාලය මව් ජාලයේ HSS (H) දැනුවත් කරයි."]],
+  ind:[[['C','H','var(--blue)'],['H','V','var(--red)'],['V','M','var(--red)'],['M','C','var(--muted)',1]],["රනිල් (C) අනුරගේ ස්ථිර මව් ලිපිනයට ලිපිය යවයි.","මව් ජාලය (H) උමගක් හරහා එය සංචාරක ජාලයට (V) යොමු කරයි.","සංචාරක ද්වාරය අනුරට (M) ලිපිය භාර දෙයි.","මෙය ත්‍රිකෝණාකාර මංගත කිරීමකි (Triangle routing)."]],
+  dir:[[['C','H','var(--muted)',1],['H','C','var(--muted)',1],['C','V','var(--blue)'],['V','M','var(--blue)']],["රනිල් මුලින්ම මව් ජාලයෙන් අනුරගේ නව ලිපිනය විමසයි.","මව් ජාලය Care-of address ලබා දෙයි.","රනිල් කෙලින්ම සංචාරක ජාලයට ලිපිය යවයි.","බෙදා හැරියා!"]]
+};
+$$('[data-mv]').forEach(b=>b.onclick=()=>{$$('[data-mv]').forEach(x=>x.classList.toggle('on',x===b));runMob(...mv[b.dataset.mv])});
+drawMob();
+
+/* ---------- Stop 10: Handover & TCP ---------- */
+const ho=$('#hoSvg');
+const HP={PGW:[80,45],SGW:[300,45],MME:[510,45],SRC:[180,155],TGT:[420,155],UE:[220,225]};
+const hoSteps=[
+  [[['SRC','TGT']],"වත්මන් කුළුණ (කාවන්තිස්ස) විසින් ඉලක්කගත කුළුණට (දුටුගැමුණු) <b>Handover Request</b> පණිවිඩයක් යවයි."],
+  [[['TGT','SRC']],"ඉලක්කගත කුළුණ ගුවන් කාල කවුළු වෙන් කර <b>Handover Request ACK</b> එවයි."],
+  [[['SRC','UE']],"මූලාශ්‍ර කුළුණ නව කුළුණට මාරු වන ලෙස අනුරගේ දුරකථනයට (UE) දැනුම් දෙයි."],
+  [[['SRC','TGT']],"මූලාශ්‍ර කුළුණ තමා වෙත එන පැකට් ඉලක්කගත කුළුණ වෙත ඉදිරියට යොමු කරයි."],
+  [[['TGT','MME'],['MME','SGW']],"ඉලක්කගත කුළුණ MME දැනුවත් කරන අතර, MME විසින් S-GW උමග නව කුළුණට මාරු කරයි."],
+  [[['TGT','SRC']],"හුවමාරුව අවසන්: පැරණි කුළුණ තම සම්පත් නිදහස් කරයි."],
+  [[['SGW','TGT'],['TGT','UE']],"දැන් දත්ත S-GW → ඉලක්කගත කුළුණ → දුරකථනය හරහා ගලා යයි."]
+];
+let hs2=0;
+hoSteps.forEach(()=>$('#hoDots').appendChild(document.createElement('i')));
+function drawHO(){
+  ho.innerHTML='';
+  [['PGW','SGW'],['SGW','SRC'],['SGW','TGT'],['MME','SGW']].forEach(([a,b])=>el('line',{x1:HP[a][0],y1:HP[a][1],x2:HP[b][0],y2:HP[b][1],stroke:'var(--line)','stroke-width':3},ho));
+  const ux=hs2>=2?380:220;HP.UE=[ux,225];
+  hoSteps[hs2][0].forEach(([a,b])=>el('line',{x1:HP[a][0],y1:HP[a][1],x2:HP[b][0],y2:HP[b][1],stroke:'var(--red)','stroke-width':4},ho));
+  const lab={PGW:'P-GW',SGW:'S-GW',MME:'MME',SRC:'මූලාශ්‍ර BS',TGT:'ඉලක්කගත BS'};
+  Object.entries(lab).forEach(([k,t])=>{const [x,y]=HP[k];el('rect',{x:x-46,y:y-20,width:92,height:40,rx:10,fill:'var(--card)',stroke:'var(--ink)','stroke-width':2},ho);el('text',{x,y:y+5,'text-anchor':'middle','font-size':12,'font-weight':700,fill:'var(--ink)'},ho,t)});
+  el('circle',{cx:ux,cy:225,r:20,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':2.5},ho);
+  el('text',{x:ux,y:230,'text-anchor':'middle','font-size':12,'font-weight':700,fill:'#1B2742'},ho,'UE');
+  $('#hoText').innerHTML=`<b>පියවර 7 න් ${hs2+1}.</b> ${hoSteps[hs2][1]}`;
+  [...$('#hoDots').children].forEach((d,i)=>d.classList.toggle('on',i<=hs2));
+  $('#hoPrev').disabled=(hs2===0);$('#hoNext').textContent=(hs2===6?'මුල සිට':'ඊළඟ පියවර');
+}
+$('#hoNext').onclick=()=>{hs2=(hs2===6?0:hs2+1);drawHO()};
+$('#hoPrev').onclick=()=>{hs2=Math.max(0,hs2-1);drawHO()};
+drawHO();
+
+let cwv=[1,2,3,4,5,6,7,8],drops=new Set();
+function paintCW(){const max=Math.max(16,...cwv);$('#cw').innerHTML=cwv.map((v,i)=>`<i class="${drops.has(i)?'drop':''}" style="height:${v/max*100}%"></i>`).join('')}
+$('#cwNext').onclick=()=>{cwv.push(cwv[cwv.length-1]+1);if(cwv.length>35)cwv.shift();paintCW();$('#cwText').textContent=`කවුළුවේ ප්‍රමාණය ලිපි ${cwv[cwv.length-1]} කි.`};
+$('#cwDrop').onclick=()=>{const v=Math.max(1,Math.floor(cwv[cwv.length-1]/2));cwv.push(v);drops.add(cwv.length-1);paintCW();$('#cwText').innerHTML=`ගුවන් විදුලි බිටු දෝෂයක් නිසා ලිපියක් නැති විය. නමුත් TCP එය මාර්ග තදබදයක් ලෙස සලකා <b>කවුළුව ${v} දක්වා අඩු කරයි</b>.`};
+$('#cwReset').onclick=()=>{cwv=[1,2,3,4,5,6,7,8];drops=new Set();paintCW()};
+paintCW();
+
+/* ---------- Stop 11: Quiz ---------- */
+const Q=[
+ ["802.11 Wi-Fi මඟින් ගැටුම් හඳුනාගැනීම (collision detection) භාවිතා නොකරන්නේ ඇයි?",["Wi-Fi උපාංග ඉතා ලාභදායී නිසා","යවන්නාගේම ප්‍රබල සංඥාව පිටතින් එන දුර්වල සංඥා යටපත් කරන නිසාත්, සැඟවුණු පර්යන්ත නිසා ගැටුම් නොපෙනෙන නිසාත්ය","Wi-Fi තුළ කිසිවිටෙක ගැටුම් සිදු නොවන නිසා","එය ඒ වෙනුවට CDMA භාවිතා කරන නිසා"],1,"සංඥා දුර්වල වීම සහ සැඟවුණු පර්යන්ත නිසා ගැටුම් හඳුනා ගැනීම කළ නොහැකි බැවින් 802.11 CSMA/CA මඟින් ඒවා වළක්වා ගනී."],
+ ["CSMA/CA හිදී ලබන්නා තම ACK ලදුපත යවන්නේ කුමන වේලාවේද?",["DIFS කාලයකට පසුව","අහඹු පසුබැසීමකට (random backoff) පසුව","SIFS කාලයකට පසුව","ACK යවන්නේ නැත"],2,"ලබන්නා ඉතා කෙටි SIFS කාලයක් බලා සිට වහාම ACK ලදුපතක් ආපසු යවයි."],
+ ["සැඟවුණු පර්යන්ත ගැටලුවේදී (Hidden terminal problem), අනුර (A) සහ දනුජ (C)...",["දෙදෙනාටම එකිනෙකාව ඇසෙන නමුත් රනිල්ව (B) නොඇසේ","දෙදෙනාටම රනිල් (B) වෙත ළඟා විය හැකි නමුත් එකිනෙකාව නොඇසේ","වෙනස් සංඛ්‍යාත නාලිකා භාවිතා කරයි","එකම උපාංගය වේ"],1,"දෙදෙනාටම B වෙත සංඥා යැවිය හැකි බැවින්, දෙදෙනාම නොදැනුවත්ව ඔවුන්ගේ සංඥා B අසලදී එකිනෙක ගැටේ."],
+ ["AP සිට H1 (අනුර) වෙත එන රාමුවක, Address 3 කොටසෙහි අඩංගු වන්නේ කුමක්ද?",["H1 හි MAC ලිපිනය","AP හි MAC ලිපිනය","මහින්දගේ රවුටරයේ (R1) අතුරුමුහුණතේ MAC ලිපිනය","H1 හි IP ලිපිනය"],2,"Address 3 යනු AP සම්බන්ධ වී ඇති රවුටර අතුරුමුහුණතේ MAC ලිපිනයයි."],
+ ["CDMA භාවිතා කරන විට, ලබන්නෙකු 1 වන යවන්නාගේ බිටු වෙන් කර ගන්නේ කෙසේද?",["වෙනම සංඛ්‍යාතයකට සවන් දීමෙන්","නාලිකාවේ එකතුව 1 වන කේතයේ අගයන්ගෙන් එකින් එක ගුණ කර සාමාන්‍යය ගැනීමෙන්","2 වන යවන්නා නතර වන තුරු බලා සිටීමෙන්","2 වන කේතය අඩු කිරීමෙන්"],1,"ලම්බක කේත මඟින් අනෙක් යවන්නාගේ සංඥාව ශුන්‍ය කරයි."],
+ ["ඔබ සිටින තැන දන්නා 'මව් වාර්තා කාර්යාලය' ලෙස ක්‍රියා කරන 4G උපාංගය කුමක්ද?",["S-GW","MME","HSS","eNode-B"],2,"Home Subscriber Service (HSS) ඔබේ මව් ජාලයේ පිහිටා ඇත."],
+ ["එක් LTE භෞතික සම්පත් කොටසක (PRB) මූලික ඒකක (resource elements) කීයක් තිබේද?",["12","7","84","79"],2,"උප-වාහක 12 × සංකේත 7 = 84 කි."],
+ ["වක්‍ර මංගත කිරීමේ (Indirect routing) ප්‍රධාන අවාසිය කුමක්ද?",["ලිපිය එවන්නා තාවකාලික ලිපිනය දැන සිටිය යුතු වීම","ත්‍රිකෝණාකාර මංගත කිරීමේ (Triangle routing) අකාර්යක්ෂමතාවය","TCP සම්බන්ධතා බිඳ වැටීම","SIM කාඩ්පතක් අවශ්‍ය වීම"],1,"දෙදෙනාම එකම ජාලයේ සිටියද සෑම ලිපියක්ම මව් ජාලය හරහා අනවශ්‍ය වටයක් ගමන් කරයි."],
+ ["Bluetooth සංඛ්‍යාත නාලිකා කීයක් අතර පනිමින් (hop) ක්‍රියා කරයිද?",["11","24","79","625"],2,"නාලිකා 79 ක් අතර, සෑම 625 µs කාල කවුළුවකටම වරක් පනියි."],
+ ["රැහැන් රහිත ජාල මත TCP කාර්යක්ෂමතාවය අඩු විය හැක්කේ ඇයි?",["රැහැන් රහිත ජාල TCP සඳහා සහාය නොදක්වන නිසා","බිටු දෝෂ සහ handover නිසා සිදුවන පැකට් හානි ජාල තදබදයක් ලෙස සලකා TCP තම කවුළුව කුඩා කරන නිසා","TCP සඳහා ස්ථාවර IP ලිපිනයක් අවශ්‍ය නිසා","UDP අනිවාර්ය වන නිසා"],1,"රැහැන් රහිත සංඥා දෝෂ ජාල තදබදයක් ලෙස වරදවා වටහා ගැනීමෙන් TCP තම වේගය අඩු කරයි."]
+];
+let score=0;const qz=$('#quiz');
+Q.forEach(([q,opts,right,why],i)=>{
+  const d=document.createElement('div');d.className='q';
+  d.innerHTML=`<b>${i+1}. ${q}</b><div class="opts"></div><div class="muted" style="font-size:.9rem" hidden></div>`;
+  const o=d.querySelector('.opts'),w=d.lastElementChild;
+  opts.forEach((t,j)=>{
+    const b=document.createElement('button');b.textContent=t;
+    b.onclick=()=>{
+      if(d.dataset.done)return;d.dataset.done=1;
+      o.children[right].classList.add('right');
+      if(j!==right)b.classList.add('wrong');else score++;
+      w.hidden=false;w.textContent=(j===right?'නිවැරදියි! ':'වැරදියි. ')+why;
+      $('#quizScore').innerHTML=`<span class="score">${score} / 10</span> ක් නිවැරදිව පිළිතුරු දී ඇත`;
+    };
+    o.appendChild(b);
+  });
+  qz.appendChild(d);
+});
+
+showScene(curIdx,false);
+})();
+</script>
+<style id="modern-unified">
+:root,:root[data-theme="light"]{color-scheme:light!important;--bg:#f5f7fb;--paper:#fff;--card:#fff;--surface:#fff;--surface-2:#f1f5fa;--paper2:#f8fafc;--sky:#f5f7fb;--ink:#142238;--muted:#607087;--line:#dce4ee;--red:#db5266;--stamp:#db5266;--post-red:#db5266;--blue:#3466d9;--air:#3466d9;--post-blue:#3466d9;--yellow:#e2a344;--sun:#e2a344;--gold:#e2a344;--green:#168767;--good:#168767;--leaf:#168767;--blue-soft:#ebf1ff;--air-soft:#ebf1ff;--soft-blue:#ebf1ff;--stamp-soft:#fff0f2;--red-soft:#fff0f2;--green-soft:#e7f5f0;--leaf-soft:#e7f5f0;--gold-soft:#fff6e8;--sun-soft:#fff6e8;--shadow:0 10px 36px rgba(22,43,82,.045)!important;--f-display:"Inter","Noto Sans Sinhala",system-ui,sans-serif;--display:var(--f-display);--f-body:"Noto Sans Sinhala","Inter",system-ui,sans-serif;--body:var(--f-body);--f-mono:"JetBrains Mono",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark!important;--bg:#0b1220;--paper:#121e30;--card:#121e30;--surface:#121e30;--surface-2:#18263a;--paper2:#18263a;--sky:#0b1220;--ink:#e9eff8;--muted:#a0aec3;--line:#2c3c52;--red:#fa8492;--stamp:#fa8492;--post-red:#fa8492;--blue:#8eb0ff;--air:#8eb0ff;--post-blue:#8eb0ff;--green:#61d5ab;--good:#61d5ab;--blue-soft:#223659;--air-soft:#223659;--soft-blue:#223659;--red-soft:#392631;--stamp-soft:#392631;--green-soft:#173c35;--gold-soft:#453725;--shadow:0 12px 36px rgba(0,0,0,.18)!important}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0!important;background:var(--bg)!important;background-image:none!important;color:var(--ink)!important;font-family:var(--f-body)!important;line-height:1.8!important;font-size:16.5px!important;overflow-x:hidden}body::before{display:none!important} h1,h2,h3,h4{font-family:var(--f-display)!important;letter-spacing:-.025em!important;line-height:1.4!important}p{line-height:1.85!important}button{cursor:pointer;transition:background-color .2s,border-color .2s,color .2s,transform .2s!important}button:hover:not(:disabled){transform:translateY(-1px)}a{transition:color .2s} :focus-visible{outline:2px solid var(--blue)!important;outline-offset:3px!important}
+.wrap{max-width:980px!important;padding-left:clamp(18px,3vw,38px)!important;padding-right:clamp(18px,3vw,38px)!important}
+.airmail,.airmail-top,.stripe,.topbar::after,.route .rail,.route .rail b,.postmark{display:none!important}
+.scene,.beat,.panel,.card,.hero-grid,.hero-art,.paper,.letter,.content-card{border-radius:15px!important;box-shadow:var(--shadow)!important;border-color:var(--line)!important}
+.topbar,.bar,.top,.route,.passport{background:var(--paper)!important;box-shadow:none!important;border-color:var(--line)!important}
+.back,.backlink,.brand,.allch,.chip,.stop-btn,.act{border-radius:9px!important;box-shadow:none!important}
+.hero-letter,.hero-art,.hero-illustration,.hero-drawing,.postmark,.carrier,.guide,.buddy,.penny,.stampbook,.cast-chip,.mascot,.character-art{display:none!important}
+.hero,.cover{padding-top:22px!important} .hero h1,.cover h1{font-size:clamp(1.8rem,4.5vw,2.7rem)!important}
+button,optgroup,select,input,textarea{font-family:var(--f-body)!important}
+button:disabled{opacity:.52;cursor:not-allowed}
+.opt,.option,.choice{border-radius:10px!important} .right{border-color:#168767!important}.wrong{border-color:#db5266!important}
+[data-goto],.chip,.stop-btn,.act{transition:all .24s ease!important}
+main{animation:modernFade .42s ease both}@keyframes modernFade{from{opacity:.4;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:650px){.wrap{padding-inline:16px!important}.hero-grid{grid-template-columns:1fr!important}.route-bar{overflow-x:auto!important}.hero h1{font-size:1.9rem!important}}
+</style><link href="../readability.css" rel="stylesheet"/><script defer="" src="../cleanup.js"></script><link href="../critical-fixes.css" rel="stylesheet"/><script defer="" src="../critical-fixes.js"></script><script src="../assets/react.min.js"></script><script src="../assets/react-dom.min.js"></script><script src="../assets/ambient.js"></script><script src="../assets/chapter.js"></script></body>
+</html>
