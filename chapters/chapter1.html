@@ -1,0 +1,538 @@
+<!doctype html><html lang="si"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>මහින්දගේ තැපැල් කාර්යාලය: 1 වන පරිච්ඡේදය</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Noto+Sans+Sinhala:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#EEF3F9;--surface:#FFFFFF;--surface-2:#F6F9FD;--ink:#1D2944;--muted:#58668A;--line:#D5DEEB;
+  --red:#D93A3A;--blue:#2356C4;--gold:#E9A92B;--green:#23946A;
+  --red-soft:#FBE4E4;--blue-soft:#E2EAFB;--gold-soft:#FCF0D5;--green-soft:#DDF3EA;
+  --shadow:0 2px 0 rgba(29,41,68,.08),0 14px 30px -14px rgba(29,41,68,.3);
+  --f-display:"Familjen Grotesk","Noto Sans Sinhala",system-ui,sans-serif;
+  --f-body:"Noto Sans Sinhala","Familjen Grotesk",system-ui,-apple-system,sans-serif;
+  --f-stamp:"JetBrains Mono","Noto Sans Sinhala",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111827;--surface:#1A2336;--surface-2:#1F2A40;--ink:#E9EEF8;--muted:#9DAACA;--line:#2D3A55;
+    --red:#FF6E6E;--blue:#79A2FF;--gold:#F4C35E;--green:#4CCB97;
+    --red-soft:#3A1F27;--blue-soft:#1E2B4D;--gold-soft:#3A3020;--green-soft:#18352C;
+    --shadow:0 2px 0 rgba(0,0,0,.3),0 14px 30px -14px rgba(0,0,0,.7);color-scheme:dark}
+}
+:root[data-theme="dark"]{
+  --bg:#111827;--surface:#1A2336;--surface-2:#1F2A40;--ink:#E9EEF8;--muted:#9DAACA;--line:#2D3A55;
+  --red:#FF6E6E;--blue:#79A2FF;--gold:#F4C35E;--green:#4CCB97;
+  --red-soft:#3A1F27;--blue-soft:#1E2B4D;--gold-soft:#3A3020;--green-soft:#18352C;
+  --shadow:0 2px 0 rgba(0,0,0,.3),0 14px 30px -14px rgba(0,0,0,.7);color-scheme:dark}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.25;text-wrap:balance;margin:0;font-weight:700}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.wrap{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.airmail{height:10px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,transparent 14px 22px,var(--blue) 22px 36px,transparent 36px 44px)}
+.mono{font-family:var(--f-stamp)}
+.num{font-variant-numeric:tabular-nums}
+.term{font-weight:700;color:var(--blue)}
+.formula{font-family:var(--f-stamp);font-weight:600;background:var(--blue-soft);color:var(--ink);padding:1px 7px;border-radius:6px}
+
+.route{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.route .bar{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:12px;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.back{flex:none;text-decoration:none;font-weight:700;font-size:14px;color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.back:hover{background:var(--blue-soft)}
+.stops{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.stops::-webkit-scrollbar{display:none}
+.stops a{flex:none;text-decoration:none;color:var(--muted);font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;border:1.5px solid transparent;display:flex;align-items:center;gap:6px}
+.stops a .dot{width:9px;height:9px;border-radius:50%;border:2px solid currentColor}
+.stops a.done .dot{background:var(--green);border-color:var(--green)}
+.stops a.here{color:var(--blue);border-color:var(--blue);background:var(--blue-soft)}
+.progress{height:4px;background:var(--line)}
+.progress i{display:block;height:100%;background:var(--red);transition:width .4s}
+
+main{padding-block:26px 40px}
+.scene{animation:enter .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.act{font-family:var(--f-stamp);text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:var(--red);font-weight:700}
+.scene h2{font-size:clamp(26px,4.2vw,36px);margin-top:4px}
+.narr{display:grid;grid-template-columns:78px 1fr;gap:12px;align-items:end;margin-top:18px}
+.narr .pip{width:78px}
+.bubble{background:var(--gold-soft);border:2px solid var(--gold);border-radius:18px 18px 18px 4px;padding:12px 16px;font-weight:500;line-height:1.55}
+.bubble b{font-weight:700}
+.ask{margin-top:18px;background:var(--surface);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.ask .q{padding:16px 18px 6px;font-family:var(--f-display);font-size:20px;font-weight:700}
+.ask .opts{display:flex;flex-wrap:wrap;gap:8px;padding:8px 18px 16px}
+.opt{cursor:pointer;border:2px solid var(--line);background:var(--surface-2);border-radius:12px;padding:8px 14px;font-weight:700;font-size:15.5px;text-align:left}
+.opt:hover:not([disabled]){border-color:var(--blue)}
+.opt[disabled]{cursor:default}
+.opt.right{border-color:var(--green);background:var(--green-soft)}
+.opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.opt.picked{border-color:var(--blue);background:var(--blue-soft)}
+.ask .fb{padding:0 18px 16px;font-weight:700}
+.ask .skip{cursor:pointer;background:none;border:0;color:var(--muted);text-decoration:underline;font-size:14px;font-weight:700;padding:0 18px 14px}
+.reveal{margin-top:18px;display:flex;flex-direction:column;gap:16px;animation:unfold .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes unfold{from{opacity:0;transform:translateY(-10px) scaleY(.96);transform-origin:top}to{opacity:1;transform:none}}
+.card{background:var(--surface);border-radius:18px;padding:20px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:20px;margin-bottom:8px}
+.card .sub{color:var(--muted);font-size:15px;margin-bottom:10px}
+.card p+p{margin-top:10px}
+.card ul{margin:8px 0 0;padding-left:20px}
+.card li+li{margin-top:4px}
+.analogy{display:flex;gap:10px;align-items:flex-start;background:var(--gold-soft);border-radius:12px;padding:10px 12px;font-size:15.5px;line-height:1.5}
+.analogy::before{content:"";flex:none;width:26px;height:18px;margin-top:2px;border-radius:3px;background:linear-gradient(155deg,transparent 48%,var(--gold) 49% 55%,transparent 56%),linear-gradient(25deg,transparent 48%,var(--gold) 49% 55%,transparent 56%),var(--surface);border:2px solid var(--gold)}
+.keyidea{border-left:5px solid var(--blue);background:var(--blue-soft);border-radius:0 14px 14px 0;padding:12px 16px;font-weight:700}
+.scene-nav{margin-top:26px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:2px dashed var(--line);padding-top:16px}
+.scene-nav .count{font-family:var(--f-stamp);font-weight:700;color:var(--muted)}
+.btn{cursor:pointer;border:2px solid var(--ink);background:var(--surface);border-radius:12px;padding:8px 16px;font-weight:700;font-size:15.5px;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s;text-decoration:none;color:var(--ink);display:inline-block}
+.btn:hover{background:var(--surface-2)}
+.btn:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 3px 0 color-mix(in srgb,var(--red) 55%,#000)}
+.btn.blue{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 3px 0 color-mix(in srgb,var(--blue) 55%,#000)}
+.btn.small{padding:6px 12px;font-size:14px;border-radius:10px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.pulse{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 3px 0 color-mix(in srgb,var(--red) 55%,#000),0 0 0 6px color-mix(in srgb,var(--red) 25%,transparent)}}
+
+.pip{width:100%;height:auto;display:block;cursor:pointer}
+.pip .arm{transform-origin:86px 92px;animation:wave 2.6s ease-in-out infinite}
+.pip .bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-22deg)}80%{transform:rotate(6deg)}90%{transform:rotate(-16deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.pip.cheer .bob{animation:jump .5s ease 2}
+@keyframes jump{50%{transform:translateY(-12px)}}
+
+.cover{display:grid;grid-template-columns:1fr 220px;gap:24px;align-items:center;background:var(--surface);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.cover .txt{padding:28px 0 28px 28px}
+.cover h1{font-size:clamp(30px,5vw,48px);font-weight:700;margin-top:6px}
+.cover h1 em{font-style:normal;color:var(--blue)}
+.cover .lede{margin-top:12px;color:var(--muted);font-size:17.5px;max-width:52ch}
+.cover .go{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.cover .art{padding:20px 24px 20px 0}
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+.cast div{background:var(--surface);border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.4}
+.cast b{display:block;font-family:var(--f-display);font-size:16px;font-weight:700}
+.cast span{color:var(--muted)}
+
+.journey{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:16px 16px 14px}
+.journey h3{font-size:19px;margin:2px 4px 6px}
+.jv{overflow-x:auto;border-radius:12px;background:var(--surface-2)}
+.jv svg{display:block;width:100%;min-width:560px;height:auto}
+.jv text{font-family:var(--f-body);font-weight:700;fill:var(--ink)}
+.jv .lbl{font-family:var(--f-display);font-weight:700;font-size:14px}
+.jv .sublbl{font-size:12px;fill:var(--muted);font-weight:500}
+.jv .lnk{stroke:var(--muted);stroke-width:3;stroke-dasharray:7 7;fill:none;opacity:.7}
+.jv .lnk.hot{stroke:var(--red);opacity:1;animation:march .6s linear infinite}
+@keyframes march{to{stroke-dashoffset:-14}}
+.jv .lnklbl{font-size:12px;fill:var(--muted);font-weight:700}
+.jv .shape{fill:var(--surface);stroke:var(--ink);stroke-width:2.5}
+.jv .shape.soft{fill:var(--blue-soft);stroke:var(--blue)}
+.jv .shape.danger{fill:var(--red-soft);stroke:var(--red)}
+.jv .roofbar{fill:var(--blue)}
+.jv .envbox{fill:var(--surface);stroke:var(--red);stroke-width:2.5}
+.jv .envflap{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linejoin:round}
+.jv .envlbl{font-family:var(--f-stamp);font-size:12.5px;font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface-2);stroke-width:5px;stroke-linejoin:round}
+.jv .fxt{font-size:12.5px;font-weight:700}
+.jv .pop{animation:popin .35s ease}
+@keyframes popin{from{opacity:0}to{opacity:1}}
+.jcap{margin-top:12px;background:var(--blue-soft);border-radius:12px;padding:12px 14px;min-height:76px;line-height:1.55}
+.jcap b.n{color:var(--blue)}
+.jnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--red)}
+.jbtns{display:flex;gap:8px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{cursor:pointer;border:2px solid var(--line);background:var(--surface-2);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14.5px}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{border-color:var(--blue);background:var(--blue);color:#fff}
+.detail{margin-top:12px;border-left:4px solid var(--red);background:var(--surface-2);border-radius:0 12px 12px 0;padding:12px 14px;min-height:90px;animation:popin .3s}
+.detail h4{font-size:18px;margin-bottom:4px}
+.dict{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.dict div{background:var(--surface-2);border-radius:10px;padding:8px 12px;font-size:14.5px;line-height:1.4}
+.dict b{display:block;font-family:var(--f-display);font-weight:700;font-size:16px}
+.dict span{color:var(--muted)}
+.ctrl{display:grid;grid-template-columns:190px 1fr 100px;gap:10px;align-items:center;margin-top:8px;font-size:15px}
+.ctrl label{font-weight:700}
+.ctrl output{font-family:var(--f-stamp);font-weight:700;text-align:right}
+input[type=range]{width:100%;accent-color:var(--blue)}
+input[type=text]{width:100%;font:inherit;font-weight:700;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface-2);color:var(--ink)}
+.envs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.env{position:relative;width:98px;height:64px;background:var(--surface-2);border:2px solid var(--ink);border-radius:6px;padding:20px 6px 4px;font-family:var(--f-stamp);font-size:12.5px;line-height:1.25;overflow:hidden;animation:popin .3s ease}
+.env::before{content:"";position:absolute;left:-2px;right:-2px;top:-2px;height:24px;background:linear-gradient(160deg,transparent 49%,var(--ink) 50% 54%,transparent 55%) left/50% 100% no-repeat,linear-gradient(20deg,transparent 49%,var(--ink) 50% 54%,transparent 55%) right/50% 100% no-repeat}
+.env .n{position:absolute;top:2px;right:4px;background:var(--red);color:#fff;font-weight:700;border-radius:4px;padding:0 4px;font-size:11px}
+.env .body{white-space:pre;overflow:hidden}
+.road{position:relative;height:58px;margin-top:12px;border-radius:12px;background:var(--surface-2);border:2px dashed var(--line);overflow:hidden}
+.road .tag{position:absolute;font-size:12px;font-weight:700;color:var(--muted);top:4px}
+.road .m{position:absolute;top:22px;left:6px;width:30px;height:21px;background:var(--surface);border:2px solid var(--red);border-radius:3px}
+.road .m::after{content:"";position:absolute;inset:0;background:linear-gradient(150deg,transparent 47%,var(--red) 48% 56%,transparent 57%) left/50% 60% no-repeat,linear-gradient(30deg,transparent 47%,var(--red) 48% 56%,transparent 57%) right/50% 60% no-repeat}
+.road.go .m{animation:drive var(--d,1.6s) linear forwards}
+.road.go .m.wob{animation:drive var(--d,1.6s) linear forwards,wob .25s ease-in-out infinite}
+@keyframes drive{from{left:6px}to{left:calc(100% - 40px)}}
+@keyframes wob{50%{margin-top:-5px}}
+.lane{display:grid;grid-template-columns:130px 1fr;gap:10px;align-items:center}
+.lane .road{margin-top:6px;height:40px}
+.lane .road .m{top:8px}
+.lane b{font-size:14.5px}
+.bin{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:8px;border:2px solid var(--ink);border-radius:12px;background:var(--surface-2);margin-top:10px}
+.bin span{aspect-ratio:1;border-radius:5px;border:1.5px dashed var(--line)}
+.bin span.full{background:var(--gold);border:1.5px solid var(--ink)}
+.bin.overflow{border-color:var(--red);animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.stat{background:var(--surface-2);border-radius:10px;padding:8px 10px}
+.stat b{display:block;font-family:var(--f-stamp);font-size:22px}
+.stat small{color:var(--muted);font-size:12.5px;font-weight:700}
+.stat.bad b{color:var(--red)} .stat.good b{color:var(--green)}
+.svgbox{overflow-x:auto;background:var(--surface-2);border-radius:12px;margin-top:10px}
+.svgbox svg{display:block;width:100%;max-width:720px;margin:0 auto;height:auto}
+.svgbox text{font-family:var(--f-body);font-weight:700;fill:var(--ink)}
+.dbars{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.dbar{display:grid;grid-template-columns:118px 1fr 96px;gap:8px;align-items:center;font-size:14px;font-weight:700}
+.dbar .track{height:16px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.dbar .fill{height:100%;border-radius:99px;transition:width .25s}
+.dbar output{font-family:var(--f-stamp);text-align:right}
+.total{margin-top:12px;font-weight:700;font-size:18px;display:flex;justify-content:space-between;border-top:2px dashed var(--line);padding-top:10px}
+.layers{display:flex;flex-direction:column;gap:6px}
+.layer{cursor:pointer;text-align:left;border:2px solid var(--line);background:var(--surface-2);border-radius:12px;padding:10px 14px;display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center}
+.layer b{font-family:var(--f-display);font-size:17px;font-weight:700}
+.layer small{color:var(--muted);font-size:14px;line-height:1.4}
+.layer[aria-expanded="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.layer .more{grid-column:1/-1;font-size:15px;line-height:1.5}
+.encap{margin-top:12px;min-height:120px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border-radius:12px;padding:12px;overflow-x:auto}
+.box{border:2.5px solid;border-radius:10px;padding:6px 8px 8px;display:flex;gap:6px;align-items:stretch;animation:popin .3s}
+.box>.h{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--f-stamp);font-weight:700;font-size:12px;padding:4px 2px;border-radius:5px;color:#fff;text-align:center}
+.box.m{border-color:var(--gold);background:var(--gold-soft);font-weight:700;padding:12px 16px;align-items:center}
+.box.t{border-color:var(--green)} .box.t>.h{background:var(--green)}
+.box.n{border-color:var(--blue)} .box.n>.h{background:var(--blue)}
+.box.lk{border-color:var(--red)} .box.lk>.h{background:var(--red)}
+.bits{font-family:var(--f-stamp);font-weight:700;font-size:15px;letter-spacing:.08em;word-break:break-all;color:var(--muted)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:700;font-size:14.5px}
+.flow span{background:var(--surface-2);border:1.5px solid var(--line);border-radius:8px;padding:3px 9px}
+.flow i{font-style:normal;color:var(--muted)}
+table.trace{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+table.trace th{text-align:left;color:var(--muted);padding:6px}
+table.trace td{padding:6px;border-top:1px dashed var(--line)}
+table.trace tr[data-i]{cursor:pointer}
+table.trace tr[data-i]:hover{background:var(--surface-2)}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.era{cursor:pointer;background:var(--surface);border:2px solid var(--line);border-radius:6px;padding:12px 8px;text-align:center;position:relative}
+.era::after{content:"";position:absolute;inset:4px;border:1.5px dashed var(--line);border-radius:3px;pointer-events:none}
+.era b{display:block;font-family:var(--f-display);font-size:16px;color:var(--red)}
+.era small{display:block;font-size:12.5px;color:var(--muted);line-height:1.3;margin-top:4px}
+.era[aria-pressed="true"]{border-color:var(--red);transform:rotate(-2deg);background:var(--red-soft)}
+.stampgrid{display:flex;gap:8px;flex-wrap:wrap}
+.pstamp{width:54px;height:54px;border-radius:50%;border:2px dashed var(--line);display:grid;place-items:center;font-family:var(--f-stamp);font-weight:700;font-size:11px;color:var(--muted);text-align:center;line-height:1.1}
+.pstamp.on{border:2px solid var(--green);color:var(--green);background:var(--green-soft);transform:rotate(-8deg)}
+footer{padding-block:10px 40px;color:var(--muted);font-size:14px}
+
+@media (max-width:700px){
+  .cover{grid-template-columns:1fr}
+  .cover .txt{padding:22px 20px 0}
+  .cover .art{padding:0 20px 20px;max-width:200px}
+  .ctrl{grid-template-columns:1fr 90px}
+  .ctrl input{grid-column:1/-1;grid-row:2}
+  .layer{grid-template-columns:1fr}
+  .timeline{grid-template-columns:repeat(2,1fr)}
+  .narr{grid-template-columns:60px 1fr}
+  .narr .pip{width:60px}
+  .dbar{grid-template-columns:90px 1fr 80px}
+  .lane{grid-template-columns:90px 1fr}
+}
+</style></head><body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="pip-art">
+      <g class="bob">
+        <rect x="44" y="120" width="13" height="30" rx="4" fill="#1D2944"/>
+        <rect x="63" y="120" width="13" height="30" rx="4" fill="#1D2944"/>
+        <ellipse cx="49" cy="151" rx="11" ry="5" fill="#111"/>
+        <ellipse cx="71" cy="151" rx="11" ry="5" fill="#111"/>
+        <rect x="36" y="74" width="48" height="54" rx="14" fill="#2356C4" stroke="#1D2944" stroke-width="2.5"/>
+        <rect x="58" y="76" width="4" height="50" fill="#1A3F93"/>
+        <circle cx="54" cy="92" r="2" fill="#F4C35E"/><circle cx="54" cy="104" r="2" fill="#F4C35E"/>
+        <path d="M40 78 L80 120" stroke="#8A5A1E" stroke-width="5" stroke-linecap="round"/>
+        <rect x="66" y="106" width="34" height="28" rx="6" fill="#E9A92B" stroke="#1D2944" stroke-width="2.5"/>
+        <rect x="72" y="98" width="22" height="14" rx="1.5" fill="#fff" stroke="#1D2944" stroke-width="2" transform="rotate(-8 83 105)"/>
+        <path d="M73 100 L83 107 L93 99" fill="none" stroke="#D93A3A" stroke-width="1.8" transform="rotate(-8 83 105)"/>
+        <rect x="66" y="106" width="34" height="9" rx="4" fill="#C98A16" stroke="#1D2944" stroke-width="2.5"/>
+        <rect x="26" y="80" width="13" height="36" rx="6" fill="#2356C4" stroke="#1D2944" stroke-width="2.5"/>
+        <circle cx="32" cy="118" r="6" fill="#F3C9A2" stroke="#1D2944" stroke-width="2"/>
+        <g class="arm">
+          <rect x="81" y="58" width="13" height="36" rx="6" fill="#2356C4" stroke="#1D2944" stroke-width="2.5" transform="rotate(-28 87 92)"/>
+          <circle cx="104" cy="62" r="6.5" fill="#F3C9A2" stroke="#1D2944" stroke-width="2"/>
+        </g>
+        <path d="M37 44 Q34 70 44 72 L46 50 Z" fill="#8A5A1E" stroke="#1D2944" stroke-width="2"/>
+        <path d="M83 44 Q86 70 76 72 L74 50 Z" fill="#8A5A1E" stroke="#1D2944" stroke-width="2"/>
+        <circle cx="60" cy="50" r="24" fill="#F3C9A2" stroke="#1D2944" stroke-width="2.5"/>
+        <circle cx="51" cy="50" r="2.8" fill="#1D2944"/><circle cx="69" cy="50" r="2.8" fill="#1D2944"/>
+        <circle cx="45" cy="58" r="4" fill="#F09B8A" opacity=".7"/><circle cx="75" cy="58" r="4" fill="#F09B8A" opacity=".7"/>
+        <path d="M52 62 Q60 69 68 62" fill="none" stroke="#1D2944" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M34 40 Q36 18 60 18 Q84 18 86 40 Z" fill="#2356C4" stroke="#1D2944" stroke-width="2.5"/>
+        <rect x="35" y="34" width="50" height="8" fill="#D93A3A" stroke="#1D2944" stroke-width="2"/>
+        <path d="M30 42 Q60 50 92 42 L90 46 Q60 54 30 46 Z" fill="#1D2944"/>
+        <circle cx="60" cy="27" r="4.5" fill="#F4C35E" stroke="#1D2944" stroke-width="1.5"/>
+      </g>
+    </g>
+  </defs>
+</svg>
+
+<nav class="route" aria-label="පරිච්ඡේද කොටස්">
+  <div class="bar">
+    <a class="back" href="../index.html">&larr; සියලුම පරිච්ඡේද</a>
+    <div class="stops" id="stops"></div>
+  </div>
+  <div class="progress"><i id="prog" style="width:0"></i></div>
+</nav>
+<div class="airmail"></div>
+
+<main><div class="wrap" id="stage"></div></main>
+
+<footer><div class="wrap"><i>Computer Networking: A Top-Down Approach</i> (8 වන සංස්කරණය), Kurose &amp; Ross, 1 වන පරිච්ඡේදය ඇසුරෙනි. ඉඟිය: ජවනිකා අතර මාරු වීමට වම් සහ දකුණු ඊතල යතුරු (Arrow keys) භාවිතා කරන්න.</div></footer>
+
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,txt,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(txt!=null)e.textContent=txt;if(parent)parent.appendChild(e);return e}
+const PIP='<svg class="pip" viewBox="0 0 120 160" role="img" aria-label="තැපැල්කරු මහින්ද. ඉඟියක් සඳහා ක්ලික් කරන්න."><use href="#pip-art"/></svg>';
+function cheer(svg){if(!svg)return;svg.classList.remove('cheer');void svg.getBoundingClientRect();svg.classList.add('cheer')}
+
+function envelope(g,x,y,cls){const e=el('g',{transform:`translate(\${x-17},${y-12})`,class:cls||''},null,g);el('rect',{width:34,height:24,rx:3,class:'envbox'},null,e);el('path',{d:'M1 2 L17 14 L33 2',class:'envflap'},null,e);return e}
+function drawNode(g,n){
+  const k=n.kind,x=n.x,y=n.y;let ly=y+46;
+  if(k==='home'){el('rect',{x:x-28,y:y-14,width:56,height:38,rx:3,class:'shape'},null,g);el('path',{d:`M${x-36} ${y-12} L${x} ${y-42} L${x+36} ${y-12} Z`,class:'shape danger'},null,g);el('rect',{x:x-7,y:y+6,width:14,height:18,class:'shape soft'},null,g);ly=y+44}
+  else if(k==='office'){el('rect',{x:x-42,y:y-30,width:84,height:62,rx:6,class:'shape'},null,g);el('rect',{x:x-48,y:y-40,width:96,height:12,rx:2,class:'roofbar'},null,g);ly=y+52}
+  else if(k==='pc'){el('rect',{x:x-32,y:y-26,width:64,height:44,rx:7,class:'shape'},null,g);el('rect',{x:x-5,y:y+18,width:10,height:10,fill:'var(--ink)'},null,g);el('rect',{x:x-20,y:y+27,width:40,height:6,rx:3,fill:'var(--ink)'},null,g);ly=y+52}
+  else if(k==='isp'){el('ellipse',{cx:x,cy:y,rx:62,ry:28,class:'shape soft'},null,g);ly=y+46}
+  else if(k==='person'){el('circle',{cx:x,cy:y-16,r:12,class:'shape danger'},null,g);el('path',{d:`M${x-20} ${y+20} Q${x} ${y-14}${x+20} ${y+20} Z`,class:'shape danger'},null,g);ly=y+38}
+  else if(k==='small'){el('rect',{x:x-18,y:y-13,width:36,height:24,rx:5,class:'shape danger'},null,g);ly=y+28}
+  if(n.inside)el('text',{x,y:y+(k==='isp'?5:4),'text-anchor':'middle',class:'lbl'},n.inside,g);
+  if(n.label)el('text',{x,y:n.ly||ly,'text-anchor':'middle',class:'lbl'},n.label,g);
+  if(n.sub)el('text',{x,y:(n.ly||ly)+17,'text-anchor':'middle',class:'sublbl'},n.sub,g);
+}
+function journey(host,cfg){
+  const W=cfg.w||720,H=cfg.h||260;
+  host.className='journey';
+  host.innerHTML=(cfg.title?`<h3>${cfg.title}</h3>`:'')+`<div class="jv"><svg viewBox="0 0 \${W} ${H}" role="img" aria-label="${cfg.title||'සජීවීකරණ රූපසටහන'}"></svg></div><p class="jcap" aria-live="polite"></p><div class="jnav"><div class="dots"></div><div class="jbtns"><button class="btn small jb" type="button">ආපසු</button><button class="btn small primary jf" type="button">ඊළඟ පියවර</button></div></div>`;
+  const svg=$('svg',host),gl=el('g',{},null,svg),gn=el('g',{},null,svg),gfx=el('g',{},null,svg),genv=el('g',{},null,svg);
+  const nodes={};cfg.nodes.forEach(n=>nodes[n.id]=n);
+  const pt=s=>{if(s==null)return null;if(typeof s==='string'){const n=nodes[s];return{x:n.x,y:n.y+(n.ey||0)}}if(Array.isArray(s)){const a=pt(s[0]),b=pt(s[1]);return{x:a.x+(b.x-a.x)*s[2],y:a.y+(b.y-a.y)*s[2]}}return s};
+  const lines=(cfg.links||[]).map(l=>{const a=pt(l[0]),b=pt(l[1]);const ln=el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:'lnk'},null,gl);if(l[2])el('text',{x:(a.x+b.x)/2,y:(a.y+b.y)/2-(l[3]||12),'text-anchor':'middle',class:'lnklbl'},l[2],gl);return ln});
+  if(cfg.decor)cfg.decor({add:(t,a,x)=>el(t,a,x,gn)});
+  cfg.nodes.forEach(n=>drawNode(gn,n));
+  const env=envelope(genv,0,0);const envLbl=el('text',{x:17,y:-8,'text-anchor':'middle',class:'envlbl'},'',env);
+  let cur=pt(cfg.start||null),i=-1,raf;
+  const place=p=>{env.setAttribute('transform',`translate(${p.x-17},${p.y-12})`)};
+  const api={add:(t,a,x)=>{const e=el(t,a,x,gfx);return e},env:(x,y,c)=>{const e=envelope(gfx,x,y,'pop');if(c)e.querySelectorAll('.envbox,.envflap').forEach(z=>z.style.stroke=c);return e},pt,svg:gfx};
+  const cap=$('.jcap',host),dots=$('.dots',host),bB=$('.jb',host),bF=$('.jf',host);
+  dots.innerHTML=cfg.steps.map(()=>'<i></i>').join('');
+  function animate(path){cancelAnimationFrame(raf);const pts=path.filter(Boolean);if(!pts.length)return;
+    if(reduce||!cur||pts.length===1&&pts[0].x===cur.x&&pts[0].y===cur.y){cur=pts[pts.length-1];place(cur);return}
+    const seq=[cur,...pts];const lens=[];let tot=0;for(let k=1;k<seq.length;k++){const d=Math.hypot(seq[k].x-seq[k-1].x,seq[k].y-seq[k-1].y);lens.push(d);tot+=d}
+    const dur=Math.min(1700,380+tot*1.7);const t0=performance.now();
+    const tick=now=>{let f=Math.min(1,(now-t0)/dur);f=f<.5?2*f*f:1-Math.pow(-2*f+2,2)/2;let d=f*tot,k=0;while(k<lens.length-1&&d>lens[k]){d-=lens[k];k++}
+      const a=seq[k],b=seq[k+1],r=lens[k]?d/lens[k]:1;cur={x:a.x+(b.x-a.x)*r,y:a.y+(b.y-a.y)*r};place(cur);if(f<1)raf=requestAnimationFrame(tick)};
+    raf=requestAnimationFrame(tick)}
+  function go(k,jump){const back=k<i;i=k;const st=cfg.steps[i];
+    cap.innerHTML=`<b class="n">\${i+1}.</b> `+st.text;
+    lines.forEach(l=>l.classList.remove('hot'));(st.hl||[]).forEach(j=>lines[j]&&lines[j].classList.add('hot'));
+    gfx.innerHTML='';
+    envLbl.textContent=st.label!=null?st.label:(cfg.label||'');
+    if(st.pos===null){env.style.display='none'}else{env.style.display='';
+      if(st.from!=null&&!back){cur=pt(st.from);place(cur)}
+      const target=pt(st.pos);
+      if(back||jump||!cur){cancelAnimationFrame(raf);cur=target;place(cur)}else animate([...(st.via||[]).map(pt),target])}
+    if(st.fx)st.fx(api);
+    if(cfg.onStep)cfg.onStep(i,st);
+    $$('i',dots).forEach((d,j)=>d.classList.toggle('on',j<=i));
+    bB.disabled=i===0;bF.textContent=i===cfg.steps.length-1?'නැවත බලන්න':'ඊළඟ පියවර';bF.classList.toggle('pulse',i===0)}
+  bF.addEventListener('click',()=>{if(i===cfg.steps.length-1){cur=pt(cfg.start||null);go(0,!cfg.start);if(cfg.start){const s=cfg.steps[0];cur=pt(cfg.start);place(cur);animate([pt(s.pos)])}}else go(i+1)});
+  bB.addEventListener('click',()=>go(i-1));
+  if(cur)place(cur);
+  go(0,!cfg.start);
+  if(cfg.start&&cfg.steps[0].pos){cur=pt(cfg.start);place(cur);animate([pt(cfg.steps[0].pos)])}
+  return {go};
+}
+
+const ACTS=[['intro','ආරම්භය'],['internet','අන්තර්ජාලය'],['protocols','නියමාවලි'],['edge','ජාල අද්දර'],['core','ජාල හරය'],['performance','ප්‍රමාදයන්'],['security','ආරක්ෂාව'],['layers','ස්තර'],['history','ඉතිහාසය'],['quiz','ප්‍රශ්නාවලිය']];
+const facts=["Packet එකක් යනු ලිපියකි. දිගු පණිවිඩයක් ලිපි කිහිපයකට බෙදනු ලැබේ.","Routers යනු තේරීම් කාර්යාල වේ: ඒ සෑම එකක්ම තීරණය කරන්නේ ඊළඟ නැවතුම පමණි.","Store-and-forward: රවුටරයක් ලිපියක් ඉදිරියට යැවීමට පෙර සම්පූර්ණ ලිපියම ලැබෙන තෙක් බලා සිටියි.","සම්ප්‍රේෂණ ප්‍රමාදය (Transmission delay) L/R වේ: වෑන් රථයට පැටවීම. ප්‍රචාරණ ප්‍රමාදය (Propagation delay) d/s වේ: පාර දිගේ ධාවනය කිරීම.","Throughput තීරණය වන්නේ මාර්ගයේ ඇති මන්දගාමීම පාර අනුවය.","Encapsulation යනු එක් ස්තරයකට එක බැගින් ලියුම් කවරයක් තුළ තවත් ලියුම් කවරයක් බැහැලීමයි.","1972 දී ARPAnet හි තිබුණේ නෝඩ් 15 ක් පමණි."];
+let fi=0;
+
+const S=[];
+S.push({act:'intro',cover:true,html:`
+<div class="cover">
+  <div class="txt">
+    <div class="act">පරිගණක ජාලකරණය · 1 වන පරිච්ඡේදය · හැඳින්වීම</div>
+    <h1>අන්තර්ජාලය යනු යෝධ <em>තැපැල් කාර්යාලයකි</em>.</h1>
+    <p class="lede">අනුරට ලෝකයේ අනෙක් කෙළවරේ සිටින ඔහුගේ මිතුරා වන රනිල්ට ලිපියක් යැවීමට අවශ්‍යයි. තැපැල්කරු මහින්දගේ මගපෙන්වීම යටතේ ඔබ එම ලිපිය පසුපස ගොස්, වරකට එක් නැවතුමක් බැගින් අන්තර්ජාලය ක්‍රියා කරන ආකාරය සොයා ගනු ඇත.</p>
+    <div class="go"><button class="btn primary pulse" data-next type="button">කතාව අරඹන්න</button></div>
+  </div>
+  <div class="art">\${PIP}</div>
+</div>
+<div class="cast">
+  <div><b>ලිපිය (Letter)</b><span>දත්ත පැකට්ටුවක් (Packet)</span></div>
+  <div><b>තේරීම් කාර්යාලය</b><span>රවුටරයක් (Router)</span></div>
+  <div><b>නිවස</b><span>ධාරකයක් (Host / End system)</span></div>
+  <div><b>මාර්ගය</b><span>සබඳතාවයක් (Link)</span></div>
+  <div><b>තැපැල් සමාගම</b><span>ISP ආයතනයක්</span></div>
+  <div><b>තැපැල් නීති</b><span>නියමාවලි (Protocols)</span></div>
+</div>`});
+
+S.push({act:'internet',title:'රනිල්ට ලිපියක්',
+ say:"අනුර ජීවත් වන්නේ එක් පළාතක. රනිල් ජීවත් වන්නේ තවත් දුර පළාතක. අනුර පණිවිඩයක් ටයිප් කර Send බොත්තම ඔබයි. අපි එය පසුපස යාමට පෙර අනුමානයක් කරමු.",
+ ask:{q:"අනුරගේ ලිපිය හැසිරවීමට විවිධ ආයතන කීයක් සම්බන්ධ වේ යැයි ඔබ සිතනවාද?",opts:["එක් අන්තර්ජාල සමාගමක් පමණි","වැඩිම වුවහොත් දෙකක්","එකිනෙකා සමඟ සහයෝගයෙන් කටයුතු කරන ආයතන කිහිපයක්"],correct:2,why:"අපි ලිපිය පසුපස ගොස් ගණන් කර බලමු."},
+ init(r){const d=document.createElement('div');r.appendChild(d);journey(d,{title:"අනුරගේ ලිපිය ලෝකය හරහා ගමන් කරයි",start:'a',h:250,
+  nodes:[{id:'a',x:70,y:150,kind:'home',label:"අනුරගේ නිවස",sub:'ගෘහස්ථ ජාලය'},{id:'l',x:220,y:150,kind:'office',label:'ප්‍රාදේශීය ISP',sub:'ප්‍රවේශ ජාලය'},{id:'g',x:360,y:66,kind:'isp',inside:'ගෝලීය ISP',label:'',sub:''},{id:'r',x:500,y:150,kind:'office',label:"රනිල්ගේ ISP",sub:'ප්‍රවේශ ජාලය'},{id:'b',x:650,y:150,kind:'home',label:"රනිල්ගේ නිවස",sub:'ගෘහස්ථ ජාලය'}],
+  links:[['a','l','link'],['l','g',''],['g','r',''],['r','b','link']],
+  steps:[
+   {pos:'a',text:"අනුර තම ලැප්ටොප් පරිගණකයෙන් ලිපිය ලියයි. ලැප්ටොප් එක යනු ඔහුගේ නිවසේ ජාලය තුළ අන්තර්ජාලයේ <b>අද්දර (Edge)</b> පිහිටි <span class='term'>ධාරකයකි (Host / End system)</span>."},
+   {pos:['a','l',.5],hl:[0],text:"මහින්ද එය තඹ, ෆයිබර් හෝ රේඩියෝ තරංගවලින් සෑදුණු <span class='term'>සබඳතාවයක් (Link)</span> දිගේ අනුරගේ ප්‍රාදේශීය තැපැල් සමාගම වන <b>Access ISP</b> වෙත රැගෙන යයි."},
+   {pos:'l',text:"ප්‍රාදේශීය කාර්යාලයේදී, <span class='term'>රවුටරයක් (Router)</span> ලිපිනය කියවයි. රනිල් සිටින්නේ දුර බැවින් එය ලිපිය ඉහළ ජාලයට යොමු කරයි."},
+   {pos:'g',hl:[1],text:"ප්‍රාදේශීය ISP ආයතන දුර බැහැරට තැපැල් ගෙන යාමට විශාල ISP ආයතනවලට මුදල් ගෙවයි. <b>ගෝලීය, Tier-1 ISP</b> ආයතනයක් ලිපිය සාගරය හරහා රැගෙන යයි."},
+   {pos:'r',hl:[2],text:"ගෝලීය ISP ආයතනය එය <b>රනිල්ගේ</b> Access ISP වෙත භාර දෙයි. එය නැවතත් වෙනත් සමාගමකි!"},
+   {pos:'b',hl:[3],text:"ලිපිය භාර දුන්නා! විවිධ සමාගම්වලට අයත් අවම වශයෙන් වෙනම ජාල හතරක්වත් එකට වැඩ කළේය. අන්තර්ජාලය <b>ජාලයන්ගේ ජාලයක් (Network of networks)</b> ලෙස හඳුන්වන්නේ එබැවිනි."}]})}
+});
+
+S.push({act:'internet',title:'අනුර කිසිවිටෙකත් පාරක් දුටුවේ නැත',
+ say:"මෙන්න පුදුම සහගත දෙයක්. අනුර කිසිදු මාර්ගයක් හෝ තේරීම් කාර්යාලයක් තෝරා ගත්තේ නැත. ඒවා පවතින බවවත් ඔහු දැන සිටියේ නැත.",
+ ask:{q:"එසේනම් අනුරගේ යෙදුමට (App) අන්තර්ජාලයෙන් සැබවින්ම අවශ්‍ය වූයේ කුමක්ද?",opts:["සෑම රවුටරයකම සිතියමක්","ලිපිය භාර දී එය නිසි තැනට යනු ඇතැයි විශ්වාස කළ හැකි ක්‍රමයක්","රනිල් වෙත ඔහුගේම කේබලයක්"],correct:1,why:"හරියටම තැපැල් පෙට්ටියකට ලිපියක් දමනවා වගේමයි."},
+ html:`<div class="card"><h3>අන්තර්ජාලය දෙස බැලිය හැකි ආකාර දෙකක්</h3>
+  <p><b>අංගෝපාංග දැක්ම (Nuts-and-bolts view):</b> සම්බන්ධිත පරිගණක උපාංග බිලියන ගණනක් (Hosts), පැකට් ඉදිරියට යවන <b>Packet switches</b> (රවුටර සහ ස්විච), <b>සන්නිවේදන සබඳතා (Communication links)</b> (ෆයිබර්, තඹ, රේඩියෝ, චන්ද්‍රිකා; ඒවායේ සම්ප්‍රේෂණ වේගය <b>Bandwidth</b> වේ), සහ එක් ආයතනයක් මගින් පාලනය වන <b>ජාල (Networks)</b>.</p>
+  <p><b>සේවා දැක්ම (Services view):</b> අන්තර්ජාලය යනු වෙබ්, වීඩියෝ, විද්‍යුත් තැපෑල, ක්‍රීඩා වැනි <b>යෙදුම් සඳහා සේවා සපයන යටිතල පහසුකමකි</b>. එය යවන සහ ලබන යෙදුම්වලට අන්තර්ජාල ප්‍රවාහන සේවාව හා සම්බන්ධ වීමට <b>ක්‍රමලේඛන අතුරුමුහුණතක් (Sockets / API)</b> ලබා දෙයි.</p></div>
+  <div class="analogy">උපන්දින සුබපැතුම් පතක් යැවීමට ඔබ පාරවල් හදන්නේ නැත. ඔබ එය තැපැල් පෙට්ටියකට දමා බෙදාහැරීමේ සේවාවක් තෝරා ගනී. යෙදුම් (Apps) අන්තර්ජාලය සමඟ කරන්නේ ද එයමයි.</div>
+  <div class="card"><h3>මහින්දගේ තැපැල් ශබ්දකෝෂය</h3>
+  <div class="dict"><div><b>Host / End system</b><span>නිවසක්: ලැප්ටොප්, දුරකථන, සර්වර්</span></div><div><b>Router / Switch</b><span>තේරීම් කාර්යාලයක්</span></div><div><b>Link</b><span>මාර්ගයක්</span></div><div><b>Bandwidth</b><span>මාර්ගයක තත්පරයකට ගෙන යා හැකි බිටු (ලිපි) ගණන</span></div><div><b>ISP</b><span>තැපැල් සමාගමක්</span></div><div><b>RFC / IETF</b><span>නීති පොත් සහ ඒවා ලියන කමිටුව</span></div></div></div>`});
+
+S.push({act:'protocols',title:'ආයුබෝවන්... හලෝ?',
+ say:"සිතන්න අනුර රනිල්ට \"ආයුබෝවන්\" කියා පවසන අතර, රනිල් නිහඬව ඔහු දෙස බලා සිටියි.",
+ ask:{q:"ඔබ අනුර වූවා නම් ඔබ කුමක් කරයිද?",opts:["කෙසේ හෝ දිගටම කතා කරයි","නැවත උත්සාහ කරයි, නැතහොත් අත්හරියි","සදහටම බලා සිටියි"],why:"ඔබ කුමක් තෝරා ගත්තද, පිළිතුරක් නොලැබෙන විට කළ යුතු දේ පිළිබඳ නොලියූ නීතියක් ඔබ අනුගමනය කළේය. පරිගණකවලට එම නීති ලිඛිතව තිබීම අවශ්‍ය වේ."},
+ init(r){const d=document.createElement('div');r.appendChild(d);journey(d,{title:'ඉදිරියට සහ ආපසු යන ලිපි',start:'a',h:200,
+  nodes:[{id:'a',x:110,y:110,kind:'pc',label:'අනුර'},{id:'b',x:610,y:110,kind:'pc',label:'රනිල්'}],links:[['a','b','']],
+  steps:[
+   {pos:'b',label:'ආයුබෝවන්',hl:[0],text:"මුලින්ම <b>මිනිස්</b> නියමාවලියක්. අනුර සුබපැතුමකින් ආරම්භ කරයි."},
+   {pos:'a',label:'ආයුබෝවන්',hl:[0],text:"රනිල් බලාපොරොත්තු වූ පරිදිම සුබපැතුමෙන් පිළිතුරු දෙයි."},
+   {pos:'b',label:'වෙලාව කීයද?',hl:[0],text:"අනුර ඉල්ලීමක් යවයි."},
+   {pos:'a',label:'2:00',hl:[0],text:"රනිල් පිළිතුරු දෙයි. සෑම පණිවිඩයකටම අනුර බලාපොරොත්තු වූ පිළිතුර සහ ක්‍රියාව ලැබුණි."},
+   {pos:'b',label:'TCP සම්බන්ධතා ඉල්ලීම',hl:[0],text:"දැන් <b>ජාල</b> අනුවාදය. අනුරගේ ලැප්ටොප් එක රනිල්ගේ වෙබ් සර්වරයෙන් TCP සම්බන්ධතාවයක් විවෘත කිරීමට අසයි."},
+   {pos:'a',label:'TCP සම්බන්ධතා ප්‍රතිචාරය',hl:[0],text:"සර්වරය එකඟ වේ. පරිගණක දෙක දැන් 'ආයුබෝවන්' කියා ගත්තා."},
+   {pos:'b',label:'GET /kurose_ross',hl:[0],text:"අනුරගේ බ්‍රවුසරය ඉල්ලීමක් යවයි: <span class='formula'>GET http://gaia.cs.umass.edu/kurose_ross</span>"},
+   {pos:'a',label:'<file>',hl:[0],text:"සර්වරය වෙබ් පිටුව ආපසු එවයි. මිනිසුන්ගේ රටාවමයි: නිශ්චිත පණිවිඩ, සහ ඒවා ලැබුණු විට ගන්නා නිශ්චිත ක්‍රියාමාර්ග."}]});
+  const k=document.createElement('div');k.className='keyidea';k.innerHTML="<b>නියමාවලියක් (Protocol)</b> මගින් ජාල ඒකක අතර යවන සහ ලබන <b>පණිවිඩවල ආකෘතිය (Format) සහ අනුපිළිවෙල (Order)</b> මෙන්ම පණිවිඩයක් යැවූ විට හෝ ලැබුණු විට <b>ගන්නා ක්‍රියාමාර්ග (Actions)</b> නිර්වචනය කරයි. HTTP, TCP, IP, WiFi, 4G/5G, Ethernet යනාදිය මීට උදාහරණ වේ.";r.appendChild(k)}
+});
+
+const ACCESS=[
+ ['කේබල් (HFC)',"රූපවාහිනී කේබලය හරහා දත්ත ගෙන යන Hybrid fiber-coax. විවිධ සංඛ්‍යාත කලාපවල විවිධ නාලිකා වෙන් කරන <b>FDM (Frequency Division Multiplexing)</b> භාවිතා කරයි. අසමමිතික වේගයක් ඇත: ඩවුන්ලෝඩ් 40 Mbps සිට 1.2 Gbps දක්වා, අප්ලෝඩ් 30 සිට 100 Mbps දක්වා. නිවාස සියල්ලම කේබල් මධ්‍යස්ථානය දක්වා මාර්ගය <b>හවුලේ භාවිතා කරයි</b>.","වීදියේ සියලුම නිවාස එකම තැපැල් වෑන් රථයක් හවුලේ භාවිතා කරනවා වැනිය."],
+ ['DSL',"මධ්‍යම කාර්යාලයේ DSLAM වෙත පවතින <b>දුරකථන රැහැනම</b> භාවිතා කරයි. දත්ත අන්තර්ජාලයටත්, හඬ දුරකථන ජාලයටත් යයි. ඩවුන්ලෝඩ් 24–52 Mbps, අප්ලෝඩ් 3.5–16 Mbps වන අතර මෙම මාර්ගය ඔබට පමණක් <b>වෙන් වූ (Dedicated)</b> එකකි.","දුරකථන සමාගම තැනූ පාරේම ඔබට වෙන්වූ පුද්ගලික මංතීරුවක් වැනිය."],
+ ['ගෘහස්ථ ජාලය (Home network)',"රැහැන්ගත සහ රැහැන් රහිත උපාංග WiFi Access Point එකකට සහ රවුටරයකට සම්බන්ධ වන අතර, එය කේබල් හෝ DSL මොඩමයක් හරහා ප්‍රධාන කාර්යාලයට සම්බන්ධ වේ.","නිවසේ ආලින්දයේ ඇති ලියුම් තැටිය වීදියේ තැපැල් පෙට්ටියට හිස් කරනවා වැනිය."],
+ ['රැහැන් රහිත (Wireless)',"<b>හවුල් (Shared)</b> රැහැන් රහිත ජාලයක් <b>මූලික මධ්‍යස්ථානයක් (Base station / Access point)</b> හරහා උපාංග රවුටරයකට සම්බන්ධ කරයි. WiFi ගොඩනැගිල්ලක් ආවරණය කරයි (11–450 Mbps); 4G/5G සෙලියුලර් කිලෝමීටර දස ගණනක් ආවරණය කරයි.","ඔබ කොතැනක සිටියත් ඔබව සොයාගෙන එන බයිසිකල් තැපැල්කරුවෙකු වැනිය."],
+ ['ආයතනික (Enterprise)',"සමාගම් සහ විශ්වවිද්‍යාල: ස්විච සහ රවුටර සම්බන්ධ කරන රැහැන්ගත (Ethernet 100 Mbps, 1–10 Gbps) සහ WiFi මිශ්‍රණයකි.","තමන්ගේම අභ්‍යන්තර තැපැල් කාමරයක් ඇති විශාල කාර්යාල ගොඩනැගිල්ලක් වැනිය."],
+ ['දත්ත මධ්‍යස්ථාන (Data center)',"ඉහළ කලාප පළලක් ඇති සබඳතා (10s–100s Gbps) මගින් සර්වර් සිය ගණනක් හෝ දහස් ගණනක් එකිනෙකට සහ අන්තර්ජාලයට සම්බන්ධ කරයි.","රටේ බොහෝ පාර්සල් බෙදා හරින යෝධ ගබඩා සංකීර්ණයක් වැනිය."]];
+S.push({act:'edge',title:'නිවසින් පිටතට යාම',
+ say:"ආපසු හැරී බලමු. ලිපිය ඕනෑම තේරීම් කාර්යාලයකට ළඟා වීමට පෙර, එය අනුරගේ නිවසින් පිටවිය යුතුය. ඔහුගේ නිවසට රූපවාහිනී කේබලයක්, දුරකථන රැහැනක් සහ WiFi ඇත.",
+ ask:{q:"ප්‍රාදේශීය ISP වෙත ඔහුගේ ලිපිය රැගෙන යා හැක්කේ මින් කුමකටද?",opts:["රූපවාහිනී කේබලයට පමණි","දුරකථන රැහැනට පමණි","මේ ඕනෑම එකකට"],correct:2,why:"මේ සෑම එකක්ම විවිධ වර්ගයේ ප්‍රවේශ ජාල (Access networks) වේ. ඒවායේ වෙනස්කම් බැලීමට එකින් එක ක්ලික් කරන්න."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML='<h3>ප්‍රවේශ ජාල (Access networks)</h3><p class="sub">අන්ත පද්ධති (End systems) පළමු රවුටරය හෙවත් <b>Edge router</b> වෙත සම්බන්ධ වන ආකාරය.</p><div class="chips"></div><div class="detail"></div>';r.appendChild(c);
+  const ch=$('.chips',c),dt=$('.detail',c);
+  ACCESS.forEach((a,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=a[0];b.setAttribute('aria-pressed','false');b.onclick=()=>{$$('.chip',ch).forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');dt.innerHTML=`<h4>${a[0]}</h4><p>${a[1]}</p><div class="analogy" style="margin-top:10px">\${a[2]}</div>`};ch.appendChild(b)});
+  ch.firstChild.click()}
+});
+
+S.push({act:'edge',title:'එක් ලියුම් කවරයකට වඩා දිග වැඩියි',
+ say:"අනුරගේ පණිවිඩය දිගු වුවත්, මෙම ජාලයේ සෑම ලියුම් කවරයකටම දැමිය හැක්කේ අකුරු කිහිපයක් පමණි.",
+ ask:{q:"අනුර කුමක් කළ යුතුද?",opts:["ලොකු ලියුම් කවරයක් මිලදී ගැනීම","පණිවිඩය ලියුම් කවර කිහිපයකට බෙදා දැමීම","පණිවිඩය කෙටි කිරීම"],correct:1,why:"ධාරක පරිගණක (Hosts) කරන්නේත් එයමයි. උත්සාහ කර බලන්න."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>පැකට් (Packets) සාදා ඒවා යවන්න</h3>
+  <p class="sub">ධාරකය විසින් යෙදුමේ පණිවිඩය ගෙන, එය බිටු <b>L</b> දිගකින් යුත් <b>පැකට් (Packets)</b> නම් කොටස්වලට කඩා, සබඳතාවයේ වේගය වන <b>R</b> (Bandwidth) වේගයෙන් ප්‍රවේශ ජාලයට සම්ප්‍රේෂණය කරයි.</p>
+  <label for="msgIn" style="font-weight:700;font-size:14px">අනුරගේ පණිවිඩය</label><input id="msgIn" type="text" maxlength="80" value="Ayubowan Ranil! Heta ude 10ta thapal karyalayedi hamuwemu.">
+  <div class="ctrl"><label for="chunk">කවරයක ප්‍රමාණය (අකුරු)</label><input id="chunk" type="range" min="4" max="16" value="8"><output id="chunkOut">8</output></div>
+  <div class="envs" id="envs"></div><p style="margin-top:10px;font-size:15px" id="chopInfo"></p>
+  <div style="margin-top:12px"><button class="btn blue small" id="sendPk" type="button">මාර්ගය දිගේ යවන්න</button></div>
+  <div class="road" id="pkRoad"><span class="tag" style="left:8px">අනුරගේ Host එක</span><span class="tag" style="right:8px">Edge රවුටරය</span></div>
+  <p style="margin-top:8px;font-size:15px" id="pkNote">සෑම ලියුම් කවරයක්ම මාර්ගයට ඇතුළු කිරීමට තත්පර <span class="formula">L/R</span> ක් ගතවේ, එබැවින් ඒවා එකක් පසුපස එකක් පිටත් වේ.</p>`;r.appendChild(c);
+  const chop=()=>{const m=$('#msgIn').value||' ',n=+$('#chunk').value;$('#chunkOut').textContent=n;const e=$('#envs');e.innerHTML='';const p=[];for(let i=0;i<m.length;i+=n)p.push(m.slice(i,i+n));
+   p.forEach((s,i)=>{const d=document.createElement('div');d.className='env';d.innerHTML=`<span class="n">#\${i+1}</span><div class="body"></div>`;$('.body',d).textContent=s;e.appendChild(d)});
+   $('#chopInfo').innerHTML=`<b>පැකට් ${p.length} කි</b>, සෑම එකක්ම බිටු L = ${n*8} දක්වා වේ. R = 1 Mbps වේගයකදී, එකක් සම්ප්‍රේෂණය කිරීමට L/R = <span class="formula">${n*8} µs</span> ගතවේ.`;return p.length};
+  $('#msgIn').oninput=chop;$('#chunk').oninput=chop;chop();
+  $('#sendPk').onclick=()=>{const n=chop(),rd=$('#pkRoad');$$('.m',rd).forEach(x=>x.remove());rd.classList.remove('go');void rd.offsetWidth;
+   for(let i=0;i<n;i++){const m=document.createElement('span');m.className='m';m.style.animationDelay=(i*0.35)+'s';rd.appendChild(m)}rd.classList.add('go');
+   $('#pkNote').innerHTML=`ලියුම් කවර ${n} ක් එකින් එක <span class="formula">L/R</span> පරතරයකින් පිටත් වේ.`}}
+});
+
+S.push({act:'edge',title:'වේගවත්ම මාර්ගය කුමක්ද?',
+ say:"ලියුම් කවර දැන් භෞතික මාර්ගයක් දිගේ ගමන් කරයි. සමහර මාර්ග තඹ කම්බි වේ, සමහර ඒවා වීදුරු කෙඳි (Fiber) වන අතර සමහර ඒවා හුදෙක් වාතයයි.",
+ ask:{q:"තත්පරයකට වැඩිම ලිපි ප්‍රමාණයක් ගෙන යා හැක්කේ කුමන මාර්ගයටද?",opts:["තඹ කම්බි (Copper wire)","වීදුරු තන්තු (Glass fiber)","වාතය හරහා රේඩියෝ තරංග"],correct:1,why:"ප්‍රකාශ තන්තු (Fiber optic) මගින් තත්පරයට ගිගාබිට් දස ගණනක සිට සිය ගණනක (10s-100s Gbps) වේගයෙන් ආලෝක ස්පන්දන ගෙන යයි."},
+ init(r){const lanes=[['ෆයිබර් (Fiber)',0.9,''],['කොඇක්සියල් (Coax)',1.8,''],['තඹ (Twisted pair)',2.4,''],['රේඩියෝ (WiFi)',3,'wob']];
+  const c=document.createElement('div');c.className='card';c.innerHTML='<h3>මහා මාර්ග තරගය</h3><p class="sub">එකම විශාල ලිපි මල්ලක් බෙදා හැරීමට සෑම මාර්ගයකටම ගතවන කාලය (Bandwidth සංසන්දනය).</p>'+lanes.map(l=>`<div class="lane"><b>\${l[0]}</b><div class="road" style="--d:\${l[1]}s"><span class="m \${l[2]}"></span></div></div>`).join('')+'<div style="margin-top:12px"><button class="btn blue small" id="race" type="button">තරගය අරඹන්න</button></div>';r.appendChild(c);
+  $('#race').onclick=()=>$$('.road',c).forEach(x=>{x.classList.remove('go');void x.offsetWidth;x.classList.add('go')});
+  const d=document.createElement('div');d.className='card';d.innerHTML=`<h3>භෞතික මාධ්‍ය (Physical media)</h3><p>සම්ප්‍රේෂකයක් සහ ග්‍රාහකයක් අතර <b>බිටුවක් (Bit)</b> ගමන් කරයි.</p>
+  <p><span class="term">නියමු මාධ්‍ය (Guided media)</span>: සංඥා ඝන මාධ්‍යයක් තුළ ගමන් කරයි.</p><ul><li><b>Twisted pair:</b> පරිවරණය කළ තඹ කම්බි දෙකක්. Ethernet 100 Mbps, 1 Gbps, 10 Gbps.</li><li><b>Coaxial cable:</b> එකම මධ්‍යයේ පිහිටි තඹ සන්නායක දෙකක්, ද්වි-දිශානුගතයි, සංඛ්‍යාත නාලිකා රැසක් ඇත.</li><li><b>Fiber optic:</b> ආලෝක ස්පන්දන ගෙන යන වීදුරු කෙඳි. 10s–100s Gbps, අඩු දෝෂ අනුපාතයක් සහ විද්‍යුත් චුම්භක බාධාවලින් තොර වේ.</li></ul>
+  <p><span class="term">නියමු නොවන මාධ්‍ය (Unguided media)</span>: සංඥා ගුවන් තරංග ලෙස නිදහසේ ගමන් කරයි. පරාවර්තනය, බාධක සහ අداخل (Interference) වලට ලක්වේ.</p><ul><li><b>WiFi:</b> මීටර් දස ගණනක් පුරා 10–100s Mbps</li><li><b>4G/5G සෙලියුලර්:</b> කිලෝමීටර 10 ක් පමණ පුරා 10s–100s Mbps</li><li><b>Bluetooth:</b> කෙටි දුරක් සඳහා කේබල් ආදේශකයකි</li><li><b>භෞමික මයික්‍රෝවේව්</b> සහ <b>චන්ද්‍රිකා (Satellite)</b> (භූ-ස්ථාවර චන්ද්‍රිකා සඳහා 270 ms පමණ ප්‍රමාදයක් ඇත)</li></ul>`;r.appendChild(d)}
+});
+
+S.push({act:'core',title:'සිතියමක් නොමැතිව ගමනක්',
+ say:"සිතන්න ඔබ කවදාවත් ගොස් නැති නගරයකට වාහනයක් පදවනවා කියා. සිතියමක් හෝ GPS නැත. ඔබ පාරවල් තුනක් ඇති මංසන්ධියකට පැමිණේ.",
+ ask:{q:"යා යුත්තේ කුමන පාරේදැයි ඔබ දැනගන්නේ කෙසේද?",opts:["මුළු ගමන් මගම දැනගැනීමට කෙනෙකුට දුරකථන ඇමතුමක් ගැනීම","මංසන්ධියේ ඇති මාර්ග පුවරුව කියවීම","අහඹු ලෙස එකක් තෝරා ගැනීම"],correct:1,why:"ඔබට මුළු ගමන් මගම දැන ගැනීමට අවශ්‍ය නැත. සෑම මංසන්ධියකම ඇති පුවරුව ඔබේ ගමනාන්තය දෙසට යන පාර පෙන්වයි. දැන් පැකට්ටුවක් තේරීම් කාර්යාලයකට පැමිණෙන ආකාරය බලන්න."},
+ init(r){const d=document.createElement('div');r.appendChild(d);
+  const table=(api,hi)=>{const rows=[['0100','3'],['0101','2'],['0111','2'],['1001','1']];api.add('rect',{x:40,y:16,width:150,height:112,rx:8,fill:'var(--green-soft)',stroke:'var(--green)','stroke-width':3});api.add('rect',{x:108,y:128,width:14,height:40,fill:'var(--muted)'});api.add('text',{x:115,y:36,'text-anchor':'middle',class:'fxt'},'මාර්ග පුවරුව');
+   rows.forEach((rw,i)=>{if(i===hi)api.add('rect',{x:46,y:44+i*20,width:138,height:19,rx:4,fill:'var(--gold-soft)',stroke:'var(--gold)'});api.add('text',{x:70,y:58+i*20,class:'fxt'},rw[0]);api.add('text',{x:150,y:58+i*20,class:'fxt'},'→ '+rw[1])})};
+  journey(d,{title:'යොමු කිරීම (Forwarding) සහ මාර්ගගත කිරීම (Routing)',start:{x:20,y:150},h:270,
+  nodes:[{id:'in',x:20,y:150},{id:'R',x:340,y:150,kind:'office',label:'තේරීම් කාර්යාලය',sub:'රවුටරය'},{id:'p1',x:650,y:60,label:'මාර්ගය 1',ly:40},{id:'p2',x:650,y:150,label:'මාර්ගය 2',ly:130},{id:'p3',x:650,y:240,label:'මාර්ගය 3',ly:225}],
+  links:[['in','R',''],['R','p1',''],['R','p2',''],['R','p3','']],
+  steps:[
+   {pos:['in','R',.55],label:'0111',hl:[0],text:"ලිපියක් මංසන්ධියට පැමිණේ. එහි <b>ශීර්ෂකයේ (Header)</b> ගමනාන්තය සඳහන් වේ: 0111.",fx:a=>table(a,-1)},
+   {pos:'R',label:'0111',text:"රවුටරය එහි මාර්ග පුවරුව වන <span class='term'>යොමු කිරීමේ වගුව (Forwarding table)</span> කියවයි: ගමනාන්තය 0111 → ප්‍රතිදාන මාර්ගය 2. මෙය <b>Forwarding</b> නම් වේ: එක් මංසන්ධියක සිදුවන <b>ස්ථානීය (Local)</b> ක්‍රියාවකි.",fx:a=>table(a,2)},
+   {pos:'p2',label:'0111',hl:[2],text:"එය 2 වන මාර්ගය ඔස්සේ පිටත් වේ. ඊළඟ රවුටරයේ තවත් පුවරුවක් ඇත.",fx:a=>table(a,2)},
+   {pos:null,text:"නමුත් මෙම පුවරු සවි කළේ කවුද? එය <b>Routing</b> නම් වන <b>ගෝලීය (Global)</b> ක්‍රියාවලියයි. <b>Routing algorithms</b> මගින් ආරම්භයේ සිට අවසානය දක්වා මාර්ග ගණනය කර සෑම රවුටරයකම වගුව ලියයි.",fx:a=>{table(a,-1);a.add('ellipse',{cx:520,cy:250,rx:96,ry:18,fill:'var(--green-soft)',stroke:'var(--green)','stroke-width':2.5,class:'pop'});a.add('text',{x:520,y:255,'text-anchor':'middle',class:'fxt'},'Routing ඇල්ගොරිතමය');a.add('path',{d:'M450 240 Q380 230 360 186',fill:'none',stroke:'var(--green)','stroke-width':2.5,'stroke-dasharray':'5 5'})}}]});
+  const k=document.createElement('div');k.className='analogy';k.textContent="Forwarding = එක් මංසන්ධියකදී මාර්ග පුවරුව කියවීම. Routing = මාර්ග සංවර්ධන අධිකාරිය විසින් රටේ සෑම පුවරුවකම තිබිය යුතු දේ තීරණය කිරීම.";r.appendChild(k)}
+});
+
+S.push({act:'core',title:'ලිපි තුනක්, මාර්ග දෙකක්',
+ say:"අනුර දැන් ලිපි තුනක් යවයි. ඒ සෑම එකක්ම මැද තේරීම් කාර්යාලයක් සහිත මාර්ග දෙකක් හරහා ගමන් කළ යුතුය. එක් ලිපියක් මාර්ගයකට ඇතුළු කිරීමට එක් කාල ඒකකයක් (L/R තත්පර) ගතවේ.",
+ ask:{q:"ලිපි තුනම රනිල් වෙත ළඟා වීමට කාල ඒකක (Ticks) කීයක් ගතවේද?",opts:["ඒකක 3 ක්","ඒකක 4 ක්","ඒකක 6 ක්"],correct:1,why:"ඊළඟ ලිපිය පැමිණෙමින් තිබියදීම තේරීම් කාර්යාලයට පළමු ලිපිය ඉදිරියට යැවිය හැක. පියවරෙන් පියවර බලන්න."},
+ init(r){const d=document.createElement('div');r.appendChild(d);
+  const notes=["ලිපි තුනක් ආරම්භයේ රැඳී සිටියි. එක් ඒකකයක් = L/R තත්පර.","ඒකක 1: පළමු ලිපිය පළමු මාර්ගයට ඇතුළු කරමින් පවතී. <b>සම්පූර්ණ</b> ලිපියම ලැබෙන තෙක් රවුටරයට එය ඉදිරියට යැවිය නොහැක. මෙය <span class='term'>Store-and-forward</span> නම් වේ.","ඒකක 2: පළමු ලිපිය සම්පූර්ණයෙන්ම පැමිණ ඇති බැවින් රවුටරය එය දෙවන මාර්ගයේ යවන අතරම දෙවන ලිපිය පළමු මාර්ගය හරහා පැමිණේ. මාර්ග දෙකම එකවර ක්‍රියාත්මක වේ.","ඒකක 3: පළමු ලිපිය <span class='formula'>2L/R</span> කට පසු රනිල් වෙත ලැබේ. තුන්වන ලිපිය පළමු මාර්ගයේ ගමන් කරයි.","ඒකක 4: තුන්වන ලිපිය අවසාන මාර්ගය හරහා ගමන් කරයි.","ලිපි තුනම 6L/R කින් නොව <b>4L/R</b> කින් බෙදා හැර අවසන් විය! මාර්ග දෙක සමාන්තරව වැඩ කරන බැවින් සෑම අමතර ලිපියකටම එක් L/R ක් පමණක් එකතු වේ."];
+  const fx=t=>a=>{a.add('text',{x:360,y:30,'text-anchor':'middle',class:'lbl'},'t = '+t+' × L/R');
+   for(let i=0;i<3;i++){let p;if(t<i+1)p={x:52+i*28,y:200};else if(t===i+1)p=a.pt(['s','R',.55]);else if(t===i+2)p=a.pt(['R','d',.55]);else p={x:612+(i)*28,y:200};
+    const e=a.env(p.x,p.y,(t===i+1||t===i+2)?'var(--red)':'var(--muted)');a.add('text',{x:p.x,y:p.y-16,'text-anchor':'middle',class:'envlbl'},String(i+1))}};
+  journey(d,{title:'Store-and-forward ක්‍රමවේදය',h:240,
+   nodes:[{id:'s',x:80,y:110,kind:'pc',label:'අනුර'},{id:'R',x:360,y:110,kind:'office',label:'රවුටරය'},{id:'d',x:640,y:110,kind:'pc',label:'රනිල්'}],
+   links:[['s','R','R bps',34],['R','d','R bps',34]],
+   steps:[0,1,2,3,4,5].map(t=>({pos:null,text:notes[t],hl:t===1?[0]:t===2||t===3?[0,1]:t===4?[1]:[],fx:fx(t)}))})}
+});
+
+S.push({act:'core',title:'කාර්යබහුල වේලාව (Rush hour)',
+ say:"අද කාර්යබහුල දවසක්. වේගවත් 100 Mb/s මාර්ගයකින් තේරීම් කාර්යාලයට ලිපි ගලා එන නමුත්, පිටතට යන මාර්ගය මන්දගාමී 1.5 Mb/s මංතීරුවකි.",
+ ask:{q:"පිටතට යන මාර්ගයට ගෙන යා හැකි වේගයට වඩා වැඩි වේගයකින් ලිපි පැමිණේ. එවිට කුමක් සිදුවේද?",opts:["ඒවා මල්ලක රැඳී සිටියි","ඒවා ඉවත දමනු ලැබේ","මුලින්ම මල්ලක පෝලිමේ රැඳී සිටින අතර, එය පිරුණු විට සමහරක් ඉවත දමයි"],correct:2,why:"පැමිණීමේ වේගය වැඩි කර තැපැල් මල්ලට සිදුවන දේ බලන්න."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>उතුරා යන තැපැල් මල්ල (Queueing & Loss)</h3><p class="sub">රැඳී සිටින ලිපි රවුටරයේ <b>බෆරයේ (Buffer / Queue)</b> තැන්පත් වේ. බෆරයේ ඉඩ සීමිතය: එය පිරුණු විට, අලුතින් එන ලිපි <b>ඉවත දමනු (Dropped / Lost)</b> ලැබේ.</p>
+  <div class="ctrl"><label for="arr">තදබද තීව්‍රතාවය (La/R)</label><input id="arr" type="range" min="0.1" max="1.4" step="0.05" value="0.5"><output id="arrOut" class="num">0.50</output></div>
+  <div class="bin" id="bin"></div>
+  <div class="stats"><div class="stat good"><b id="qSent" class="num">0</b><small>ඉදිරියට යැවූ</small></div><div class="stat"><b id="qLen" class="num">0</b><small>මල්ලේ රැඳී සිටින</small></div><div class="stat bad"><b id="qDrop" class="num">0</b><small>ඉවත දැමූ (Lost)</small></div></div>
+  <div class="svgbox"><svg id="tiSvg" viewBox="0 0 320 170" role="img" aria-label="තදබද තීව්‍රතාවය 1 ට ළඟා වන විට පෝලිම් ප්‍රමාදය ඉහළ යන ආකාරය"></svg></div>
+  <p id="tiNote" style="margin-top:8px;font-weight:700"></p>
+  <p style="margin-top:8px;font-size:15px;color:var(--muted)">a = පැකට් පැමිණීමේ සාමාන්‍ය වේගය, L = පැකට් දිග (bits), R = සම්ප්‍රේෂණ වේගය (bps). La/R යනු <b>Traffic intensity</b> වේ.</p>`;r.appendChild(c);
+  const CAP=10,bin=$('#bin');let q=0,sent=0,drop=0,tick=0;for(let i=0;i<CAP;i++)bin.appendChild(document.createElement('span'));
+  const paint=()=>{[...bin.children].forEach((s,i)=>s.classList.toggle('full',i<q));$('#qSent').textContent=sent;$('#qLen').textContent=q;$('#qDrop').textContent=drop};
+  const timer=setInterval(()=>{if(!document.body.contains(bin)){clearInterval(timer);return}if(document.hidden)return;tick++;const a=+$('#arr').value;
+   if(Math.random()<a/5){if(q<CAP)q++;else{drop++;bin.classList.remove('overflow');void bin.offsetWidth;bin.classList.add('overflow')}}
+   if(tick%5===0&&q>0){q--;sent++}paint()},reduce?400:120);
+  const curve=()=>{const v=+$('#arr').value;$('#arrOut').textContent=v.toFixed(2);const s=$('#tiSvg');s.innerHTML='';const X=x=>30+x*270/1.2*1.0,Y=y=>150-Math.min(y,10)/10*130;
+   for(let g=0;g<=10;g+=5)el('line',{x1:30,x2:300,y1:Y(g),y2:Y(g),stroke:'var(--line)'},null,s);
+   el('line',{x1:X(1),x2:X(1),y1:15,y2:150,stroke:'var(--red)','stroke-width':1.5,'stroke-dasharray':'4 4'},null,s);
+   let d='';for(let x=0;x<=0.91;x+=0.01)d+=(d?'L':'M')+X(x).toFixed(1)+' '+Y(x/(1-x)).toFixed(1);el('path',{d,fill:'none',stroke:'var(--blue)','stroke-width':3},null,s);
+   el('text',{x:30,y:166,'font-size':11},'0',s);el('text',{x:X(1)-3,y:166,'font-size':11},'1',s);el('text',{x:160,y:166,'font-size':11,'text-anchor':'middle'},'La/R',s);el('text',{x:4,y:12,'font-size':11},'සාමාන්‍ය පෝලිම් ප්‍රමාදය',s);
+   el('circle',{cx:X(Math.min(v,1.15)),cy:v>=0.91?20:Y(v/(1-v)),r:7,fill:'var(--gold)',stroke:'var(--ink)','stroke-width':2},null,s);
+   const n=$('#tiNote');n.textContent=v<0.4?'La/R ≈ 0: පෝලිම් ප්‍රමාදය ඉතා කුඩාය. මල්ල බොහෝ දුරට හිස්ව පවතී.':v<0.9?'කාර්යබහුල වෙමින් පවතී: La/R → 1 වන විට ප්‍රමාදය වේගයෙන් වැඩි වේ.':v<=1?'La/R ≈ 1: සාමාන්‍ය පෝලිම් ප්‍රමාදය ඉතා විශාල වේ.':'La/R > 1: යැවිය හැකි ප්‍රමාණයට වඩා වැඩි ලිපි පැමිණේ. ප්‍රමාදය අනන්තයට යන අතර ලිපි ඉවත දැමේ!';n.style.color=v>1?'var(--red)':'var(--ink)'};
+  $('#arr').oninput=curve;curve();paint()}
+});
+
+S.push({act:'core',title:'පුද්ගලික වෑන් රථයක් කුලියට ගන්නවාද, හවුලේ යනවාද?',
+ say:"පැරණි දුරකථන ජාලයට වෙනස් අදහසක් තිබුණි: සෑම සංවාදයක් සඳහාම ආරම්භයේ සිට අවසානය දක්වාම පුද්ගලික මංතීරුවක් වෙන් කර තැබීම (Circuit switching).",
+ ask:{q:"1 Gb/s මාර්ගයක් ඇත. සෑම පරිශීලකයෙකුටම ක්‍රියාකාරී වන විට 100 Mb/s අවශ්‍ය වේ, නමුත් ඔවුන් ක්‍රියාකාරී වන්නේ කාලයෙන් 10% ක් පමණි. හවුලේ භාවිතා කරන්නේ නම් පරිශීලකයන් කී දෙනෙකුට පහසුවෙන් එය භාවිතා කළ හැකිද?",opts:["10 දෙනෙකුට","35 දෙනෙකුට පමණ","1000 දෙනෙකුට"],correct:1,why:"මංතීරු වෙන් කළහොත් (Circuit switching) යා හැක්කේ 10 දෙනෙකුට පමණි. නමුත් බොහෝ දෙනා බොහෝ වේලාවට නිහඬව සිටින නිසා හවුලේ භාවිතා කිරීමෙන් (Packet switching) 35 දෙනෙකුට පමණ පහසුකම් සැලසිය හැක."},
+ init(r){const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>Circuit switching: පුද්ගලික වෑන් රථයක්</h3>
+  <p>ඇමතුමක් සඳහා සම්පත් <b>වෙන් කරනු ලැබේ (Reserved)</b>. ඔබට ස්ථාවර වේගයක් ලැබෙන නමුත් ඔබ කතා නොකරන විට එම මංතීරුව <b>අක්‍රියව (Idle)</b> පවතී. බෙදා ගැනීමක් නැත. මේ සඳහා <b>FDM</b> (සංඛ්‍යාත බෙදීම) හෝ <b>TDM</b> (කාල කවුළු බෙදීම) භාවිතා කරයි.</
