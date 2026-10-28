@@ -1,0 +1,27 @@
+
+/* Final visual corrections: appended after chapter legacy theme rules. */
+:root,:root[data-theme=light],:root[data-theme=dark]{color-scheme:light!important;--bg:#f4f5f2!important;--paper:#f8f9f6!important;--card:#fff!important;--surface:#fff!important;--surface-2:#f0f2ee!important;--paper2:#f4f5f2!important;--sky:#f4f5f2!important;--ink:#252e29!important;--muted:#56645b!important;--line:#cbd2ca!important;--air:#355e4c!important;--blue:#355e4c!important;--post-blue:#355e4c!important;--red:#966152!important;--stamp:#966152!important;--post-red:#966152!important;--gold:#8a7046!important;--sun:#8a7046!important;--green:#27664a!important;--leaf:#27664a!important;--good:#27664a!important;--air-soft:#e6eee8!important;--blue-soft:#e6eee8!important;--soft-blue:#e6eee8!important;--stamp-soft:#f3e9e4!important;--red-soft:#f3e9e4!important;--green-soft:#e2eee6!important;--leaf-soft:#e2eee6!important;--gold-soft:#f2ebdf!important;--shadow:0 12px 34px -26px #34433a35!important}
+html,body{background:#f4f5f2!important;color:#252e29!important}body{background-image:none!important;isolation:isolate}body:before{display:none!important}body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.13;background:url('network-watermark.svg') center center/ min(76vw,850px) auto no-repeat;animation:watermark-drift 24s ease-in-out infinite alternate}
+@keyframes watermark-drift{0%{transform:translate3d(-1.5%,1%,0) rotate(-3deg)}100%{transform:translate3d(2%,-1.5%,0) rotate(3deg)}}
+/* Legacy inline color values are not reliable. Set a readable editorial baseline. */
+body,body p,body li,body label,body td,body th,body .q,body .answer,body .answer-text,body .tease,body .note,body .tip,body .desc,body .question-text,body .speech,body .dialogue,body .speech-bubble{color:#28342d!important}
+body h1,body h2,body h3,body h4,body strong,body b{color:#26372d!important}
+body .muted,body .eyebrow,body .where,body .mono,body .caption,body small,body .hint,body .lbl{color:#56645b!important}
+body a{color:#305f4b!important}body button{color:#29392f}body code,body pre{color:#263b31!important}body .scene,body .beat,body .panel,body .card,body .hook,body .bubble,body .speech,body .dialogue,body .quote,body .chat,body .question,body .quiz,body .hero-grid{background-color:#fff!important;border-color:#d1d8d0!important}
+/* Clear text on dark blocks; avoid dark text inside dark dialogue panels. */
+body [style*='background:#1'],body [style*='background: #1']{color:#f7f9f6!important}
+body .hook,body .hook *,body .bubble,body .bubble *,body .dialogue,body .dialogue *,body .speech,body .speech *{color:#283b30!important}
+body .hook,body .bubble,body .dialogue,body .speech{background:#fff!important;border:1px solid #d1d8d0!important;box-shadow:none!important}
+body .hook .who,body .hook .who *,body .hook .q{color:#293b31!important}
+/* Postal mascots and character illustrations removed, without touching lessons. */
+svg:has(use[href='#penny']),svg:has(use[href='#postman']),svg:has(use[href='#carrier']),svg:has(use[href='#mailman']),.pipbtn,.postman,.mailman,.penny,.mascot,.character-art,.carrier-art,.guide-avatar,.character-avatar,.hero-postman,.hero-mailman,.postman-art,.stampbook,.postmark,.hero-letter{display:none!important}
+.hook .who:before{display:none!important}.hook .who{gap:0!important}.hook .who > svg{display:none!important}
+.fable-chapter-banner .network-drawing,.topic-art .network-drawing{animation:living-illustration 9s ease-in-out infinite!important;transform-origin:center center;will-change:transform}
+.network-drawing .sketch-lines{stroke-dasharray:none!important;stroke-dashoffset:0!important;animation:line-breathe 8s ease-in-out infinite!important;transform-origin:50% 50%}
+.network-drawing .sketch-lines circle{animation:signal-pulse 3.7s ease-in-out infinite alternate}
+.network-drawing .sketch-lines circle:nth-child(3n){animation-delay:-1.3s}.network-drawing .sketch-lines circle:nth-child(4n){animation-delay:-2.5s}
+@keyframes living-illustration{0%,100%{transform:translate3d(0,0,0) rotate(-.5deg)}50%{transform:translate3d(0,-9px,0) rotate(.6deg)}}
+@keyframes line-breathe{0%,100%{opacity:.76;transform:scale(1)}50%{opacity:1;transform:scale(1.012)}}
+@keyframes signal-pulse{0%,100%{opacity:.25}50%{opacity:.9}}
+.fable-chapter-banner,.scene,.beat,main{position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){.network-drawing,.network-drawing .sketch-lines,.network-drawing circle,body::after{animation:none!important;transform:none!important}}

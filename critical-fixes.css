@@ -1,0 +1,28 @@
+/* FINAL FIX: applied AFTER all old chapter styles */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {color-scheme:light!important; --ink:#25362e!important;--paper:#ffffff!important;--bg:#f4f5f2!important;--card:#ffffff!important;--surface:#ffffff!important;--muted:#52645b!important;--line:#cdd5ce!important;--blue:#355e4c!important;--air:#355e4c!important;--red:#8b604f!important;--shadow:0 12px 34px -24px rgba(36,53,43,.17)!important}
+html,body {background:#f4f5f2!important;color:#263a2f!important}
+body, body :is(p,li,dt,dd,span,div,label,small,blockquote,strong,b,h1,h2,h3,h4){ text-shadow:none!important }
+/* Older pages hard-code navy dialogue panels. Override both their fill AND content. */
+body :is(.bubble,.speech,.speech-bubble,.dialogue,.narr .bubble,.hook,.talk,.say,.quote,.speechbox,.tipbox,.chat-bubble,.gSpeech,.caption-box,.letter-text,.message-box,.carrier-speech,.penny-speech){background:#ffffff!important;background-image:none!important;color:#263a2f!important;border:1px solid #cbd4cb!important;box-shadow:0 5px 25px -18px rgba(35,53,40,.2)!important}
+body :is(.bubble,.speech,.speech-bubble,.dialogue,.narr .bubble,.hook,.talk,.say,.quote,.speechbox,.tipbox,.chat-bubble,.gSpeech,.caption-box,.letter-text,.message-box,.carrier-speech,.penny-speech) :is(p,span,b,strong,small,em,i,div){color:#263a2f!important}
+body :is(.bubble,.speech,.dialogue,.narr .bubble,.hook) {opacity:1!important;filter:none!important}
+body :is(.scene,.beat,.card,.panel,.sheet,.page,.box,.reveal,.ask,.question,.quiz,.content-card,.hero,.guide,.letter,.narr,.cover){color:#263a2f!important}
+body :is(.scene,.beat,.card,.panel,.sheet,.page,.box,.reveal,.ask,.question,.quiz,.content-card) :is(p,li,span,div,label){color:inherit}
+body :is(.muted,.hint,.note,.caption,.small,.who,.question-label,.eyebrow){color:#52645b!important}
+/* Eliminate postal avatars, whether static or constructed by the chapter's scripts. */
+body :is(svg.pip, .narr>.pip, .pipbtn, .carrier-btn, .penny-btn, .pennyArt, #pennyArt, #pennyBtn, #pipBtn, #carrierBtn, #gBtn, #pip, #carrier, .carrier svg, .carrier>.portrait, .carrier>.avatar, .guide>.pip, .guide>.carrier, .character, .character-art, .mailman, .postman, .mascot, .avatar-postman, .mini-penny, .penny-face){display:none!important}
+body :is(.narr,.dialogue-row,.conversation,.speech-row){grid-template-columns:minmax(0,1fr)!important}
+body .narr .bubble{width:100%!important;max-width:100%!important;margin:0!important}
+body .narr{display:block!important}
+body .bubble::before,body .bubble::after,body .speech::before,body .speech::after,body .hook::before,body .hook::after{border-color:transparent!important;filter:none!important}
+/* More reliable contrast for status callouts and colored blocks. */
+body :is(.q,.fb,.ask,.reveal,.details,.explain,.narr,.bubble,.speech) {color:#263a2f!important}
+body :is(.q,.fb,.ask,.reveal,.details,.explain,.narr,.bubble,.speech) :is(p,span,div,strong,b,small){color:inherit!important}
+body :is(.act,.chip,.badge,.count,.tag,.pill){color:#355e4c!important}
+/* Interface controls retain discernible colors. */
+body button.primary,body .btn.primary,body .next.primary{background:#355e4c!important;color:#fff!important;border-color:#355e4c!important}
+body button.primary *,body .btn.primary *{color:#fff!important}
+body :is(input,textarea,select,.opt,.option,.choice){background:#fff!important;color:#263a2f!important;border-color:#bfcbbf!important}
+body :is(.opt.right,.right,.correct){background:#e6f3e9!important;color:#1b593a!important}
+body :is(.opt.wrong,.wrong,.incorrect){background:#f9eeee!important;color:#8d3737!important}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
